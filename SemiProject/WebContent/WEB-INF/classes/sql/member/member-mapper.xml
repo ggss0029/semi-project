@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="loginCheck">
+		SELECT USER_PWD FROM MEMBER WHERE USER_ID=?
+	</entry>
+	<entry key="loginMember">
+		SELECT * FROM MEMBER WHERE USER_ID = ? AND USER_PWD = ? AND STATUS = 'Y'
+	</entry>
+	<entry key="checkKakao">
+		SELECT * FROM MEMBER WHERE EMAIL=? AND LOGIN_TYPE=?
+	</entry>
+	<entry key="findId">
+		SELECT * FROM MEMBER WHERE USER_NAME=? AND EMAIL=?
+	</entry>
+	<entry key="findPwd">
+		SELECT * FROM MEMBER WHERE USER_ID=? AND EMAIL=?
+	</entry>
+	<entry key="changePwd">
+		UPDATE MEMBER SET USER_PWD = ? WHERE USER_ID = ?
+	</entry>
+	<entry key="checkNaver">
+		SELECT * FROM MEMBER WHERE EMAIL=? AND LOGIN_TYPE=? AND USER_NAME=?
+	</entry>
+	<entry key="checkId">
+		SELECT COUNT(*) AS COUNT
+		FROM MEMBER
+		WHERE USER_ID = ? AND STATUS = 'Y'
+	</entry>
+	<entry key="checkNickname">
+		SELECT COUNT(*) AS COUNT
+		FROM MEMBER
+		WHERE NICKNAME = ? AND STATUS = 'Y'
+	</entry>
+	<entry key="MemberList">
+		SELECT
+			B.*
+		FROM (SELECT A.* , ROWNUM AS ROWN
+			FROM 
+				(SELECT * FROM MEMBER) A
+		) B
+		WHERE B.ROWN BETWEEN ? AND ?
+	</entry>
+	<entry key="MemberListWithUserId">
+		SELECT 
+			*
+		FROM
+			MEMBER
+		WHERE
+			USER_ID = ?
+	</entry>
+	<entry key="MemberListWithEmail">
+		SELECT 
+			*
+		FROM
+			MEMBER
+		WHERE
+			EMAIL = ?
+	</entry>
+	<entry key="getMemberListCount">
+		SELECT COUNT(USER_NO) AS COUNT FROM MEMBER
+	</entry>
+</properties>
