@@ -182,7 +182,7 @@
                         </form>
                         <div id="m2">
                             <img src="icons/kakao_login_large_wide.png" id="btn-kakao-login" onclick="kakaoLogin();">
-                            <form id="form-kakao-login" method="post" action="kakao-login.me">
+                            <form id="form-kakao-login" method="post" action="<%=request.getContextPath()%>/kakao-login.me">
                                 <input type="hidden" name="email"/>
                                 <input type="hidden" name="nickname"/>
                                 <input type="hidden" name="gender"/>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+<!-- 자취게시판 by 김여울 -->
+
+
+	<entry key="selectListCount">
+		SELECT BOARD_NO
+		FROM BOARD
+		WHERE STATUS = 'Y'
+		AND BOARD_NAME = '자취레시피'
+	</entry>
+	
+
+	<entry key="selectList">
+	SELECT *
+	FROM   (SELECT ROWNUM RNUM,A.*
+			     FROM    (SELECT BOARD_NO, NICKNAME, BOARD_TITLE, CATEGORY, COUNT, CREATE_DATE, BOARDLIKE_NO
+			                FROM BOARD B
+			                JOIN MEMBER M ON (B.BOARD_WRITER = M.USER_NO)
+			                JOIN BOARD_LIKE L ON (BOARD_NO = L.BOARDLIKE_NO)
+			                WHERE BOARD_NAME = '자취레시피'
+			                AND B.STATUS = 'Y') A)
+	WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	
+	<entry key="selectListByKeyword">
+    SELECT *
+    FROM (
+        SELECT ROWNUM RNUM, A.*
+        FROM (
+            SELECT BOARD_NO, NICKNAME, BOARD_TITLE, CATEGORY, COUNT, CREATE_DATE, BOARDLIKE_NO
+            FROM BOARD B
+            JOIN MEMBER M ON (B.BOARD_WRITER = M.USER_NO)
+            JOIN BOARD_LIKE L ON (BOARD_NO = L.BOARDLIKE_NO)
+            WHERE BOARD_NAME = '자취레시피'
+            AND B.STATUS = 'Y'
+            AND (BOARD_TITLE LIKE '%' || ? || '%'
+            OR NICKNAME LIKE '%' || ? || '%')
+        ) A
+    ) 
+    WHERE RNUM BETWEEN ? AND ?
+	</entry>
+
+
+
+
+</properties>
