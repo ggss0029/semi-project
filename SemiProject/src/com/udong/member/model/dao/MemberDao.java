@@ -374,7 +374,7 @@ public class MemberDao {
 				member.setUserNo(rset.getInt("USER_NO"));
 				member.setUserId(rset.getString("USER_ID"));
 				member.setUserName(rset.getString("USER_NAME"));
-				member.setUserSsn(rset.getString("USER_SSN"));
+				member.setBirthday(rset.getString("USER_SSN"));
 				member.setEmail(rset.getString("EMAIL"));
 				member.setAddress(rset.getString("ADDRESS"));
 				member.setEnrollDate(rset.getDate("ENROLL_DATE"));
