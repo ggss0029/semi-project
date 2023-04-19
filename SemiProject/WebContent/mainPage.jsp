@@ -3,6 +3,7 @@
 <%
 	String contextPath = request.getContextPath();
 	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+	String alertMsg = (String)request.getSession().getAttribute("alertMsg");
 %>
 <%request.getSession().setAttribute("count",0);%>
 <!DOCTYPE html>
@@ -214,6 +215,14 @@
     </style>
 </head>
 <body>
+<script>
+	var msg = "<%=alertMsg%>";
+	
+	if(msg != "null") {
+		alert(msg);
+		<%request.getSession().removeAttribute("alertMsg");%>
+	}
+</script>
     <div id="header">
         <div class="header_1">
             <div id="icon">

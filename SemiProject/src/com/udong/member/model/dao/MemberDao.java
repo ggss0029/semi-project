@@ -325,6 +325,31 @@ public class MemberDao {
 		
 		return count;
 	}
+
+	public int checkEmail(Connection conn, String email) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		String sql = prop.getProperty("checkEmail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, email);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return count;
+	}
 	
 	public ArrayList<Member> getMemberList(Connection conn, String page, String userId, String email) {
 		
@@ -421,4 +446,31 @@ public class MemberDao {
 		
 		return count;
 	}
+
+	public int enrollMember(Connection conn, Member m) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("enrollMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m.getUserId());
+			pstmt.setString(2, m.getUserPwd());
+			pstmt.setString(3, m.getUserName());
+			pstmt.setString(4, m.getNickname());
+			pstmt.setString(5, m.getBirthday());
+			pstmt.setString(6, m.getGender());
+			pstmt.setString(7, m.getEmail());
+			pstmt.setString(8, m.getAddress());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
 }

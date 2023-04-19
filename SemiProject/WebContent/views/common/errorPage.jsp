@@ -12,6 +12,6 @@
 <body>
 	<h1 align="center" style="color:red"><%=errorMsg %></h1>
 	
-	<h3 align="center"><a href="/jsp">인덱스로...가버려...</a></h3>
+	<h3 align="center"><a href="/udong">인덱스로...가버려...</a></h3>
 </body>
 </html>
