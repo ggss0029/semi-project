@@ -52,16 +52,20 @@ public class KakaoLoginControllerServlet extends HttpServlet {
 		
 		Member m = new Member();
 		m.setEmail(email);
+		m.setNickname(nickname);
+		m.setGender(gender);
+		m.setBirthday(birthday);
 		m.setLoginType(2);
 		
 		Member kakaoLoginUser = new MemberService().checkKakao(m);
 		
 		if(kakaoLoginUser!=null) { //db에 등록된 정보가 있는 경우 result==1
 			request.getSession().setAttribute("loginUser", kakaoLoginUser);
-			response.sendRedirect("views/member/test.jsp");
+			response.sendRedirect("mainPage.jsp");
 		}else { // 첫 카카오 로그인
 			request.getSession().setAttribute("alertMsg","등록된 회원 정보가 없습니다. 회원 가입으로 이동합니다.");
-			request.getRequestDispatcher("views/member/test.jsp").forward(request, response);
+			request.setAttribute("kakaoUser",m);
+			request.getRequestDispatcher("views/member/enrollForm.jsp").forward(request, response);
 		}
 		
 	}

@@ -1,7 +1,9 @@
+<%@page import="com.udong.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 	String contextPath = request.getContextPath();
+	Member kakaoUser = (Member)request.getAttribute("kakaoUser");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -126,6 +128,13 @@
     </style>
 </head>
 <body>
+<script>
+	<%if(kakaoUser!=null){%>
+		$("#nickname").val(<%=kakaoUser.getNickname()%>);
+		$("#")
+	<%}%>
+	}
+</script>
     <div class="wrap">
         <div id="left" style="background-color: lightpink;"></div>
         <div id="right">
@@ -273,7 +282,7 @@
                         var regExp2 = /[!@#$%^&*]/g; // 특수문자 들어갔는지 확인
                         var $userPwd = $(this).val();
 
-                        if($userPwd.length < 8 || $userPwd.lnegth > 15) { // 글자수 확인
+                        if($userPwd.length < 8 || $userPwd.length > 15) { // 글자수 확인
                             $(this).siblings("sup").eq(0).text("비밀번호의 길이를 다시 확인해주세요.");
                             $(this).siblings("sup").eq(1).text("");
                             checkUserPwd=0;
