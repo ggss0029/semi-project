@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.udong.member.model.vo.Member"%>
 <%
 	String contextPath = request.getContextPath();
+	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 %>
 <!DOCTYPE html>
 <html>
@@ -28,13 +29,13 @@
         .header>div {
             float: left;
             box-sizing: border-box;
-            /* border: 1px solid black; */
         }
 
         #icon {
             width: 160px;
             height: 160px;
-            margin: 10px 0px 10px 100px;
+            margin: 10px 0.5% 10px 2%;
+            background-color: black;
         }
         
         #icon>img {
@@ -43,16 +44,16 @@
         }
 
         #site_name {
-            width: 200px;
+             width: 15%;
             height: 160px;
-            margin: 10px 0px 10px 25px;
+            margin: 10px 0.5% 10px 2%;
         }
 
         #most_search {
-            width: 12%;
-            height: 35%;
-            margin: 58.5px 100px 58.5px 100px;
-            border: 5px solid lightgray !important;
+             width: 15%;
+            height: 63px;
+            margin: 58.5px 3% 58.5px 3%;
+            border: 5px solid lightgray;
         }
 
         #most_search>table {
@@ -62,8 +63,8 @@
 
         #search {
             width: 20%;
-            height: 20%;
-            margin: 72px 60px 72px 120px;
+            height: 36px;
+            margin: 72px 3% 72px 3%;
         }
 
         #search_form {
@@ -89,8 +90,40 @@
             height: 100%;
         }
 
-        #member_area {
-            margin: 75px 30px 75px 80px;
+       #login_area, #member_area {
+            width: 20%;
+            height: 100%;
+            margin: 0px 0px 0px 1%;
+        }
+
+        #login {    /*로그인 버튼*/
+            width: 40%;
+            height: 40px;
+            margin: 70px 3% 70px 3%;
+        }
+
+        #enroll { /*회원가입 버튼*/
+            width: 40%;
+            height: 40px;
+            margin: 70px 3% 70px 3%;
+        }
+        
+        #logout {
+            width: 100%;
+            height: 15%;
+            margin: 10px auto;
+        }
+        
+        #user_info {
+            width: 100%;
+            height: 70%;
+            margin: 30px 5%;
+        }
+        
+        #user_info>div {
+            width: 50%;
+            height: 100%;
+            float: left;
         }
 
         .menubar {
@@ -175,10 +208,27 @@
                 <div id="search_btn"><input type="button" value="검색"></div>
             </form>
         </div>
-        <div id="member_area">
-            <button id="login" style="width: 100px; height: 30px; margin-right: 40px;">로그인</button>
-            <button id="enroll" style="width: 100px; height: 30px;">회원가입</button>
-        </div>
+        <%if(loginUser==null) {%>
+            <div id="login_area">
+                <button id="login" class="btn btn-outline-dark">로그인</button>
+                <a href="<%=request.getContextPath()%>/views/member/loginPage.jsp">로그인 페이지</a>
+                <button id="enroll" class="btn btn-outline-dark" onclick="enroll();">회원가입</button>
+            </div>
+        <%} else { %>
+            <div id="member_area" align="center">
+				<div id="logout">
+                    <b>채영짱 님</b> <a href="">로그아웃</a> <br>
+	            </div>
+	            <div id="user_info" align="center">
+	                <div id="myPage">
+	                    <a href="https://www.naver.com" id="myPage"><img alt="마이페이지 아이콘" src="resources/img/free-icon-user-181549.png" id="myPageIcon" style="width: 50px; height:50px;"><br>마이페이지</a>
+	                </div>
+	                <div id="likeBoard">
+	                	<a href="https://www.daum.net" id="likeBoard"><img alt="좋아요게시글 아이콘" src="resources/img/free-icon-heart-181527.png" id="likeBoardIcon" style="width: 50px; height:50px;"><br>관심</a>
+	                </div>
+	            </div>
+        	</div>
+        <%} %>
     </div>
     <div class="menubar">
         <ul id="menu">
