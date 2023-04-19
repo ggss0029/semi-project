@@ -97,6 +97,16 @@ public class MemberService {
 		
 		return count;
 	}
+	
+	public int checkEmail(String email) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int count = new MemberDao().checkEmail(conn, email);
+		
+		JDBCTemplate.close(conn);
+		
+		return count;
+	}
 
 	public ArrayList<Member> getMemberList(String page, String userId, String email) {
 		Connection conn = JDBCTemplate.getConnection();
@@ -113,5 +123,23 @@ public class MemberService {
 		
 		return count;
 	}
+
+	public int enrollMember(Member m) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new MemberDao().enrollMember(conn, m);
+		
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}
+		else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+
 
 }

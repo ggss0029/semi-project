@@ -32,6 +32,11 @@
 		FROM MEMBER
 		WHERE NICKNAME = ? AND STATUS = 'Y'
 	</entry>
+	<entry key="checkEmail">
+		SELECT COUNT(*) AS COUNT
+		FROM MEMBER
+		WHERE EMAIL = ? AND STATUS = 'Y'
+	</entry>
 	<entry key="MemberList">
 		SELECT
 			B.*
@@ -59,5 +64,9 @@
 	</entry>
 	<entry key="getMemberListCount">
 		SELECT COUNT(USER_NO) AS COUNT FROM MEMBER
+	</entry>
+	<entry key="enrollMember">
+		INSERT INTO MEMBER(USER_NO, USER_ID, USER_PWD, USER_NAME, NICKNAME, BIRTHDAY, GENDER, EMAIL, ADDRESS)
+				 VALUES(SEQ_UNO.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?)
 	</entry>
 </properties>
