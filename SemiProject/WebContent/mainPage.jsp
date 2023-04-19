@@ -249,6 +249,7 @@
             <%if(loginUser==null) {%>
             	<div id="login_area">
                 	<button id="login" class="btn btn-outline-dark">로그인</button>
+                	<a href="<%=request.getContextPath()%>/views/member/loginPage.jsp">로그인 페이지</a>
                 	<button id="enroll" class="btn btn-outline-dark" onclick="enroll();">회원가입</button>
             	</div>
             <%} else { %>
