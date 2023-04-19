@@ -171,7 +171,7 @@
              <tr>
                 <td><%= member.getUserId()%></td>
                 <td><%= member.getUserName()%></td>
-                <td><%= member.getUserSsn() %></td>
+                <td><%= member.getBirthday() %></td>
                 <td><%= member.getEmail() %></td>
                 <td><%= member.getAddress() %></td>
                 <td><%= member.getEnrollDate() %></td>
