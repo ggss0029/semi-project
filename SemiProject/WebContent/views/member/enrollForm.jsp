@@ -138,7 +138,7 @@
                             <input type="text" name="userId" id="userId" placeholder="영문자, 숫자를 포함하여 총 3~12자로 입력하세요." required>
                         </div>
                         <div id="d2">
-                            <button type="button" onclick="checkId();">중복 확인</button>
+                            <button type="button" onclick="checkId();" disabled>중복 확인</button>
                         </div>
                         <sup style="font-size: 5px; color: red;"></sup>
                         <sup style="font-size: 5px; color: green;"></sup>
@@ -168,13 +168,15 @@
                     <div class="input_area">
                         <div id="d1">
                             <input type="text" name="nickname" id="nickname" required>
+                            <sup style="font-size: 5px; color: red;"></sup>
+                        	<sup style="font-size: 5px; color: green;"></sup>
                         </div>
                         <div id="d2">
-                            <button type="button" onclick="checkNickname();">중복 확인</button>
+                            <button type="button" onclick="checkNickname();" disabled>중복 확인</button>
                         </div>
                     </div>
                     <br>
-                    <label for="userSsn">생년월일 (필수)</label> <br>
+                    <label for="">생년월일 (필수)</label> <br>
                     <div class="input_area2">
                         <select name="year" id="year"><option value="none">&nbsp; 선택 &nbsp;</option></select>년
                         <select name="month" id="month" onchange="selectMonth(this);" se><option value="none"> 선택 </option></select>월
@@ -183,14 +185,13 @@
                         <input type="radio" name="gender" id="female" value="여"> <label for="female">여</label>
                     </div>
                     <br>
-                    <label for="email">이메일 (필수)</label> <br>
+                    <label for="email">이메일 (필수)</label> <sup style="font-size: 5px; color: red;"></sup><br>
                     <div class="input_area">
                         <div id="d1">
                             <input type="text" name="email" id="email" required>
-                            <sup style="font-size: 5px; color: red;"></sup>
                         </div>
                         <div id="d2">
-                            <button type="button" onclick="sendNum();">인증번호 전송</button>
+                            <button type="button" onclick="sendNum();" disabled >인증번호 전송</button>
                         </div>
                     </div>
                     <label for="num">인증번호 입력</label>
@@ -249,7 +250,7 @@
                 var checkUserName = 0;
                 var checkNickname = 0;
                 var checkBirthday = 0;
-                var checkEmail = 0;
+                var checkEmail = 0;       
 
                 $(function() {
                     var regExp;
@@ -260,20 +261,22 @@
                         if(!regExp.test($(this).val())) {
                             $(this).parent().siblings("sup").eq(0).text("아이디는 영문자, 숫자를 포함하여 총 3~12자로 입력하세요.");
                             $(this).parent().siblings("sup").eq(1).text("");
+                            $(this).parents(".input_area").find("button").attr("disabled", true);
                         }
                         else {
-                            $(this).parent().siblings("sup").eq(1).text("아이디 중복확인을 해주세요.");
                             $(this).parent().siblings("sup").eq(0).text("");
-                            checkUserId=0;
+                            $(this).parent().siblings("sup").eq(1).text("아이디 중복확인을 해주세요.");
+                            $(this).parents(".input_area").find("button").attr("disabled", false);
                         }
+
                     });
 
-                    $("#userPwd").keyup(function() {
+                    $("#userPwd").keyup(function() {  /*시간되면 정규표현식 하나로 합치기*/
                         regExp = /^[a-zA-Z0-9]{7,14}$/;
                         var regExp2 = /[!@#$%^&*]/g; // 특수문자 들어갔는지 확인
                         var $userPwd = $(this).val();
 
-                        if($userPwd.length < 8 || $userPwd.lnegth > 15) { // 글자수 확인
+                        if($userPwd.length < 8 || $userPwd.length > 15) { // 글자수 확인
                             $(this).siblings("sup").eq(0).text("비밀번호의 길이를 다시 확인해주세요.");
                             $(this).siblings("sup").eq(1).text("");
                             checkUserPwd=0;
@@ -341,17 +344,36 @@
 
                     $("#email").keyup(function() {
                         var $email = $(this).val();
-                        regExp = /^[a-zA-Z0-9]+@[a-z]+\.[a-z]{3}$/;
+                        regExp = /^[a-zA-Z0-9+-\_.]+@[a-z]+\.[a-z]+$/;
 
                         if(!regExp.test($email)) {
-                            $(this).siblings("sup").text("올바른 형식이 아닙니다.");
+                            $(this).parents(".input_area").prev().siblings("sup").text("올바른 형식이 아닙니다.");
                             checkEmail=0;
+                            $(this).parents(".input_area").find("button").attr("disabled", true);
                         }
                         else {
-                            $(this).siblings("sup").text("");
+                            $(this).parents(".input_area").prev().siblings("sup").text("");
                             checkEmail=1;
+                            $(this).parents(".input_area").find("button").attr("disabled", false);
                         }
                     });
+
+                    $("#nickname").keyup(function() {
+                        var $nickname = $(this).val();
+                        regExp = /^[a-zA-Z0-9가-힇]{2}$/;
+
+                        if(!regExp.test($nickname)) {
+                            $(this).parents(".input_area").find("button").attr("disabled", true);
+                            $(this).siblings("sup").eq(0).text("올바른 형식이 아닙니다.");
+                            $(this).siblings("sup").eq(1).text("");
+                        }
+                        else {
+                            $(this).parents(".input_area").find("button").attr("disabled", false);
+                            $(this).siblings("sup").eq(1).text("닉네임 중복확인을 해주세요.");
+                            $(this).siblings("sup").eq(0).text("");
+                        }
+                    });
+                    
                 });
 
                 function sample6_execDaumPostcode() {
@@ -410,6 +432,9 @@
                     		if(result == "Y") {
                     			if(confirm("사용 가능한 아이디입니다. 사용하시겠습니까?")) {
                     				$("#userId").attr("readonly", true); // 아이디값 변경 불가
+                    				$("#userId").parents(".input_area").find("button").attr("disabled", true);
+                    				$("#userId").parent().siblings("sup").eq(1).text("");
+                                    checkUserId=1;
                     			}
                     			else {
                     				$("#userId").focus();
@@ -434,6 +459,9 @@
                     		if(result == "Y") {
                     			if(confirm("사용 가능한 닉네임입니다. 사용하시겠습니까?")) {
                     				$("#nickname").attr("readonly", true); // 닉네임 변경 불가
+                    				$("#nickname").parents(".input_area").find("button").attr("disabled", true);
+                    				$("#nickname").siblings("sup").eq(1).text("");
+                                    checkNickname=1;
                     			}
                     			else {
                     				$("#nickname").focus();
@@ -465,8 +493,12 @@
                     }
                 };
 
+                function sendNum() {
+                    
+                }
+
                 function enroll() {
-                    if(checkUserPwd==1 && checkCheckPwd==1 && checkUserName==1
+                    if(checkUserId==1 && checkUserPwd==1 && checkCheckPwd==1 && checkUserName==1 && checkNickname==1
                         && $("#year").val()!="none" && $("#month").val()!="none" && $("#day").val()!="none"
                         && $(".input_area2").children("input:radio:checked")!=null
                         && $("#sample6_postcode").val()!="" && $(".check_area").children("input:radio:checked").val()=="agree") {
