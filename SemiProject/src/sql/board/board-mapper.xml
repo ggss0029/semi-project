@@ -6,7 +6,7 @@
 
 
 	<entry key="selectListCount">
-		SELECT BOARD_NO
+		SELECT *
 		FROM BOARD
 		WHERE STATUS = 'Y'
 		AND BOARD_NAME = '자취레시피'

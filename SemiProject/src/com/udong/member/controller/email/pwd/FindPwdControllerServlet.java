@@ -75,13 +75,13 @@ public class FindPwdControllerServlet extends HttpServlet {
 		            msg.setSentDate(new Date());
 		            InternetAddress from = new InternetAddress();
 		            
-		            from = new InternetAddress("sender<dlstmxk12@naver.com>");
+		            from = new InternetAddress("Udong<dlstmxk12@naver.com>");
 		            msg.setFrom(from);
 		 
 		            InternetAddress to = new InternetAddress(request.getParameter("inputEmail"));
 		            msg.setRecipient(Message.RecipientType.TO, to);
 		 
-		            msg.setSubject("[우동: 우리 동네 ]비밀번호 찾기 이메일입니다.", "UTF-8");
+		            msg.setSubject("[우리동네 Udong] 비밀번호 찾기 이메일입니다.", "UTF-8");
 		            String code = request.getParameter("code_check");
 		            msg.setText("인증 코드를 입력창에 입력해주세요. 인증 코드 : " + code, "UTF-8");
 		            msg.setHeader("content-Type", "text/html");
