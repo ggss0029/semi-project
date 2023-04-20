@@ -56,7 +56,7 @@ public class MemberListControllerServlet extends HttpServlet {
 		request.setAttribute("minPage", minPage);
 		request.setAttribute("maxPage", maxPage);
 		
-		request.getRequestDispatcher("views/member/memberList.jsp").forward(request, response);
+		request.getRequestDispatcher("views/admin/memberList.jsp").forward(request, response);
 		
 	}
 
