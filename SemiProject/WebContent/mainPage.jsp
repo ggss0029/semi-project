@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.udong.member.model.vo.Member"%>
+    pageEncoding="UTF-8" import="com.udong.member.model.vo.Member, java.util.ArrayList"%>
 <%
 	String contextPath = request.getContextPath();
 	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 	String alertMsg = (String)request.getSession().getAttribute("alertMsg");
+	ArrayList<String> ms = new ArrayList<>();
 %>
 <%request.getSession().setAttribute("count",0);%>
 <!DOCTYPE html>
@@ -30,7 +31,7 @@
         }
         
         .header_1{
-            background-color: red;
+/*             background-color: red; */
             height: 45%; /*180px*/
         }
 
@@ -241,14 +242,24 @@
 	}
 	
 	$(function() {
-		var mostSearch = setInterval(function() {
-			getMostSearch();
-		}, 1000*60*60)
+		function callback() {
+			$.ajax({
+				url: "mostSearch.do",
+				success: function(mostSearch) {
+					console.log(mostSearch);
+					for(var i=0;i<mostSearch.length;i++) {
+						$(".key").eq(i).text(mostSearch[i]);
+					}
+						
+				},
+				error: function() {
+					console.log("통신 실패");
+				}
+			});
+		}
+		callback();
+		setInterval(callback, 5000); // 한 시간마다 검색어 순위 top10 가져옴
 	});
-	
-	function getMostSearch() {
-		location.href="<%=contextPath%>/mostsearch.do";
-	};
 </script>
     <div id="header">
         <div class="header_1">
@@ -262,83 +273,83 @@
             <div id="most_search">
                 <div class="swiper-container swiper">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide keyword1">
+                        <div class="swiper-slide keyword1" style="">
                             <table>
                                 <tr>
                                     <td width="50" align="center" style="font-weight: 700; font-size: 22px">1</td>
-                                    <td style="font-size: 20px">가가가</td>
+                                    <td style="font-size: 20px;" class="key">가</td>
                                 </tr>
                             </table>
                         </div>
-                        <div class="swiper-slide keyword2">
+                        <div class="swiper-slide keyword2" style="">
                             <table>
                                 <tr>
                                     <td width="50" align="center" style="font-weight: 700; font-size: 22px">2</td>
-                                    <td style="font-size: 20px">나나나</td>
+                                    <td style="font-size: 20px;" class="key">나</td>
                                 </tr>
                             </table>
                         </div>
-                        <div class="swiper-slide keyword3">
+                        <div class="swiper-slide keyword3" style="">
                             <table>
                                 <tr>
                                     <td width="50" align="center" style="font-weight: 700; font-size: 22px">3</td>
-                                    <td style="font-size: 20px">다다다</td>
+                                    <td style="font-size: 20px;" class="key">다</td>
                                 </tr>
                             </table>
                         </div>
-                        <div class="swiper-slide keyword4">
+                        <div class="swiper-slide keyword4" style="">
                             <table>
                                 <tr>
                                     <td width="50" align="center" style="font-weight: 700; font-size: 22px">4</td>
-                                    <td style="font-size: 20px">라라라</td>
+                                    <td style="font-size: 20px;" class="key">라</td>
                                 </tr>
                             </table>
                         </div>
-                        <div class="swiper-slide keyword5">
+                        <div class="swiper-slide keyword5" style="">
                             <table>
                                 <tr>
                                     <td width="50" align="center" style="font-weight: 700; font-size: 22px">5</td>
-                                    <td style="font-size: 20px">마마마</td>
+                                    <td style="font-size: 20px;" class="key">마</td>
                                 </tr>
                             </table>
                         </div>
-                        <div class="swiper-slide keyword6">
+                        <div class="swiper-slide keyword6" style="">
                             <table>
                                 <tr>
                                     <td width="50" align="center" style="font-weight: 700; font-size: 25px">6</td>
-                                    <td style="font-size: 20px">바바바</td>
+                                    <td style="font-size: 20px;" class="key">바</td>
                                 </tr>
                             </table>
                         </div>
-                        <div class="swiper-slide keyword7">
+                        <div class="swiper-slide keyword7" style="">
                             <table>
                                 <tr>
                                     <td width="50" align="center" style="font-weight: 700; font-size: 22px">7</td>
-                                    <td style="font-size: 20px">사사사</td>
+                                    <td style="font-size: 20px;" class="key">사</td>
                                 </tr>
                             </table>
                         </div>
-                        <div class="swiper-slide keyword8">
+                        <div class="swiper-slide keyword8" style="">
                             <table>
                                 <tr>
                                     <td width="50" align="center" style="font-weight: 700; font-size: 22px">8</td>
-                                    <td style="font-size: 20px">아아아</td>
+                                    <td style="font-size: 20px;" class="key">아</td>
                                 </tr>
                             </table>
                         </div>
-                        <div class="swiper-slide keyword9">
+                        <div class="swiper-slide keyword9" style="">
                             <table>
                                 <tr>
                                     <td width="50" align="center" style="font-weight: 700; font-size: 22px">9</td>
-                                    <td style="font-size: 20px">자자자</td>
+                                    <td style="font-size: 20px;" class="key">자</td>
                                 </tr>
                             </table>
                         </div>
-                        <div class="swiper-slide keyword10">
+                        <div class="swiper-slide keyword10" style="">
                             <table>
                                 <tr>
                                     <td width="50" align="center" style="font-weight: 700; font-size: 22px">10</td>
-                                    <td style="font-size: 20px">차차차</td>
+                                    <td style="font-size: 20px;" class="key">차</td>
                                 </tr>
                             </table>
                         </div>
@@ -400,7 +411,7 @@
             </div>
             <div class="content_2">
                 <div class="c3">
-                    <div style="width: 85%; ">
+                    <div style="width: 85%;">
                         <p style="font-size: 50px; font-weight: 550;">동네 맛집</p>
                     </div>
                     <div align="center" style="width: 15%;">
@@ -461,16 +472,6 @@
     </div>
 
     <script>
-    	$(function() {
-    		setInterval(function() {
-    			
-    		}, 1000*60*60); // 한 시간마다 db에서 인기검색어 top10 가져옴
-    		
-    		setInterval(function() {
-    			
-    		}, 3000); // 3초마다 
-    	});
-    	
     	let swiper = new Swiper('.swiper', {
             direction: 'vertical',
             loop: true,
