@@ -57,9 +57,10 @@
             height: 63px;
             margin: 58.5px 3% 58.5px 3%;
             border: 5px solid lightgray;
+            
         }
 
-        #most_search>table {
+        .swiper-slide>table {
             width: 100%;
             height: 100%;
         }
@@ -185,20 +186,35 @@
             width: 100%;
             height: 32.5%;
         }
+        
+        .content_2>div, .content_3>div {
+            width: 100%;
+        }
+
+        .c3, .c4 {
+            height: 20%;
+        }
+
+        .c3>div, .c4>div {
+            height: 100%;
+            float: left;
+        }
 
         #footer{
             height: 200px;
             background-color: purple;
         }
 
-        .main_swiper1 { position: relative; width: 100%; height: 100%; overflow: hidden; }
-        .main_swiper2 { position: relative; width: 100%; height: 100%; overflow: hidden; }
+        .main_swiper1 { position: relative; height: 80%; }
+        .main_swiper2 { position: relative; height: 80%; }
+		.swiper { width: 100%; height: 100%; overflow: hidden; }
         .swiper1 { position: absolute; width: 90%; height: 100%; margin: 0px 5% auto; overflow: hidden; }
-        .swiper2 { position: absolute; width: 90%; height: 100%; margin: 0px 5% auto; overflow: hidden;}
+        .swiper2 { position: absolute; width: 90%; height: 100%; margin: 0px 5% auto; overflow: hidden; }
         .swiper-pagination { position: absolute; margin-bottom: 10px; }
         .swiper-pagination-bullet { width: 10px; height: 10px; background: transparent; border: 1px solid lightgray; opacity: 1; margin: 0px 2px;}
         .swiper-pagination-bullet-active { width: 20px; transition: width .5s; border-radius: 5px; background: lightgray; border: 1px solid transparent; }
-        .swiper-slide { width: 350px; height: 350px; margin: auto; box-sizing: border-box; }
+        .swiper-slide { width: 250px; height: 250px; margin: auto; box-sizing: border-box; }
+        div[class*=keyword] { width: 100%; height: 100%; margin: auto; box-sizing: border-box; }
         .swiper-slide.slide01 { background-color: #BE5EC2; }
         .swiper-slide.slide02 { background-color: #F862A7; }
         .swiper-slide.slide03 { background-color: #FF7B87; }
@@ -217,11 +233,22 @@
 <body>
 <script>
 	var msg = "<%=alertMsg%>";
+	var ms = new Array(10);
 	
 	if(msg != "null") {
 		alert(msg);
 		<%request.getSession().removeAttribute("alertMsg");%>
 	}
+	
+	$(function() {
+		var mostSearch = setInterval(function() {
+			getMostSearch();
+		}, 1000*60*60)
+	});
+	
+	function getMostSearch() {
+		location.href="<%=contextPath%>/mostsearch.do";
+	};
 </script>
     <div id="header">
         <div class="header_1">
@@ -233,12 +260,90 @@
                 <p>자취생을 위한 사이트</p>
             </div>
             <div id="most_search">
-                <table>
-                    <tr>
-                        <td width="30" align="center">1</td>
-                        <td>당산역</td>
-                    </tr>
-                </table>
+                <div class="swiper-container swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide keyword1">
+                            <table>
+                                <tr>
+                                    <td width="50" align="center" style="font-weight: 700; font-size: 22px">1</td>
+                                    <td style="font-size: 20px">가가가</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="swiper-slide keyword2">
+                            <table>
+                                <tr>
+                                    <td width="50" align="center" style="font-weight: 700; font-size: 22px">2</td>
+                                    <td style="font-size: 20px">나나나</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="swiper-slide keyword3">
+                            <table>
+                                <tr>
+                                    <td width="50" align="center" style="font-weight: 700; font-size: 22px">3</td>
+                                    <td style="font-size: 20px">다다다</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="swiper-slide keyword4">
+                            <table>
+                                <tr>
+                                    <td width="50" align="center" style="font-weight: 700; font-size: 22px">4</td>
+                                    <td style="font-size: 20px">라라라</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="swiper-slide keyword5">
+                            <table>
+                                <tr>
+                                    <td width="50" align="center" style="font-weight: 700; font-size: 22px">5</td>
+                                    <td style="font-size: 20px">마마마</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="swiper-slide keyword6">
+                            <table>
+                                <tr>
+                                    <td width="50" align="center" style="font-weight: 700; font-size: 25px">6</td>
+                                    <td style="font-size: 20px">바바바</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="swiper-slide keyword7">
+                            <table>
+                                <tr>
+                                    <td width="50" align="center" style="font-weight: 700; font-size: 22px">7</td>
+                                    <td style="font-size: 20px">사사사</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="swiper-slide keyword8">
+                            <table>
+                                <tr>
+                                    <td width="50" align="center" style="font-weight: 700; font-size: 22px">8</td>
+                                    <td style="font-size: 20px">아아아</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="swiper-slide keyword9">
+                            <table>
+                                <tr>
+                                    <td width="50" align="center" style="font-weight: 700; font-size: 22px">9</td>
+                                    <td style="font-size: 20px">자자자</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="swiper-slide keyword10">
+                            <table>
+                                <tr>
+                                    <td width="50" align="center" style="font-weight: 700; font-size: 22px">10</td>
+                                    <td style="font-size: 20px">차차차</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div id="search">
                 <form action="search.do" id="search_form">
@@ -248,8 +353,7 @@
             </div>
             <%if(loginUser==null) {%>
             	<div id="login_area">
-                	<button id="login" class="btn btn-outline-dark">로그인</button>
-                	<a href="<%=request.getContextPath()%>/views/member/loginPage.jsp">로그인 페이지</a>
+                	<button id="login" class="btn btn-outline-dark" onclick="login();">로그인</button>
                 	<button id="enroll" class="btn btn-outline-dark" onclick="enroll();">회원가입</button>
             	</div>
             <%} else { %>
@@ -270,9 +374,13 @@
         </div>
         
         <script>
+        	function login() {
+        		location.href = "<%=contextPath%>/views/member/loginPage.jsp";
+        	}
+        
         	function enroll() {
         		location.href = "<%=contextPath%>/enroll.me";
-        	}
+        	};
         </script>
         
         <div class="header_2">
@@ -291,6 +399,14 @@
                 <div class="c2">최신글</div>
             </div>
             <div class="content_2">
+                <div class="c3">
+                    <div style="width: 85%; ">
+                        <p style="font-size: 50px; font-weight: 550;">동네 맛집</p>
+                    </div>
+                    <div align="center" style="width: 15%;">
+                        <button style="margin-top:25%;">더보기 ></button>
+                    </div>
+                </div>
                 <div class="main_swiper1">
                     <div class="swiper-container swiper1">
                         <div class="swiper-wrapper">
@@ -298,11 +414,11 @@
                             <div class="swiper-slide slide02"></div>
                             <div class="swiper-slide slide03"></div>
                             <div class="swiper-slide slide04"></div>
-                            <div class="swiper-slide slide05"></div>
+                            <!-- <div class="swiper-slide slide05"></div> -->
                             <div class="swiper-slide slide06"></div>
                             <div class="swiper-slide slide07"></div>
                             <div class="swiper-slide slide08"></div>
-                            <div class="swiper-slide slide09"></div>
+                            <!-- <div class="swiper-slide slide09"></div> -->
                             <div class="swiper-slide slide10"></div>
                         </div>
                     </div>
@@ -312,6 +428,14 @@
                 </div>
             </div>
             <div class="content_3" >
+                <div class="c4">
+                    <div style="width: 85%; ">
+                        <p style="font-size: 50px; font-weight: 550;">나눔 할게요</p>
+                    </div>
+                    <div align="center" style="width: 15%;">
+                        <button style="margin-top:25%;">더보기 ></button>
+                    </div>
+                </div>
                 <div class="main_swiper2">
                     <div class="swiper-container swiper2">
                         <div class="swiper-wrapper">
@@ -319,11 +443,11 @@
                             <div class="swiper-slide slide02"></div>
                             <div class="swiper-slide slide03"></div>
                             <div class="swiper-slide slide04"></div>
-                            <div class="swiper-slide slide05"></div>
+                            <!-- <div class="swiper-slide slide05"></div> -->
                             <div class="swiper-slide slide06"></div>
                             <div class="swiper-slide slide07"></div>
                             <div class="swiper-slide slide08"></div>
-                            <div class="swiper-slide slide09"></div>
+                            <!-- <div class="swiper-slide slide09"></div> -->
                             <div class="swiper-slide slide10"></div>
                         </div>
                     </div>
@@ -337,6 +461,30 @@
     </div>
 
     <script>
+    	$(function() {
+    		setInterval(function() {
+    			
+    		}, 1000*60*60); // 한 시간마다 db에서 인기검색어 top10 가져옴
+    		
+    		setInterval(function() {
+    			
+    		}, 3000); // 3초마다 
+    	});
+    	
+    	let swiper = new Swiper('.swiper', {
+            direction: 'vertical',
+            loop: true,
+            spaceBetween: 30,
+            slidesPerView: 1,
+            autoplay: {
+                delay: 2000,
+                disableOnInteraction: false,
+            },
+            effect: 'slide',
+            observer: true,
+            observeParents: true,
+        });
+    
         let swiper1 = new Swiper('.swiper1', {
             loop: true,
             spaceBetween: 30,
