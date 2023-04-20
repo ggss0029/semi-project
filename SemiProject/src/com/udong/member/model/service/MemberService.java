@@ -141,5 +141,23 @@ public class MemberService {
 		return result;
 	}
 
+	public ArrayList<Member> getBlackList(String page) {
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<Member> blacklist = new MemberDao().getBlackList(conn , page);
+		JDBCTemplate.close(conn);
+		
+		return blacklist;
+
+		
+	}
+
+	public int getBlackListCount() {
+		Connection	conn =JDBCTemplate.getConnection();
+		Integer count = new MemberDao().getBlackListCount(conn);
+		JDBCTemplate.close(conn);
+		
+		return count;
+	}
+
 
 }
