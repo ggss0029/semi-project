@@ -462,6 +462,7 @@ public class MemberDao {
 			pstmt.setString(6, m.getGender());
 			pstmt.setString(7, m.getEmail());
 			pstmt.setString(8, m.getAddress());
+			pstmt.setInt(9, m.getLoginType());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

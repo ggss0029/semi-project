@@ -1,6 +1,7 @@
 package com.udong.member.controller;
 
 import java.io.IOException;
+import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,8 +40,8 @@ public class EnrollController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
-		String userId = request.getParameter("userId");
-		String userPwd = request.getParameter("userPwd");
+		String userId = "";
+		String userPwd = "";
 		String userName = request.getParameter("userName");
 		String nickname = request.getParameter("nickname");
 		String birthday = request.getParameter("year") + "-" + request.getParameter("month") + "-" + request.getParameter("day");
@@ -48,8 +49,29 @@ public class EnrollController extends HttpServlet {
 		String email = request.getParameter("email");
 		String address = request.getParameter("sample6_address") + request.getParameter("sample6_extraAddress")
 						+ " " + request.getParameter("sample6_detailAddress") + "-" + request.getParameter("sample6_postcode");
+		int loginType = 1;
 		
-		Member m = new Member(userId, userPwd, userName, nickname, birthday, gender, email, address);
+		
+		if(Integer.parseInt(request.getParameter("loginType"))==2) {
+			Random r = new Random();
+			int ran = r.nextInt(99999) + 10000;
+			userId = "kakaoId"+ran;
+			userPwd = "kakaoPwd"+(ran+1);
+			loginType = 2;
+		}else if(Integer.parseInt(request.getParameter("loginType"))==3){
+			Random r = new Random();
+			int ran = r.nextInt(99999) + 10000;
+			userId = "naverId"+ran;
+			userPwd = "naverPwd"+(ran+1);
+			loginType = 3;
+		}
+		else{
+			userId = request.getParameter("userId");
+			userPwd = request.getParameter("userPwd");
+		}
+		System.out.println(userId + " " + userPwd);
+		Member m = new Member(userId, userPwd, userName, nickname, birthday, gender, email, address, loginType);
+		System.out.println(m);
 		int result = new MemberService().enrollMember(m);
 		
 		if(result > 0) {

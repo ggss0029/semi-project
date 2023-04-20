@@ -1,7 +1,10 @@
+<%@page import="com.udong.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.Random"%>
 <%
 	String contextPath = request.getContextPath();
+	Member kakaoUser = (Member)request.getAttribute("kakaoUser");
+	Member naverUser =(Member)request.getAttribute("naverLoginUser");
 	int random = 0;
 %>
 
@@ -128,10 +131,18 @@
     </style>
 </head>
 <body>
+<script>
+	<%if(request.getAttribute("alertNaverMsg")!=null){%>
+		var alertNaverMsg = "<%=request.getAttribute("alertNaverMsg")%>";
+		console.log(alertNaverMsg);
+		alert(alertNaverMsg);
+		<%request.removeAttribute("alertNaverMsg");%>
+	<%}%>
+</script>
     <div class="wrap">
         <div id="left" style="background-color: lightpink;"></div>
         <div id="right">
-            <form action="enroll.me" method="post" onsubmit="return checkForm();">
+            <form action="<%=contextPath%>/enroll.me" method="post" onsubmit="return checkForm();">
                 <div id="enroll-form">
                     <br>
                     <label for="userId">아이디 (필수)</label> <br>
@@ -220,6 +231,7 @@
                             <input type="text" id="sample6_extraAddress" name="sample6_extraAddress" placeholder="참고항목" readonly>
                         </div>
                     </div>
+                    <input type="hidden" name="loginType" id="loginType">
                     <br>
                     <label for="">개인정보동의</label> <br>
                     <div class="read">
@@ -244,7 +256,6 @@
                     <br><br>
                 </div>
              </form>
-
              <script>
                 var checkUserId = 0;
                 var checkUserPwd = 0;
@@ -357,7 +368,71 @@
                             $(this).parents(".input_area").find("button").attr("disabled", false);
                         }
                     });
-
+                    
+                <%if(kakaoUser!=null && kakaoUser.getLoginType()==2){%>
+                	$("#userId").attr("placeholder","카카오 로그인 유저는 아이디를 기입하지 않아도 됩니다.").attr("disabled",true);
+                	$("#userPwd").attr("placeholder","카카오 로그인 유저는 비밀번호를 기입하지 않아도 됩니다.").attr("disabled",true);
+                	$("#checkPwd").attr("placeholder","카카오 로그인 유저는 비밀번호를 기입하지 않아도 됩니다.").attr("disabled",true);
+                	$("#userName").attr("placeholder","이름을 입력해주세요.");
+                	$("#nickname").attr("placeholder","사용하실 닉네임을 입력 후 중복확인을 해주세요.")
+            		$("#email").val("<%=kakaoUser.getEmail()%>");
+            		$("#num").attr("placeholder","카카오 로그인 유저는 이메일 인증을 하지 않아도 됩니다.").attr("disabled",true);
+            		<%if(kakaoUser.getGender().equals("male")){%>
+            			$("#male").val("남").prop("checked", true);
+            			$("#female").attr("disabled",true);
+            		<%}else{%>
+            			$("#female").val("여").prop("checked", true);
+            			$("#male").attr("disabled",true);
+            		<%}%>
+            		$("#month").children().remove();
+            		var option = $("<option>"+<%=kakaoUser.getBirthday().substring(0, 2)%>+"</option>");
+                    $('#month').append(option);
+            		$("#day").children().remove();
+            		var option1 = $("<option>"+<%=kakaoUser.getBirthday().substring(2,4)%>+"</option>");
+                    $('#day').append(option1);
+                    $("#loginType").val(2);
+                    
+                    checkUserId = 1;
+                    checkUserPwd = 1;
+                    checkCheckPwd = 1;
+                    checkNum = 1;
+            	<%}%>
+                    
+            	<%if(naverUser!=null && naverUser.getLoginType()==3){%>
+            	$("#userId").attr("placeholder","네이버 로그인 유저는 아이디를 기입하지 않아도 됩니다.").attr("disabled",true);
+            	$("#userPwd").attr("placeholder","네이버 로그인 유저는 비밀번호를 기입하지 않아도 됩니다.").attr("disabled",true);
+            	$("#checkPwd").attr("placeholder","네이버 로그인 유저는 비밀번호를 기입하지 않아도 됩니다.").attr("disabled",true);
+            	$("#userName").val('<%=naverUser.getUserName()%>').attr("readonly",true);
+            	$("#nickname").attr("placeholder","사용하실 닉네임을 입력 후 중복확인을 해주세요.");
+        		$("#email").val("<%=naverUser.getEmail()%>");
+        		$("#num").attr("placeholder","네이버 로그인 유저는 이메일 인증을 하지 않아도 됩니다.").attr("disabled",true);
+        		<%if(naverUser.getGender().equals("남")){%>
+        			$("#male").val("남").prop("checked", true);
+        			$("#female").attr("disabled",true);
+        		<%}else{%>
+        			$("#female").val("여").prop("checked", true);
+        			$("#male").attr("disabled",true);
+        		<%}%>
+        		$("#year").children().remove();
+        		var option1 = $("<option>"+<%=naverUser.getBirthday().substring(0,4)%>+"</option>");
+        		$("#year").append(option1);
+        		
+        		$("#month").children().remove();
+        		var option2 = $("<option>"+<%=naverUser.getBirthday().substring(4,6)%>+"</option>");
+                $('#month').append(option2);
+                
+        		$("#day").children().remove();
+        		var option3 = $("<option>"+<%=naverUser.getBirthday().substring(6,8)%>+"</option>");
+                $('#day').append(option3);
+                
+                $("#loginType").val(3);
+                
+                checkUserId = 1;
+                checkUserPwd = 1;
+                checkUserName = 1;
+                checkCheckPwd = 1;
+                checkNum = 1;
+        	<%}%>
                     $("#nickname").keyup(function() {
                         var $nickname = $(this).val();
                         regExp = /^[a-zA-Z0-9가-힇]{2,}$/;
@@ -552,7 +627,7 @@
                     	return false;
                     }
                 }
-            </script>
+</script>
         </div>
     </div>
 </body>
