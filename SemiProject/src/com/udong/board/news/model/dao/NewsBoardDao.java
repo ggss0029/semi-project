@@ -7,12 +7,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import com.udong.board.news.model.vo.NewsBoard;
 import com.udong.common.JDBCTemplate;
+import com.udong.common.model.vo.PageInfo;
 
 public class NewsBoardDao {
 	
@@ -35,7 +37,36 @@ public class NewsBoardDao {
 		}
 	}
 
-	public ArrayList<NewsBoard> newsSelectList(Connection conn) {
+	//총 게시글 개수 구하는 메소드
+	public int newsSelectListCount(Connection conn) {
+		int listCount =0;
+		ResultSet rset = null;
+		Statement stmt = null;
+		
+		String sql = prop.getProperty("newsSelectListCount");
+		
+		try {
+			stmt = conn.createStatement();
+			
+			rset = stmt.executeQuery(sql);
+			
+			if(rset.next()) {
+				listCount = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(stmt);
+		}
+		
+		return listCount;
+		
+	}
+	
+	//게시글 리스트 조회
+	public ArrayList<NewsBoard> newsSelectList(Connection conn, PageInfo pi) {
 		ArrayList<NewsBoard> nlist = new ArrayList<>();
 		
 		ResultSet rset = null;
@@ -45,6 +76,12 @@ public class NewsBoardDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() -1) * pi.getBoardLimit() +1;
+			int endRow = (startRow + pi.getBoardLimit()) -1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			
 			rset = pstmt.executeQuery();
 			

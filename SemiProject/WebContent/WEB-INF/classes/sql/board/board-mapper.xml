@@ -44,14 +44,25 @@
     WHERE RNUM BETWEEN ? AND ?
 	</entry>
 
-	<!-- 동네소식 리스트 불러오기(아직 좋아요 카운트 안불러옴) -->
-	<entry key="newsSelectList">
-		SELECT BOARD_NO, BOARD_TITLE, NICKNAME, CREATE_DATE, COUNT
-		FROM BOARD B
-		JOIN MEMBER M ON (USER_NO = BOARD_WRITER)
-		WHERE B.STATUS = 'Y'
-		ORDER BY CREATE_DATE DESC
+
+	<!-- 동네소식 총 게시글 개수 구하기 -->
+	<entry key="newsSelectListCount">
+		SELECT COUNT(*) COUNT
+		FROM BOARD
+		WHERE STATUS = 'Y'
+		AND BOARD_NAME = '동네 소식' 
 	</entry>
 
-
+	<!-- 동네소식 리스트 불러오기(아직 좋아요 카운트 안불러옴) -->
+	<entry key="newsSelectList">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+        		FROM (SELECT BOARD_NO, BOARD_TITLE, NICKNAME, CREATE_DATE, COUNT
+		        		FROM BOARD B
+		        		JOIN MEMBER M ON (BOARD_WRITER = USER_NO)
+		        		WHERE B.STATUS ='Y'
+		        		ORDER BY BOARD_NO DESC) A )
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
 </properties>

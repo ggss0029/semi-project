@@ -1,13 +1,16 @@
+<%@page import="com.udong.common.model.vo.PageInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, com.udong.board.news.model.vo.NewsBoard"%>
 <%
 	ArrayList<NewsBoard> nlist = (ArrayList<NewsBoard>)request.getAttribute("nlist");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	System.out.println(pi);
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>동네 소식</title>
 <style>
 	div{
             /* border: 1px solid black; */
@@ -299,10 +302,10 @@
                 <p>정보 공유</p>
                 <div id="line_1"></div>
                 
-                <a href="<%=contextPath %>/newsList.bo" id="news">동네 소식</a>
+                <a href="" id="news">동네 소식</a>
                 <div id="line_2"></div>
                 
-                <a href="<%=contextPath %>/cleanList.bo" id="clean">살림 꿀팁</a>
+                <a href="" id="clean">살림 꿀팁</a>
                 <div id="line_3"></div>
                 
                 <a href="" id="recipe">자취 레시피</a>
@@ -315,51 +318,54 @@
 
                     <div id="box">
                         <p id="b1">지역선택</p>
-                        <div id="location">
-                            <form name="form" method="post" action=>
-                                	시/도:
-                                <select name='city' onchange="change(this.selectedIndex);"  class=input >
-                                    <option value='전체'>전체</option>
-                                    <option value='서울'>서울특별시</option>
-                                    <option value='부산'>부산광역시</option>
-                                    <option value='대구'>대구광역시</option>
-                                    <option value='인천'>인천광역시</option>
-                                    <option value='광주'>광주광역시</option>
-                                    <option value='대전'>대전광역시</option>
-                                    <option value='울산'>울산광역시</option>
-                                    <option value='경기'>경기도</option>
-                                    <option value='강원'>강원도</option>
-                                    <option value='충북'>충청북도</option>
-                                    <option value='충남'>충청남도</option>
-                                    <option value='전북'>전라북도</option>
-                                    <option value='전남'>전라남도</option>
-                                    <option value='경북'>경상북도</option>
-                                    <option value='경남'>경상남도</option>
-                                    <option value='제주'>제주도</option>
-                                </select>                                                  
-                                	구/군:
-                                <select name='county'  class=select>
-                                    <option value=''>전체</option>
-                                </select>
-                            </form> 
-                        </div>
-                        <br><br><br>
-                        <p id="b2">카테고리</p>
-                        
-                        <div id="category">
-                            <input type="checkbox" id="real_time"> <label for="real_time">실시간 우동</label> 
-                            <input type="checkbox" id="festival" > <label for="festival">행사/축제</label> 
-                            <input type="checkbox" id="open"> <label for="open">신장 개업</label>
-                            <input type="checkbox" id="danger"> <label for="danger">사건/사고</label>
-                            <input type="checkbox" id="lost"> <label for="lost">분실/실종</label>
-                        </div>
-                        <br><br><br>
-                        
-
-                        <div align="center">
-                            <button type="reset" class="btn btn-light">초기화</button>
-                            <button class="btn btn-primary">검색</button>
-                        </div>
+                        <form name="form" method="post" action="">
+	                        <div id="location">
+	                            <input type="hidden" name="currentPage" value="<%=pi.getCurrentPage() %>">
+	                            
+	                                	시/도:
+	                                <select name='city' onchange="change(this.selectedIndex);"  class=input >
+	                                    <option value='전체'>전체</option>
+	                                    <option value='서울'>서울특별시</option>
+	                                    <option value='부산'>부산광역시</option>
+	                                    <option value='대구'>대구광역시</option>
+	                                    <option value='인천'>인천광역시</option>
+	                                    <option value='광주'>광주광역시</option>
+	                                    <option value='대전'>대전광역시</option>
+	                                    <option value='울산'>울산광역시</option>
+	                                    <option value='경기'>경기도</option>
+	                                    <option value='강원'>강원도</option>
+	                                    <option value='충북'>충청북도</option>
+	                                    <option value='충남'>충청남도</option>
+	                                    <option value='전북'>전라북도</option>
+	                                    <option value='전남'>전라남도</option>
+	                                    <option value='경북'>경상북도</option>
+	                                    <option value='경남'>경상남도</option>
+	                                    <option value='제주'>제주도</option>
+	                                </select>                                                  
+	                                	구/군:
+	                                <select name='county'  class=select>
+	                                    <option value=''>전체</option>
+	                                </select>
+	                            
+	                        </div>
+	                        <br><br><br>
+	                        <p id="b2">카테고리</p>
+	                        
+	                        <div id="category">
+	                            <input type="checkbox" id="real_time"> <label for="real_time">실시간 우동</label> 
+	                            <input type="checkbox" id="festival" > <label for="festival">행사/축제</label> 
+	                            <input type="checkbox" id="open"> <label for="open">신장 개업</label>
+	                            <input type="checkbox" id="danger"> <label for="danger">사건/사고</label>
+	                            <input type="checkbox" id="lost"> <label for="lost">분실/실종</label>
+	                        </div>
+	                        <br><br><br>
+	                        
+	
+	                        <div align="center">
+	                            <button type="reset" class="btn btn-light">초기화</button>
+	                            <button class="btn btn-primary">검색</button>
+	                        </div>
+                        </form> 
                     </div>
                     <div id="line_6"></div>
 
@@ -385,7 +391,7 @@
 		                                <td><%=nb.getBoardTitle() %></td> <!-- 제목 -->
 		                                <td><%=nb.getBoardWriter() %></td> <!-- 작성자  닉네임 -->
 		                                <td><%=nb.getCreateDate() %></td> <!-- 작성한 날짜 -->
-		                                <td><%=nb.getCount() %>100</td> <!-- 조회수 -->
+		                                <td><%=nb.getCount() %></td> <!-- 조회수 -->
 		                                <td></td> <!-- 좋아요한 수 -->
 		                            </tr>
                         		<%} %> 
@@ -421,19 +427,39 @@
                         </tbody>
                         </table>
                         <br>
-                        <%if(loginUser != null) { %> <!-- 로그인 유저일떄  글쓰기 가능-->
-                        <div align="right" id="write_btn">
-                            <a href="<%=contextPath %>/NewsInsert.bo" class="btn btn-light">글쓰기</a>
-                        </div>
+                        <!-- 로그인 유저가 관리자(admin일떄  글쓰기, 수정, 삭제  가능-->
+                        <%if(loginUser != null && loginUser.getUserId().equals("admin")) { %> 
+	                        <div align="right" id="write_btn">
+	                            <a href="<%=contextPath %>/NewsInsert.bo" class="btn btn-light">글쓰기</a>
+	                            <a href="<%=contextPath %>/NewsUpdate.bo" class="btn btn-secondary">수정</a>
+	                            <a href="<%=contextPath %>/NewsDelete.bo" class="btn btn-dark">삭제</a>
+	                        </div>
+                        <%} else if (loginUser != null) {%>
+                        	<div align="right" id="write_btn">
+                            	<a href="<%=contextPath %>/NewsInsert.bo" class="btn btn-light">글쓰기</a>
+                        	</div>
                         <%} %>
                         <br>
 
                         <div align="center" class="paging-area">
-                            <button>&lt;</button>
-                            <button>12345678910</button>
-                            <button>&gt;</button>
+    
+                        	<%if(pi.getCurrentPage() != 1) {%>
+                            	<button onclick="location.href='<%=contextPath %>/newsList.bo?currentPage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
+                            <%} %>
+                            
+                            <%for(int i = pi.getStartPage(); i <= pi.getEndPage(); i++) { %>
+                            	<%if(i != pi.getCurrentPage()) {%>
+                            	<button onclick="location.href='<%=contextPath %>/newsList.bo?currentPage=<%=i%>';"><%=i %></button>
+                            	<%} else {%>
+                            		<button disabled><%=i %></button>
+                            	<%} %>
+                            <%} %>
+                            
+                            <%if(pi.getCurrentPage() != pi.getMaxPage()) { %>
+	                            <button onclick="location.href='<%=contextPath %>/newsList.bo?currentPage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
+                            <%} %>
                         </div>
-
+<!--  
                         <div id="search">
                             <form action="search.do" id="search_form">
                                 <div id="search_select">
@@ -450,7 +476,7 @@
                                     <input type="button" value="검색" class="btn btn-light">
                                 </div>
                             </form>
-                    
+                    -->
                         </div>
 
                         
