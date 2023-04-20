@@ -63,7 +63,7 @@ public class KakaoLoginControllerServlet extends HttpServlet {
 			request.getSession().setAttribute("loginUser", kakaoLoginUser);
 			response.sendRedirect("mainPage.jsp");
 		}else { // 첫 카카오 로그인
-			request.getSession().setAttribute("alertMsg","등록된 회원 정보가 없습니다. 회원 가입으로 이동합니다.");
+			request.getSession().setAttribute("alertKakaoMsg","등록된 회원 정보가 없습니다. 회원 가입으로 이동합니다.");
 			request.setAttribute("kakaoUser",m);
 			request.getRequestDispatcher("views/member/enrollForm.jsp").forward(request, response);
 		}

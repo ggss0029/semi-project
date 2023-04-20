@@ -99,28 +99,32 @@ public class NaverLoginControllerServlet extends HttpServlet {
 		    	        requestHeaders.put("Authorization", header);
 		    	        String responseBody = get(apiURL1,requestHeaders);
 
-		    	        String nickname = responseBody.split("\"")[17];
-		    	        String age = responseBody.split("\"")[21];
-		    	        String email = responseBody.split("\"")[25];
-		    	        String name = uniToKor(responseBody.split("\"")[29]);
-
-//		    	        System.out.println(nickname+" "+age+" "+email+" "+name);
+		    	        String gender = ""; //성별 M
+		    	        if(responseBody.split("\"")[17].equals("M")) {
+		    	        	gender = "남";
+		    	        }else {
+		    	        	gender = "여";
+		    	        }
+		    	        String email = responseBody.split("\"")[21]; //이메일
+		    	        String name = uniToKor(responseBody.split("\"")[25]); //이름
+		    	        String birthDay = responseBody.split("\"")[33]+responseBody.split("\"")[29].substring(0,2)+responseBody.split("\"")[29].substring(3, 5);
 		    	        
 		    			Member m = new Member();
 		    			m.setEmail(email);
 		    			m.setUserName(name);
+		    			m.setGender(gender);
+		    			m.setBirthday(birthDay);
 		    			m.setLoginType(3);
 		    			
 		    			Member naverLoginUser = new MemberService().checkNaver(m);
 		    	        
 		    			if(naverLoginUser!=null) { //db에 등록된 정보가 있는 경우 result==1
 		    				request.getSession().setAttribute("loginUser", naverLoginUser);
-		    				response.sendRedirect("views/member/test.jsp");
+		    				response.sendRedirect("mainPage.jsp");
 		    			}else { // 첫 네이버 로그인
-		    				request.getSession().setAttribute("alertMsg","등록된 회원 정보가 없습니다. 회원 가입으로 이동합니다.");
+		    				request.setAttribute("alertNaverMsg","등록된 회원 정보가 없습니다.회원 가입 페이지로 이동합니다.");
 		    				request.setAttribute("naverLoginUser", m);
-		    				request.getRequestDispatcher("views/member/test.jsp").forward(request, response);
-//		    				response.sendRedirect("index.jsp");
+		    				request.getRequestDispatcher("views/member/enrollForm.jsp").forward(request, response);
 		    			}
 		    	        
 		    	    } catch (Exception e) {

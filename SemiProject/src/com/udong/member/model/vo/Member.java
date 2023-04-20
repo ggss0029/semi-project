@@ -24,7 +24,7 @@ public class Member {
 	}
 
 	public Member(String userId, String userPwd, String userName, String nickname, String birthday, String gender,
-			String email, String address) {
+			String email, String address, int loginType) {
 		super();
 		this.userId = userId;
 		this.userPwd = userPwd;
@@ -34,6 +34,7 @@ public class Member {
 		this.gender = gender;
 		this.email = email;
 		this.address = address;
+		this.loginType = loginType;
 	}
 
 	public Member(int userNo, String userId, String userPwd, String userName, String nickname, String birthday,
