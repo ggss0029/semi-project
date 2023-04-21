@@ -269,9 +269,9 @@
 					$(mostSearch).each(function(index, value) {
 						console.log(index + ", " + value);
 						
-						if((index+1) == $(".key").eq(index).prev().text()) {
-							$(".key").eq(index).text(value);
+						if((index+1) == $(".key2").eq(index).prev().text()) {
 							$(".key2").eq(index).text(value);
+							$(".key").eq(index).text(value);
 						}
 					});
 				},
@@ -280,9 +280,8 @@
 				}
 			});
 		}
-		
 		callback();
-		setInterval(callback, 60000); // 1분마다 검색어 순위 top10 가져옴
+		setInterval(callback, 30000); // 1분마다 검색어 순위 top10 가져옴
 	});
 </script>
     <div id="header">
@@ -568,7 +567,7 @@
             spaceBetween: 30,
             slidesPerView: 1,
             autoplay: {
-                delay: 1000,
+                delay: 500,
                 disableOnInteraction: false,
             },
             effect: 'slide',
