@@ -475,7 +475,7 @@ public class MemberDao {
 		return result;
 	}
 
-	public ArrayList<Member> getBlackList(Connection conn, String page) {
+	public ArrayList<Member> getBlackList(Connection conn, String page, String userNo, String email) {
 		
 		ArrayList<Member> blackList = new ArrayList<Member>();
 		ResultSet rset = null;
@@ -484,6 +484,16 @@ public class MemberDao {
 		Integer Limit = 15;
 		String sql = prop.getProperty("BlackList");
 		
+		if(userNo != null) {
+			sql = prop.getProperty("MemberListWithUserId");
+		}
+		
+		
+		 if(email !=null) {
+			 sql = prop.getProperty("MemberListWithEmail");
+		 }
+		
+		  
 		if(page != null && !page.equals("1")) {
 			offset = (Integer.parseInt(page)-1) * 7 + 1;
 			Limit = (Integer.parseInt(page)*7);
@@ -514,6 +524,36 @@ public class MemberDao {
 	public Integer getBlackListCount(Connection conn) {
 		
 		return null;
+	}
+
+	public int userDelete(Connection conn, String userName, String gender, String birthday, String userId,
+			String userPwd) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("userDelete");
+		
+//			이름 성별 생년월일 아이디 비밀번호
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userName);
+			pstmt.setString(2, gender);
+			pstmt.setString(3, birthday);
+			pstmt.setString(4, userId);
+			pstmt.setString(5, userPwd);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		
+		return result;
 	}
 
 }

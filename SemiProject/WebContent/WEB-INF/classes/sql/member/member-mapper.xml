@@ -69,4 +69,15 @@
 		INSERT INTO MEMBER(USER_NO, USER_ID, USER_PWD, USER_NAME, NICKNAME, BIRTHDAY, GENDER, EMAIL, ADDRESS,LOGIN_TYPE)
 				 VALUES(SEQ_UNO.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 	</entry>
+	
+	<entry key="userDelete">
+		UPDATE MEMBER
+		SET STATUS = 'N'
+		WHERE USER_NAME = ?
+		AND GENDER = ?
+		AND BIRTHDAT = ?
+		ADN USER_ID = ?
+		AND USER_PWD = ?
+		AND STATUS = 'Y'
+	</entry>
 </properties>

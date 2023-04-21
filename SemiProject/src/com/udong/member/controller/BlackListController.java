@@ -36,8 +36,18 @@ public class BlackListController extends HttpServlet {
 		String page = request.getParameter("page");
 		String userNo = request.getParameter("userNo");
 		String email = request.getParameter("email");
-	
-		
+		ArrayList<Member> BlackList = new MemberService().getBlackList(page , userNo , email);
+		Integer count = userNo == null && email == null ? new MemberService().getBlackListCount() : 1;
+		int totalPage = count % 10 == 0 ? count / 10 : (count / 10) + 1;
+		int currentPage = page == null ? 1 : Integer.parseInt(page);
+		int minPage = (int) Math.floor((double)currentPage / 10) * 10 + 1;
+		int maxPage = (int) Math.ceil((double)currentPage / 10) * 10 >= totalPage ? totalPage : (int) Math.ceil(currentPage / 10) * 10; 
+		 
+		request.setAttribute("BlackList", BlackList);
+		request.setAttribute("totalPage", totalPage);
+		request.setAttribute("currentPage", currentPage);
+		request.setAttribute("minPage", minPage);
+		request.setAttribute("maxPage", maxPage);
 		
 	
 	}

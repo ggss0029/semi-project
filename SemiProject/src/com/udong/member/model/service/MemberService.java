@@ -141,9 +141,9 @@ public class MemberService {
 		return result;
 	}
 
-	public ArrayList<Member> getBlackList(String page) {
+	public ArrayList<Member> getBlackList(String page, String userNo, String email) {
 		Connection conn = JDBCTemplate.getConnection();
-		ArrayList<Member> blacklist = new MemberDao().getBlackList(conn , page);
+		ArrayList<Member> blacklist = new MemberDao().getBlackList(conn , page , userNo , email);
 		JDBCTemplate.close(conn);
 		
 		return blacklist;
@@ -157,6 +157,23 @@ public class MemberService {
 		JDBCTemplate.close(conn);
 		
 		return count;
+	}
+
+	public int userDelete(String userName, String gender, String birthday, String userId, String userPwd) {
+
+			Connection conn = JDBCTemplate.getConnection();
+			int result = new MemberDao().userDelete(conn,userName,gender,birthday,userId,userPwd);
+			
+			if(result>0) { //DML구문이니 트랜잭션 
+				JDBCTemplate.commit(conn);
+			}else {
+				JDBCTemplate.rollback(conn);
+			}
+			
+			JDBCTemplate.close(conn);
+			
+			return result;
+		
 	}
 
 

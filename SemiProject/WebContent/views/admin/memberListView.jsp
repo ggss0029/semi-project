@@ -203,12 +203,10 @@
 <script>
 	$(function(){
 		$("#search_btn").on('click' , function(){
-			var search_type = $("#userId").val();
-			var search_type = $("#email").val();
 			if(user1d==userId){
-				
-			}
 			location.href = "MemberList.me?userId="+$("#userId").val();
+			
+			}
 		});
 	});
 	
