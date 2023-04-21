@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.udong.board.news.model.dao.NewsBoardDao;
+import com.udong.board.news.model.vo.NewsAttachment;
 import com.udong.board.news.model.vo.NewsBoard;
 import com.udong.common.JDBCTemplate;
 import com.udong.common.model.vo.PageInfo;
@@ -31,5 +32,42 @@ public class NewsBoardService {
 		JDBCTemplate.close(conn);
 		
 		return nlist;
+	}
+
+	//조회수 증가 메소드
+	public int newsIncreaseCount(int newsBoardNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new NewsBoardDao().newsIncreaseCount(conn, newsBoardNo);
+		
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		return result;
+	}
+
+	//게시글 하나 조회하는 메소드
+	public NewsBoard selectNews(int newsBoardNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		NewsBoard nb = new NewsBoardDao().selectNews(conn, newsBoardNo);
+		
+		JDBCTemplate.close(conn);
+		
+		return nb;
+	}
+
+	public NewsAttachment selectNewsAttachment(int newsBoardNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		NewsAttachment na = new NewsBoardDao().selectNewsAttachment(conn, newsBoardNo);
+		
+		JDBCTemplate.close(conn);
+		
+		return na;
 	}
 }
