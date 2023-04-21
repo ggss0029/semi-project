@@ -1,3 +1,4 @@
+
 package com.udong.member.model.dao;
 
 import java.io.FileInputStream;
@@ -462,6 +463,7 @@ public class MemberDao {
 			pstmt.setString(6, m.getGender());
 			pstmt.setString(7, m.getEmail());
 			pstmt.setString(8, m.getAddress());
+			pstmt.setInt(9, m.getLoginType());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -471,6 +473,47 @@ public class MemberDao {
 		}
 		
 		return result;
+	}
+
+	public ArrayList<Member> getBlackList(Connection conn, String page) {
+		
+		ArrayList<Member> blackList = new ArrayList<Member>();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		Integer offset = 0;
+		Integer Limit = 15;
+		String sql = prop.getProperty("BlackList");
+		
+		if(page != null && !page.equals("1")) {
+			offset = (Integer.parseInt(page)-1) * 7 + 1;
+			Limit = (Integer.parseInt(page)*7);
+		}
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, offset);
+			pstmt.setInt(2, Limit);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Member member = new Member();
+				member.setUserNo(rset.getInt("USER_NO"));
+				member.setEmail(rset.getString("EMAIL"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+			
+		return blackList;
+	}
+
+	public Integer getBlackListCount(Connection conn) {
+		
+		return null;
 	}
 
 }

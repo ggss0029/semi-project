@@ -209,10 +209,6 @@
 							$(document).on("click", "#btn-naver-login", function(){ 
 								var btnNaverLogin = document.getElementById("naverIdLogin").firstChild;
 								btnNaverLogin.click();
-								<%if(request.getSession().getAttribute("alertMsg")!=null){%>
-								var alertMsg = "<%=request.getSession().getAttribute("alertMsg")%>"
-								alert(alertMsg);
-								<%}%>
 							});
   							</script>
                             <div id="findIdPwd"><a href="findIdPwdPage.jsp">아이디 찾기 / 비밀번호 찾기</a></div>
@@ -230,11 +226,15 @@
         
      <script>
         $(function(){
-          <%if(request.getSession().getAttribute("result")!=null && (int)request.getSession().getAttribute("result")!=2){%>
+          <%if(request.getSession().getAttribute("result")!=null && (int)request.getSession().getAttribute("result")==0){%>
              var loginError = "<%=request.getSession().getAttribute("loginError")%>";
              console.log(loginError);
               alert(loginError);
-          <%}%>
+          <%}else if(request.getSession().getAttribute("result")!=null && (int)request.getSession().getAttribute("result")==1){%>
+          	var loginError = "<%=request.getSession().getAttribute("loginError")%>";
+         	 console.log(loginError);
+           		alert(loginError);
+           <%}%>
              });
     </script>
         <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
@@ -260,8 +260,12 @@
 			$('input[name=birthday]').attr('value',birthday);
 			
 			document.querySelector('#form-kakao-login').submit();
-			var msg = "<%=request.getSession().getAttribute("alertMsg")%>";
-			alert(msg);
+			var msg = "<%=request.getSession().getAttribute("alertKakaoMsg")%>";
+				if(msg=="null"){
+					alert("등록된 회원 정보가 없습니다. 회원 가입으로 이동합니다.");
+				}else{
+					alert(msg);
+				}
 		          },
 		          fail: function (error) {
 		            console.log(error)

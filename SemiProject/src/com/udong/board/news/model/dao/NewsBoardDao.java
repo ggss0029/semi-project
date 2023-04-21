@@ -1,146 +1,201 @@
 package com.udong.board.news.model.dao;
 
-import java.sql.Date;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.InvalidPropertiesFormatException;
+import java.util.Properties;
+
+import com.udong.board.news.model.vo.NewsAttachment;
+import com.udong.board.news.model.vo.NewsBoard;
+import com.udong.common.JDBCTemplate;
+import com.udong.common.model.vo.PageInfo;
 
 public class NewsBoardDao {
-
-	private int boardNo;// BOARD_NO NUMBER
-	private String boardWriter;// BOARD_WRITER NUMBER --String 으로 하기
-	private String boardTitle; // BOARD_TITLE VARCHAR2(100 BYTE)
-	private String boardContent;// BOARD_CONTENT VARCHAR2(3900 BYTE)
-	private String boardName;// BOARD_NAME VARCHAR2(50 BYTE)
-	private String category;// CATEGORY VARCHAR2(50 BYTE)
-	private int count;// COUNT NUMBER
-	private Date createDate;// CREATE_DATE DATE
-	private String region;// REGION VARCHAR2(200 BYTE)
-	private String foodType;// FOOD_TYPE VARCHAR2(100 BYTE)
-	private String status;// STATUS VARCHAR2(1 BYTE)
-	private int boardReport;// BOARD_REPORT NUMBER
-
+	
+	private Properties prop = new Properties();
+	
 	public NewsBoardDao() {
-		super();
+		String filePath = NewsBoardDao.class.getResource("/sql/board/board-mapper.xml").getPath();
+		
+		try {
+			prop.loadFromXML(new FileInputStream(filePath));
+		} catch (InvalidPropertiesFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	public NewsBoardDao(int boardNo, String boardWriter, String boardTitle, String boardContent, String boardName,
-			String category, int count, Date createDate, String region, String foodType, String status,
-			int boardReport) {
-		super();
-		this.boardNo = boardNo;
-		this.boardWriter = boardWriter;
-		this.boardTitle = boardTitle;
-		this.boardContent = boardContent;
-		this.boardName = boardName;
-		this.category = category;
-		this.count = count;
-		this.createDate = createDate;
-		this.region = region;
-		this.foodType = foodType;
-		this.status = status;
-		this.boardReport = boardReport;
+	//총 게시글 개수 구하는 메소드
+	public int newsSelectListCount(Connection conn) {
+		int listCount =0;
+		ResultSet rset = null;
+		Statement stmt = null;
+		
+		String sql = prop.getProperty("newsSelectListCount");
+		
+		try {
+			stmt = conn.createStatement();
+			
+			rset = stmt.executeQuery(sql);
+			
+			if(rset.next()) {
+				listCount = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(stmt);
+		}
+		
+		return listCount;
+		
+	}
+	
+	//게시글 리스트 조회
+	public ArrayList<NewsBoard> newsSelectList(Connection conn, PageInfo pi) {
+		ArrayList<NewsBoard> nlist = new ArrayList<>();
+		
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("newsSelectList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() -1) * pi.getBoardLimit() +1;
+			int endRow = (startRow + pi.getBoardLimit()) -1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				nlist.add(new NewsBoard(rset.getInt("BOARD_NO")
+										,rset.getString("NICKNAME")
+										,rset.getString("BOARD_TITLE")
+										,rset.getInt("COUNT")
+										,rset.getDate("CREATE_DATE")));
+				//순서가 적으면 아래처럼 요롷게 하기
+//				NewsBoard nb = new NewsBoard();
+//				nb.set
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return nlist;
 	}
 
-	public int getBoardNo() {
-		return boardNo;
+	public int newsIncreaseCount(Connection conn, int newsBoardNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("newsIncreaseCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, newsBoardNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
 	}
 
-	public void setBoardNo(int boardNo) {
-		this.boardNo = boardNo;
+	//게시글 하나 조회하는 메소드
+	public NewsBoard selectNews(Connection conn, int newsBoardNo) {
+		NewsBoard nb = new NewsBoard();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("selectNews");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, newsBoardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				nb = new NewsBoard(rset.getInt("BOARD_NO")
+									,rset.getString("BOARD_TITLE")
+									,rset.getString("NICKNAME")
+									,rset.getString("BOARD_CONTENT")			
+									,rset.getDate("CREATE_DATE"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return nb;
 	}
 
-	public String getBoardWriter() {
-		return boardWriter;
+	//첨부파일 정보 조회
+	public NewsAttachment selectNewsAttachment(Connection conn, int newsBoardNo) {
+		NewsAttachment na = new NewsAttachment();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("selectNewsAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, newsBoardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				na = new NewsAttachment(rset.getInt("FILE_NO")
+										,rset.getString("ORIGIN_NAME")
+										,rset.getString("CHANGE_NAME")
+										,rset.getString("FILE_PATH"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		
+		return na;
 	}
 
-	public void setBoardWriter(String boardWriter) {
-		this.boardWriter = boardWriter;
-	}
-
-	public String getBoardTitle() {
-		return boardTitle;
-	}
-
-	public void setBoardTitle(String boardTitle) {
-		this.boardTitle = boardTitle;
-	}
-
-	public String getBoardContent() {
-		return boardContent;
-	}
-
-	public void setBoardContent(String boardContent) {
-		this.boardContent = boardContent;
-	}
-
-	public String getBoardName() {
-		return boardName;
-	}
-
-	public void setBoardName(String boardName) {
-		this.boardName = boardName;
-	}
-
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
-	public int getCount() {
-		return count;
-	}
-
-	public void setCount(int count) {
-		this.count = count;
-	}
-
-	public Date getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
-
-	public String getRegion() {
-		return region;
-	}
-
-	public void setRegion(String region) {
-		this.region = region;
-	}
-
-	public String getFoodType() {
-		return foodType;
-	}
-
-	public void setFoodType(String foodType) {
-		this.foodType = foodType;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public int getBoardReport() {
-		return boardReport;
-	}
-
-	public void setBoardReport(int boardReport) {
-		this.boardReport = boardReport;
-	}
-
-	@Override
-	public String toString() {
-		return "NewsBoardDao [boardNo=" + boardNo + ", boardWriter=" + boardWriter + ", boardTitle=" + boardTitle
-				+ ", boardContent=" + boardContent + ", boardName=" + boardName + ", category=" + category + ", count="
-				+ count + ", createDate=" + createDate + ", region=" + region + ", foodType=" + foodType + ", status="
-				+ status + ", boardReport=" + boardReport + "]";
-	}
+	
 
 }

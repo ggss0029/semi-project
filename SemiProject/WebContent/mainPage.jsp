@@ -484,7 +484,9 @@
         </script>
         
         <div class="header_2">
-            <div></div>
+            <div id="information_area">
+            	<a href="<%=contextPath %>/newsList.bo?currentPage=1">정보 공유</a>
+            </div>
             <div></div>
             <div></div>
             <div></div>

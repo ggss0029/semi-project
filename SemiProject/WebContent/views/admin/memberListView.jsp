@@ -128,7 +128,7 @@
                 <hr style="border: solid 1px gray;">
                 <a href="" id="userchk">회원 관리</a>
                 <hr style="border: solid 1px gray;">
-                <a href="" id="blacklist1">블랙 리스트</a>
+                <a href="/udong/BlackList.me" id="blacklist1">블랙 리스트</a>
                 <hr style="border: solid 1px gray;">
 
             </div>
@@ -209,8 +209,8 @@
 				
 			}
 			location.href = "MemberList.me?userId="+$("#userId").val();
-		})
-	})
+		});
+	});
 	
 	/*
 	$(function(){

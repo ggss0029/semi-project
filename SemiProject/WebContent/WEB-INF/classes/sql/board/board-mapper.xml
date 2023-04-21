@@ -45,6 +45,49 @@
 	</entry>
 
 
+	<!-- 동네소식 총 게시글 개수 구하기 -->
+	<entry key="newsSelectListCount">
+		SELECT COUNT(*) COUNT
+		FROM BOARD
+		WHERE STATUS = 'Y'
+		AND BOARD_NAME = '동네 소식' 
+	</entry>
 
-
+	<!-- 동네소식 리스트 불러오기(아직 좋아요 카운트 안불러옴) -->
+	<entry key="newsSelectList">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+        		FROM (SELECT BOARD_NO, BOARD_TITLE, NICKNAME, CREATE_DATE, COUNT
+		        		FROM BOARD B
+		        		JOIN MEMBER M ON (BOARD_WRITER = USER_NO)
+		        		WHERE B.STATUS ='Y'
+		        		ORDER BY BOARD_NO DESC) A )
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<!-- 조회수  -->
+	<entry key="newsIncreaseCount">
+		UPDATE BOARD
+		SET COUNT = COUNT +1
+		WHERE BOARD_NO = ?
+		AND STATUS = 'Y'
+	</entry>
+	
+	<!-- 게시글 하나 정보 조회하기 -->
+	<entry key="selectNews">
+		SELECT BOARD_NO, BOARD_TITLE, NICKNAME, CREATE_DATE, BOARD_CONTENT
+		FROM BOARD B
+		JOIN MEMBER M ON (BOARD_WRITER = USER_NO)
+		WHERE B.STATUS = 'Y'
+		AND BOARD_NAME = '동네 소식'
+		AND BOARD_NO = ?
+	</entry>
+	
+	<!-- 동네소식 첨푸파일 조회 -->
+	<entry key="selectNewsAttachment">
+		SELECT FILE_NO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH
+		FROM ATTACHMENT
+		WHERE REF_BNO = ?
+	</entry>
+	
 </properties>
