@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
+import com.udong.board.news.model.vo.NewsAttachment;
 import com.udong.board.news.model.vo.NewsBoard;
 import com.udong.common.JDBCTemplate;
 import com.udong.common.model.vo.PageInfo;
@@ -105,6 +106,94 @@ public class NewsBoardDao {
 			JDBCTemplate.close(pstmt);
 		}
 		return nlist;
+	}
+
+	public int newsIncreaseCount(Connection conn, int newsBoardNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("newsIncreaseCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, newsBoardNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
+	//게시글 하나 조회하는 메소드
+	public NewsBoard selectNews(Connection conn, int newsBoardNo) {
+		NewsBoard nb = new NewsBoard();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("selectNews");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, newsBoardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				nb = new NewsBoard(rset.getInt("BOARD_NO")
+									,rset.getString("BOARD_TITLE")
+									,rset.getString("NICKNAME")
+									,rset.getString("BOARD_CONTENT")			
+									,rset.getDate("CREATE_DATE"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return nb;
+	}
+
+	//첨부파일 정보 조회
+	public NewsAttachment selectNewsAttachment(Connection conn, int newsBoardNo) {
+		NewsAttachment na = new NewsAttachment();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("selectNewsAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, newsBoardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				na = new NewsAttachment(rset.getInt("FILE_NO")
+										,rset.getString("ORIGIN_NAME")
+										,rset.getString("CHANGE_NAME")
+										,rset.getString("FILE_PATH"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		
+		return na;
 	}
 
 	

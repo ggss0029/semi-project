@@ -21,6 +21,19 @@ public class NewsBoard {
 	}
 	
 	
+	
+
+	public NewsBoard(int boardNo, String boardTitle, String boardWriter,  String boardContent, Date createDate) {
+		super();
+		this.boardNo = boardNo;
+		this.boardTitle = boardTitle;
+		this.boardWriter = boardWriter;
+		this.boardContent = boardContent;
+		this.createDate = createDate;
+	}
+
+
+
 
 	public NewsBoard(int boardNo, String boardWriter, String boardTitle, int count, Date createDate) {
 		super();
@@ -154,4 +167,6 @@ public class NewsBoard {
 				+ count + ", createDate=" + createDate + ", region=" + region + ", foodType=" + foodType + ", status="
 				+ status + ", boardReport=" + boardReport + "]";
 	}
+
+
 }

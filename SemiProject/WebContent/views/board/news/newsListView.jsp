@@ -242,6 +242,11 @@
             margin: 450px 0 0 80px;
             font-size: 17px;
         }
+        
+        .list-area>tbody>tr:hover{
+        background-color: #C8EDC9;
+        cursor: pointer;
+    	}
 
         /* 글쓰기 버튼 */
         #write_btn{
@@ -436,7 +441,7 @@
 	                        </div>
                         <%} else if (loginUser != null) {%>
                         	<div align="right" id="write_btn">
-                            	<a href="<%=contextPath %>/NewsInsert.bo" class="btn btn-light">글쓰기</a>
+                            	<a href="" class="btn btn-light">글쓰기</a>
                         	</div>
                         <%} %>
                         <br>
