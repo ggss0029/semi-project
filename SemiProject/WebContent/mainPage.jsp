@@ -44,7 +44,11 @@
             width: 160px;
             height: 160px;
             margin: 10px 0.5% 10px 2%;
-            background-color: black;
+        }
+        
+        #icon>img {
+        	width: 100%;
+        	height: 100%;
         }
 
         #site_name {
@@ -52,13 +56,27 @@
             height: 160px;
             margin: 10px 0.5% 10px 2%;
         }
+        
+        #most_search_list {
+        	width: 15%;
+            margin: 3px 33.5%;
+            border: 5px solid lightgray;
+            background-color: white;
+        	position: fixed;
+        	display: none;
+        	z-index: 2;
+        }
+        
+        #most_search_list>table {
+        	width: 100%;
+        }
 
         #most_search {
             width: 15%;
             height: 63px;
             margin: 58.5px 3% 58.5px 3%;
             border: 5px solid lightgray;
-            
+            z-index: 1;
         }
 
         .swiper-slide>table {
@@ -208,7 +226,7 @@
 
         .main_swiper1 { position: relative; height: 80%; }
         .main_swiper2 { position: relative; height: 80%; }
-		.swiper { width: 100%; height: 100%; overflow: hidden; }
+		.swiper { width: 100%; height: 100%; }
         .swiper1 { position: absolute; width: 90%; height: 100%; margin: 0px 5% auto; overflow: hidden; }
         .swiper2 { position: absolute; width: 90%; height: 100%; margin: 0px 5% auto; overflow: hidden; }
         .swiper-pagination { position: absolute; margin-bottom: 10px; }
@@ -242,114 +260,177 @@
 	}
 	
 	$(function() {
+		var now = new Date();
+		console.log(now);
 		function callback() {
 			$.ajax({
 				url: "mostSearch.do",
 				success: function(mostSearch) {
-					console.log(mostSearch);
-					for(var i=0;i<mostSearch.length;i++) {
-						$(".key").eq(i).text(mostSearch[i]);
-					}
+					$(mostSearch).each(function(index, value) {
+						console.log(index + ", " + value);
 						
+						if((index+1) == $(".key").eq(index).prev().text()) {
+							$(".key").eq(index).text(value);
+							$(".key2").eq(index).text(value);
+						}
+					});
 				},
 				error: function() {
 					console.log("통신 실패");
 				}
 			});
 		}
+		
 		callback();
-		setInterval(callback, 5000); // 한 시간마다 검색어 순위 top10 가져옴
+		setInterval(callback, 60000); // 1분마다 검색어 순위 top10 가져옴
 	});
 </script>
     <div id="header">
         <div class="header_1">
             <div id="icon">
-                <img src="" alt="아이콘">
+                <img src="views/common/icons/우동2.jpg" alt="아이콘">
             </div>
             <div id="site_name">
                 <p>우동: 우리 동네</p>
                 <p>자취생을 위한 사이트</p>
             </div>
+            <div id="most_search_list">
+            	<table border="1">
+            		<tr>
+            			<td colspan="2" align="right"><button onclick="closeList();">&times;</button></td>
+            		</tr>
+            		<tr>
+	                    <td width="50" align="center" style="font-weight: 700; font-size: 22px">1</td>
+	                    <td style="font-size: 20px;" class="key"></td>
+                    </tr>
+                    <tr>
+                        <td width="50" align="center" style="font-weight: 700; font-size: 22px">2</td>
+                        <td style="font-size: 20px;" class="key"></td>
+                    </tr>
+                    <tr>
+                        <td width="50" align="center" style="font-weight: 700; font-size: 22px">3</td>
+                        <td style="font-size: 20px;" class="key"></td>
+                    </tr>
+                    <tr>
+                        <td width="50" align="center" style="font-weight: 700; font-size: 22px">4</td>
+                        <td style="font-size: 20px;" class="key"></td>
+                    </tr>
+                    <tr>
+                        <td width="50" align="center" style="font-weight: 700; font-size: 22px">5</td>
+                        <td style="font-size: 20px;" class="key"></td>
+                    </tr>
+                    <tr>
+                        <td width="50" align="center" style="font-weight: 700; font-size: 25px">6</td>
+                        <td style="font-size: 20px;" class="key"></td>
+                    </tr>
+                    <tr>
+                        <td width="50" align="center" style="font-weight: 700; font-size: 22px">7</td>
+                        <td style="font-size: 20px;" class="key"></td>
+                    </tr>
+                    <tr>
+                        <td width="50" align="center" style="font-weight: 700; font-size: 22px">8</td>
+                        <td style="font-size: 20px;" class="key"></td>
+                    </tr>
+                    <tr>
+                        <td width="50" align="center" style="font-weight: 700; font-size: 22px">9</td>
+                        <td style="font-size: 20px;" class="key"></td>
+                    </tr>
+                    <tr>
+                        <td width="50" align="center" style="font-weight: 700; font-size: 22px">10</td>
+                        <td style="font-size: 20px;" class="key"></td>
+                    </tr>
+            	</table>
+            </div>
             <div id="most_search">
                 <div class="swiper-container swiper">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide keyword1" style="">
+                        <div class="swiper-slide keyword1">
                             <table>
                                 <tr>
                                     <td width="50" align="center" style="font-weight: 700; font-size: 22px">1</td>
-                                    <td style="font-size: 20px;" class="key">가</td>
+                                    <td style="font-size: 20px;" class="key2"></td>
+                                    <td width="50" align="center" style="font-weight: 700; font-size: 30px" onclick="showList();">∨</td>
                                 </tr>
                             </table>
                         </div>
-                        <div class="swiper-slide keyword2" style="">
+                        <div class="swiper-slide keyword2">
                             <table>
                                 <tr>
                                     <td width="50" align="center" style="font-weight: 700; font-size: 22px">2</td>
-                                    <td style="font-size: 20px;" class="key">나</td>
+                                    <td style="font-size: 20px;" class="key2"></td>
+                                    <td width="50" align="center" style="font-weight: 700; font-size: 30px" onclick="showList();">∨</td>
                                 </tr>
                             </table>
                         </div>
-                        <div class="swiper-slide keyword3" style="">
+                        <div class="swiper-slide keyword3">
                             <table>
                                 <tr>
                                     <td width="50" align="center" style="font-weight: 700; font-size: 22px">3</td>
-                                    <td style="font-size: 20px;" class="key">다</td>
+                                    <td style="font-size: 20px;" class="key2"></td>
+                                    <td width="50" align="center" style="font-weight: 700; font-size: 30px" onclick="showList();">∨</td>
                                 </tr>
                             </table>
                         </div>
-                        <div class="swiper-slide keyword4" style="">
+                        <div class="swiper-slide keyword4">
                             <table>
                                 <tr>
                                     <td width="50" align="center" style="font-weight: 700; font-size: 22px">4</td>
-                                    <td style="font-size: 20px;" class="key">라</td>
+                                    <td style="font-size: 20px;" class="key2"></td>
+                                    <td width="50" align="center" style="font-weight: 700; font-size: 30px" onclick="showList();">∨</td>
                                 </tr>
                             </table>
                         </div>
-                        <div class="swiper-slide keyword5" style="">
+                        <div class="swiper-slide keyword5">
                             <table>
                                 <tr>
                                     <td width="50" align="center" style="font-weight: 700; font-size: 22px">5</td>
-                                    <td style="font-size: 20px;" class="key">마</td>
+                                    <td style="font-size: 20px;" class="key2"></td>
+                                    <td width="50" align="center" style="font-weight: 700; font-size: 30px" onclick="showList();">∨</td>
                                 </tr>
                             </table>
                         </div>
-                        <div class="swiper-slide keyword6" style="">
+                        <div class="swiper-slide keyword6">
                             <table>
                                 <tr>
-                                    <td width="50" align="center" style="font-weight: 700; font-size: 25px">6</td>
-                                    <td style="font-size: 20px;" class="key">바</td>
+                                    <td width="50" align="center" style="font-weight: 700; font-size: 22px">6</td>
+                                    <td style="font-size: 20px;" class="key2"></td>
+                                    <td width="50" align="center" style="font-weight: 700; font-size: 30px" onclick="showList();">∨</td>
                                 </tr>
                             </table>
                         </div>
-                        <div class="swiper-slide keyword7" style="">
+                        <div class="swiper-slide keyword7">
                             <table>
                                 <tr>
                                     <td width="50" align="center" style="font-weight: 700; font-size: 22px">7</td>
-                                    <td style="font-size: 20px;" class="key">사</td>
+                                    <td style="font-size: 20px;" class="key2"></td>
+                                    <td width="50" align="center" style="font-weight: 700; font-size: 30px" onclick="showList();">∨</td>
                                 </tr>
                             </table>
                         </div>
-                        <div class="swiper-slide keyword8" style="">
+                        <div class="swiper-slide keyword8">
                             <table>
                                 <tr>
                                     <td width="50" align="center" style="font-weight: 700; font-size: 22px">8</td>
-                                    <td style="font-size: 20px;" class="key">아</td>
+                                    <td style="font-size: 20px;" class="key2"></td>
+                                    <td width="50" align="center" style="font-weight: 700; font-size: 30px" onclick="showList();">∨</td>
                                 </tr>
                             </table>
                         </div>
-                        <div class="swiper-slide keyword9" style="">
+                        <div class="swiper-slide keyword9">
                             <table>
                                 <tr>
                                     <td width="50" align="center" style="font-weight: 700; font-size: 22px">9</td>
-                                    <td style="font-size: 20px;" class="key">자</td>
+                                    <td style="font-size: 20px;" class="key2"></td>
+                                    <td width="50" align="center" style="font-weight: 700; font-size: 30px" onclick="showList();">∨</td>
                                 </tr>
                             </table>
                         </div>
-                        <div class="swiper-slide keyword10" style="">
+                        <div class="swiper-slide keyword10">
                             <table>
                                 <tr>
                                     <td width="50" align="center" style="font-weight: 700; font-size: 22px">10</td>
-                                    <td style="font-size: 20px;" class="key">차</td>
+                                    <td style="font-size: 20px;" class="key2"></td>
+                                    <td width="50" align="center" style="font-weight: 700; font-size: 30px" onclick="showList();">∨</td>
                                 </tr>
                             </table>
                         </div>
@@ -359,7 +440,7 @@
             <div id="search">
                 <form action="search.do" id="search_form">
                     <div id="search_text"><input type="search" name="keyword"></div>
-                    <div id="search_btn"><button><img src="img/free-icon-magnifying-glass-49116.png" alt=""></button></div>
+                    <div id="search_btn"><button><img src="views/common/icons/free-icon-magnifying-glass-49116.png" alt=""></button></div>
                 </form>
             </div>
             <%if(loginUser==null) {%>
@@ -370,14 +451,14 @@
             <%} else { %>
             	<div id="member_area" align="center">
 					<div id="logout">
-                    	<b>채영짱 님</b> <a href="">로그아웃</a> <br>
+                    	<b><%=loginUser.getNickname() %> 님</b> <a href="">로그아웃</a> <br>
 	                </div>
 	                <div id="user_info" align="center">
 	                    <div id="myPage">
-	                        <a href="https://www.naver.com" id="myPage"><img alt="마이페이지 아이콘" src="resources/img/free-icon-user-181549.png" id="myPageIcon" style="width: 50px; height:50px;"><br>마이페이지</a>
+	                        <a href="https://www.naver.com" id="myPage"><img alt="마이페이지 아이콘" src="views/common/icons/free-icon-user-181549.png" id="myPageIcon" style="width: 50px; height:50px;"><br>마이페이지</a>
 	                    </div>
 	                    <div id="likeBoard">
-	                        <a href="https://www.daum.net" id="likeBoard"><img alt="좋아요게시글 아이콘" src="resources/img/free-icon-heart-181527.png" id="likeBoardIcon" style="width: 50px; height:50px;"><br>관심</a>
+	                        <a href="https://www.daum.net" id="likeBoard"><img alt="좋아요게시글 아이콘" src="views/common/icons/free-icon-heart-181527.png" id="likeBoardIcon" style="width: 50px; height:50px;"><br>관심</a>
 	                    </div>
 	                </div>
             	</div>
@@ -385,9 +466,18 @@
         </div>
         
         <script>
+        	function showList() {
+        		$("#most_search_list").css("display", "block");
+        	};
+        	
+        	function closeList() {
+        		$("#most_search_list").css("display", "none");
+        		swiper.autoplay.start();
+        	}
+        
         	function login() {
         		location.href = "<%=contextPath%>/views/member/loginPage.jsp";
-        	}
+        	};
         
         	function enroll() {
         		location.href = "<%=contextPath%>/enroll.me";
@@ -412,10 +502,10 @@
             <div class="content_2">
                 <div class="c3">
                     <div style="width: 85%;">
-                        <p style="font-size: 50px; font-weight: 550;">동네 맛집</p>
+                        <p style="font-size: 45px; font-weight: 500;">동네 맛집</p>
                     </div>
                     <div align="center" style="width: 15%;">
-                        <button style="margin-top:25%;">더보기 ></button>
+                        <button style="margin-top:23%; margin-left:30%;" class="btn btn-light">더보기 ></button>
                     </div>
                 </div>
                 <div class="main_swiper1">
@@ -441,10 +531,10 @@
             <div class="content_3" >
                 <div class="c4">
                     <div style="width: 85%; ">
-                        <p style="font-size: 50px; font-weight: 550;">나눔 할게요</p>
+                        <p style="font-size: 45px; font-weight: 500;">나눔 할게요</p>
                     </div>
                     <div align="center" style="width: 15%;">
-                        <button style="margin-top:25%;">더보기 ></button>
+                        <button style="margin-top:23%; margin-left:30%;" class="btn btn-light">더보기 ></button>
                     </div>
                 </div>
                 <div class="main_swiper2">
@@ -478,12 +568,12 @@
             spaceBetween: 30,
             slidesPerView: 1,
             autoplay: {
-                delay: 2000,
+                delay: 1000,
                 disableOnInteraction: false,
             },
             effect: 'slide',
             observer: true,
-            observeParents: true,
+            observeParents: true
         });
     
         let swiper1 = new Swiper('.swiper1', {
@@ -505,7 +595,7 @@
             },
             effect: 'slide',
             observer: true,
-            observeParents: true,
+            observeParents: true
         });
 
         let swiper2 = new Swiper('.swiper2', {
@@ -527,7 +617,7 @@
             },
             effect: 'slide',
             observer: true,
-            observeParents: true,
+            observeParents: true
         });
     </script>
 </body>
