@@ -31,7 +31,7 @@ public class MyFileRenamePolicy implements FileRenamePolicy{
 		//원본 파일명에서 가장 마지막부터 .을 찾고 잘라서 확장자 추출
 		String ext = originName.substring(originName.lastIndexOf("."));
 		
-		String changeName = currentTime+ranNum+ext;
+		String changeName = currentTime+"_"+ranNum+ext;
 		
 		//원본 파일을 파일명 변경하여 전달
 		return new File(originFile.getParent(),changeName); //원래 파일명의 getParent() 메소드 써서 그 경로와 바꾼 이름 같이 보내기
