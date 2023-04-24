@@ -19,6 +19,8 @@
 
         /* 전체 틀 (가로 1500 세로 2000) */
         .wrap{ 
+        	position:relative;
+            z-index:1;
             height: 2000px;
             width: 1500px;
             margin: auto;

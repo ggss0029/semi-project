@@ -4,7 +4,6 @@
 	String contextPath = request.getContextPath();
 	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 	String alertMsg = (String)request.getSession().getAttribute("alertMsg");
-	ArrayList<String> ms = new ArrayList<>();
 %>
 <%request.getSession().setAttribute("count",0);%>
 <!DOCTYPE html>
@@ -41,7 +40,7 @@
         }
 
         #icon {
-            width: 160px;
+            width: 26%;
             height: 160px;
             margin: 10px 0.5% 10px 2%;
         }
@@ -50,16 +49,10 @@
         	width: 100%;
         	height: 100%;
         }
-
-        #site_name {
-            width: 15%;
-            height: 160px;
-            margin: 10px 0.5% 10px 2%;
-        }
         
         #most_search_list {
-        	width: 15%;
-            margin: 3px 33.5%;
+        	width: 18%;
+            margin: 3px 28.5%;
             border: 5px solid lightgray;
             background-color: white;
         	position: fixed;
@@ -78,42 +71,46 @@
             border: 5px solid lightgray;
             z-index: 1;
         }
+        
+        #most_search>div {
+        	float: left;
+        }
 
         .swiper-slide>table {
             width: 100%;
             height: 100%;
         }
 
-        #search {
+        #totalSearch {
             width: 20%;
             height: 36px;
             margin: 72px 3% 72px 3%;
         }
 
-        #search_form {
+        #totalSearch_form {
             width: 100%;
             height: 100%;
         }
         
-        #search_form>div {
+        #totalSearch_form>div {
             float: left;
             height: 100%;
         }
 
-        #search_text {
-            width: 85%;
+        #totalSearch_text {
+            width: 87%;
         }
-
-        #search_btn {
-            width: 15%;
-        }
-
-        #search_btn * {
+        
+        #totalSearch_text>input {
             width: 100%;
             height: 100%;
         }
 
-        #search_form input {
+        #totalSearch_btn {
+            width: 13%;
+        }
+
+        #totalSearch_btn * {
             width: 100%;
             height: 100%;
         }
@@ -124,18 +121,12 @@
             margin: 0px 0px 0px 1%;
         }
 
-        #login {    /*로그인 버튼*/
+        #login, #enroll {
             width: 40%;
             height: 40px;
             margin: 70px 3% 70px 3%;
         }
 
-        #enroll { /*회원가입 버튼*/
-            width: 40%;
-            height: 40px;
-            margin: 70px 3% 70px 3%;
-        }
-        
         #logout {
             width: 100%;
             height: 15%;
@@ -189,9 +180,25 @@
         .c1 {
             background-color: yellow;
         }
+        
+        .c1>div {
+        	width: 100%;
+        }
+        
+        .c1_title>* {
+        	float:left;
+        }
 
         .c2 {
             background-color: green;
+        }
+        
+        .c2>div {
+        	width: 100%;
+        }
+        
+        .c2_title>* {
+        	float:left;
         }
 
         .content_2 {
@@ -226,7 +233,7 @@
 
         .main_swiper1 { position: relative; height: 80%; }
         .main_swiper2 { position: relative; height: 80%; }
-		.swiper { width: 100%; height: 100%; }
+		.swiper { width: 85%; height: 100%; }
         .swiper1 { position: absolute; width: 90%; height: 100%; margin: 0px 5% auto; overflow: hidden; }
         .swiper2 { position: absolute; width: 90%; height: 100%; margin: 0px 5% auto; overflow: hidden; }
         .swiper-pagination { position: absolute; margin-bottom: 10px; }
@@ -261,18 +268,20 @@
 	
 	$(function() {
 		var now = new Date();
-		console.log(now);
+		var hour = now.getHours();
+		var min = now.getMinutes();
+		var sec = now.getSeconds();
+		var milsec = now.getMilliseconds();
+		var renewTime = (60-min)*60*1000 + (60-sec)*1000 + (1000-milsec) - 1; // 정각까지 얼마나 차이나는지 계산
+		
 		function callback() {
 			$.ajax({
 				url: "mostSearch.do",
 				success: function(mostSearch) {
 					$(mostSearch).each(function(index, value) {
 						console.log(index + ", " + value);
-						
-						if((index+1) == $(".key2").eq(index).prev().text()) {
-							$(".key2").eq(index).text(value);
-							$(".key").eq(index).text(value);
-						}
+
+						$("."+(index+1)).text(value);
 					});
 				},
 				error: function() {
@@ -280,18 +289,19 @@
 				}
 			});
 		}
+		
+		function callback2() {
+			setInterval(callback, 1000*60*60);
+		}
 		callback();
-		setInterval(callback, 30000); // 1분마다 검색어 순위 top10 가져옴
+		setTimeout(callback, renewTime); // 시간 계산 후 정각에 가져옴
+		setTimeout(callback2, renewTime); // 정각마다 검색어 순위 top10 가져옴
 	});
 </script>
     <div id="header">
         <div class="header_1">
-            <div id="icon">
-                <img src="views/common/icons/우동2.jpg" alt="아이콘">
-            </div>
-            <div id="site_name">
-                <p>우동: 우리 동네</p>
-                <p>자취생을 위한 사이트</p>
+            <div id="icon" onclick="mainPage();">
+                <img src="views/common/icons/우동 로고.png" alt="아이콘">
             </div>
             <div id="most_search_list">
             	<table border="1">
@@ -300,43 +310,43 @@
             		</tr>
             		<tr>
 	                    <td width="50" align="center" style="font-weight: 700; font-size: 22px">1</td>
-	                    <td style="font-size: 20px;" class="key"></td>
+	                    <td style="font-size: 20px;" class="1"></td>
                     </tr>
                     <tr>
                         <td width="50" align="center" style="font-weight: 700; font-size: 22px">2</td>
-                        <td style="font-size: 20px;" class="key"></td>
+                        <td style="font-size: 20px;" class="2"></td>
                     </tr>
                     <tr>
                         <td width="50" align="center" style="font-weight: 700; font-size: 22px">3</td>
-                        <td style="font-size: 20px;" class="key"></td>
+                        <td style="font-size: 20px;" class="3"></td>
                     </tr>
                     <tr>
                         <td width="50" align="center" style="font-weight: 700; font-size: 22px">4</td>
-                        <td style="font-size: 20px;" class="key"></td>
+                        <td style="font-size: 20px;" class="4"></td>
                     </tr>
                     <tr>
                         <td width="50" align="center" style="font-weight: 700; font-size: 22px">5</td>
-                        <td style="font-size: 20px;" class="key"></td>
+                        <td style="font-size: 20px;" class="5"></td>
                     </tr>
                     <tr>
                         <td width="50" align="center" style="font-weight: 700; font-size: 25px">6</td>
-                        <td style="font-size: 20px;" class="key"></td>
+                        <td style="font-size: 20px;" class="6"></td>
                     </tr>
                     <tr>
                         <td width="50" align="center" style="font-weight: 700; font-size: 22px">7</td>
-                        <td style="font-size: 20px;" class="key"></td>
+                        <td style="font-size: 20px;" class="7"></td>
                     </tr>
                     <tr>
                         <td width="50" align="center" style="font-weight: 700; font-size: 22px">8</td>
-                        <td style="font-size: 20px;" class="key"></td>
+                        <td style="font-size: 20px;" class="8"></td>
                     </tr>
                     <tr>
                         <td width="50" align="center" style="font-weight: 700; font-size: 22px">9</td>
-                        <td style="font-size: 20px;" class="key"></td>
+                        <td style="font-size: 20px;" class="9"></td>
                     </tr>
                     <tr>
                         <td width="50" align="center" style="font-weight: 700; font-size: 22px">10</td>
-                        <td style="font-size: 20px;" class="key"></td>
+                        <td style="font-size: 20px;" class="10"></td>
                     </tr>
             	</table>
             </div>
@@ -347,8 +357,7 @@
                             <table>
                                 <tr>
                                     <td width="50" align="center" style="font-weight: 700; font-size: 22px">1</td>
-                                    <td style="font-size: 20px;" class="key2"></td>
-                                    <td width="50" align="center" style="font-weight: 700; font-size: 30px" onclick="showList();">∨</td>
+                                    <td style="font-size: 20px;" class="1"></td>
                                 </tr>
                             </table>
                         </div>
@@ -356,8 +365,7 @@
                             <table>
                                 <tr>
                                     <td width="50" align="center" style="font-weight: 700; font-size: 22px">2</td>
-                                    <td style="font-size: 20px;" class="key2"></td>
-                                    <td width="50" align="center" style="font-weight: 700; font-size: 30px" onclick="showList();">∨</td>
+                                    <td style="font-size: 20px;" class="2"></td>
                                 </tr>
                             </table>
                         </div>
@@ -365,8 +373,7 @@
                             <table>
                                 <tr>
                                     <td width="50" align="center" style="font-weight: 700; font-size: 22px">3</td>
-                                    <td style="font-size: 20px;" class="key2"></td>
-                                    <td width="50" align="center" style="font-weight: 700; font-size: 30px" onclick="showList();">∨</td>
+                                    <td style="font-size: 20px;" class="3"></td>
                                 </tr>
                             </table>
                         </div>
@@ -374,8 +381,7 @@
                             <table>
                                 <tr>
                                     <td width="50" align="center" style="font-weight: 700; font-size: 22px">4</td>
-                                    <td style="font-size: 20px;" class="key2"></td>
-                                    <td width="50" align="center" style="font-weight: 700; font-size: 30px" onclick="showList();">∨</td>
+                                    <td style="font-size: 20px;" class="4"></td>
                                 </tr>
                             </table>
                         </div>
@@ -383,8 +389,7 @@
                             <table>
                                 <tr>
                                     <td width="50" align="center" style="font-weight: 700; font-size: 22px">5</td>
-                                    <td style="font-size: 20px;" class="key2"></td>
-                                    <td width="50" align="center" style="font-weight: 700; font-size: 30px" onclick="showList();">∨</td>
+                                    <td style="font-size: 20px;" class="5"></td>
                                 </tr>
                             </table>
                         </div>
@@ -392,8 +397,7 @@
                             <table>
                                 <tr>
                                     <td width="50" align="center" style="font-weight: 700; font-size: 22px">6</td>
-                                    <td style="font-size: 20px;" class="key2"></td>
-                                    <td width="50" align="center" style="font-weight: 700; font-size: 30px" onclick="showList();">∨</td>
+                                    <td style="font-size: 20px;" class="6"></td>
                                 </tr>
                             </table>
                         </div>
@@ -401,8 +405,7 @@
                             <table>
                                 <tr>
                                     <td width="50" align="center" style="font-weight: 700; font-size: 22px">7</td>
-                                    <td style="font-size: 20px;" class="key2"></td>
-                                    <td width="50" align="center" style="font-weight: 700; font-size: 30px" onclick="showList();">∨</td>
+                                    <td style="font-size: 20px;" class="7"></td>
                                 </tr>
                             </table>
                         </div>
@@ -410,8 +413,7 @@
                             <table>
                                 <tr>
                                     <td width="50" align="center" style="font-weight: 700; font-size: 22px">8</td>
-                                    <td style="font-size: 20px;" class="key2"></td>
-                                    <td width="50" align="center" style="font-weight: 700; font-size: 30px" onclick="showList();">∨</td>
+                                    <td style="font-size: 20px;" class="8"></td>
                                 </tr>
                             </table>
                         </div>
@@ -419,8 +421,7 @@
                             <table>
                                 <tr>
                                     <td width="50" align="center" style="font-weight: 700; font-size: 22px">9</td>
-                                    <td style="font-size: 20px;" class="key2"></td>
-                                    <td width="50" align="center" style="font-weight: 700; font-size: 30px" onclick="showList();">∨</td>
+                                    <td style="font-size: 20px;" class="9"></td>
                                 </tr>
                             </table>
                         </div>
@@ -428,18 +429,20 @@
                             <table>
                                 <tr>
                                     <td width="50" align="center" style="font-weight: 700; font-size: 22px">10</td>
-                                    <td style="font-size: 20px;" class="key2"></td>
-                                    <td width="50" align="center" style="font-weight: 700; font-size: 30px" onclick="showList();">∨</td>
+                                    <td style="font-size: 20px;" class="10"></td>
                                 </tr>
                             </table>
                         </div>
                     </div>
                 </div>
+                <div style="width:15%;">
+                	<p style="font-weight: 700; font-size: 30px" onclick="showList();">∨</p>
+                </div>
             </div>
-            <div id="search">
-                <form action="search.do" id="search_form">
-                    <div id="search_text"><input type="search" name="keyword"></div>
-                    <div id="search_btn"><button><img src="views/common/icons/free-icon-magnifying-glass-49116.png" alt=""></button></div>
+            <div id="totalSearch">
+                <form action="totalSearch.do" id="totalSearch_form">
+                    <div id="totalSearch_text"><input type="search" name="totalSearch"></div>
+                    <div id="totalSearch_btn"><button><img src="views/common/icons/free-icon-magnifying-glass-49116.png" alt=""></button></div>
                 </form>
             </div>
             <%if(loginUser==null) {%>
@@ -465,6 +468,10 @@
         </div>
         
         <script>
+        	function mainPage() {
+        		location.href = "<%=contextPath%>";
+        	}
+        
         	function showList() {
         		$("#most_search_list").css("display", "block");
         	};
@@ -497,13 +504,30 @@
     <div class="outer">
         <div id="content">
             <div class="content_1">
-                <div class="c1">인기글</div>
-                <div class="c2">최신글</div>
+                <div class="c1">
+                	<div class="c1_title" style="height: 99px">
+                		<p style="padding:0; margin:20px; font-size: 40px">인기글</p>
+                		<button style="margin-left: 470px; margin-top: 30px;" class="btn btn-light" onclick="bestPost();">더보기 ></button>
+                	</div>
+                	<div style="border: 1px solid black; height:1px"></div>
+                	<div style="height: 400px">
+                	
+                	</div>
+                </div>
+                <div class="c2">
+                	<div class="c2_title" style="height: 99px">
+                		<p style="padding:0; margin:20px; font-size: 40px">최신글</p>
+                	</div>
+                	<div style="border: 1px solid black; height:1px"></div>
+                	<div style="height: 400px">
+                	
+                	</div>
+                </div>
             </div>
             <div class="content_2">
                 <div class="c3">
                     <div style="width: 85%;">
-                        <p style="font-size: 45px; font-weight: 500;">동네 맛집</p>
+                        <p style="margin:20px; font-size: 45px; font-weight: 500;">동네 맛집</p>
                     </div>
                     <div align="center" style="width: 15%;">
                         <button style="margin-top:23%; margin-left:30%;" class="btn btn-light">더보기 ></button>
@@ -532,7 +556,7 @@
             <div class="content_3" >
                 <div class="c4">
                     <div style="width: 85%; ">
-                        <p style="font-size: 45px; font-weight: 500;">나눔 할게요</p>
+                        <p style="margin:20px; font-size: 45px; font-weight: 500;">나눔 할게요</p>
                     </div>
                     <div align="center" style="width: 15%;">
                         <button style="margin-top:23%; margin-left:30%;" class="btn btn-light">더보기 ></button>
@@ -563,13 +587,17 @@
     </div>
 
     <script>
+    	function bestPost() {
+    		location.href = "<%=contextPath%>/bestPost.bo";
+    	}
+    
     	let swiper = new Swiper('.swiper', {
             direction: 'vertical',
             loop: true,
             spaceBetween: 30,
             slidesPerView: 1,
             autoplay: {
-                delay: 500,
+                delay: 2000,
                 disableOnInteraction: false,
             },
             effect: 'slide',
