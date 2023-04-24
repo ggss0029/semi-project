@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.udong.board.news.model.dao.NewsBoardDao;
 import com.udong.board.news.model.vo.NewsAttachment;
 import com.udong.board.news.model.vo.NewsBoard;
+import com.udong.board.news.model.vo.NewsReply;
 import com.udong.common.JDBCTemplate;
 import com.udong.common.model.vo.PageInfo;
 
@@ -69,5 +70,49 @@ public class NewsBoardService {
 		JDBCTemplate.close(conn);
 		
 		return na;
+	}
+
+	//댓글 작성
+	public int newsInsertReply(NewsReply r) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new NewsBoardDao().newsInsertReply(conn, r);
+		
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+
+	//댓글 목록 조회 메소드
+	public ArrayList<NewsReply> newsSelectReply(int newsBoardNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<NewsReply> rlist = new NewsBoardDao().newsSelectReply(conn, newsBoardNo);
+		
+		JDBCTemplate.close(conn);
+		
+		return rlist;
+	}
+
+	//댓글 삭제 메소드
+	public int newsDeleteReply(int newsReplyNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new NewsBoardDao().newsDeleteReply(conn, newsReplyNo);
+		
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		return result;
 	}
 }
