@@ -20,6 +20,8 @@
         }
 
         .wrap{
+        	position:relative;
+			z-index:1;
             height: 2000px;
             width: 1500px;
             margin: auto;
