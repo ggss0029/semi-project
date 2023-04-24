@@ -24,6 +24,8 @@
             box-sizing: border-box;
         }
         .wrap{
+        	position:relative;
+			z-index:1;
             height: 2000px;
             width: 1500px;
             margin: auto;
@@ -137,7 +139,7 @@
                 <p id="content_title">회원관리</p>
                 <hr style="border: solid 1px gray;">
                 <table align="center">
-                    <select name="search_type" class="userchk" >
+                    <select id="search_type" name="search_type" class="userchk" >
                         <option id="userId" value="userId">아이디</option>
                         <option id="email" value="email">이메일</option>
                         <label>
@@ -175,8 +177,10 @@
                 <td><%= member.getEmail() %></td>
                 <td><%= member.getAddress() %></td>
                 <td><%= member.getEnrollDate() %></td>
-                <td><button type="button" id="userListbtn" class="btn btn-secondary">강제추방</button></td>
-            </tr>
+                <form action="MemberListDelete.me" method="post">
+                	<td><button type="submit" id="userListbtn" class="btn btn-secondary">강제추방</button>
+					<input type="hidden" id="userNo" name="userNo" value="<%=member.getUserNo()%>"></td>
+				</form>
            <%} %>
        	 </table>
        	 <div align="center" class="paging-area">
@@ -202,15 +206,20 @@
 
 <script>
 	$(function(){
-		$("#search_btn").on('click' , function(){
-			var search_type = $("#userId").val();
-			var search_type = $("#email").val();
-			if(user1d==userId){
-				
+		var contextPath = "<%= request.getContextPath()%>";
+		$("#search_btn").click(function(){
+			var searchType = $("#search_type").val();
+			var content = $("#search_content").val();
+			if(searchType == "userId"){
+				location.href = contextPath +  "/MemberList.me?userId=" + content;
+			}else if(searchType == "email"){
+				location.href = contextPath + "/MemberList.me?email=" + content;				
 			}
-			location.href = "MemberList.me?userId="+$("#userId").val();
 		});
+	
+			 
 	});
+	
 	
 	/*
 	$(function(){
