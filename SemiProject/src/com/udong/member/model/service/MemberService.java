@@ -115,6 +115,30 @@ public class MemberService {
 		
 		return list;
 	}
+	public ArrayList<Member> getBlackList(String page, String userId, String email) {
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<Member> list = new MemberDao().getBlackList(conn , page , userId , email);
+		JDBCTemplate.close(conn);
+		
+		return list;
+		
+		
+	}
+	
+	public int blackUpdate(String userNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new MemberDao().blackUpdate(conn, userNo);
+		
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		
+		
+		return result;
+	}
 
 	public Integer getMemberListCount() {
 		Connection	conn =JDBCTemplate.getConnection();
@@ -141,15 +165,6 @@ public class MemberService {
 		return result;
 	}
 
-	public ArrayList<Member> getBlackList(String page) {
-		Connection conn = JDBCTemplate.getConnection();
-		ArrayList<Member> blacklist = new MemberDao().getBlackList(conn , page);
-		JDBCTemplate.close(conn);
-		
-		return blacklist;
-
-		
-	}
 
 	public int getBlackListCount() {
 		Connection	conn =JDBCTemplate.getConnection();
@@ -157,6 +172,37 @@ public class MemberService {
 		JDBCTemplate.close(conn);
 		
 		return count;
+	}
+
+	public int userDelete(String userId, String userPwd) {
+
+			Connection conn = JDBCTemplate.getConnection();
+			int result = new MemberDao().userDelete(conn,userId,userPwd);
+			
+			if(result>0) { //DML구문이니 트랜잭션 
+				JDBCTemplate.commit(conn);
+			}else {
+				JDBCTemplate.rollback(conn);
+			}
+			
+			JDBCTemplate.close(conn);
+			
+			return result;
+		
+	}
+
+	public int MemberListDelete(String userId) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new MemberDao().MemberListDelete(conn, userId);
+		
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		
+		return result;
 	}
 
 

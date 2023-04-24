@@ -43,6 +43,7 @@ public class MemberListControllerServlet extends HttpServlet {
 		
 		
 		ArrayList<Member> list = new MemberService().getMemberList(page , userId , email);
+		System.out.println("list : " + list.toString());
 		Integer count = userId == null && email == null ? new MemberService().getMemberListCount() : 1;
 		int totalPage = count % 7 == 0 ? count / 7 : (count / 7) + 1;
 		int currentPage = page == null ? 1 : Integer.parseInt(page);

@@ -11,6 +11,7 @@ public class Member {
 	private String nickname; //NICKNAME	VARCHAR2(40 BYTE)
 	private String birthday; //BIRTHDAY VARCHAR2(10 BYTE)
 	private String gender; // GENDER VARCHAR2(3 BYTE)
+	private String introduction; //INTRODUCTION VARCHAR2 (400 BYTE)
 	private String email; //EMAIL	VARCHAR2(100 BYTE)
 	private String address; //ADDRESS	VARCHAR2(400 BYTE)
 	private Date enrollDate; //ENROLL_DATE	DATE
@@ -19,6 +20,14 @@ public class Member {
 	private int userReport; //USER_REPORT	NUMBER
 	private int loginType; //LOGIN_TYPE	NUMBER
 	
+	public String getIntroduction() {
+		return introduction;
+	}
+
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
+	}
+
 	public Member() {
 		super();
 	}
@@ -37,9 +46,11 @@ public class Member {
 		this.loginType = loginType;
 	}
 
+	
+
 	public Member(int userNo, String userId, String userPwd, String userName, String nickname, String birthday,
-			String gender, String email, String address, Date enrollDate, String status, String admin, int userReport,
-			int loginType) {
+			String gender, String introduction, String email, String address, Date enrollDate, String status,
+			String admin, int userReport, int loginType) {
 		super();
 		this.userNo = userNo;
 		this.userId = userId;
@@ -48,6 +59,7 @@ public class Member {
 		this.nickname = nickname;
 		this.birthday = birthday;
 		this.gender = gender;
+		this.introduction = introduction;
 		this.email = email;
 		this.address = address;
 		this.enrollDate = enrollDate;
@@ -172,10 +184,13 @@ public class Member {
 	@Override
 	public String toString() {
 		return "Member [userNo=" + userNo + ", userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName
-				+ ", nickname=" + nickname + ", birthday=" + birthday + ", gender=" + gender + ", email=" + email
-				+ ", address=" + address + ", enrollDate=" + enrollDate + ", status=" + status + ", admin=" + admin
-				+ ", userReport=" + userReport + ", loginType=" + loginType + "]";
+				+ ", nickname=" + nickname + ", birthday=" + birthday + ", gender=" + gender + ", introduction="
+				+ introduction + ", email=" + email + ", address=" + address + ", enrollDate=" + enrollDate
+				+ ", status=" + status + ", admin=" + admin + ", userReport=" + userReport + ", loginType=" + loginType
+				+ "]";
 	}
+
+	
 	
 	
 
