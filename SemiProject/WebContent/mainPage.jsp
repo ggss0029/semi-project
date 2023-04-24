@@ -447,6 +447,8 @@
             </div>
             <%if(loginUser==null) {%>
             	<div id="login_area">
+            		<a href="<%=request.getContextPath()%>/views/board/writeBoard.jsp">글쓰기페이지</a>
+            		<a href="<%=request.getContextPath()%>/bestPost.bo">인기글</a>
                 	<button id="login" class="btn btn-outline-dark" onclick="login();">로그인</button>
                 	<button id="enroll" class="btn btn-outline-dark" onclick="enroll();">회원가입</button>
             	</div>
@@ -494,7 +496,9 @@
             <div id="information_area">
             	<a href="<%=contextPath %>/newsList.bo?currentPage=1">정보 공유</a>
             </div>
-            <div></div>
+            <div>
+            	<a href="<%=request.getContextPath() %>/views/member/userDelete.jsp">회원탈퇴</a>
+            </div>
             <div></div>
             <div></div>
             <div></div>

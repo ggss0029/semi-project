@@ -2,25 +2,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import ="com.udong.member.model.vo.Member"%>
 <%
-	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("blackList");
-	
+	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("BlackList");
+	int totalPage = (int)request.getAttribute("totalPage");
+	int currentPage = (int)request.getAttribute("currentPage");
+	int minPage = (int)request.getAttribute("minPage");
+	int maxPage = (int)request.getAttribute("maxPage");
+
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<meta charset="UTF-8">
- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<title>블랙리스트</title>
-<style>
+    <title>Document</title>
+    <style>
         div{
             /* border: 1px solid black; */
             box-sizing: border-box;
         }
         .wrap{
+        	position:relative;
+			z-index:1;
             height: 2000px;
             width: 1500px;
             margin: auto;
@@ -123,17 +128,37 @@
                             <th width="300px;" height="120px;">관리</th>
                         </tr>
                     </thead>
+                    <%for(Member member : list){ %>
             <tr>
-                <td></td>
-                <td></td>
-                <td><button type="button" id="blackListbtn" class="btn btn-secondary">해제</button></td>
+                <td><%= member.getUserNo() %></td>
+                <td><%= member.getEmail() %></td>
+                <form action="BlackUpdate.me" method="post">
+                	<td><button type="submit" id="blackListbtn" class="btn btn-secondary">해제</button>
+					<input type="hidden" name="userNo" value="<%=member.getUserNo()%>"></td>
+				</form>
             </tr>
+            <%} %>
+            
+
         </table>
         <br>
         <div align="center" class="paging-area">
-        	
+	         	<%if(currentPage>10) {%> <!-- 이전 버튼  10번 페이지 이전에는 뒤로갈게 없어서 나오지않는 비노출-->
+	         		<button>&lt;</button>
+	         	<%} %>
+	         	<%for(int i=minPage; i<=maxPage; i++) {%>
+		         	<%if (currentPage == i){ %>
+		         		<button style="cursor:default"><%=i %></button>
+		         	<%}else{ %>
+		      			<button onclick='location.href="/BlackList.me?page=<%=i%>"'><%=i %></button>
+		         	<%} %>
+	         	<%} %>
+	         	<%if(totalPage!=maxPage){ %>
+	         	<button>&gt;</button>
+	         	<%} %>
         
-		        </div>
+        </div>
+
             </div>
         </div>
         <div id="footer"></div>

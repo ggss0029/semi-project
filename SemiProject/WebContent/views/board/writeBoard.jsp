@@ -1,5 +1,9 @@
+<%@page import="com.udong.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -106,10 +110,13 @@
         }
         #content_1{
             /* margin-top: 76.5px;  */
-            margin-top: 60px;
+            margin-top: 50px;
             height: 90%;
             width: 90%;
             /* background-color: yellow; */
+        }
+        #boardContent{
+        	width:100%;
         }
         #doWrite{
             border-bottom: 1px solid black;
@@ -119,7 +126,7 @@
         }
         #categoryBar>div{
             float: left;
-            margin: 10px 0px;
+            margin-top:5px;
         }
         #btns>button{
             width: 100px;
@@ -132,6 +139,17 @@
             width: 1350px;
             height: 550px;
         }
+		#imgDiv>div{
+			float:left;
+			font-size:20px;
+		}
+		#restaurantDiv{
+			margin-top : 10px;
+		}
+		#imgListDiv>div{
+			 float:left;
+			 margin: 5px;
+		}
     </style>
 </head>
 <body>
@@ -143,7 +161,8 @@
         <div id="content" align="center">
             <div id="content_1">
                 <div id="doWrite">게시글 등록</div> <br>
-        <form name="form" action="">
+        <form name="form" action="<%=request.getContextPath()%>/insert.bo" method="post" enctype="multipart/form-data">
+<%--         	<input type="hidden" name="userNo" value="<%=loginUser.getUserNo() %>"> --%>
                 <div id="categoryBar" align="left">
                     <select name="boardCategory" onchange="change1(this.selectedIndex);" id="boardCategory" style="width: 870px; height: 46px; font-size: 18px;">
                         <option value="카테고리">카테고리</option>
@@ -181,19 +200,27 @@
                           /* 옵션박스추가 */
                           for (i=0; i < ctgr[add].length;i++){                     
                                             sel1.options[i] = new Option(ctgr[add][i], ctgr[add][i]);
-                            }         
+                            }
+                          if(add==4){
+                        	  $("#restaurantDiv").css("display","block");
+                        	  $("#cityCategory").css("display","none");
+                        	  $("#imgDiv").css("display","block");
+                          }else if(add==1 || add==7 || add==8){
+                        	  $("#cityCategory").css("display","block");
+                        	  $("#restaurantDiv").css("display","none");
+                          }else if(add == 5){
+                        	  $("#cityCategory").css("display","block");
+                        	  $("#restaurantDiv").css("display","none");
+                        	  $("#imgDiv").css("display","block");
+                          }else{
+                        	  $("#restaurantDiv").css("display","none");
+                        	  $("#cityCategory").css("display","none");
+                          }
                         }
                         </script>
                 </div>
                     <br>
-                    
-                    <div id="restaurantDiv">
-                    	<input type="text" name="restaurantName" class="restaurantName" style="width: 455px; height: 46px; font-size: 18px;" placeholder="맛집 이름" readonly>
-                    	<input type="text" name="restaurantAddress" class="restaurantAddress" style="width: 800px; height: 46px; font-size: 18px;" placeholder="맛집 주소" readonly> 
-                    	<button type="button" onclick="openMap();" class="btn btn-warning"style="font-size:15px; height:46px; width:86px; margin-bottom: 10px; padding: 0px;">지도 보기</button>
-                    </div>
-                    
-                    <div id="cityCategory">
+                    <div id="cityCategory" style="display:none;">
                         <select name='city' onchange="change(this.selectedIndex);"  class=input style="width: 250px; height: 46px; font-size: 18px;">
                             <option value="">시/도</option>
                             <option value='전체'>전체</option>
@@ -256,29 +283,123 @@
                     <div id="writeTitle">
                         <input type="text" name="title" placeholder="제목을 입력하세요." style="width: 1348px; height: 60px; font-size: 18px;" required>
                     </div>
+                     <div id="restaurantDiv" style="display:none; float:left;">
+                    	<input type="text" name="restaurantName" class="restaurantName" style="width: 455px; height: 46px; font-size: 18px;" placeholder="맛집 이름" readonly>
+                    	<input type="text" name="restaurantAddress" class="restaurantAddress" style="width: 800px; height: 46px; font-size: 18px;" placeholder="맛집 주소" readonly> 
+                    	<button type="button" onclick="openMap();" id="openMapBtn" class="btn btn-warning" style="font-size:15px; height:46px; width:86px; margin-bottom:10px; padding: 0px;">지도 보기</button>
+<!--                     	<button type="button" onclick="closeMap1();" id="closeMapBtn" class="btn btn-danger" style="display:none; font-size:15px; height:46px; width:86px; padding: 0px; margin:0px;">지도 끄기</button> -->
+                    </div>
                     <br>
+                    <div id="imgDiv" style="display:none; height:100%;">
+                    	<div id="imgListDiv" style="width:90%;">
+	                    	<div>
+	                    		&lt;대표 이미지&gt; <br>
+	                    		<img width="250" height="170" id="titleImg" required>
+	                    	</div>
+	                    	<div>
+	                    		&lt;이미지 1&gt; <br>
+	                    		<img id="contentImg1" width="200" height="150">
+	                    	</div>
+                    	</div>
+                    	<div id="imgBtns" style="width:10%;">
+	                    	<button class="btn btn-info" id="addBtn" onclick="addImg();" style="width:120px; height:50px; font-size:15px;">이미지 추가</button><br>
+    	                	<button class="btn btn-danger" id="delBtn" onclick="delImg();" style="width:120px; height:50px; font-size:15px;">이미지 삭제</button>
+                    	</div>
+                    </div>
+                    <script>
+                    		var count = 2;
+                    	function addImg(){
+                    		$("#imgListDiv").append("<div>&lt;이미지 "+count+"&gt;<br> <img onclick='putImg();' id='contentImg"+count+"' width='200' height='150'><div>");
+                    		$("#file-area").append("<input type='file' id='file"+count+"' name='file"+count+"' onchange='loadImg(this,"+count+");'>");
+                    		count++;
+							if($("#imgListDiv").children().length !=1){
+                    			$("#delBtn").attr("disabled",false);
+                    		}
+							if($("#imgListDiv").children().length == 9){
+								$("#addBtn").attr("disabled",true);								
+							}
+							if($("#imgListDiv").children().length>5){
+								$("#boardContent").css("height","600px");
+							}
+                    	};
+                    	function delImg(){
+                    		$("#imgListDiv").children("div").last().remove();
+                    		$("#file-area").children("input").last().remove();
+                    		count--;
+                    		if($("#imgListDiv").children().length ==1){
+                    			$("#delBtn").attr("disabled",true);
+                    		}
+                    		if($("#imgListDiv").children().length != 9){
+								$("#addBtn").attr("disabled",false);								
+							}
+                    	};
+                    	
+        				$(function(){
+        					$("#file-area").hide();
+        					$("#titleImg").click(function(){
+        						$("#thumbFile").click();
+        					});
+        					$("#contentImg"+count+").click(function(){
+        						$("#file"+count+").click();
+        					});
+        				});
+        				
+        				function putImg(){
+        					console.log(event.target);
+        					
+        				}
+        			function loadImg(inputFile,num){
+						if(inputFile.files.length == 1){
+							var reader = new FileReader();
+							reader.readAsDataURL(inputFile.files[0]);
+							reader.onload = function(e){
+								
+								switch(num){
+								case 0: $("#titleImg").attr("src",e.target.result); break;
+								case 1: $("#contentImg1").attr("src",e.target.result); break;
+								case 2: $("#contentImg2").attr("src",e.target.result); break;
+								case 3: $("#contentImg3").attr("src",e.target.result); break;
+								}
+							}
+						}else{
+							switch(num){
+							case 0: $("#titleImg").attr("src",null); break;
+							case 1: $("#contentImg1").attr("src",null); break;
+							case 2: $("#contentImg2").attr("src",null); break;
+							case 3: $("#contentImg3").attr("src",null); break;
+							}
+						}
+				}
+                    </script>
                     <div id="contentArea">
-                        <textarea name="content" id="content" cols="30" rows="30" style="resize: none; font-size: 20px;" placeholder="내용을 입력해주세요."></textarea>
+                        <textarea name="content" id="boardContent" cols="30" rows="25" style="resize: none; font-size: 20px;" placeholder="내용을 입력해주세요."></textarea>
                     </div><br>
                     <div id="upFile" align="left">
                         <input type="file" name="upfile" style="font-size: 20px;"> 
                     </div>
+                    <div id="file-area" align="center" align="left">
+						<input type="file" id="thumbFile" name="thumbFile" onchange="loadImg(this,0);" required>
+						<input type="file" id="file1" name="file1" onchange="loadImg(this,1);">
+					</div>
                     
                     <br>
                     <div id="btns" align="center">
                         <button type="submit" class="btn btn-outline-secondary">등록</button>
-                        <button class="btn btn-outline-secondary">취소</button>
+                        <button onclick="goMain();" class="btn btn-outline-secondary">취소</button>
                     </div>
          </form>
             </div>
-        
+        <script>
+        	function goMain(){
+        		location.href="<%=request.getContextPath()%>/mainPage.jsp";
+        	}        	
+        </script>
 
             <div id="mapDiv">
                 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
                 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
                 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
                 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                <button type="button" onclick="closeMap1();" class="btn btn-danger"style="font-size:15px; height:46px; width:86px; margin:3px 0px 10px 1257px; padding: 0px;">지도 끄기</button>
                     <div class="map_wrap">
                         <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
                     
@@ -519,11 +640,14 @@
                                                             function openMap(){
                                                                 $("#mapDiv").css("transform","translateY(-2060px)");
                                                                 map.relayout();
+//                                                                 $("#closeMapBtn").css("display","block");
+//                                                                 $("#openMapBtn").css("display","none");
                                                             }
 
                                                             function closeMap1(){
                                                                 $("#mapDiv").css("transform","translateY(2060px)");
-                                                                console.log("닫기 누름");
+                                                                $("#openMapBtn").css("display","block");
+                                                                $("#closeMapBtn").css("display","none");
                                                             }
 
                                                             function findInfo(){
@@ -533,7 +657,7 @@
                                                                 var address = abc.eq(2).text();
                                                                 $(".restaurantName").val(name);
                                                                 $(".restaurantAddress").val(address);
-                                                                $("#mapDiv").css("display","none");
+                                                                $("#mapDiv").css("transform","translateY(2060px)");
                                                             }
                                                             </script>
                        </div>
