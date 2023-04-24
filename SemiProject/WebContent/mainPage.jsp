@@ -494,7 +494,9 @@
             <div id="information_area">
             	<a href="<%=contextPath %>/newsList.bo?currentPage=1">정보 공유</a>
             </div>
-            <div></div>
+            <div>
+            	<a href="<%=request.getContextPath() %>/views/member/userDelete.jsp">회원탈퇴</a>
+            </div>
             <div></div>
             <div></div>
             <div></div>
