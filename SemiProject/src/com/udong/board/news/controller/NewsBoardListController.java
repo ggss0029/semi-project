@@ -33,7 +33,6 @@ public class NewsBoardListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("ffkfkffkfk");
 		//페이징 처리
 		int listCount; //현재 총 게시글의 개수
 		int currentPage; // 현재 페이지
@@ -76,7 +75,7 @@ public class NewsBoardListController extends HttpServlet {
 		//news(동네소식) 전체 리스트를 조회해와서 request에 담아 위임.
 		ArrayList<NewsBoard> nlist = new NewsBoardService().newsSelectList(pi);
 		//리스트 목록 가지고 와서 출력문으로 출력해보기
-		System.out.println(nlist); //콘솔에 null 뜸
+//		System.out.println(nlist); //콘솔에 null 뜸
 		
 		request.setAttribute("nlist", nlist);
 		request.setAttribute("pi", pi);

@@ -4,7 +4,6 @@
 <%
 	ArrayList<NewsBoard> nlist = (ArrayList<NewsBoard>)request.getAttribute("nlist");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	System.out.println(pi);
 %>
 <!DOCTYPE html>
 <html>
@@ -309,10 +308,10 @@
                 <p>정보 공유</p>
                 <div id="line_1"></div>
                 
-                <a href="" id="news">동네 소식</a>
+                <a href="<%=contextPath %>/newsList.bo?currentPage=1" id="news">동네 소식</a>
                 <div id="line_2"></div>
                 
-                <a href="" id="clean">살림 꿀팁</a>
+                <a href="<%=request.getContextPath() %>/views/board/clean/cleanListView.jsp" id="clean">살림 꿀팁</a>
                 <div id="line_3"></div>
                 
                 <a href="" id="recipe">자취 레시피</a>
@@ -501,6 +500,7 @@
 	
     <script language='javascript'>
     
+    $(function(){
     	//.list-area클래스 자손tbody 자손tr 클릭됐을때
 	    $(".list-area>tbody>tr").click(function(){
 	        //목록에 글을 클릭했을때 해당 글번호가 있어야
@@ -512,6 +512,8 @@
 	        // '/jsp/detail.no?nno='+nno
 	       	location.href = '<%=contextPath %>/newsDetail.bo?bno='+bno;
 	    });
+    	
+    });
             
 	    
         var cnt = new Array();

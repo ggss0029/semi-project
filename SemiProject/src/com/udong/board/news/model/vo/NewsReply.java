@@ -14,6 +14,19 @@ public class NewsReply {
 	public NewsReply() {
 		super();
 	}
+	
+	
+
+	public NewsReply(int replyNo, int refBno, String replyWriter, Date createDate, String replyContent ) {
+		super();
+		this.replyNo = replyNo;
+		this.refBno = refBno;
+		this.replyWriter = replyWriter;
+		this.createDate = createDate;
+		this.replyContent = replyContent;
+	}
+
+
 
 	public NewsReply(int replyNo, int refBno, String replyWriter, String replyContent, Date createDate, Date modifyDate,
 			String status) {

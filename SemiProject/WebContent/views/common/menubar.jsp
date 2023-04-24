@@ -448,12 +448,13 @@
                 	<b><%=loginUser.getNickname() %> 님</b> <a href="">로그아웃</a> <br>
 	            </div>
 	            <div id="user_info" align="center">
-	                 <div id="myPage">
-	                 	<a href="https://www.naver.com" id="myPage"><img alt="마이페이지 아이콘" src="<%=contextPath %>/views/common/icons/free-icon-user-181549.png" id="myPageIcon" style="width: 50px; height:50px;"><br>마이페이지</a>
-	                 </div>
-	                 <div id="likeBoard">
-	                 	<a href="https://www.daum.net" id="likeBoard"><img alt="좋아요게시글 아이콘" src="<%=contextPath %>/views/common/icons/free-icon-heart-181527.png" id="likeBoardIcon" style="width: 50px; height:50px;"><br>관심</a>
-	                 </div>
+	                <div id="myPage">
+	                    <a href="<%=request.getContextPath() %>/views/member/mypage/myInfo.jsp" id="myPage"><img alt="마이페이지 아이콘" src="views/common/icons/free-icon-user-181549.png" id="myPageIcon" style="width: 50px; height:50px;"><br>마이페이지</a>
+	                </div>
+	                <div id="likeBoard">
+	                	<a href="https://www.daum.net" id="likeBoard"><img alt="좋아요게시글 아이콘" src="views/common/icons/free-icon-heart-181527.png" id="likeBoardIcon" style="width: 50px; height:50px;"><br>관심</a>
+	                </div>
+
 	            </div>
         	</div>
     	<%} %>
