@@ -90,7 +90,6 @@
 		WHERE REF_BNO = ?
 	</entry>
 	
-<<<<<<< HEAD
 	<!-- 동네소식 댓글 작성 -->
 	<entry key="newsInsertReply">
 		INSERT INTO REPLY(REPLY_NO, REPLY_CONTENT, REF_BNO, REPLY_WRITER)
@@ -121,7 +120,8 @@
 		SET REPLY_CONTENT = ?
 			,MODIFY_DATE = SYSDATE
 		WHERE REPLY_NO = ?
-=======
+	</entry>
+
 	<entry key="bestPostList">
 	SELECT *
 	FROM
@@ -132,7 +132,6 @@
 	    WHERE B.STATUS='Y'
 	    GROUP BY BOARD_NO,NICKNAME,BOARD_TITLE,BOARD_CONTENT,BOARD_NAME,CATEGORY,COUNT,CREATE_DATE
 	    ORDER BY COUNT DESC)
-	<![CDATA[where rownum <= 10]]>
->>>>>>> refs/remotes/origin/main
 	</entry>
+	
 </properties>
