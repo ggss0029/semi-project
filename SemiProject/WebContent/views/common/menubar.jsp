@@ -52,7 +52,7 @@
             background-color: white;
         	position: fixed;
         	display: none;
-        	z-index: 2;
+        	z-index: 3;
         }
         
         #most_search_list>table {
@@ -546,7 +546,7 @@
 						style="border-bottom: 0.5px solid lightgray; width: 100%; height: 100%;">
 						<div id="p_img">
 							<!--프로필 없으면-->
-							<img src="img/free-icon-user-181549.png" alt="프로필사진">
+							<img src="icons/free-icon-user-181549.png" alt="프로필사진">
 							<!--프로필 있으면-->
 							<!-- <img src="" alt="프로필사진"> -->
 						</div>
