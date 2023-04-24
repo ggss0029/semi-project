@@ -87,6 +87,7 @@ public class MemberDao {
 						,rset.getString("NICKNAME")
 						,rset.getString("BIRTHDAY")
 						,rset.getString("GENDER")
+						,rset.getString("INTRODUCTION")
 						,rset.getString("EMAIL")
 						,rset.getString("ADDRESS")
 						,rset.getDate("ENROLL_DATE")
@@ -126,6 +127,7 @@ public class MemberDao {
 						,rset.getString("NICKNAME")
 						,rset.getString("BIRTHDAY")
 						,rset.getString("GENDER")
+						,rset.getString("INTRODUCTION")
 						,rset.getString("EMAIL")
 						,rset.getString("ADDRESS")
 						,rset.getDate("ENROLL_DATE")
@@ -164,6 +166,7 @@ public class MemberDao {
 						,rset.getString("NICKNAME")
 						,rset.getString("BIRTHDAY")
 						,rset.getString("GENDER")
+						,rset.getString("INTRODUCTION")
 						,rset.getString("EMAIL")
 						,rset.getString("ADDRESS")
 						,rset.getDate("ENROLL_DATE")
@@ -202,6 +205,7 @@ public class MemberDao {
 						,rset.getString("NICKNAME")
 						,rset.getString("BIRTHDAY")
 						,rset.getString("GENDER")
+						,rset.getString("INTRODUCTION")
 						,rset.getString("EMAIL")
 						,rset.getString("ADDRESS")
 						,rset.getDate("ENROLL_DATE")
@@ -261,6 +265,7 @@ public class MemberDao {
 						,rset.getString("NICKNAME")
 						,rset.getString("BIRTHDAY")
 						,rset.getString("GENDER")
+						,rset.getString("INTRODUCTION")
 						,rset.getString("EMAIL")
 						,rset.getString("ADDRESS")
 						,rset.getDate("ENROLL_DATE")
@@ -383,10 +388,8 @@ public class MemberDao {
 			
 			if (userId != null) {
 				pstmt.setString(1, userId);
-			}else if(email !=null) { pstmt.setString(1, email); 
-		  	pstmt.setString(1, email);
-		
-			
+			}else if(email !=null) {
+				pstmt.setString(1, email);
 			}else {
 				pstmt.setInt(1, offset);
 				pstmt.setInt(2, Limit);
@@ -477,7 +480,7 @@ public class MemberDao {
 
 	public ArrayList<Member> getBlackList(Connection conn, String page, String userNo, String email) {
 		
-		ArrayList<Member> blackList = new ArrayList<Member>();
+		ArrayList<Member> list = new ArrayList<Member>();
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
 		Integer offset = 0;
@@ -485,18 +488,17 @@ public class MemberDao {
 		String sql = prop.getProperty("BlackList");
 		
 		if(userNo != null) {
-			sql = prop.getProperty("MemberListWithUserId");
+			sql = prop.getProperty("BlackListWithUserNo");
 		}
 		
 		
-		 if(email !=null) {
-			 sql = prop.getProperty("MemberListWithEmail");
+		 if(email != null) {
+			 sql = prop.getProperty("BlackListWithEmail");
 		 }
-		
 		  
 		if(page != null && !page.equals("1")) {
-			offset = (Integer.parseInt(page)-1) * 7 + 1;
-			Limit = (Integer.parseInt(page)*7);
+			offset = (Integer.parseInt(page)-1) * 15 + 1;
+			Limit = (Integer.parseInt(page)*15);
 		}
 		try {
 			pstmt=conn.prepareStatement(sql);
@@ -508,6 +510,8 @@ public class MemberDao {
 				Member member = new Member();
 				member.setUserNo(rset.getInt("USER_NO"));
 				member.setEmail(rset.getString("EMAIL"));
+				
+				list.add(member);
 			}
 			
 		} catch (SQLException e) {
@@ -517,17 +521,36 @@ public class MemberDao {
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(pstmt);
 		}
-			
-		return blackList;
+		return list;
 	}
 
 	public Integer getBlackListCount(Connection conn) {
 		
-		return null;
+		Integer count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("getBlackListCount");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count=rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return count;
 	}
 
-	public int userDelete(Connection conn, String userName, String gender, String birthday, String userId,
-			String userPwd) {
+	public int userDelete(Connection conn,String userId,String userPwd) {
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -537,11 +560,8 @@ public class MemberDao {
 //			이름 성별 생년월일 아이디 비밀번호
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userName);
-			pstmt.setString(2, gender);
-			pstmt.setString(3, birthday);
-			pstmt.setString(4, userId);
-			pstmt.setString(5, userPwd);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userPwd);
 			
 			result = pstmt.executeUpdate();
 			
@@ -552,6 +572,49 @@ public class MemberDao {
 			JDBCTemplate.close(pstmt);
 		}
 		
+		
+		return result;
+	}
+	
+	public int blackUpdate(Connection conn, String userNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("blackUpdate");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userNo);
+			
+			result = pstmt.executeUpdate();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int MemberListDelete(Connection conn, String userId) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("MemberListDelete");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			result = pstmt.executeUpdate();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
 		
 		return result;
 	}

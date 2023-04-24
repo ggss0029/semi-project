@@ -2,12 +2,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import ="com.udong.member.model.vo.Member"%>
 <%
-	ArrayList<Member> blacklist = (ArrayList<Member>)request.getAttribute("BlackList");
+	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("BlackList");
 	int totalPage = (int)request.getAttribute("totalPage");
 	int currentPage = (int)request.getAttribute("currentPage");
 	int minPage = (int)request.getAttribute("minPage");
 	int maxPage = (int)request.getAttribute("maxPage");
-	
+
 %>
 <!DOCTYPE html>
 <html>
@@ -24,6 +24,8 @@
             box-sizing: border-box;
         }
         .wrap{
+        	position:relative;
+			z-index:1;
             height: 2000px;
             width: 1500px;
             margin: auto;
@@ -107,7 +109,7 @@
             <div id="content_1">
                 <p id="adminchk"><b>관리</b></p>
                 <hr style="border: solid 1px gray;">
-                <a href="" id="userchk">회원 관리</a>
+                <a href="/udong/MemberList.me" id="userchk">회원 관리</a>
                 <hr style="border: solid 1px gray;">
                 <a href="" id="blacklist1">블랙 리스트</a>
                 <hr style="border: solid 1px gray;">
@@ -126,16 +128,18 @@
                             <th width="300px;" height="120px;">관리</th>
                         </tr>
                     </thead>
-                    <%for(Member member : blacklist){ %>
+                    <%for(Member member : list){ %>
             <tr>
-                <td><%= member.getUserNo()%></td>
+                <td><%= member.getUserNo() %></td>
                 <td><%= member.getEmail() %></td>
-                <td><button type="button" id="blackListbtn" class="btn btn-secondary">해제</button></td>
+                <form action="BlackUpdate.me" method="post">
+                	<td><button type="submit" id="blackListbtn" class="btn btn-secondary">해제</button>
+					<input type="hidden" name="userNo" value="<%=member.getUserNo()%>"></td>
+				</form>
             </tr>
             <%} %>
             
 
-        
         </table>
         <br>
         <div align="center" class="paging-area">
@@ -146,7 +150,7 @@
 		         	<%if (currentPage == i){ %>
 		         		<button style="cursor:default"><%=i %></button>
 		         	<%}else{ %>
-		      			<button onclick='location.href="/MemberList.me?page=<%=i%>"'><%=i %></button>
+		      			<button onclick='location.href="/BlackList.me?page=<%=i%>"'><%=i %></button>
 		         	<%} %>
 	         	<%} %>
 	         	<%if(totalPage!=maxPage){ %>

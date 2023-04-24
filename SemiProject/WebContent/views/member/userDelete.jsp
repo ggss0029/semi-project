@@ -1,10 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.udong.member.model.vo.Member"%>
+    
+    <%
+    String contextPath = request.getContextPath(); 
+    %>
+  
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>유저탈퇴</title>
     <style>
         * {
             box-sizing: border-box;
@@ -16,6 +21,8 @@
             padding: 0;
         }
         .wrap{
+        	position:relative;
+			z-index:1;
             width: 1500px;
             height: 2000px;
             border: 1px solid black;
@@ -66,7 +73,6 @@
             position: relative;/*놓침*/
         }
 
-        /* 김여울 스타일 작업 영역 */
         .page-area{
             border: 1.5px solid darkgrey;
             background-color: white;
@@ -115,11 +121,13 @@
             padding: 5px 10px;
         }
         
+
         td .wordArea{
             width: 20%;
         }
 
 
+        
         
         input.full-size {
             width: 100%;
@@ -254,67 +262,17 @@
 
                             <hr>
 
-                            <form id="delete-form" action="delete.me" method="post">
+                            <form id="delete-form" action="<%=contextPath%>/UserDelete.me" method="post">
                     
                             <table align="center"class="tg" width="1098px">
                                
-                                <thead>
-                                <tr>
-                                    <td class="wordArea" >
-                                        <div id="userNameArea">
-                                            <label for="userName">성명 :</label>
-                                        </div>   
-                                    </td>
-                                    <td class=""><input class="full-size" type="text" id="userName" name="userName" placeholder="성명을 입력해주세요" >
-                                        <br></td>
-                                    <td class="wordArea">
-                                        <div id="genderArea">
-                                            <label for="userGender">성별 :</label>
-                                        </div>      
-                                    </td>
-                                    <td class="">
-                                        <label for="userGender"> 남 :</label>
-                                        <input type="radio" id="man" name="userGender" value="남" checked>
-                           
-                                        <label for="woman">  여 :</label>
-                                        <input type="radio" id="woman" name="userGender" value="여" ><br>
-                                    </td>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td class="wordArea"> <label for="birth-year">   생년월일 :</label></td>
-                                    <td class="" colspan="3">
-                                       
-                                        <span>
-                                            <select class="box" id="birth-year" name="birth-year">
-                                              <option disabled selected>년도</option>
-                                            </select>
-                                            </span>
-                            
-                                            <span>
-                                            <select class="box" id="birth-month" name="birth-month">
-                                              <option disabled selected>월</option>
-                                            </select>
-                                            </span>
-                            
-                                            <span>
-                                            <select class="box" id="birth-day" name="birth-day">
-                                              <option disabled selected>일</option>
-                                            </select>
-                                         </span>
-
-
-                                    </td>
-                                </tr>
+                               
                                 <tr>
                                     <td class="wordArea">
                                         <label for="userId">  아이디 :</label>
                                     </td>
-                                    <td class="userId">
-                                       <div>
-                                         		아이디 불러올 정보
-                                       </div>
+                                    <td class="tg-0lax">
+                                        <input class="full-size" type="userId" id="userId" name="userId" placeholder="아이디를 입력해주세요" ><br>
 
                                     </td>
                                     <td class="wordArea">
@@ -336,8 +294,6 @@
 
                                 <div align="center"> 
                                     <button type="submit" class="deleteAccButton">탈퇴</button>
-                                    <button type="button" class="refreshButton" onclick="history.back();">취소</button>
-                                    <!-- history.back() :이전페이지로 돌아가는 함수  -->
                                 </div>
 
                             </form>
@@ -355,4 +311,7 @@
         <div id="footer"></div>
     </div>
 </body>
+
+    
+
 </html>

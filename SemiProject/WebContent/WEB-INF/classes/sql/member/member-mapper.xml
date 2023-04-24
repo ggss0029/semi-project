@@ -45,6 +45,7 @@
 				(SELECT * FROM MEMBER) A
 		) B
 		WHERE B.ROWN BETWEEN ? AND ?
+		AND B.STATUS != 'N'
 	</entry>
 	<entry key="MemberListWithUserId">
 		SELECT 
@@ -73,11 +74,41 @@
 	<entry key="userDelete">
 		UPDATE MEMBER
 		SET STATUS = 'N'
-		WHERE USER_NAME = ?
-		AND GENDER = ?
-		AND BIRTHDAT = ?
-		ADN USER_ID = ?
+		WHERE USER_ID = ?
 		AND USER_PWD = ?
-		AND STATUS = 'Y'
+		AND STATUS != 'N'
 	</entry>
+	<entry key="BlackList">
+		SELECT
+			B.*
+		FROM (SELECT A.* , ROWNUM AS ROWN
+			FROM 
+				(SELECT * FROM MEMBER WHERE USER_REPORT >= 5) A
+		) B
+		WHERE B.ROWN BETWEEN ? AND ?
+	</entry>
+	<entry key="BlackListWithUserNo">
+		SELECT USER_NAME
+		  FROM MEMBER
+	</entry>
+	<entry key="BlackListWithEmail">
+		SELECT EMAIL
+		 FROM MEMBER
+	</entry>
+	<entry key="getBlackListCount">
+		SELECT COUNT(USER_NO) AS COUNT FROM MEMBER
+	</entry>
+	<entry key="blackUpdate">
+		UPDATE MEMBER A
+		   SET A.USER_REPORT = '0'
+		 WHERE A.USER_NO = ?
+	</entry>
+	<entry key="MemberListDelete">
+		UPDATE MEMBER A
+		SET A.STATUS = 'N'
+		WHERE A.USER_NO = ?
+		AND A.STATUS != 'N'
+	</entry>
+	
+	
 </properties>
