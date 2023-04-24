@@ -304,9 +304,9 @@
                 <img src="views/common/icons/우동 로고.png" alt="아이콘">
             </div>
             <div id="most_search_list">
-            	<table border="1">
-            		<tr>
-            			<td colspan="2" align="right"><button onclick="closeList();">&times;</button></td>
+            	<table>
+            		<tr >
+            			<td colspan="2" align="right"><button style="border:0;" onclick="closeList();">&times;</button></td>
             		</tr>
             		<tr>
 	                    <td width="50" align="center" style="font-weight: 700; font-size: 22px">1</td>
