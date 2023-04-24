@@ -17,9 +17,15 @@
         }
 
         /* 전체 틀 (가로 1500 세로 2000) */
+<<<<<<< HEAD
         .wrap{
         	position:relative;
 			z-index:1;
+=======
+        .wrap{ 
+        	position:relative;
+            z-index:1;
+>>>>>>> refs/remotes/origin/main
             height: 2000px;
             width: 1500px;
             margin: auto;
