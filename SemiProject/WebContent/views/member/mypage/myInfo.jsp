@@ -178,7 +178,7 @@
             
         }
 
-        p{ /*contente2 안에 있는 동네소식 글씨 , 위치*/
+        #content_2>p{ /*contente2 안에 있는 동네소식 글씨 , 위치*/
             position: absolute;
             top: 45px;
             left: 54px;

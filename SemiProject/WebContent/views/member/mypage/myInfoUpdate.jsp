@@ -22,7 +22,7 @@
         .wrap{
         	position:relative;
 			z-index:1;
-            height: 2000px;
+            height: 1730px;
             width: 1500px;
             margin: auto;
         }
@@ -345,10 +345,10 @@
 <body>
 	<%@ include file = "../../common/menubar.jsp" %>
 	 <div class="wrap">
-        <div id="header">
-            <div id="header_1"></div>
-            <div id="menubar"></div>
-        </div>
+<!--         <div id="header"> -->
+<!--             <div id="header_1"></div> -->
+<!--             <div id="menubar"></div> -->
+<!--         </div> -->
         <div id="content">
             <div id="content_1">
                 <p>마이페이지</p>
