@@ -6,11 +6,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
 import com.udong.board.common.model.vo.BoardCommon;
+import com.udong.board.common.model.vo.Reply;
 import com.udong.common.JDBCTemplate;
+import com.udong.common.model.vo.PageInfo;
 
 public class BoardCommonDao {
 	
@@ -49,6 +52,215 @@ public class BoardCommonDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
+
+	public int selectListCount(Connection conn) {
+
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		Statement stmt = null;
+		
+		String sql = prop.getProperty("selectSearchListCount");
+		
+		try {
+			stmt = conn.createStatement();
+			
+			rset = stmt.executeQuery(sql);
+			
+			if(rset.next()) {
+				listCount = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(stmt);
+		}
+		
+		return listCount;
+	}
+
+	public ArrayList<BoardCommon> searchKeyword(Connection conn, String keyword) {
+		
+		ArrayList<BoardCommon> list = new ArrayList<>();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("searchKeyword");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,keyword);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new BoardCommon(rset.getInt("BOARD_NO")
+								  ,rset.getString("NICKNAME")
+								  ,rset.getString("BOARD_TITLE")
+								  ,rset.getString("BOARD_NAME")
+								  ,rset.getInt("COUNT")
+								  ,rset.getDate("CREATE_DATE")
+								  ,rset.getInt("LIKECOUNT")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
+
+	public ArrayList<BoardCommon> selectSearchListTitle(Connection conn, PageInfo pi, int time, String searchInput) {
+		
+		ArrayList<BoardCommon> list = new ArrayList<>();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("selectSearchListTitle");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit()+1;
+			int endRow = (startRow+pi.getBoardLimit()) - 1;
+			
+			pstmt.setInt(1, time);
+			pstmt.setString(2, searchInput);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new BoardCommon(rset.getInt("BOARD_NO")
+								  ,rset.getString("NICKNAME")
+								  ,rset.getString("BOARD_TITLE")
+								  ,rset.getString("BOARD_NAME")
+								  ,rset.getInt("COUNT")
+								  ,rset.getDate("CREATE_DATE")
+								  ,rset.getInt("LIKECOUNT")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
+	
+	public ArrayList<BoardCommon> selectSearchListContent(Connection conn, PageInfo pi, int time, String searchInput) {
+
+		ArrayList<BoardCommon> list = new ArrayList<>();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("selectSearchListTitle");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit()+1;
+			int endRow = (startRow+pi.getBoardLimit()) - 1;
+			
+			pstmt.setInt(1, time);
+			pstmt.setString(2, searchInput);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new BoardCommon(rset.getInt("BOARD_NO")
+								  ,rset.getString("NICKNAME")
+								  ,rset.getString("BOARD_TITLE")
+								  ,rset.getString("BOARD_NAME")
+								  ,rset.getInt("COUNT")
+								  ,rset.getDate("CREATE_DATE")
+								  ,rset.getInt("LIKECOUNT")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
+
+	public ArrayList<Reply> selectSearchListReply(Connection conn, PageInfo pi, int time, String searchInput) {
+
+		ArrayList<Reply> list = new ArrayList<>();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("selectSearchListReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit()+1;
+			int endRow = (startRow+pi.getBoardLimit()) - 1;
+			
+			pstmt.setString(1, searchInput);
+			pstmt.setInt(2, time);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Reply(rset.getInt("REPLY_NO")
+								  ,rset.getInt("REF_BNO")
+								  ,rset.getString("NICKNAME")
+								  ,rset.getString("REPLY_CONTENT")
+								  ,rset.getDate("CREATE_DATE")
+								  ,rset.getDate("MODIFY_DATE")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
+
+	public ArrayList<BoardCommon> selectSearchListWriter(Connection conn, PageInfo pi, int time, String searchInput) {
+
+		ArrayList<BoardCommon> list = new ArrayList<>();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("selectSearchListWriter");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit()+1;
+			int endRow = (startRow+pi.getBoardLimit()) - 1;
+			
+			pstmt.setInt(1, time);
+			pstmt.setString(2, searchInput);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new BoardCommon(rset.getInt("BOARD_NO")
+								  ,rset.getString("NICKNAME")
+								  ,rset.getString("BOARD_TITLE")
+								  ,rset.getString("BOARD_NAME")
+								  ,rset.getInt("COUNT")
+								  ,rset.getDate("CREATE_DATE")
+								  ,rset.getInt("LIKECOUNT")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(pstmt);
 		}

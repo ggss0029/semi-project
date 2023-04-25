@@ -17,11 +17,7 @@
         }
 
         .wrap{
-<<<<<<< HEAD
             height: 1530px;
-=======
-            height: 1730px;
->>>>>>> refs/remotes/origin/main
             width: 1500px;
             margin: auto;
         }
