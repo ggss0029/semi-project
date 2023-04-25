@@ -7,6 +7,7 @@
 	String totalSearch = (String)request.getSession().getAttribute("totalSearch");
 // 	PageInfo pi = (PageInfo)request.getSession().getAttribute("pi");
 	ArrayList<BoardCommon> list = (ArrayList<BoardCommon>)request.getAttribute("list");
+	String keyword = (String)request.getAttribute("keyword");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +30,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         div{
-/*             border: 1px solid black; */
+/*             border: 1px solid black;  */
             box-sizing: border-box;
         }
 
@@ -75,6 +76,13 @@
             /* background-color: orange; */
             border: 1px solid black;
         }
+        #keywordDiv{
+        	height:10%;
+/*         	border:1px solid red; */
+        	width:100%;
+        	font-size:60px;
+        	padding-top:25px;
+        }
         #searchArea{
             width: 80%;
             height: 7%;
@@ -102,7 +110,7 @@
         #resultList{
             margin-top: 20px;
             width: 93%;
-            height: 85%;
+            height: 75%;
         }
         #listTable{
             width: 100%;
@@ -120,6 +128,13 @@
 	<%@include file="menubar.jsp"%>
     <div class="wrap">
         <div id="content" align="center">
+        <div id="keywordDiv" align="center">
+        <%if(keyword.equals("검색어 입력 안함.")){%>
+        	<%=keyword%>
+        <%}else{ %>
+        	[<%=keyword%>]에 대한 검색 결과입니다.
+        <%} %>
+        </div>
             <div id="searchArea">
                 <select name="timeRange" id="timeRange">
                     <option value="전체">기간 선택</option>
