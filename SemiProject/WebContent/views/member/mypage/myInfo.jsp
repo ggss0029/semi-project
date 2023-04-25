@@ -332,6 +332,9 @@
 </head>
 <body>
 	<%@ include file = "../../common/menubar.jsp" %>
+	<%
+	System.out.println(loginUser);
+	%>
     <div class="wrap">
         <div id="header">
             <div id="header_1"></div>
@@ -372,12 +375,12 @@
                             
                             <div id="box2">
                                 <table class="list-area" border="0">
-                                    <tr >
+                                    <tr>
                                         <th>
                                             <span style="margin-left: 10px;">회원 ID</span>
                                             <span style="color: red;"> *</span>
                                         </th>
-                                        <td colspan="3"><%=loginUser.getUserId()%></td>
+                                        <td colspan="3"><%=loginUser.getUserId() %></td>
                                     </tr>
         
                                     <tr>
@@ -412,7 +415,7 @@
                                             <span style="color: red;"> *</span>
                                         </th>
                                         <td>
-                                            <%=loginUser.getGender() %>
+                                           	 <%=loginUser.getGender() %>
                                         </td> 
                                     </tr>
         
@@ -445,7 +448,7 @@
                                             <span style="margin-left: 10px;">자기소개</span>
                                         </th>
                                         <td colspan="3">
-                                            <%=loginUser.getIntroduction() %>
+                                            	<%=loginUser.getIntroduction() %>
                                         </td>
                                     </tr>
                                 </table>
@@ -454,7 +457,7 @@
 
                         </div>
                         <div align="center" id="write_btn">
-                            <button class="btn btn-light" onclick="location.href='<%=request.getContextPath() %>/views/member/mypage/myInfoUpdate.jsp'">수정하기</button>
+                            <button class="btn btn-light" onclick="location.href='<%=contextPath %>/views/member/mypage/myInfoUpdate.jsp'">수정하기</button>
                         </div>
                         
 
