@@ -20,7 +20,7 @@
         .wrap{ 
         	position:relative;
             z-index:1;
-            height: 2000px;
+            height: 1730px;
             width: 1500px;
             margin: auto;
         }
@@ -42,11 +42,6 @@
             background-color: blue;
         }
 
-
-        #menubar{
-            height: 33%;
-            background-color: orange;
-        }
 
         #content>div{
             height: 100%;
@@ -238,7 +233,7 @@
 
         /* 게시글 테이블 */
         .list-area{
-            border: 1px solid black;
+            /*border: 1px solid black;*/
             text-align: center;
             margin: 450px 0 0 80px;
             font-size: 17px;
@@ -375,10 +370,10 @@
                     </div>
                     <div id="line_6"></div>
 
-                    <table class="list-area" border="1" align="center">
-                        <thead style="height: 50px;">
+                    <table class="list-area" border="0" align="center">
+                        <thead style="height: 50px; border-top:3px solid black; border-bottom:3px solid black;">
                             <th width="70">No.</th>
-                            <th width="400">제목</th>
+                            <th width="440">제목</th>
                             <th width="150">작성자</th>
                             <th width="150">작성일</th>
                             <th width="65">조회</th>
@@ -392,7 +387,7 @@
                         		</tr>
                         	<%} else {%> <!-- 목록이 있으면 (반복문으로 전부 출력해주기) -->
                         		<%for(NewsBoard nb : nlist) {%> <!-- 순차적으로 전부 접근할 것이기 때문에 향상된 for문 사용 -->
-		                        	<tr style="height: 40px;">
+		                        	<tr style="height: 40px; border-bottom:1px solid black;">
 		                                <td><%=nb.getBoardNo() %></td> <!-- No. -->
 		                                <td><%=nb.getBoardTitle() %></td> <!-- 제목 -->
 		                                <td><%=nb.getBoardWriter() %></td> <!-- 작성자  닉네임 -->
@@ -436,7 +431,7 @@
                         <!-- 로그인 유저가 관리자(admin일떄  글쓰기, 수정, 삭제  가능-->
                         <%if(loginUser != null && loginUser.getUserId().equals("admin")) { %> 
 	                        <div align="right" id="write_btn">
-	                            <a href="<%=contextPath %>/NewsInsert.bo" class="btn btn-light">글쓰기</a>
+	                            <a href="<%=request.getContextPath() %>/views/board/writeBoard.jsp" class="btn btn-light">글쓰기</a>
 	                            <a href="<%=contextPath %>/NewsUpdate.bo" class="btn btn-secondary">수정</a>
 	                            <a href="<%=contextPath %>/NewsDelete.bo" class="btn btn-dark">삭제</a>
 	                        </div>
@@ -514,7 +509,13 @@
 	    });
     	
     });
-            
+        
+    window.onpageshow = function(event) {
+	    if ( event.persisted || (window.performance && window.performance.navigation.type == 2)) {
+	        // Back Forward Cache로 브라우저가 로딩될 경우 혹은 브라우저 뒤로가기 했을 경우
+	        location.reload();
+	    }
+	}
 	    
         var cnt = new Array();
         cnt[0] = new Array('전체');

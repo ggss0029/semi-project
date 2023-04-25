@@ -20,7 +20,9 @@
         }
 
         .wrap{
-            height: 2000px;
+        	position:relative;
+			z-index:1;
+            height: 1730px;
             width: 1500px;
             margin: auto;
         }
@@ -195,7 +197,7 @@
 
         /* 게시글 테이블 */
         .list-area{
-            border: 1px solid black;
+            /*border: 1px solid black;*/
             text-align: center;
             margin: 380px 0 0 80px;
             font-size: 17px;
@@ -288,17 +290,17 @@
                     </div>
                     <div id="line_6"></div>
 
-                    <table class="list-area" border="1" align="center">
-                        <thead style="height: 50px;">
+                    <table class="list-area" border="0" align="center">
+                        <thead style="height: 50px; border-top:3px solid black; border-bottom:3px solid black;">
                             <th width="70">No.</th>
-                            <th width="400">제목</th>
+                            <th width="440">제목</th>
                             <th width="150">작성자</th>
                             <th width="150">작성일</th>
                             <th width="65">조회</th>
                             <th width="65">좋아요</th>
                         </thead>
                         <tbody>
-                            <tr style="height: 40px;">
+                            <tr style="height: 40px; border-bottom:1px solid black;">
                                 <td>1</td>
                                 <td>첫 게시물</td>
                                 <td>수지</td>
@@ -306,7 +308,7 @@
                                 <td>100</td>
                                 <td>1004</td>
                             </tr>
-                            <tr style="height: 40px;">
+                            <tr style="height: 40px; border-bottom:1px solid black;">
                                 <td>1</td>
                                 <td>첫 게시물</td>
                                 <td>수지</td>
@@ -314,7 +316,7 @@
                                 <td>100</td>
                                 <td>1004</td>
                             </tr>
-                            <tr style="height: 40px;">
+                            <tr style="height: 40px; border-bottom:1px solid black;">
                                 <td>1</td>
                                 <td>첫 게시물</td>
                                 <td>수지</td>
@@ -322,7 +324,7 @@
                                 <td>100</td>
                                 <td>1004</td>
                             </tr>
-                            <tr style="height: 40px;">
+                            <tr style="height: 40px; border-bottom:1px solid black;">
                                 <td>1</td>
                                 <td>첫 게시물</td>
                                 <td>수지</td>
@@ -330,7 +332,7 @@
                                 <td>100</td>
                                 <td>1004</td>
                             </tr>
-                            <tr style="height: 40px;">
+                            <tr style="height: 40px; border-bottom:1px solid black;">
                                 <td>1</td>
                                 <td>첫 게시물</td>
                                 <td>수지</td>
@@ -338,7 +340,7 @@
                                 <td>100</td>
                                 <td>1004</td>
                             </tr>
-                            <tr style="height: 40px;">
+                            <tr style="height: 40px; border-bottom:1px solid black;">
                                 <td>1</td>
                                 <td>첫 게시물</td>
                                 <td>수지</td>
@@ -346,7 +348,7 @@
                                 <td>100</td>
                                 <td>1004</td>
                             </tr>
-                            <tr style="height: 40px;">
+                            <tr style="height: 40px; border-bottom:1px solid black;">
                                 <td>1</td>
                                 <td>첫 게시물</td>
                                 <td>수지</td>
@@ -354,7 +356,7 @@
                                 <td>100</td>
                                 <td>1004</td>
                             </tr>
-                            <tr style="height: 40px;">
+                            <tr style="height: 40px; border-bottom:1px solid black;">
                                 <td>1</td>
                                 <td>첫 게시물</td>
                                 <td>수지</td>
@@ -362,7 +364,7 @@
                                 <td>100</td>
                                 <td>1004</td>
                             </tr>
-                            <tr style="height: 40px;">
+                            <tr style="height: 40px; border-bottom:1px solid black;">
                                 <td>1</td>
                                 <td>첫 게시물</td>
                                 <td>수지</td>
@@ -370,7 +372,7 @@
                                 <td>100</td>
                                 <td>1004</td>
                             </tr>
-                            <tr style="height: 40px;">
+                            <tr style="height: 40px; border-bottom:1px solid black;">
                                 <td>1</td>
                                 <td>첫 게시물</td>
                                 <td>수지</td>
@@ -378,7 +380,7 @@
                                 <td>100</td>
                                 <td>1004</td>
                             </tr>
-                            <tr style="height: 40px;">
+                            <tr style="height: 40px; border-bottom:1px solid black;">
                                 <td>1</td>
                                 <td>첫 게시물</td>
                                 <td>수지</td>
@@ -386,7 +388,7 @@
                                 <td>100</td>
                                 <td>1004</td>
                             </tr>
-                            <tr style="height: 40px;">
+                            <tr style="height: 40px; border-bottom:1px solid black;">
                                 <td>1</td>
                                 <td>첫 게시물</td>
                                 <td>수지</td>
@@ -394,7 +396,7 @@
                                 <td>100</td>
                                 <td>1004</td>
                             </tr>
-                            <tr style="height: 40px;">
+                            <tr style="height: 40px; border-bottom:1px solid black;">
                                 <td>1</td>
                                 <td>첫 게시물</td>
                                 <td>수지</td>
@@ -402,7 +404,7 @@
                                 <td>100</td>
                                 <td>1004</td>
                             </tr>
-                            <tr style="height: 40px;">
+                            <tr style="height: 40px; border-bottom:1px solid black;">
                                 <td>1</td>
                                 <td>첫 게시물</td>
                                 <td>수지</td>
@@ -410,7 +412,7 @@
                                 <td>100</td>
                                 <td>1004</td>
                             </tr>
-                            <tr style="height: 40px;">
+                            <tr style="height: 40px; border-bottom:1px solid black;">
                                 <td>1</td>
                                 <td>첫 게시물</td>
                                 <td>수지</td>
@@ -418,46 +420,7 @@
                                 <td>100</td>
                                 <td>1004</td>
                             </tr>
-                            <tr style="height: 40px;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
+                            
                         </tbody>
                         </table>
                         <br>

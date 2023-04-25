@@ -25,7 +25,7 @@
     <style>
         .wrap{
             width: 1500px;
-            height: 2000px;
+            height: 1730px;
             border: 1px solid black;
             margin: auto;
         }
