@@ -7,7 +7,6 @@
 <%
 	NewsBoard nb = (NewsBoard) request.getAttribute("newsBoard");
 	NewsAttachment na = (NewsAttachment) request.getAttribute("newsAttachment");
-	NewsReply r = (NewsReply) request.getAttribute("newsReply");
 %>
 <!DOCTYPE html>
 <html>
@@ -56,12 +55,14 @@ div {
 	border: 1px solid black;
 	width: 1440px;
 	height: 0px;
-	top: 360px;
+	top: 90px;
 	margin-left: 30px;
 }
 
 table {
 	width: 1400px;
+	
+	
 }
 
 #line_3 {
@@ -111,39 +112,86 @@ tbody>#tr2 {
 			<div id="line_1"></div>
 
 			<table border="0" align="center" id="detail-area">
-				<tr>
+				<tr style="height:80px;">
 					<td colspan="2"
 						style="height: 50px; font-size: 30px; font-weight: 600; border-bottom: 1px solid black;"><%=nb.getBoardTitle()%></td>
 				</tr>
-				<tr>
-					<td style="height: 50px; font-size: 20px; font-weight: 600;">
+				<tr style="border-bottom: 1px solid black; height:80px;">
+					<td style="height: 50px; font-size: 20px; font-weight: 600; ">
 						<a data-toggle="modal" data-target="#profile"><%=nb.getBoardWriter()%></a>
 					</td>
 					
 					<td style="height: 50px; font-size: 20px; font-weight: 600;"
 						align="right"><%=nb.getCreateDate()%></td>
 				</tr>
-				<tr>
-					<td colspan="2" style="height: auto;"><%=nb.getBoardContent()%></td>
+				<tr style="height: 700px">
+					<td colspan="2" style="height: auto; vertical-align : top "><br><%=nb.getBoardContent()%></td>
+					
 				</tr>
-				<tr>
+				<tr style="height:60px;">
 					<td colspan="2"
 						style="border-top: 1px solid black; border-bottom: 1px solid;">
-						<!-- 첨부파일이 없는 경우 첨부파일이 없습니다. --> <%
- 	if (na == null) {
- %> 첨부파일이 없습니다. <%
- 	} else {
- %> <a
-						href="<%=contextPath + na.getFilePath() + "/" + na.getChangeName()%>"
-						download="<%=na.getOriginName()%>"><%=na.getOriginName()%></a> <%
- 	}
- %>
+						<!-- 첨부파일이 없는 경우 첨부파일이 없습니다. -->
+				 	<%if (na == null) { %> 
+				 		첨부파일이 없습니다. 
+				 	<%} else { %> 
+					 <a href="<%=contextPath + na.getFilePath() + "/" + na.getChangeName()%>"
+						download="<%=na.getOriginName()%>"><%=na.getOriginName()%></a> 
+					<% } %>
 					</td>
 				</tr>
 			</table>
 
 			<div class="like-area">
-				<div class="like" style="float: left;">좋아요</div>
+					<div class="like" style="float: left;">
+						<% if (loginUser != null) %>
+							<button type="button" id="like_btn">
+								<i class="fas fa-heart"></i>
+								
+								&nbsp; 
+								<span class="like_count"></span> <!-- 추천 수 보여주기 -->
+							</button>
+					</div>
+					
+			<script>
+				$(function(){
+					//추천버튼 클릭시 (추천 추가 또는 추천 제거)
+					$.ajax({
+						url : "newsLikeUpdate.do",
+						type : "post",
+						data : {
+							newsBoardNo :  <%=nb.getBoardNo()%>,
+							userNo : userNo
+						},
+						success: function() {
+							likeCount();
+						},
+						error : function() {
+							alert("실패~")
+						}
+						
+					});
+				});
+				
+				function likeCount() {
+					$.ajax({
+						url : "newsLikeCount.do",
+						type : "post",
+						data : {
+							newsBoardNo :  <%=nb.getBoardNo()%>
+						},
+						success : function(result) {
+							$("#like_count").html(result);
+						},
+						error : function() {
+							alert("카운트 실패~")
+						}
+					});
+				};
+				
+				likeCount();
+			</script>
+				
 				<%
 					if (loginUser != null && loginUser.getUserId().equals(nb.getBoardWriter())) {
 				%>
@@ -209,6 +257,7 @@ tbody>#tr2 {
 					</div>
 -->
 				</div>
+				<br><br><br>
 			</div>
 			<script>
 				//부트 스트랩
@@ -220,8 +269,8 @@ tbody>#tr2 {
 					newsSelectReplyList();
 				});
 
+				//댓글 작성
 				function insertReply() {
-					//댓글 삽입
 					//게시글 번호 필요
 					//게시글 번호 들고가서 성공시 -> 댓글 리스트 조회함수 실행 후 textarea 작성한 것 비워주기
 					$.ajax({
@@ -244,7 +293,7 @@ tbody>#tr2 {
 					});
 				}
 
-					//댓글 목록 죄회
+				//댓글 목록 죄회
 				function newsSelectReplyList() {
 					
 					$.ajax({
@@ -257,24 +306,26 @@ tbody>#tr2 {
 									if(rlist.length < 1){
 										result = "등록한 댓글이 없습니다.";
 									}else {
-									for ( var i in rlist) {
-										result += "<div id='tabs-1'>"
-												+ "<div class='list-group'>"
-												+ "<div class='list-group-item'>"
-												+ "<h5 class='list-group-item-heading'>"
-												+ rlist[i].replyWriter
-												+ "&nbsp;&nbsp;&nbsp;&nbsp;"
-												+ rlist[i].createDate
-												+ "<button id='delete_reply' class='btn btn-dark btn-sm' onclick='newsDeleteReply(" + rlist[i].replyNo+")' style='float:right'>삭제하기</button>"
-												+ "<button id='update_reply' class='btn btn-secondary btn-sm' onclick='newsUpdateReplyForm("+ rlist[i].replyNo + ",\"" + rlist[i].replyWriter + "\"" + ",\"" + rlist[i].createDate + "\"" +",\""+ rlist[i].replyContent+"\");' style='float:right'>수정하기</button>"
-												+ "</h5>"
-												+ "<p class='list-group-item-text'>"
-												+ rlist[i].replyContent
-												+ "</p>" 
-												+ "</div>" 
-												+ "</div>"
-												+ "</div>"
-									}
+										for ( var i in rlist) {
+											result += "<div id='tabs-1'>"
+													+ "<div class='list-group'>"
+													+ "<div class='list-group-item'>"
+													+ "<span class='list-group-item-heading' style='font-size: 23px; font-weight:600'>"
+													+ rlist[i].replyWriter
+													+ "&nbsp;&nbsp;&nbsp;&nbsp;"
+													+ "</span>"
+													+ "<span style='font-size: 15px;'>"
+													+ rlist[i].createDate
+													+ "<button id='delete_reply' class='btn btn-dark btn-sm' onclick='newsDeleteReply(" + rlist[i].replyNo+")' style='float:right'>삭제하기</button>"
+													+ "<button id='update_reply' class='btn btn-secondary btn-sm' onclick='newsUpdateReplyForm("+ rlist[i].replyNo + ",\"" + rlist[i].replyWriter + "\"" + ",\"" + rlist[i].createDate + "\"" +",\""+ rlist[i].replyContent+"\");' style='float:right'>수정하기</button>"
+													+ "</span><br>"
+													+ "<p class='list-group-item-text'>"
+													+ rlist[i].replyContent
+													+ "</p>" 
+													+ "</div>" 
+													+ "</div>"
+													+ "</div>"
+										}
 									}
 									$("#tabs #tabs-1").html(result);
 								},
@@ -282,7 +333,7 @@ tbody>#tr2 {
 									alert("댓글 조회 실패!");
 								}
 							});
-					}
+					};
 					
 				
 					//댓글 삭제
@@ -290,7 +341,7 @@ tbody>#tr2 {
 						
 						$.ajax({
 							url : "newsDeleteReply.bo",
-							data : { replyNo : replyNo }, //여기서 문제남. 댓글 번호 추출.........ㅅㅂ
+							data : { replyNo : replyNo }, 
 							type : "get",
 							success : function(result) {
 								if (result > 0) {
@@ -305,30 +356,48 @@ tbody>#tr2 {
 					}
 					
 					//댓글 수정 폼
-					function newsUpdateReplyForm(replyNo, replyWriter, createDate,replyContent) {
+					function newsUpdateReplyForm(replyNo, replyWriter, createDate, replyContent) {
 								var result = "";
 									result += "<div id='tabs-1'>"
 											+ "<div class='list-group'>"
 											+ "<div class='list-group-item'>"
-											+ "<h5 class='list-group-item-heading'>"
+											+ "<span class='list-group-item-heading' style='font-size: 25px'>"
 											+ replyWriter
 											+ "&nbsp;&nbsp;&nbsp;&nbsp;"
 											+ createDate
+											+ "<button id='cancel_reply' class='btn btn-dark btn-sm' onclick='newsSelectReplyList()' style='float:right'>취소</button> "
 											+ "<button id='update_reply' class='btn btn-secondary btn-sm' onclick='newsUpdateReply("+replyNo+")' style='float:right'>수정하기</button>"
-											+ " <button id='cancel_reply' class='btn btn-dark btn-sm' onclick='newsSelectReplyList()'>취소</button> "
-											+ "</h5>"
+											+ "</span>"
 											+ "<p class='list-group-item-text'>"
 											+ "<textarea id='changeContent' rows='3' class='form-control' style='resize: none;'>"+replyContent+"</textarea>"
 											+ "</p>" 
 											+ "</div>" 
 											+ "</div>"
 											+ "</div>"
-								}
-								}
+									
 								$("#tabs #tabs-1").html(result);
 					}
 					
-					function newsUpdateReply(replyNo,)
+					
+					function newsUpdateReply(replyNo, newContent) {
+						
+						var newContent = $("#changeContent").val();
+						$.ajax({
+							url:"newsUpdateReply.bo",
+							type:"post",
+							data: {
+								replyNo : replyNo,
+								content : newContent
+							},
+							success : function(result) {
+								alert("댓글이 수정되었습니다.");
+								newsSelectReplyList();
+							},
+							error : function() {
+								alert("댓글 수정 실패...");
+							}
+						});
+					}
 				
 				
 						

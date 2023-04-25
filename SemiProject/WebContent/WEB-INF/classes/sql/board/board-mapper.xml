@@ -120,6 +120,7 @@
 		SET REPLY_CONTENT = ?
 			,MODIFY_DATE = SYSDATE
 		WHERE REPLY_NO = ?
+		AND STATUS = 'Y'
 	</entry>
 
 	<entry key="bestPostList">

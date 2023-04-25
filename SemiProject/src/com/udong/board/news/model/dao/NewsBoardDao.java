@@ -280,6 +280,28 @@ public class NewsBoardDao {
 		return result;
 	}
 
+	public int newsUpdateReply(Connection conn, int newsReplyNo, String content) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("newsUpdateReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, content);
+			pstmt.setInt(2, newsReplyNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
 	
 
 }
