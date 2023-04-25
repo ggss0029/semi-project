@@ -24,6 +24,20 @@ public class BoardCommon {
 	
 	
 
+	public BoardCommon(int boardNo, String boardWriter, String boardTitle, String boardName, int count, Date createDate,
+			int likeCount) {
+		super();
+		this.boardNo = boardNo;
+		this.boardWriter = boardWriter;
+		this.boardTitle = boardTitle;
+		this.boardName = boardName;
+		this.count = count;
+		this.createDate = createDate;
+		this.likeCount = likeCount;
+	}
+
+
+
 	public BoardCommon(int boardNo, String boardWriter, String boardTitle, String boardContent, String boardName,
 			String category, int count, Date createDate, int likeCount) {
 		super();

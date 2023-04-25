@@ -339,8 +339,8 @@
         					$("#titleImg").click(function(){
         						$("#thumbFile").click();
         					});
-        					$("#contentImg"+count+").click(function(){
-        						$("#file"+count+").click();
+        					$("#contentImg"+count).click(function(){
+//         						$("#file"+count).click();
         					});
         				});
         				

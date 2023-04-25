@@ -1,11 +1,16 @@
 package com.udong.common;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.udong.board.common.model.service.BoardCommonService;
+import com.udong.board.common.model.vo.BoardCommon;
 
 /**
  * Servlet implementation class TotalSearchController
@@ -27,8 +32,11 @@ public class TotalSearchController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String totalSearch = request.getParameter("totalSearch");
-		request.getSession().setAttribute("totalSearch", totalSearch);
+		String keyword = request.getParameter("totalSearch");
+		
+		ArrayList<BoardCommon> list = new BoardCommonService().searchKeyword(keyword);
+		
+		request.setAttribute("list", list);
 		request.getRequestDispatcher("views/common/totalSearchPage.jsp").forward(request, response);
 	}
 
