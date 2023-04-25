@@ -17,6 +17,8 @@
         }
 
         .wrap{
+      		position:relative;
+			z-index:1;
             height: 1530px;
             width: 1500px;
             margin: auto;
@@ -85,14 +87,6 @@
 <body>
 	<%@include file="menubar.jsp"%>
     <div class="wrap">
-<<<<<<< HEAD
-<!--         <div id="header"> -->
-<!--             <div id="header_1"></div> -->
-<!--             <div id="menubar"></div> -->
-<!--         </div> -->
-=======
-
->>>>>>> refs/remotes/origin/main
         <div id="content" align="center">
             <div id="content_1">
                 <div id="doWrite">오늘의 인기글</div> <br>

@@ -332,9 +332,6 @@
 </head>
 <body>
 	<%@ include file = "../../common/menubar.jsp" %>
-	<%
-	System.out.println(loginUser);
-	%>
     <div class="wrap">
         <div id="header">
             <div id="header_1"></div>

@@ -102,7 +102,6 @@ public class TotalSearchControllerServlet extends HttpServlet {
 			request.getSession().setAttribute("checkReply", 1);
 		}else if(detailRange.contentEquals("작성자")) {
 			ArrayList<BoardCommon> list = new BoardCommonService().selectSearchListWriter(pi,time,searchInput);
-			System.out.println(list);
 			total.add(list);
 		}
 		

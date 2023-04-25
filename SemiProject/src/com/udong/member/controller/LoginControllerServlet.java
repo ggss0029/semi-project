@@ -49,7 +49,6 @@ public class LoginControllerServlet extends HttpServlet {
 		int result = new MemberService().checkInfo(inputId,inputPwd); // 0 : 아이디 틀림 1: 비번 틀림 2: 로그인 가능
 		
 		Member loginUser = new MemberService().loginMember(inputId,inputPwd); //inputId에 대한 멤버 정보가 다 담겨있는 객체
-		System.out.println(loginUser);
 		
 		request.getSession().setAttribute("result",result);
 		if(result==2) { //로그인 가능
