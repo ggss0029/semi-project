@@ -60,7 +60,7 @@
         		FROM (SELECT BOARD_NO, BOARD_TITLE, NICKNAME, CREATE_DATE, COUNT
 		        		FROM BOARD B
 		        		JOIN MEMBER M ON (BOARD_WRITER = USER_NO)
-		        		WHERE B.STATUS ='Y'
+		        		WHERE B.STATUS ='Y' AND BOARD_NAME = '동네 소식'
 		        		ORDER BY BOARD_NO DESC) A )
 		WHERE RNUM BETWEEN ? AND ?
 	</entry>
@@ -120,6 +120,7 @@
 		SET REPLY_CONTENT = ?
 			,MODIFY_DATE = SYSDATE
 		WHERE REPLY_NO = ?
+		AND STATUS = 'Y'
 	</entry>
 
 	<entry key="bestPostList">
