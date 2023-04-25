@@ -272,10 +272,10 @@
 <body>
 	<%@ include file = "../../common/menubar.jsp" %>
 	 <div class="wrap">
-        <div id="header">
-            <div id="header_1"></div>
-            <div id="menubar"></div>
-        </div>
+<!--         <div id="header"> -->
+<!--             <div id="header_1"></div> -->
+<!--             <div id="menubar"></div> -->
+<!--         </div> -->
         <div id="content">
             <div id="content_1">
                 <p>마이페이지</p>

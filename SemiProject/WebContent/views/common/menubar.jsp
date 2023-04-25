@@ -32,6 +32,11 @@
         .header>div {
             float: left;
             box-sizing: border-box;
+        } 
+        
+        .header a {
+        	text-decoration: none;
+            color: black;
         }
 
         #icon {
@@ -52,7 +57,7 @@
             background-color: white;
         	position: fixed;
         	display: none;
-        	z-index: 2;
+        	z-index: 3;
         }
         
         #most_search_list>table {
@@ -123,21 +128,26 @@
         }
         
         #logout {
+        	margin-top: 5%;
+        	margin-bottom: 5%;
             width: 100%;
             height: 15%;
-            margin: 10px auto;
         }
         
         #user_info {
             width: 100%;
-            height: 70%;
-            margin: 30px 5%;
+            height: 75%;
         }
         
         #user_info>div {
             width: 50%;
             height: 100%;
             float: left;
+        }
+        
+        #myPage * {
+        	width: 100%;
+        	height: 100%
         }
 
         .menubar {
@@ -247,6 +257,7 @@
         	padding: 0;
         	margin: 0;
       	}
+      	
     </style>
 </head>
 
@@ -296,7 +307,7 @@
             <img src="<%=contextPath %>/views/common/icons/우동 로고.png" alt="아이콘">
         </div>
         <div id="most_search_list">
-            <table border="1">
+            <table>
             	<tr>
             		<td colspan="2" align="right"><button onclick="closeList();">&times;</button></td>
             	</tr>
@@ -445,16 +456,19 @@
     	<%} else { %>
         	<div id="member_area" align="center">
 				<div id="logout">
-                	<b><%=loginUser.getNickname() %> 님</b> <a href="">로그아웃</a> <br>
+                	<b style="font-size: 20px;"><%=loginUser.getNickname() %> 님</b> <a href="">로그아웃</a> <br>
 	            </div>
 	            <div id="user_info" align="center">
 	                <div id="myPage">
+<<<<<<< HEAD
+	                    <a href="<%=contextPath %>/views/member/mypage/myInfo.jsp" id="myPage"><img alt="마이페이지 아이콘" src="<%=contextPath %>/views/common/icons/free-icon-person-5393061.png" id="myPageIcon" style="width: 80px; height:80px;"><br>마이페이지</a>
+=======
 	                    <a href="<%=contextPath %>/views/member/mypage/myInfo.jsp" id="myPage"><img alt="마이페이지 아이콘" src="views/common/icons/free-icon-user-181549.png" id="myPageIcon" style="width: 50px; height:50px;"><br>마이페이지</a>
+>>>>>>> refs/remotes/origin/main
 	                </div>
 	                <div id="likeBoard">
-	                	<a href="https://www.daum.net" id="likeBoard"><img alt="좋아요게시글 아이콘" src="views/common/icons/free-icon-heart-181527.png" id="likeBoardIcon" style="width: 50px; height:50px;"><br>관심</a>
+	                	<a href="https://www.daum.net" id="likeBoard"><img alt="좋아요게시글 아이콘" src="<%=contextPath %>/views/common/icons/free-icon-heart-5392920.png" id="likeBoardIcon" style="width: 80px; height:80px;"><br>관심</a>
 	                </div>
-
 	            </div>
         	</div>
     	<%} %>
@@ -486,9 +500,9 @@
     <div class="menubar">
         <ul id="menu">
             <li style="margin-left:2%">
-                <a href="">정보 공유</a>
+                <a>정보 공유</a>
                 <ul>
-                    <li><a href="">동네 소식</a></li>
+                    <li><a href="<%=contextPath %>/newsList.bo?currentPage=1">동네 소식</a></li>
                     <li><a href="">살림 꿀팁</a></li>
                     <li><a href="">자취 레시피</a></li>
                 </ul>
@@ -543,11 +557,10 @@
 
 				<!-- Modal body -->
 				<div class="modal-body" style="box-sizing: border-box;">
-					<div
-						style="border-bottom: 0.5px solid lightgray; width: 100%; height: 100%;">
+					<div style="border-bottom: 0.5px solid lightgray; width: 100%; height: 100%;">
 						<div id="p_img">
 							<!--프로필 없으면-->
-							<img src="img/free-icon-user-181549.png" alt="프로필사진">
+							<img src="<%=contextPath %>/views/member/icons/free-icon-user-181549.png" alt="프로필사진">
 							<!--프로필 있으면-->
 							<!-- <img src="" alt="프로필사진"> -->
 						</div>

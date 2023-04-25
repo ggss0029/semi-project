@@ -171,7 +171,7 @@
             left: 12px;
             
         }
-
+        
         #pp{ /*contente2 안에 있는 나의 정보 글씨 , 위치*/
             position: absolute;
             top: 45px;
@@ -362,7 +362,7 @@
             </div>
             <div id="content_2">
                 <div id="content_2_1">
-                    <p id="pp">나의 정보</p>
+                    <p>나의 정보</p>
                     <div id="line_7"></div>
                         <p id="p1">프로필</p>
                         <div id="box">
@@ -380,7 +380,7 @@
                                             <span style="margin-left: 10px;">회원 ID</span>
                                             <span style="color: red;"> *</span>
                                         </th>
-                                        <td colspan="3"><%=loginUser.getUserId() %></td>
+                                        <td colspan="3">ggss0029</td>
                                     </tr>
         
                                     <tr>
