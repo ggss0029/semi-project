@@ -309,13 +309,19 @@
                             </ul>
                         </div>
                         
+                    <form action="<%=contextPath %>/update.me" method="post" id="myInfoUpdate" entype="multipart/form-data">
+                    
+                    	<!-- 폼 태그 안에 데이터 숨겨서 보내기 -->
+                    	<input type="hidden" name="userId" value="<%=loginUser.getUserId()%>">
                         <table class="list-area" border="0">
                             <tr style="border-bottom: 2px solid gray;">
                                 <th>
                                     <span style="margin-left: 10px;">회원 ID</span>
                                     <span style="color: red;"> *</span>
                                 </th>
-                                <td colspan="3"><input type="text"disabled></td>
+                                <td colspan="3">
+                                	<input type="text" name="userId" value="<%=loginUser.getUserId() %>" disabled>
+                                </td>
                             </tr>
 
                             <tr style="border-bottom: 2px solid gray;">
@@ -323,7 +329,9 @@
                                     <span style="margin-left: 10px;">이름</span>
                                     <span style="color: red;"> *</span>
                                 </th>
-                                <td colspan="3"><input type="text" disabled></td>
+                                <td colspan="3">
+                                	<input type="text" name="userName" value="<%=loginUser.getUserName() %>" disabled>
+                                </td>
                             </tr>
 
                             <tr style="border-bottom: 2px solid gray;">
@@ -331,7 +339,12 @@
                                     <span style="margin-left: 10px;">닉네임</span>
                                     <span style="color: red;"> *</span>
                                 </th>
-                                <td colspan="3"><input type="text"></td>
+                                <td colspan="3">
+                                	<input type="text" name="nickName" value="<%=loginUser.getNickname() %>" required>
+                                	<button>중복 확인</button>
+                                	<sup style="font-size: 5px; color: red;"></sup>
+                        			<sup style="font-size: 5px; color: green;"></sup>
+                                </td>
                             </tr>
 
                             <tr style="border-bottom: 2px solid gray;">
@@ -339,21 +352,33 @@
                                     <span style="margin-left: 10px;">현재 비밀번호</span>
                                     <span style="color: red;"> *</span>
                                 </th>
-                                <td colspan="3"><input type="password"></td>
+                                <td colspan="3">
+                                	<input type="password" name="userPwd" id="userPwd" required>
+                                	<sup style="font-size: 5px; color: red;"></sup>
+                        			<sup style="font-size: 5px; color: green;"></sup>
+                                </td>
                             </tr>
 
                             <tr style="border-bottom: 2px solid gray;">
                                 <th>
                                     <span style="margin-left: 10px;">비밀번호 변경</span>
                                 </th>
-                                <td colspan="3"><input type="password"></td>
+                                <td colspan="3">
+                                	<input type="password" name="updatePwd" id="updatePwd" placeholder="변경 시에만 입력">
+                                	<sup style="font-size: 5px; color: red;"></sup>
+                        			<sup style="font-size: 5px; color: green;"></sup>
+                                </td>
                             </tr>
 
                             <tr style="border-bottom: 2px solid gray;">
                                 <th>
                                     <span style="margin-left: 10px;">비밀번호 변경 확인</span>
                                 </th>
-                                <td colspan="3"><input type="password"></td>
+                                <td colspan="3">
+                                	<input type="password" name="chkPwd" id="chkPwd" placeholder="변경 시에만 입력">
+                                	<sup style="font-size: 5px; color: red;"></sup>
+                        			<sup style="font-size: 5px; color: green;"></sup>
+                                </td>
                             </tr>
 
                             <tr style="border-bottom: 2px solid gray;">
@@ -362,9 +387,7 @@
                                     <span style="color: red;"> *</span>
                                 </th>
                                 <td style="width: 430px;">
-                                    <select name="yy" id="year"></select>
-                                    <select name="mm" id="month"></select>
-                                    <select name="dd" id="day"></select>
+                                    <%=loginUser.getBirthday() %>
                                 </td>
 
                                 <th style="width: 100px">
@@ -372,8 +395,14 @@
                                     <span style="color: red;"> *</span>
                                 </th>
                                 <td>
-                                    <input type="radio" name="girl" id="girl"><label for="girl">여자</label> 
-                                    <input type="radio" name="boy" id="boy"><label for="boy">남자</label>
+                                	<!-- 성별이 여자인 경우 -->
+                                	<% if(loginUser.getGender().equals("여")) {%>
+	                                    <input type="radio" name="gender" id="girl" value="여" checked disabled><label for="girl">여자</label>	
+	                                    <input type="radio" name="gender" id="boy" value="남" disabled><label for="boy">남자</label>
+                                    <%} else { %> <!-- 성별이 남자인 ㄱㅇ우 -->
+                                    	<input type="radio" name="gender" id="girl" value="여" disabled><label for="girl">여자</label>	
+                                    	<input type="radio" name="gender" id="boy" value="남" checked disabled><label for="boy">남자</label>
+                                    <%} %>
                                 </td>
                             </tr>
 
@@ -383,9 +412,10 @@
                                     <span style="color: red;"> *</span>
                                 </th>
                                 <td colspan="3">
-                                    <input type="email">
+                                    <input type="email" name="email" value="<%=loginUser.getEmail()%>" required>
+                                    <button>인증</button>
                                 </td>
-                            </tr style="border-bottom: 2px solid gray;">
+                            </tr>
 
                             <tr style="border-bottom: 2px solid gray;">
                                 <th>
@@ -429,8 +459,10 @@
                     
                         <br><br><br>
                         <div align="center" id="write_btn">
-                            <button class="btn btn-light">등록하기</button>
+                            <button type="submit" class="btn btn-light" onclick="updateInfoConfirm();">등록하기</button>
                         </div>
+                        
+                </form>
                         <br><br>
 
                 </div>
@@ -440,6 +472,22 @@
     </div>
 
     <script>
+    
+    	
+    	
+    	function updateInfoConfirm() {
+    		var loginPwd ="<%=loginUser.getUserPwd()%>";
+    		var inputPwd = $("#userPwd").val();
+    		var updatePwd = $("#updatePwd").val();
+    		var chkPwd = $("#chkPwd").val();
+    		
+    		if(loginPwd == inputPwd) {
+    			if(updatePwd != chkPwd) {
+    				$(this).siblings("sup").eq(0).text("비밀번호가 일치하지 않습니다.");
+    			}
+    		}
+    	}
+    
         $(document).ready(function(){            
             var now = new Date();
             var year = now.getFullYear();

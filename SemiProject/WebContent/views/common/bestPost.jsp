@@ -31,7 +31,7 @@
         }
 
         .wrap{
-            height: 2000px;
+            height: 1730px;
             width: 1500px;
             margin: auto;
         }
@@ -99,10 +99,7 @@
 <body>
 	<%@include file="menubar.jsp"%>
     <div class="wrap">
-        <div id="header">
-            <div id="header_1"></div>
-            <div id="menubar"></div>
-        </div>
+
         <div id="content" align="center">
             <div id="content_1">
                 <div id="doWrite">오늘의 인기글</div> <br>

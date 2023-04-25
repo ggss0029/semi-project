@@ -41,6 +41,7 @@ public class NewBoardReplyUpdateController extends HttpServlet {
 		String content = request.getParameter("content");
 		
 		int result = new NewsBoardService().newsUpdateReply(newsReplyNo, content);
+		System.out.println("결과:"+result);
 		
 		response.setContentType("json/application; charset=UTF-8");
 		response.getWriter().print(result);
