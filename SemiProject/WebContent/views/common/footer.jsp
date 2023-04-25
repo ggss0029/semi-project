@@ -41,7 +41,7 @@
 	<div id="footer">
     	<div style="height:20px;"></div>
     	<div id="footer_1">
-    		<a href="https://github.com/hansuung/SEMI-PROJECT">조원 깃허브페이지</a> |
+    		<a href="https://github.com/hansuung/SEMI-PROJECT">깃허브</a> |
             <a href="<%=contextPath%>/policy.do">개인정보취급방침</a> | 
             <a>서울특별시 영등포구 선유동2로 57 이레빌딩(구관) 19F, 20F</a>
     	</div>
