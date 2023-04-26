@@ -26,7 +26,7 @@
         .wrap{
         	position:relative;
 			z-index:1;
-            height: 1730px;
+            height: 1530px;
             width: 1500px;
             margin: auto;
         }
@@ -91,15 +91,9 @@
             padding: 20px 20px;
             
         }
-        table{
-            text-align: center; 
-        }
-        th,td{
-            height: 145px;
-            text-align: center;
-        }
+        
        
-        .userchk{ width: 200px; height: 50px; position: absolute; left: 50%; margin-left: -200px; 
+        .userchk{ width: 160px; height: 50px; position: absolute; left: 50%; margin-left: -200px; 
         }
         .search.do {
             position: absolute; 
@@ -115,15 +109,17 @@
         .search_btn{
             float: right;
         }
+        #userlist{
+            text-align: center;
+            border: 1px solid black;
+        }
+        
        
         </style>
 </head>
+<%@ include file = "../common/menubar.jsp" %>
 <body>
     <div class="wrap">
-        <div id="header">
-            <div id="header_1"></div>
-            <div id="menubar"></div>
-        </div>
         <div id="content">
             <div id="content_1">
                 <p id="adminchk"><b>관리</b></p>
@@ -138,7 +134,7 @@
                 
                 <p id="content_title">회원관리</p>
                 <hr style="border: solid 1px gray;">
-                <table align="center">
+                <table id="userlist" border="1" text-align="center">
                     <select id="search_type" name="search_type" class="userchk" >
                         <option id="userId" value="userId">아이디</option>
                         <option id="email" value="email">이메일</option>
@@ -150,13 +146,13 @@
                             style="right: 11%;
                             width: 83px;
                             height: 50px;
-                            top: 10%;
+                            top: 13%;
                             position: absolute;
                             transform: translate(-50%, 0%);">검색</button> 
                         </label>
-                    </table>
-                </select>
-                <table id="blacklist" border="1" align="center">
+	                </select>
+                   </table>
+                <table id="userlist" border="1" align="center">
                     <br><br><br>
                     <thead>
                         <tr>
@@ -200,8 +196,8 @@
          	</div>
             </div>
         </div>
-        <div id="footer"></div>
     </div>
+    <%@ include file = "../common/footer.jsp" %>
 </body>
 
 <script>
