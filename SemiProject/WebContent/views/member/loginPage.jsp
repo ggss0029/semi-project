@@ -165,6 +165,13 @@
     </style>
 </head>
 <body>
+<script>
+	$(function() {
+		<%if(request.getSession().getAttribute("loginUser") != null) {%>
+			history.back();
+		<%}%>
+	})
+</script>
     <div class="wrap">
         <div id="left">
             <div id="header"></div>
@@ -181,7 +188,7 @@
                             </div>
                         </form>
                         <div id="m2">
-                            <img src="icons/kakao_login_large_wide.png" id="btn-kakao-login" onclick="kakaoLogin();">
+                            <img src="<%=contextPath %>/views/member/icons/kakao_login_large_wide.png" id="btn-kakao-login" onclick="kakaoLogin();">
                             <form id="form-kakao-login" method="post" action="<%=request.getContextPath()%>/kakao-login.me">
                                 <input type="hidden" name="email"/>
                                 <input type="hidden" name="nickname"/>
@@ -202,7 +209,7 @@
 							 %>
                             <a href="<%=apiURL%>" id="naverIdLogin"><img height="50" style="display: none;" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
 							<div id="btn-naver-login">
-                                <img src="icons/btnG_아이콘사각.png" style="height: 66px; position: absolute;">
+                                <img src="<%=contextPath %>/views/member/icons/btnG_아이콘사각.png" style="height: 66px; position: absolute;">
                                 <div id="naver-login-text">네이버 로그인</div>
                             </div>
 							<script type="text/javascript">

@@ -36,9 +36,17 @@
         }
         
         /*모달*/
-        
         .modal {
-        	pointer-events: none;
+/*         	pointer-events: none; */
+      	}
+      	
+      	.modal-dialog{
+      		overflow-y: initial !important
+      	}
+      	
+      	.modal-body {
+      		max-height: calc(100vh-200px);
+      		overflow-y: auto;
       	}
 
       	#p_img {
@@ -57,8 +65,8 @@
         	width: 100%;
       	}
 
-      	.modat_btns>button {
-        	width: 90px;
+      	.modal_btns>button {
+        	width: 130px;
         	height: 45px;
         	margin: 0 5%;
       	}
@@ -95,7 +103,7 @@
     
     <!-- The Modal -->
 	<div class="modal" id="profile" role="dialog">
-		<div class="modal-dialog modal-dialog-centered ">
+		<div class="modal-dialog ">
 			<div class="modal-content">
 
 				<!-- Modal Header -->
@@ -132,13 +140,12 @@
 					<div align="center">
 						<br>
 						<div class="modal_btns">
-							<button type="button" class="btn btn-secondary">쪽지</button>
+							<button type="button" class="btn btn-secondary">쪽지보내기</button>
 							<button type="button" class="btn btn-secondary">쓴글보기</button>
 						</div>
 						<br>
-						<button type="button" class="btn btn-primary"
-							style="width: 200px; height: 80px;" id="rec">
-							<p align="left" style="margin-left: 5px;">추천&#128077;</p><p id="recommend" style="font-weight: 500; font-size: 35px; margin-bottom: 10px;">1004</p>
+						<button type="button" class="btn btn-primary" style="width: 200px; height: 80px;" id="rec" onclick="recommend();">
+							<p align="left" style="margin-left: 5px;">추천&#128077;</p><p id="p_recommend" style="font-weight: 500; font-size: 35px; margin-bottom: 10px;">1004</p>
 						</button>
 					</div>
 				</div>
@@ -147,18 +154,63 @@
 	</div>
 	
 	<script>
-    	$("#profile").on('show.bs.modal', function(e) {
-      		
-      	});
+    	$("#profile").on('show.bs.modal', function(e) { 
+    		
+    	});
     	
     	function whoareyou() {
-			<%if(loginUser != null) {%>
-				$("#profile").modal('show');
-	    		console.log("낫널");
-	    	<%} else { %>
-	    		$("#profile").modal('hide');
-	    		console.log("널");
-	    	<%}%>
+    		<%if(loginUser != null) {%>
+				$.ajax({
+		    		url: "profile.me",
+		    		method: "post",
+		    		data: { nickname: $(event.target).html() },
+		    		success: function(member) {
+		    			$("#p_nickname").children().text(member.nickname);
+		    			$("#p_age").children().text(member.birthday + " 거주");
+		    			$("#p_address").children().text(member.address);
+		    			$("#p_introduction").children().text(member.introduction);
+		    			$("#p_recommend").text(member.recommended);
+		    			},
+		    			error: function() {
+		    				console.log("통신 실패");
+		    			}
+		    		});
+					$("#profile").modal('show');
+		    	<%} else { %>
+		    		$("#profile").modal('hide');
+		    	<%}%>
+    		});
+    	}
+    	
+    	function recommend() { // 내가 추천한 회원인지 확인
+    		return new Promise(function(resolve, reject) {
+    			<%if(loginUser != null) {%>
+		    		$.ajax({
+		    			url: "profile.me",
+		    			data: { myNickname: "<%=loginUser.getNickname()%>" },
+		    			success: function(check) {
+		    				console.log(check);
+		    				if (check == 1) { // 추천 불가능
+		    					$("#rec").attr("disabled", true);
+		    				}
+		    				else { // 추천 가능
+		    					alert("추천 가능.");
+		    				}
+		    			},
+		    			error: function() {
+		    				console.log("통신 실패");
+		    			}
+		    		})
+	    		<%}%>    			
+    		});
+    	}
+    	
+    	function successFunction() {
+//     		alert("")
+    	}
+    	
+    	function errorFunction() {
+    		
     	}
     </script>
 </body>

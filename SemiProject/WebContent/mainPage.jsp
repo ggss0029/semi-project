@@ -145,7 +145,7 @@
         }
         
         #user_info>div {
-            width: 50%;
+            width: 33%;
             height: 100%;
             float: left;
         }
@@ -512,17 +512,29 @@
 	                </div>
 	                <div id="user_info" align="center">
 	                    <div id="myPage">
-	                        <a href="<%=contextPath %>/views/member/mypage/myInfo.jsp" id="myPage"><img alt="마이페이지 아이콘" src="views/common/icons/free-icon-person-5393061.png" id="myPageIcon" style="width: 80px; height:80px;"><br>마이페이지</a>
-	                    </div>
-	                    <div id="likeBoard">
-	                        <a href="https://www.daum.net" id="likeBoard"><img alt="좋아요게시글 아이콘" src="views/common/icons/free-icon-heart-5392920.png" id="likeBoardIcon" style="width: 80px; height:80px;"><br>관심</a>
-	                    </div>
+		                    <a href="<%=contextPath %>/views/member/mypage/myInfo.jsp" id="myPage"><img alt="마이페이지 아이콘" src="<%=contextPath %>/views/common/icons/free-icon-person-5393061.png" id="myPageIcon" style="width: 70px; height:70px;"><br>마이페이지</a>
+		                </div>
+		                <div>
+		                	<a href="<%=contextPath%>/sendLetterList.le?writerNo=<%=loginUser.getUserNo()%>&currentPage=1" id="letter"><img alt="쪽지아이콘" src="<%=contextPath %>/views/common/icons/envelope-of-white-paper.png" id="letterIcon" style="width: 70px; height:70px;"><br>쪽지함</a>
+		                </div>
+		                <div id="likeBoard">
+		                	<a href="https://www.daum.net" id="likeBoard"><img alt="좋아요게시글 아이콘" src="<%=contextPath %>/views/common/icons/free-icon-heart-5392920.png" id="likeBoardIcon" style="width: 70px; height:70px;"><br>관심</a>
+		                </div>
 	                </div>
             	</div>
             <%} %>
         </div>
         
         <script>
+	        $(function() {
+	    		window.onpageshow = function(event) {
+	    		    if ( event.persisted || (window.performance && window.performance.navigation.type == 2)) {
+	    		        // Back Forward Cache로 브라우저가 로딩될 경우 혹은 브라우저 뒤로가기 했을 경우
+	    		        location.reload();
+	    		    }
+	    		}
+	    	});
+	        
         	function mainPage() {
         		location.href = "<%=contextPath%>";
         	}

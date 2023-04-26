@@ -140,7 +140,7 @@
         }
         
         #user_info>div {
-            width: 50%;
+            width: 33%;
             height: 100%;
             float: left;
         }
@@ -222,6 +222,12 @@
         .swiper { width: 85%; height: 100%; }
         div[class*=keyword] { width: 100%; height: 100%; margin: auto; box-sizing: border-box; }
         
+        <%if(loginUser != null) {%>
+	        #nicknameHover:hover {
+	        	cursor: pointer;
+	        	font-weight:600;
+	        }
+	    <%}%>
     </style>
 </head>
 
@@ -420,14 +426,17 @@
     	<%} else { %>
         	<div id="member_area" align="center">
 				<div id="logout">
-                	<b style="font-size: 20px;"><%=loginUser.getNickname() %> 님</b> <a href="<%=contextPath%>/logout.me">로그아웃</a> <br>
+                	<b><%=loginUser.getNickname() %> 님</b> <a href="<%=contextPath%>/logout.me">로그아웃</a> <br>
 	            </div>
 	            <div id="user_info" align="center">
 	                <div id="myPage">
-	                    <a href="<%=contextPath %>/views/member/mypage/myInfo.jsp" id="myPage"><img alt="마이페이지 아이콘" src="<%=contextPath %>/views/common/icons/free-icon-person-5393061.png" id="myPageIcon" style="width: 80px; height:80px;"><br>마이페이지</a>
+	                    <a href="<%=contextPath %>/views/member/mypage/myInfo.jsp" id="myPage"><img alt="마이페이지 아이콘" src="<%=contextPath %>/views/common/icons/free-icon-person-5393061.png" id="myPageIcon" style="width: 70px; height:70px;"><br>마이페이지</a>
+	                </div>
+	                <div>
+	                	<a href="<%=contextPath%>/sendLetterList.le?writerNo=<%=loginUser.getUserNo()%>&currentPage=1" id="letter"><img alt="쪽지아이콘" src="<%=contextPath %>/views/common/icons/envelope-of-white-paper.png" id="letterIcon" style="width: 70px; height:70px;"><br>쪽지함</a>
 	                </div>
 	                <div id="likeBoard">
-	                	<a href="https://www.daum.net" id="likeBoard"><img alt="좋아요게시글 아이콘" src="<%=contextPath %>/views/common/icons/free-icon-heart-5392920.png" id="likeBoardIcon" style="width: 80px; height:80px;"><br>관심</a>
+	                	<a href="https://www.daum.net" id="likeBoard"><img alt="좋아요게시글 아이콘" src="<%=contextPath %>/views/common/icons/free-icon-heart-5392920.png" id="likeBoardIcon" style="width: 70px; height:70px;"><br>관심</a>
 	                </div>
 	            </div>
         	</div>
@@ -472,7 +481,7 @@
                 <a>정보 공유</a>
                 <ul>
                     <li><a href="<%=contextPath %>/newsList.bo?currentPage=1">동네 소식</a></li>
-                    <li><a href="">살림 꿀팁</a></li>
+                    <li><a href="<%=contextPath %>/views/board/clean/cleanListView.jsp">살림 꿀팁</a></li>
                     <li><a href="">자취 레시피</a></li>
                 </ul>
             </li><li><a href="">동네 맛집</a></li><li>
