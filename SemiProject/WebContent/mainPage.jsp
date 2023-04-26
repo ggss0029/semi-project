@@ -29,8 +29,13 @@
             height: 400px;
         }
         
+        #header a {
+        	text-decoration: none;
+            color: black;
+        }
+        
         .header_1{
-/*             background-color: red; */
+            border-bottom: 1px solid black;
             height: 45%; /*180px*/
         }
 
@@ -128,15 +133,15 @@
         }
 
         #logout {
+            margin-top: 5%;
+        	margin-bottom: 5%;
             width: 100%;
             height: 15%;
-            margin: 10px auto;
         }
         
         #user_info {
             width: 100%;
-            height: 70%;
-            margin: 30px 5%;
+            height: 75%;
         }
         
         #user_info>div {
@@ -146,13 +151,38 @@
         }
 
         .header_2{
-            background-color: orange;
             height: 55%;
+            border-bottom: 1px solid black;
+        }
+        
+        .header_2>div {
+        	width: 14%;
+        	height: 100%;
+        	float: left;
+        	align-items: center;
+        }
+        
+        .header_2>div * {
+        	display: block;
+        }
+        
+        .header_2>div>a {
+        	width: 70%;
+        	height: 70%;
+        	margin:15% auto;
+        	font-size: 18px;
+        	font-weight: 550;
+        }
+        
+        .header_2>div>a>img {
+        	width: 70%;
+        	height: 70%;
+        	margin: 15% auto;
         }
 
        .outer{
             width: 1500px;
-            height: 1600px;
+            height: 1400px;
             border: 1px solid black;
             margin: auto;
         }
@@ -228,7 +258,31 @@
 
         #footer{
             height: 200px;
-            background-color: purple;
+            background-color: rgb(240, 240, 240);
+        }
+        
+        #footer>div{
+            width: 100%;
+        }
+
+        #footer_1{
+            height: 20%;
+        }
+        
+        #footer_1>a {
+        	text-decoration: none;
+            color: black;
+            font-weight: 600;
+            margin: 15px;
+            vertical-align: middle; 
+        }
+
+        #footer_2{
+            height: 80%;
+        }
+        
+        #footer_2>p {
+            text-align: center;
         }
 
         .main_swiper1 { position: relative; height: 80%; }
@@ -304,9 +358,9 @@
                 <img src="views/common/icons/우동 로고.png" alt="아이콘">
             </div>
             <div id="most_search_list">
-            	<table border="1">
+            	<table>
             		<tr>
-            			<td colspan="2" align="right"><button onclick="closeList();">&times;</button></td>
+            			<td colspan="2" align="right"><button style="border:0;" onclick="closeList();">&times;</button></td>
             		</tr>
             		<tr>
 	                    <td width="50" align="center" style="font-weight: 700; font-size: 22px">1</td>
@@ -447,22 +501,20 @@
             </div>
             <%if(loginUser==null) {%>
             	<div id="login_area">
-            		<a href="<%=request.getContextPath()%>/views/board/writeBoard.jsp">글쓰기페이지</a>
-            		<a href="<%=request.getContextPath()%>/bestPost.bo">인기글</a>
                 	<button id="login" class="btn btn-outline-dark" onclick="login();">로그인</button>
                 	<button id="enroll" class="btn btn-outline-dark" onclick="enroll();">회원가입</button>
             	</div>
             <%} else { %>
             	<div id="member_area" align="center">
 					<div id="logout">
-                    	<b><%=loginUser.getNickname() %> 님</b> <a href="">로그아웃</a> <br>
+                    	<b><%=loginUser.getNickname() %> 님</b> <a onclick="logout();">로그아웃</a> <br>
 	                </div>
 	                <div id="user_info" align="center">
 	                    <div id="myPage">
-	                        <a href="<%=request.getContextPath() %>/views/member/mypage/myInfo.jsp" id="myPage"><img alt="마이페이지 아이콘" src="views/common/icons/free-icon-user-181549.png" id="myPageIcon" style="width: 50px; height:50px;"><br>마이페이지</a>
+	                        <a href="<%=contextPath %>/views/member/mypage/myInfo.jsp" id="myPage"><img alt="마이페이지 아이콘" src="views/common/icons/free-icon-person-5393061.png" id="myPageIcon" style="width: 80px; height:80px;"><br>마이페이지</a>
 	                    </div>
 	                    <div id="likeBoard">
-	                        <a href="https://www.daum.net" id="likeBoard"><img alt="좋아요게시글 아이콘" src="views/common/icons/free-icon-heart-181527.png" id="likeBoardIcon" style="width: 50px; height:50px;"><br>관심</a>
+	                        <a href="https://www.daum.net" id="likeBoard"><img alt="좋아요게시글 아이콘" src="views/common/icons/free-icon-heart-5392920.png" id="likeBoardIcon" style="width: 80px; height:80px;"><br>관심</a>
 	                    </div>
 	                </div>
             	</div>
@@ -470,6 +522,10 @@
         </div>
         
         <script>
+	        function logout(){
+<%-- 	        	<%request.getSession().removeAttribute("loginUser");%> --%>
+	        	location.href="mainPage.jsp";
+	        }
         	function mainPage() {
         		location.href = "<%=contextPath%>";
         	}
@@ -491,25 +547,14 @@
         		location.href = "<%=contextPath%>/enroll.me";
         	};
         </script>
-        
+            
         <div class="header_2">
-            <div id="information_area">
-            	<a href="<%=contextPath %>/newsList.bo?currentPage=1">정보 공유</a>
-            </div>
-            <div>
-            	<a href="<%=request.getContextPath() %>/UserDelete.me">회원탈퇴</a>
-            </div>
-            <div></div>
-            <div id="buy-area">
-            	<a href="<%=request.getContextPath() %>/views/board/buy/buyListView.jsp">같이 사요</a> 
-            </div>
-            <div>
-            	<a href="<%=request.getContextPath() %>/NeedBoardList.me">이거 필요해요
-            	</a> 
-            </div>
-            <div></div>
-            <div></div>
-            <div></div>
+            <div style="margin-left:3%"><a align="center" href="<%=contextPath %>/newsList.bo?currentPage=1"><img src="views/common/icons/정보공유.png" alt="정보공유">정보 공유</a></div>
+            <div style="margin-left:2%"><a align="center" href=""><img src="views/common/icons/동네맛집.png" alt="동네맛집">동네 맛집</a></div>
+            <div style="margin-left:2%"><a align="center" href=""><img src="views/common/icons/나눔.png" alt="나눔">나눔</a></div>
+            <div style="margin-left:2%"><a align="center" href=""><img src="views/common/icons/함께해요.png" alt="함께해요">함께 해요 </a></div>
+            <div style="margin-left:2%"><a align="center" href=""><img src="views/common/icons/자유게시판.png" alt="자유게시판">자유게시판</a></div>
+            <div style="margin-left:2%; margin-right:3%"><a align="center" href=""><img src="views/common/icons/소식.png" alt="소식">소식</a></div>
         </div>
     </div>
     <div class="outer">
@@ -531,7 +576,8 @@
                 	</div>
                 	<div style="border: 1px solid black; height:1px"></div>
                 	<div style="height: 400px">
-                	
+                		<a href="<%=request.getContextPath() %>/views/member/userDelete.jsp" style="color:white;">회원탈퇴</a><br>
+                		<a href="<%=request.getContextPath() %>/views/board/buy/buyListView.jsp" style="color:white;">같이 사요</a> 
                 	</div>
                 </div>
             </div>
@@ -594,7 +640,20 @@
                 </div>
             </div>
         </div>
-        <div id="footer"></div>
+    </div>
+    <div id="footer">
+    	<div style="height:20px;"></div>
+    	<div id="footer_1">
+    		<a href="https://github.com/hansuung/SEMI-PROJECT">조원 깃허브페이지</a> |
+            <a href="<%=contextPath%>/policy.do">개인정보취급방침</a> | 
+            <a>서울특별시 영등포구 선유동2로 57 이레빌딩(구관) 19F, 20F</a>
+    	</div>
+    	<div id="footer_2">
+	    	<p><b>조장</b> 한성</p>
+	    	<p><b>조원</b> 권수지, 안채영, 정희재</p>
+	    	<p><b>문의</b> dlstmxk12@naver.com</p>
+	    	<p>Copyright © 2023 SEMI-PROJECT KH DANGSAN WEB DEVELOPMENT CLASS6 GROUP3 All Right Reserved</p>
+    	</div>
     </div>
 
     <script>

@@ -1,19 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <!-- jQuery library -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
-    <!-- Popper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <!-- Latest compiled JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
+<style>
+    
          div{
             /* border: 1px solid black; */
             box-sizing: border-box;
@@ -22,7 +16,7 @@
         .wrap{
         	position:relative;
 			z-index:1;
-            height: 2000px;
+            height: 1730px;
             width: 1500px;
             margin: auto;
         }
@@ -61,7 +55,7 @@
             position: relative;
         }
 
-        #content_1>p{ /*정보공유 글씨, 위치*/
+        #content_1>p{ /*마이페이지 글씨, 위치*/
             position: absolute;
             top: 40px;
             left: 52px;
@@ -78,7 +72,7 @@
             left: 30px;
         }
 
-        #my{ /*동네 소식 글씨, 위치*/
+        #my{ /*나의 정보 글씨, 위치*/
             position: absolute;
             font-size: 35px;
             text-decoration: none;
@@ -96,7 +90,7 @@
             left: 30px;
         }
 
-        #update { /*살림 꿀팁 글씨, 위치*/
+        #update { /*개인 정보 수정 글씨, 위치*/
             position: absolute;
             font-size: 35px;
             text-decoration: none;
@@ -114,7 +108,7 @@
             left: 30px;
         }
 
-        #write_board{ /*자취 레시피 글씨, 위치*/
+        #write_board{ /*작성한 게시글 글씨, 위치*/
             position: absolute;
             font-size: 35px;
             text-decoration: none;
@@ -132,7 +126,7 @@
             left: 30px;
         }
 
-        #like_board{ /*자취 레시피 글씨, 위치*/
+        #like_board{ /*좋아요한 게시글 글씨, 위치*/
             position: absolute;
             font-size: 35px;
             text-decoration: none;
@@ -150,7 +144,7 @@
             left: 30px;
         }
 
-        #out{ /*자취 레시피 글씨, 위치*/
+        #out{ /*회원탈퇴 글씨, 위치*/
             position: absolute;
             font-size: 35px;
             text-decoration: none;
@@ -168,7 +162,7 @@
             left: 30px;
         }
 
-        #content_2>div{ /*content2 안에 크기 지정*/
+        #content_2>#content_2_1{ /*content2 안에 크기 지정*/
             width: 1100px;
             height: 1500px;
             border: 1px solid skyblue;
@@ -177,8 +171,8 @@
             left: 12px;
             
         }
-
-        p{ /*contente2 안에 있는 동네소식 글씨 , 위치*/
+        
+        #pp{ /*contente2 안에 있는 나의 정보 글씨 , 위치*/
             position: absolute;
             top: 45px;
             left: 54px;
@@ -378,7 +372,7 @@
                             
                             <div id="box2">
                                 <table class="list-area" border="0">
-                                    <tr >
+                                    <tr>
                                         <th>
                                             <span style="margin-left: 10px;">회원 ID</span>
                                             <span style="color: red;"> *</span>
@@ -391,7 +385,7 @@
                                             <span style="margin-left: 10px;">이름</span>
                                             <span style="color: red;"> *</span>
                                         </th>
-                                        <td colspan="3">권수지</td>
+                                        <td colspan="3"><%=loginUser.getUserName() %></td>
                                     </tr>
         
                                     <tr>
@@ -399,7 +393,7 @@
                                             <span style="margin-left: 10px;">닉네임</span>
                                             <span style="color: red;"> *</span>
                                         </th>
-                                        <td colspan="3">수지</td>
+                                        <td colspan="3"><%=loginUser.getNickname() %></td>
                                     </tr>
         
                                     <tr>
@@ -408,9 +402,7 @@
                                             <span style="color: red;"> *</span>
                                         </th>
                                         <td style="width: 430px;">
-                                            <select name="yy" id="year"></select>
-                                            <select name="mm" id="month"></select>
-                                            <select name="dd" id="day"></select>
+                                            <%=loginUser.getBirthday() %>
                                         </td>
                                     </tr>
         
@@ -420,7 +412,7 @@
                                             <span style="color: red;"> *</span>
                                         </th>
                                         <td>
-                                            남/여
+                                           	 <%=loginUser.getGender() %>
                                         </td> 
                                     </tr>
         
@@ -430,9 +422,9 @@
                                             <span style="color: red;"> *</span>
                                         </th>
                                         <td colspan="3">
-                                            ggss0029@naver.com
+                                            <%=loginUser.getEmail() %>
                                         </td>
-                                    </tr style="border-bottom: 2px solid gray;">
+                                    </tr>
         
                                     <tr>
                                         <th>
@@ -441,7 +433,7 @@
                                         </th>
                                         <td colspan="3">
                                             <div class="input_area3">
-        
+        											<%=loginUser.getAddress() %>
                                             </div>
                                         </td>
                                     </tr>
@@ -453,15 +445,16 @@
                                             <span style="margin-left: 10px;">자기소개</span>
                                         </th>
                                         <td colspan="3">
-                                            <textarea name="" id="" cols="55" rows="4" style="resize: none;"></textarea>
+                                            	<%=loginUser.getIntroduction() %>
                                         </td>
                                     </tr>
                                 </table>
                             </div>
+                        
 
                         </div>
                         <div align="center" id="write_btn">
-                            <button class="btn btn-light">수정하기</button>
+                            <button class="btn btn-light" onclick="location.href='<%=contextPath %>/views/member/mypage/myInfoUpdate.jsp'">수정하기</button>
                         </div>
                         
 
@@ -471,33 +464,5 @@
         <div id="footer"></div>
     </div>
 
-    <script>
-        $(document).ready(function(){            
-            var now = new Date();
-            var year = now.getFullYear();
-            var mon = (now.getMonth() + 1) > 9 ? ''+(now.getMonth() + 1) : '0'+(now.getMonth() + 1); 
-            var day = (now.getDate()) > 9 ? ''+(now.getDate()) : '0'+(now.getDate());           
-            //년도 selectbox만들기               
-            for(var i = 1900 ; i <= year ; i++) {
-                $('#year').append('<option value="' + i + '">' + i + '년</option>');    
-            }
-
-            // 월별 selectbox 만들기            
-            for(var i=1; i <= 12; i++) {
-                var mm = i > 9 ? i : "0"+i ;            
-                $('#month').append('<option value="' + mm + '">' + mm + '월</option>');    
-            }
-            
-            // 일별 selectbox 만들기
-            for(var i=1; i <= 31; i++) {
-                var dd = i > 9 ? i : "0"+i ;            
-                $('#day').append('<option value="' + dd + '">' + dd+ '일</option>');    
-            }
-            $("#year  > option[value="+year+"]").attr("selected", "true");        
-            $("#month  > option[value="+mon+"]").attr("selected", "true");    
-            $("#day  > option[value="+day+"]").attr("selected", "true");       
-        
-        })
-    </script>
 </body>
 </html>

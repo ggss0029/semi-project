@@ -54,7 +54,7 @@ public class NewsBoardListController extends HttpServlet {
 		pageLimit =10;
 		
 		//boardLimit : 한 페이지에 보여질 게시물 개수 (게시글 단위) -- 20개로 지정
-		boardLimit = 20;
+		boardLimit = 15;
 		
 		//maxpage : listCount 와 boardLimit의 영향을 받는 수 
 		maxPage = (int)Math.ceil((double)listCount/boardLimit);

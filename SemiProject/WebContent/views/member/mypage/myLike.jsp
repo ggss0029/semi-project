@@ -20,7 +20,9 @@
         }
 
         .wrap{
-            height: 2000px;
+        	position:relative;
+			z-index:1;
+            height: 1730px;
             width: 1500px;
             margin: auto;
         }

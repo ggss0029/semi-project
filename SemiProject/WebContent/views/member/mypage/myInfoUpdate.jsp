@@ -5,15 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <!-- jQuery library -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
-    <!-- Popper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <!-- Latest compiled JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
+<style>
          div{
             /* border: 1px solid black; */
             box-sizing: border-box;
@@ -22,7 +14,7 @@
         .wrap{
         	position:relative;
 			z-index:1;
-            height: 2000px;
+            height: 1730px;
             width: 1500px;
             margin: auto;
         }
@@ -166,7 +158,7 @@
             left: 30px;
         }
 
-        #content_2>div{ /*content2 안에 크기 지정*/
+        #content_2>#content_2_1{ /*content2 안에 크기 지정*/
             width: 1100px;
             height: 1500px;
             border: 1px solid skyblue;
@@ -203,27 +195,6 @@
             border-radius: 30px;
         }
 
-        #b2{ /*카테고리 글씨, 위치*/
-            float: left;
-            font-size: 25px;
-            font-weight: 600;
-            margin: 30px 0 0 50px;
-        }
-
-        #category{ /*checkbox들을 감싸고 있는 div*/
-            float: left;
-            font-size: 18px;
-            margin: 34px 0 0 16px;
-            vertical-align: super;
-            accent-color: darkgray; /*체크박스 색깔 바꾸기*/
-        }
-
-        label{
-            margin-top: 6px;
-            margin-right: 15px;
-        }
-        
-
         /* 개인정보수정 테이블 */
         .list-area{
             /* border: 1px solid black; */
@@ -235,7 +206,6 @@
         }
 
         .list-area th {
-
             width: 180px;
             height: 50px;
             background-color: #C8EDC9;
@@ -243,49 +213,6 @@
 
         .list-area td {
             padding: 0 0 0 10px;
-        }
-
-
-        /* 글쓰기 버튼 */
-        #write_btn{
-            margin: 0 70px;
-        }
-
-
-        /* 하단 검색창 */
-        #search{
-            width: 600px;
-            height: 150px;
-            position: relative; /*검색창을 가운데로 옮기기 위한 기준잡기*/
-        }
-
-        #search_form{
-            /* border: 2px solid blue; */
-            width: 80%;
-            height: 20%;
-            position: absolute;
-            right: 0px;
-            left: 310px;
-            top: 10px;
-            bottom: 0px;
-        }
-
-        #search_form>div{
-            height: 100%;
-            float: left;;
-        }
-
-        #search_text{
-            width: 80%;
-        }
-
-        #search_btn{
-            width: 20%;;
-        }
-
-        #search_form input{
-            width: 100%;
-            height: 100%;
         }
 
         /* 생년월일 select */
@@ -333,11 +260,11 @@
             margin-right: 10px;
         }
 
-        ul{
+        #my_ul{
             font-size: 20px;
             margin-top: 25px;
         }
-        li{
+        #my_li{
             margin-top: 10px;
         }
     </style>
@@ -345,10 +272,10 @@
 <body>
 	<%@ include file = "../../common/menubar.jsp" %>
 	 <div class="wrap">
-        <div id="header">
-            <div id="header_1"></div>
-            <div id="menubar"></div>
-        </div>
+<!--         <div id="header"> -->
+<!--             <div id="header_1"></div> -->
+<!--             <div id="menubar"></div> -->
+<!--         </div> -->
         <div id="content">
             <div id="content_1">
                 <p>마이페이지</p>
@@ -374,21 +301,27 @@
                     <p>개인정보수정</p>
                     <div id="line_7"></div>
                         <div id="box">
-                            <ul>
-                                <li>비밀번호는 <b>8자리 이상 15자리 미만의 숫자와 영문, 특수문자(!@#$%^&*)</b> 를 조합하여 입력해주세요.</li>
-                                <li>비밀번호가 타인에게 유츨되지 않도록 주의하시고, <br>쉽게 유출 될 수 있는 전화번호, 주민등록번호 등을 
+                            <ul id="my_ul">
+                                <li id="my_li">비밀번호는 <b>8자리 이상 15자리 미만의 숫자와 영문, 특수문자(!@#$%^&*)</b> 를 조합하여 입력해주세요.</li>
+                                <li id="my_li">비밀번호가 타인에게 유츨되지 않도록 주의하시고, <br>쉽게 유출 될 수 있는 전화번호, 주민등록번호 등을 
                                     비밀번호로 사용하지 마시기 바랍니다.</li>
-                                <li> <span style="color: red;"> *</span> 표시된 부분은 <b>필수 입력 사항</b>입니다.</li>
+                                <li id="my_li"> <span style="color: red;"> *</span> 표시된 부분은 <b>필수 입력 사항</b>입니다.</li>
                             </ul>
                         </div>
                         
+                    <form action="<%=contextPath %>/update.me" method="post" id="myInfoUpdate" entype="multipart/form-data">
+                    
+                    	<!-- 폼 태그 안에 데이터 숨겨서 보내기 -->
+                    	<input type="hidden" name="userId" value="<%=loginUser.getUserId()%>">
                         <table class="list-area" border="0">
                             <tr style="border-bottom: 2px solid gray;">
                                 <th>
                                     <span style="margin-left: 10px;">회원 ID</span>
                                     <span style="color: red;"> *</span>
                                 </th>
-                                <td colspan="3"><input type="text"disabled></td>
+                                <td colspan="3">
+                                	<input type="text" name="userId" value="<%=loginUser.getUserId() %>" disabled>
+                                </td>
                             </tr>
 
                             <tr style="border-bottom: 2px solid gray;">
@@ -396,7 +329,9 @@
                                     <span style="margin-left: 10px;">이름</span>
                                     <span style="color: red;"> *</span>
                                 </th>
-                                <td colspan="3"><input type="text" disabled></td>
+                                <td colspan="3">
+                                	<input type="text" name="userName" value="<%=loginUser.getUserName() %>" disabled>
+                                </td>
                             </tr>
 
                             <tr style="border-bottom: 2px solid gray;">
@@ -404,7 +339,12 @@
                                     <span style="margin-left: 10px;">닉네임</span>
                                     <span style="color: red;"> *</span>
                                 </th>
-                                <td colspan="3"><input type="text"></td>
+                                <td colspan="3">
+                                	<input type="text" name="nickName" value="<%=loginUser.getNickname() %>" required>
+                                	<button>중복 확인</button>
+                                	<sup style="font-size: 5px; color: red;"></sup>
+                        			<sup style="font-size: 5px; color: green;"></sup>
+                                </td>
                             </tr>
 
                             <tr style="border-bottom: 2px solid gray;">
@@ -412,21 +352,33 @@
                                     <span style="margin-left: 10px;">현재 비밀번호</span>
                                     <span style="color: red;"> *</span>
                                 </th>
-                                <td colspan="3"><input type="password"></td>
+                                <td colspan="3">
+                                	<input type="password" name="userPwd" id="userPwd" required>
+                                	<sup style="font-size: 5px; color: red;"></sup>
+                        			<sup style="font-size: 5px; color: green;"></sup>
+                                </td>
                             </tr>
 
                             <tr style="border-bottom: 2px solid gray;">
                                 <th>
                                     <span style="margin-left: 10px;">비밀번호 변경</span>
                                 </th>
-                                <td colspan="3"><input type="password"></td>
+                                <td colspan="3">
+                                	<input type="password" name="updatePwd" id="updatePwd" placeholder="변경 시에만 입력">
+                                	<sup style="font-size: 5px; color: red;"></sup>
+                        			<sup style="font-size: 5px; color: green;"></sup>
+                                </td>
                             </tr>
 
                             <tr style="border-bottom: 2px solid gray;">
                                 <th>
                                     <span style="margin-left: 10px;">비밀번호 변경 확인</span>
                                 </th>
-                                <td colspan="3"><input type="password"></td>
+                                <td colspan="3">
+                                	<input type="password" name="chkPwd" id="chkPwd" placeholder="변경 시에만 입력">
+                                	<sup style="font-size: 5px; color: red;"></sup>
+                        			<sup style="font-size: 5px; color: green;"></sup>
+                                </td>
                             </tr>
 
                             <tr style="border-bottom: 2px solid gray;">
@@ -435,9 +387,7 @@
                                     <span style="color: red;"> *</span>
                                 </th>
                                 <td style="width: 430px;">
-                                    <select name="yy" id="year"></select>
-                                    <select name="mm" id="month"></select>
-                                    <select name="dd" id="day"></select>
+                                    <%=loginUser.getBirthday() %>
                                 </td>
 
                                 <th style="width: 100px">
@@ -445,8 +395,14 @@
                                     <span style="color: red;"> *</span>
                                 </th>
                                 <td>
-                                    <input type="radio" name="girl" id="girl"><label for="girl">여자</label> 
-                                    <input type="radio" name="boy" id="boy"><label for="boy">남자</label>
+                                	<!-- 성별이 여자인 경우 -->
+                                	<% if(loginUser.getGender().equals("여")) {%>
+	                                    <input type="radio" name="gender" id="girl" value="여" checked disabled><label for="girl">여자</label>	
+	                                    <input type="radio" name="gender" id="boy" value="남" disabled><label for="boy">남자</label>
+                                    <%} else { %> <!-- 성별이 남자인 ㄱㅇ우 -->
+                                    	<input type="radio" name="gender" id="girl" value="여" disabled><label for="girl">여자</label>	
+                                    	<input type="radio" name="gender" id="boy" value="남" checked disabled><label for="boy">남자</label>
+                                    <%} %>
                                 </td>
                             </tr>
 
@@ -456,9 +412,10 @@
                                     <span style="color: red;"> *</span>
                                 </th>
                                 <td colspan="3">
-                                    <input type="email">
+                                    <input type="email" name="email" value="<%=loginUser.getEmail()%>" required>
+                                    <button>인증</button>
                                 </td>
-                            </tr style="border-bottom: 2px solid gray;">
+                            </tr>
 
                             <tr style="border-bottom: 2px solid gray;">
                                 <th>
@@ -502,8 +459,10 @@
                     
                         <br><br><br>
                         <div align="center" id="write_btn">
-                            <button class="btn btn-light">등록하기</button>
+                            <button type="submit" class="btn btn-light" onclick="updateInfoConfirm();">등록하기</button>
                         </div>
+                        
+                </form>
                         <br><br>
 
                 </div>
@@ -513,6 +472,22 @@
     </div>
 
     <script>
+    
+    	
+    	
+    	function updateInfoConfirm() {
+    		var loginPwd ="<%=loginUser.getUserPwd()%>";
+    		var inputPwd = $("#userPwd").val();
+    		var updatePwd = $("#updatePwd").val();
+    		var chkPwd = $("#chkPwd").val();
+    		
+    		if(loginPwd == inputPwd) {
+    			if(updatePwd != chkPwd) {
+    				$(this).siblings("sup").eq(0).text("비밀번호가 일치하지 않습니다.");
+    			}
+    		}
+    	}
+    
         $(document).ready(function(){            
             var now = new Date();
             var year = now.getFullYear();

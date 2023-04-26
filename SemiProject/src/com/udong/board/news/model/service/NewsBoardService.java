@@ -115,4 +115,21 @@ public class NewsBoardService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+
+	//댓글 수정
+	public int newsUpdateReply(int newsReplyNo, String content) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new NewsBoardDao().newsUpdateReply(conn, newsReplyNo, content);
+		
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
 }
