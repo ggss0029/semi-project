@@ -12,7 +12,7 @@
 /*     		border: 1px solid black; */
     	}
         .wrap{ 
-            height: 1030px;
+            height: 830px;
             width: 1500px;
             margin: auto;
         }
@@ -73,12 +73,16 @@
         	width:90%;
         }
         #content_2_1{
-        	height:10%;
+        	height:15%;
         	font-size:50px;
         	font-weight:400;
         	text-align:left;
-        	padding:20px 0px 5px 20px;
+        	padding:30px 0px 10px 20px;
         	border-bottom:2px solid black;
+/*           	background-color:red;   */
+        }
+        #content_2_2{
+        	margin-top: 30px;
         }
         #searchModal>tbody>tr:hover{
         	background-color:lightgray;
@@ -91,17 +95,22 @@
         <div id="content">
         	<div id="content_1" style="margin-left:10px;" align="center">
         		<div id="content_1_1">쪽지</div>
-        		<div id="content_1_2"><a href="">받은 쪽지함</a></div>
-        		<div id="content_1_3"><a href="">보낸 쪽지함</a></div>
+        		<div id="content_1_2"><a href="<%=contextPath%>/receiveLetterList.le?writerNo=<%=loginUser.getUserNo()%>&currentPage=1">받은 쪽지함</a></div>
+        		<div id="content_1_3"><a href="<%=contextPath%>/sendLetterList.le?writerNo=<%=loginUser.getUserNo()%>&currentPage=1">보낸 쪽지함</a></div>
         		<div id="content_1_4">쪽지 보내기</div>
         	</div>
         	<div id="content_2" align="center">
         		<div id="content_2_1">쪽지 보내기</div>
 	        	<div id="content_2_2">
-    	    		<form action="">
+    	    		<form action="<%=contextPath%>/writeLetter.le" method="post">
 						발신자 : <input type="text" name="sender" value="<%=loginUser.getNickname()%>" readonly>
-						수신자 : <input type="text" name="receiver" id="receiver">
-						<button type="button" onclick="searchNickname();" class="btn btn-warning" data-toggle="modal" data-target="#myModal">닉네임 찾기</button>
+						수신자 : <input type="text" name="receiver" id="receiver" required><input type="hidden" name="receiverNo" id="receiverNo"><input type="hidden" name="senderNo" value="<%=loginUser.getUserNo()%>">
+						<button type="button" onclick="searchNickname();" class="btn btn-success" data-toggle="modal" data-target="#myModal">닉네임 찾기</button>
+						<br><br>
+						<textarea required maxlength="300" name="letterContent" placeholder="최대 300자까지 작성 가능합니다." rows="10" cols="30" style="width:1000px; height:400px; font-size:20px; resize:none;"></textarea>
+						<br><br>
+						<button type="submit" class="btn btn-warning" style="margin-right:10px;">쪽지 보내기</button>
+						<button type="reset" class="btn btn-danger">취소하기</button>
         			</form>
         			
         		<script>
@@ -117,7 +126,7 @@
 										+ "<td>"+list[i].nickname + "</td>"
 										+ "<td>"+list[i].address + "</td>"
 										+ "<td>"+list[i].enrollDate + "</td>"
-										+ "<td><button type='button' onclick='getInfo();' class='btn btn-info'>선택</button></td>"
+										+ "<td><button type='button' onclick='getInfo();' class='btn btn-info'>선택</button><input type='hidden' class='hiddenNo' value="+list[i].userNo+"></td>"
 										+"</tr>";
 								}
 								$("#searchModal").children("tbody").html(str);
@@ -164,7 +173,9 @@
 				
 				function getInfo(){
 					var nickname = $(event.target).parent().siblings().eq(0).text();
+					var hiddenNo = $(event.target).next().val();
 					$("#receiver").val(nickname);
+					$("#receiverNo").val(hiddenNo);
 					$("#closeBtn").click();
 				}
 				
@@ -184,7 +195,7 @@
 										+ "<td>"+m.nickname + "</td>"
 										+ "<td>"+m.address + "</td>"
 										+ "<td>"+m.enrollDate + "</td>"
-										+ "<td><button type='button' onclick='getInfo();' class='btn btn-info'>선택</button></td>"
+										+ "<td><button type='button' onclick='getInfo();' class='btn btn-info'>선택</button><input type='hidden' class='hiddenNo' value="+m.userNo+"></td>"
 										+"</tr>";
 								}								
 								$("#searchModal").children("tbody").children().remove();
