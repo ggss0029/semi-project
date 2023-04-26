@@ -165,14 +165,6 @@
     </style>
 </head>
 <body>
-<script>
-	<%if(request.getSession().getAttribute("loginUser") != null) {%>
-		$(function() {
-			history.go(-1);
-		})
-	<%}%>
-</script>
-
     <div class="wrap">
         <div id="left">
             <div id="header"></div>

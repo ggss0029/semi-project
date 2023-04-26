@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
 <properties>
 	<entry key="loginCheck">
 		SELECT USER_PWD FROM MEMBER WHERE USER_ID=?
@@ -110,6 +111,19 @@
 		WHERE A.USER_NO = ?
 		AND A.STATUS != 'N'
 	</entry>
+	
+	<entry key="searchNickname">
+	SELECT USER_NO,NICKNAME,SUBSTR(ADDRESS, 1,INSTR(ADDRESS, ' ', 1, 2)-1) AS ADDRESS,ENROLL_DATE
+    FROM MEMBER
+    WHERE STATUS='Y'
+	</entry>
+	
+	<entry key="findNickname">
+	SELECT USER_NO,NICKNAME,SUBSTR(ADDRESS, 1,INSTR(ADDRESS, ' ', 1, 2)-1) AS ADDRESS,ENROLL_DATE
+    FROM MEMBER
+    WHERE STATUS='Y' AND NICKNAME = ?
+	</entry>
+
 	<entry key="profile">
 		SELECT NICKNAME, SUBSTR((EXTRACT(YEAR FROM SYSDATE)-SUBSTR(BIRTHDAY, 1, 4)+1), 1, 1)||'0대' AS AGE
 				, SUBSTR(ADDRESS, 1,INSTR(ADDRESS, ' ', 1, 2)-1) AS ADDRESS, NVL(INTRODUCTION, '작성된 소개글이 없습니다.') AS INTRODUCTION
@@ -126,7 +140,6 @@
 			,INTRODUCTION = ?
 		WHERE USER_ID = ?
 	</entry>
-	
 	
 	<entry key="myInfoSelectMember">
 		SELECT *

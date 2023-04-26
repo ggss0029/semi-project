@@ -619,6 +619,50 @@ public class MemberDao {
 		return result;
 	}
 
+	public ArrayList<Member> searchNickname(Connection conn) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Member> list = new ArrayList<>();
+		String sql = prop.getProperty("searchNickname");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Member(rset.getInt("USER_NO"),rset.getString("NICKNAME"),rset.getString("ADDRESS"),rset.getDate("ENROLL_DATE")));
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public Member findNickname(Connection conn, String inputNickname) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member m = null;
+		String sql = prop.getProperty("findNickname");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, inputNickname);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				m = new Member(rset.getInt("USER_NO"),rset.getString("NICKNAME"),rset.getString("ADDRESS"),rset.getDate("ENROLL_DATE"));
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return m;
+	}
+	
 	public Member profile(Connection conn, String nickname) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;

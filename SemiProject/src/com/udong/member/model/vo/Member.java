@@ -40,19 +40,13 @@ public class Member {
 	public Member() {
 		super();
 	}
-
-	public Member(String userId, String userName, String nickname, String userPwd, String birthday, String gender,
-			String email, String address, String introduction) {
+	
+	public Member(int userNo, String nickname, String address, Date enrollDate) {
 		super();
-		this.userId = userId;
-		this.userName = userName;
+		this.userNo = userNo;
 		this.nickname = nickname;
-		this.userPwd = userPwd;
-		this.birthday = birthday;
-		this.gender = gender;
-		this.email = email;
 		this.address = address;
-		this.introduction = introduction;
+		this.enrollDate = enrollDate;
 	}
 
 	public Member(String userId, String userName, String nickname, String birthday, String gender, String introduction,

@@ -288,23 +288,24 @@
                     	<input type="text" name="restaurantAddress" class="restaurantAddress" style="width: 800px; height: 46px; font-size: 18px;" placeholder="맛집 주소" readonly> 
                     	<button type="button" onclick="openMap();" id="openMapBtn" class="btn btn-warning" style="font-size:15px; height:46px; width:86px; margin-bottom:10px; padding: 0px;">지도 보기</button>
 <!--                     	<button type="button" onclick="closeMap1();" id="closeMapBtn" class="btn btn-danger" style="display:none; font-size:15px; height:46px; width:86px; padding: 0px; margin:0px;">지도 끄기</button> -->
-                    </div>
+                    
                     <br>
-                    <div id="imgDiv" style="display:none; height:100%;">
-                    	<div id="imgListDiv" style="width:90%;">
-	                    	<div>
-	                    		&lt;대표 이미지&gt; <br>
-	                    		<img width="250" height="170" id="titleImg" required>
+	                    <div id="imgDiv" style="display:none; height:100%;">
+	                    	<div id="imgListDiv" style="width:90%;">
+		                    	<div>
+		                    		&lt;대표 이미지&gt; <br>
+		                    		<img width="250" height="170" id="titleImg" required>
+		                    	</div>
+		                    	<div>
+		                    		&lt;이미지 1&gt; <br>
+		                    		<img id="contentImg1" width="200" height="150">
+		                    	</div>
 	                    	</div>
-	                    	<div>
-	                    		&lt;이미지 1&gt; <br>
-	                    		<img id="contentImg1" width="200" height="150">
+	                    	<div id="imgBtns" style="width:10%;">
+		                    	<button class="btn btn-info" id="addBtn" onclick="addImg();" style="width:120px; height:50px; font-size:15px;">이미지 추가</button><br>
+	    	                	<button class="btn btn-danger" id="delBtn" onclick="delImg();" style="width:120px; height:50px; font-size:15px;">이미지 삭제</button>
 	                    	</div>
-                    	</div>
-                    	<div id="imgBtns" style="width:10%;">
-	                    	<button class="btn btn-info" id="addBtn" onclick="addImg();" style="width:120px; height:50px; font-size:15px;">이미지 추가</button><br>
-    	                	<button class="btn btn-danger" id="delBtn" onclick="delImg();" style="width:120px; height:50px; font-size:15px;">이미지 삭제</button>
-                    	</div>
+	                    </div>
                     </div>
                     <script>
                     		var count = 2;
