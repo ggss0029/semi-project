@@ -127,11 +127,8 @@
         </style>
 </head>
 <body>
+<%@ include file = "../../common/menubar.jsp" %>
     <div class="wrap">
-        <div id="header">
-            <div id="header_1"></div>
-            <div id="menubar"></div>
-        </div>
         <div id="content">
             <div id="content_1">
                 <p id="share"><b>나눔</b></p>
@@ -221,8 +218,8 @@
         
             </div>
         </div>
-        <div id="footer"></div>
     </div>
+    <%@ include file = "../../common/footer.jsp" %>
 </body>
 <script>
 	$(function(){
