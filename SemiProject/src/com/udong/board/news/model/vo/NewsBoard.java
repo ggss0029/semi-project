@@ -15,6 +15,35 @@ public class NewsBoard {
 	private String foodType;// FOOD_TYPE VARCHAR2(100 BYTE)
 	private String status;// STATUS VARCHAR2(1 BYTE)
 	private int boardReport;// BOARD_REPORT NUMBER
+	private int likeCount; //좋아요 수
+	
+
+	public NewsBoard(int boardNo, String boardWriter, String boardTitle, int count, Date createDate, int likeCount) {
+		super();
+		this.boardNo = boardNo;
+		this.boardWriter = boardWriter;
+		this.boardTitle = boardTitle;
+		this.count = count;
+		this.createDate = createDate;
+		this.likeCount = likeCount;
+	}
+
+
+
+
+	public int getLikeCount() {
+		return likeCount;
+	}
+
+
+
+
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
+
+
+
 
 	public NewsBoard() {
 		super();

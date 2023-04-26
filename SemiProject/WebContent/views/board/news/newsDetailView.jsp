@@ -33,11 +33,6 @@ div {
 	margin: auto;
 }
 
-#footer {
-	height: 200px;
-	background-color: darkblue;
-}
-
 #p1 { /*카테고리 글씨, 위치*/
 	font-size: 45px;
 	font-weight: 700;
@@ -415,6 +410,6 @@ tbody>#tr2 {
 
 		</div>
 	</div>
-	<div id="footer"></div>
+	<%@ include file = "../../common/footer.jsp" %>
 </body>
 </html>
