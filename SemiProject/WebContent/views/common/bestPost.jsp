@@ -105,7 +105,7 @@
 						<td><%=i+1%></td>
 						<td><%=list.get(i).getBoardName()%></td>
 						<td><%=list.get(i).getBoardTitle()%></td>
-						<td><a data-toggle="modal" data-target="#profile" onclick="gggg();"><%=list.get(i).getBoardWriter()%></a></td>
+						<td><a onclick="whoareyou();"><%=list.get(i).getBoardWriter()%></a></td>
 						<td><%=list.get(i).getCount()%></td>
 						<td><%=list.get(i).getCreateDate()%></td>
 						<td><%=list.get(i).getLikeCount()%></td>

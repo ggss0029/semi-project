@@ -205,6 +205,16 @@ public class MemberService {
 		return result;
 	}
 
+	public Member profile(String nickname) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		Member m = new MemberDao().profile(conn, nickname);
+		
+		JDBCTemplate.close(conn);
+		
+		return m;
+	}
+
 	
 
 

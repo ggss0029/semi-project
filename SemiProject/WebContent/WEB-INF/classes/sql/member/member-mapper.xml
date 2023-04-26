@@ -109,6 +109,11 @@
 		WHERE A.USER_NO = ?
 		AND A.STATUS != 'N'
 	</entry>
-	
+	<entry key="profile">
+		SELECT NICKNAME, SUBSTR((EXTRACT(YEAR FROM SYSDATE)-SUBSTR(BIRTHDAY, 1, 4)+1), 1, 1)||'0대' AS AGE
+				, SUBSTR(ADDRESS, 1,INSTR(ADDRESS, ' ', 1, 2)-1) AS ADDRESS, NVL(INTRODUCTION, '작성된 소개글이 없습니다.') AS INTRODUCTION
+		FROM MEMBER
+		WHERE NICKNAME = ? AND STATUS = 'Y'
+	</entry>
 	
 </properties>

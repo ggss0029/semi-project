@@ -19,6 +19,7 @@ public class Member {
 	private String admin; //ADMIN	VARCHAR2(1 BYTE)
 	private int userReport; //USER_REPORT	NUMBER
 	private int loginType; //LOGIN_TYPE	NUMBER
+	private int recommended;
 	
 	public String getIntroduction() {
 		return introduction;
@@ -28,11 +29,17 @@ public class Member {
 		this.introduction = introduction;
 	}
 
+	public int getRecommended() {
+		return recommended;
+	}
+
+	public void setRecommended(int recommended) {
+		this.recommended = recommended;
+	}
+
 	public Member() {
 		super();
 	}
-	
-	
 
 	public Member(String userId, String userName, String nickname, String birthday, String gender, String introduction,
 			String email, String address) {

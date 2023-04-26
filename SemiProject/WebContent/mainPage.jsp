@@ -507,7 +507,7 @@
             <%} else { %>
             	<div id="member_area" align="center">
 					<div id="logout">
-                    	<b><%=loginUser.getNickname() %> 님</b> <a onclick="logout();">로그아웃</a> <br>
+                    	<b><%=loginUser.getNickname() %> 님</b> <a href="<%=contextPath%>/logout.me">로그아웃</a> <br>
 	                </div>
 	                <div id="user_info" align="center">
 	                    <div id="myPage">
@@ -522,10 +522,6 @@
         </div>
         
         <script>
-	        function logout(){
-<%-- 	        	<%request.getSession().removeAttribute("loginUser");%> --%>
-	        	location.href="mainPage.jsp";
-	        }
         	function mainPage() {
         		location.href = "<%=contextPath%>";
         	}
@@ -540,7 +536,7 @@
         	}
         
         	function login() {
-        		location.href = "<%=contextPath%>/views/member/loginPage.jsp";
+        		location.href = "<%=contextPath%>/login.me";
         	};
         
         	function enroll() {
