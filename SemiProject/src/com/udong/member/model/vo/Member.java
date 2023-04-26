@@ -21,6 +21,21 @@ public class Member {
 	private int loginType; //LOGIN_TYPE	NUMBER
 	private int recommended;
 	
+	//회원정보수정 멤버변수
+	public Member(String userId, String userName, String nickname, String userPwd, String birthday, String gender,
+			 String email, String address, String introduction) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.nickname = nickname;
+		this.userPwd = userPwd;
+		this.birthday = birthday;
+		this.gender = gender;
+		this.email = email;
+		this.address = address;
+		this.introduction = introduction;
+	}
+
 	public String getIntroduction() {
 		return introduction;
 	}

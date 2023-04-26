@@ -13,7 +13,7 @@
 
         .wrap{
         	position:relative;
-			z-index:1;
+			/*z-index:1;*/
             height: 1530px;
             width: 1500px;
             margin: auto;
@@ -350,35 +350,6 @@
 
                             <tr style="border-bottom: 2px solid gray;">
                                 <th>
-                                    <span style="margin-left: 10px;">현재 비밀번호</span>
-                                    <span style="color: red;"> *</span>
-                                </th>
-                                <td colspan="3">
-                                	<input type="password" name="userPwd" id="userPwd" required>
-
-                                </td>
-                            </tr>
-
-                            <tr style="border-bottom: 2px solid gray;">
-                                <th>
-                                    <span style="margin-left: 10px;">비밀번호 변경</span>
-                                </th>
-                                <td colspan="3">
-                                	<input type="password" name="updatePwd" id="updatePwd" placeholder="변경 시에만 입력">
-                                </td>
-                            </tr>
-
-                            <tr style="border-bottom: 2px solid gray;">
-                                <th>
-                                    <span style="margin-left: 10px;">비밀번호 변경 확인</span>
-                                </th>
-                                <td colspan="3">
-                                	<input type="password" name="chkPwd" id="chkPwd" placeholder="변경 시에만 입력">
-                                </td>
-                            </tr>
-
-                            <tr style="border-bottom: 2px solid gray;">
-                                <th>
                                     <span style="margin-left: 10px;">생년월일</span>
                                     <span style="color: red;"> *</span>
                                 </th>
@@ -459,38 +430,99 @@
                     
                         <br><br><br>
                         <div align="center" id="write_btn">
-                            <button type="submit" class="btn btn-light" onclick="updateInfoConfirm();">등록하기</button>
+                            <button type="submit" class="btn btn-light">등록하기</button>
+                            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#changePwd">비밀번호 변경</button>
                         </div>
                         
                 </form>
+                
+                <!-- The Modal -->
+				<div class="modal" id="changePwd">
+				  <div class="modal-dialog modal-lg">
+				    <div class="modal-content">
+				
+				      <!-- Modal Header -->
+				      <div class="modal-header">
+				        <h4 class="modal-title">비밀번호 변경</h4>
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				      </div>
+				
+				      <!-- Modal body -->
+				      <div class="modal-body">
+				      	<form action="<%=contextPath %>/updatePwd.me" method="post">
+				      		<input type="hidden" name="userId" value="<%=loginUser.getUserId() %>">
+				      		
+				      		<table align="center">
+				      			<tr>
+	                                <th>
+	                                    <span>현재 비밀번호</span>
+	                                    <span style="color: red;"> *</span>
+	                                </th>
+	                                <td>
+	                                	<input type="password" name="userPwd" id="userPwd" class="nowPwd" required style="width:400px;">
+	                                	<font id="check" size="2"></font>
+	
+	                                </td>
+	                            </tr>
+	
+	                            <tr>
+	                                <th>
+	                                    <span>비밀번호 변경</span>
+	                                </th>
+	                                <td>
+	                                	<input type="password" name="updatePwd" id="updatePwd" class="pw" placeholder="변경 시에만 입력">
+	                                </td>
+	                            </tr>
+	
+	                            <tr>
+	                                <th>
+	                                    <span>비밀번호 변경 확인</span>
+	                                </th>
+	                                <td>
+	                                	<input type="password" name="chkPwd" id="chkPwd" class="pw" placeholder="변경 시에만 입력">
+	                                	<font id="checkPw" size="2"></font>
+	                                </td>
+	                            </tr>
+				      		</table>
+				      		<br>
+				      		
+				      		<div id="changebtn" style="text-align: center;">
+					      		<button type="submit" class="btn btn-info" onclick="return validate();" align="center">비밀번호 변경</button>
+				      		</div>
+				      		
+				      	</form>
+				      	
+				      	<script>
+							function validate(){
+								var loginPwd = "<%=loginUser.getUserPwd() %>";
+								var inputPwd = $("#userPwd").val();
+								var updatePwd = $("#updatePwd").val();
+								var chkPwd = $("#chkPwd").val();
+								
+								if(loginPwd == inputPwd) { //현재 비밀번호가 일치한다면
+									if(updatePwd != chkPwd) { //바꾼비밀번호와 재확인이 일치 하지 않는다면
+										alert("변경할 비밀번호와 확인이 일치하지 않습니다.");
+										$("input[name=updatePwd]").select();
+										return false;
+									}
+									
+								}else { //현재 비밀번호가 일치하지 않는다면
+									alert("현재 비밀번호가 일치하지 않습니다.");
+									$("input[name=userPwd]").focus();
+									return false;
+								}
+							}
+						</script>
+				      </div>
+				    </div>
+				  </div>
+				</div>
                         <br><br>
 
                 </div>
             </div>
         </div>
     </div>
-
-    <script>
-    	function updateInfoConfirm() {
-    		var loginPwd ="<%=loginUser.getUserPwd()%>";
-    		var inputPwd = $("#userPwd").val();
-    		var updatePwd = $("#updatePwd").val();
-    		var chkPwd = $("#chkPwd").val();
-    		
-    		if(loginPwd == inputPwd) {
-    			if(updatePwd != chkPwd) { 
-    				alert("변경하실 비밀번호와 일치하지 않습니다.");
-    				$("#updatePwd").select();
-    				return false;
-    			}
-    		}else { //현재 비밀번호를 잘못 입력했을때
-    			alert("현재 비밀번호가 일치하지 않습니다.");
-    			$("#userPwd").focus();
-    			return false;
-    		}
-    	}
-    
-    </script>
     <%@ include file = "../../common/footer.jsp" %>
 </body>
 </html>
