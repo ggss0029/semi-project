@@ -269,7 +269,7 @@
                         <p id="b2">카테고리</p>
                         
                         <div id="category">
-                            <input type="checkbox" id="fashion"> <label for="fashion" >의류/잡화</label>
+                            <input type="checkbox" id="fashion" > <label for="fashion" >의류/잡화</label>
                             <input type="checkbox" id="beauty" > <label for="beauty">뷰티</label>
                             <input type="checkbox" id="delivery"> <label for="delivery">출산</label>
                             <input type="checkbox" id="child"> <label for="child">아동</label>

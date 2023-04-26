@@ -65,6 +65,7 @@
 	</entry>
 	<entry key="getMemberListCount">
 		SELECT COUNT(USER_NO) AS COUNT FROM MEMBER
+		WHERE B.STATUS != 'N'
 	</entry>
 	<entry key="enrollMember">
 		INSERT INTO MEMBER(USER_NO, USER_ID, USER_PWD, USER_NAME, NICKNAME, BIRTHDAY, GENDER, EMAIL, ADDRESS,LOGIN_TYPE)

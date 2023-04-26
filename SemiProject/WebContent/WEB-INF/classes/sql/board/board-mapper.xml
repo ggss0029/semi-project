@@ -2,49 +2,12 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
-<!-- 자취게시판 by 김여울 -->
-
-
 	<entry key="selectListCount">
-		SELECT *
+		SELECT COUNT(*) COUNT
 		FROM BOARD
 		WHERE STATUS = 'Y'
-		AND BOARD_NAME = '자취레시피'
 	</entry>
 	
-
-	<entry key="selectList">
-	SELECT *
-	FROM   (SELECT ROWNUM RNUM,A.*
-			     FROM    (SELECT BOARD_NO, NICKNAME, BOARD_TITLE, CATEGORY, COUNT, CREATE_DATE, BOARDLIKE_NO
-			                FROM BOARD B
-			                JOIN MEMBER M ON (B.BOARD_WRITER = M.USER_NO)
-			                JOIN BOARD_LIKE L ON (BOARD_NO = L.BOARDLIKE_NO)
-			                WHERE BOARD_NAME = '자취레시피'
-			                AND B.STATUS = 'Y') A)
-	WHERE RNUM BETWEEN ? AND ?
-	</entry>
-	
-	
-	<entry key="selectListByKeyword">
-    SELECT *
-    FROM (
-        SELECT ROWNUM RNUM, A.*
-        FROM (
-            SELECT BOARD_NO, NICKNAME, BOARD_TITLE, CATEGORY, COUNT, CREATE_DATE, BOARDLIKE_NO
-            FROM BOARD B
-            JOIN MEMBER M ON (B.BOARD_WRITER = M.USER_NO)
-            JOIN BOARD_LIKE L ON (BOARD_NO = L.BOARDLIKE_NO)
-            WHERE BOARD_NAME = '자취레시피'
-            AND B.STATUS = 'Y'
-            AND (BOARD_TITLE LIKE '%' || ? || '%'
-            OR NICKNAME LIKE '%' || ? || '%')
-        ) A
-    ) 
-    WHERE RNUM BETWEEN ? AND ?
-	</entry>
-
-
 	<!-- 동네소식 총 게시글 개수 구하기 -->
 	<entry key="newsSelectListCount">
 		SELECT COUNT(*) COUNT
@@ -136,5 +99,127 @@
 	    GROUP BY BOARD_NO,NICKNAME,BOARD_TITLE,BOARD_CONTENT,BOARD_NAME,CATEGORY,COUNT,CREATE_DATE
 	    ORDER BY COUNT DESC)
 	</entry>
+	<!-- 이거필요해요 게시글 리스트 페이지 -->
+	<entry key="getBoardNeedList">
+	SELECT
+		*
+	FROM
+		(
+		SELECT 
+			ROWNUM AS RNUM
+			, B.BOARD_NO
+			, B.BOARD_TITLE
+			, B.BOARD_CONTENT 
+			, B.COUNT
+			, M.NICKNAME
+			, B.CREATE_DATE 
+			, B.BOARD_NAME
+			, (SELECT COUNT(BOARDLIKE_NO) FROM BOARD_LIKE WHERE BOARDLIKE_NO = B.BOARD_NO) AS LIKE_CNT 
+		FROM 
+			BOARD B 
+		JOIN MEMBER M ON (B.BOARD_WRITER = M.USER_NO)
+		) A
+	WHERE A.BOARD_NAME = '이거 필요해요'
+	AND A.RNUM BETWEEN ? AND ?
+	</entry>
 	
+	
+	<!-- 이거필요해요 검색페이지 -->
+	<entry key="BoardNeedWithSearch">
+		SELECT
+		*
+	FROM
+		(
+		SELECT 
+			ROWNUM AS RNUM
+			, B.BOARD_NO
+			, B.BOARD_TITLE
+			, B.BOARD_CONTENT 
+			, B.COUNT
+			, M.NICKNAME
+			, B.CREATE_DATE 
+			, B.BOARD_NAME
+			, (SELECT COUNT(BOARDLIKE_NO) FROM BOARD_LIKE WHERE BOARDLIKE_NO = B.BOARD_NO) AS LIKE_CNT 
+		FROM 
+			BOARD B 
+		JOIN MEMBER M ON (B.BOARD_WRITER = M.USER_NO)
+		) A
+	WHERE A.BOARD_NAME = '이거 필요해요'
+	AND A.RNUM BETWEEN ? AND ?
+	AND (BOARD_TITLE LIKE %?% OR BOARD_CONTENT LIKE %?%)	
+	</entry>
+	
+	
+	
+	<entry key="getBoardNeedListCount">
+	SELECT
+		*
+	FROM 
+		BOARD
+		WHERE STATUS = 'Y'
+		AND BOARD_NAME = '이거 필요해요'
+	
+	</entry>
+	
+	
+	
+	
+	<entry key="searchKeyword">
+	SELECT BOARD_NO,NICKNAME,BOARD_TITLE,BOARD_NAME,COUNT,CREATE_DATE,COUNT(BOARDLIKE_NO) LIKECOUNT
+	FROM BOARD B
+    JOIN MEMBER ON BOARD_WRITER = USER_NO
+	LEFT JOIN BOARD_LIKE ON BOARD_NO = BOARDLIKE_NO
+    WHERE B.STATUS='Y' AND BOARD_TITLE LIKE '%'||?||'%'
+    GROUP BY BOARD_NO,NICKNAME,BOARD_TITLE,BOARD_NAME,COUNT,CREATE_DATE
+	</entry>
+	
+	<entry key="selectSearchListTitle">
+	SELECT *
+	FROM   (SELECT ROWNUM RNUM,A.*   
+         FROM   (SELECT BOARD_NO,NICKNAME,BOARD_TITLE,BOARD_NAME,COUNT,CREATE_DATE,COUNT(BOARDLIKE_NO) LIKECOUNT
+                 FROM BOARD B
+                 JOIN MEMBER ON BOARD_WRITER = USER_NO
+                 LEFT JOIN BOARD_LIKE ON BOARD_NO = BOARDLIKE_NO
+                 WHERE B.STATUS='Y' AND BOARD_TITLE LIKE '%'||?||'%' AND TO_CHAR(SYSDATE,'YYMMDD')>TO_CHAR(SYSDATE-?,'YYMMDD')
+                 GROUP BY BOARD_NO,NICKNAME,BOARD_TITLE,BOARD_NAME,COUNT,CREATE_DATE
+                 ORDER BY COUNT DESC) A )
+	WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectSearchListContent">
+	SELECT *
+	FROM   (SELECT ROWNUM RNUM,A.*   
+         FROM   (SELECT BOARD_NO,NICKNAME,BOARD_TITLE,BOARD_NAME,COUNT,CREATE_DATE,COUNT(BOARDLIKE_NO) LIKECOUNT
+                 FROM BOARD B
+                 JOIN MEMBER ON BOARD_WRITER = USER_NO
+                 LEFT JOIN BOARD_LIKE ON BOARD_NO = BOARDLIKE_NO
+                 WHERE B.STATUS='Y' AND BOARD_CONTENT LIKE '%'||?||'%' AND TO_CHAR(SYSDATE,'YYMMDD')>TO_CHAR(SYSDATE-?,'YYMMDD')
+                 GROUP BY BOARD_NO,NICKNAME,BOARD_TITLE,BOARD_NAME,COUNT,CREATE_DATE
+                 ORDER BY COUNT DESC) A )
+	WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectSearchListReply">
+	SELECT *
+	FROM   (SELECT ROWNUM RNUM,A.*   
+         FROM   (SELECT REPLY_NO,REF_BNO,NICKNAME,REPLY_CONTENT,CREATE_DATE,MODIFY_DATE
+                 FROM REPLY R
+                 JOIN MEMBER ON REPLY_WRITER = USER_NO
+                 WHERE R.STATUS='Y' AND REPLY_CONTENT LIKE '%'||?||'%' AND TO_CHAR(SYSDATE,'YYMMDD')>TO_CHAR(SYSDATE-?,'YYMMDD')
+                 ORDER BY MODIFY_DATE DESC) A )
+	WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectSearchListWriter">
+	SELECT *
+	FROM   (SELECT ROWNUM RNUM,A.*   
+         FROM   (SELECT BOARD_NO,NICKNAME,BOARD_TITLE,BOARD_NAME,COUNT,CREATE_DATE,COUNT(BOARDLIKE_NO) LIKECOUNT
+                 FROM BOARD B
+                 JOIN MEMBER ON BOARD_WRITER = USER_NO
+                 LEFT JOIN BOARD_LIKE ON BOARD_NO = BOARDLIKE_NO
+                 WHERE B.STATUS='Y' AND NICKNAME LIKE '%'||?||'%' AND TO_CHAR(SYSDATE,'YYMMDD')>TO_CHAR(SYSDATE-?,'YYMMDD')
+                 GROUP BY BOARD_NO,NICKNAME,BOARD_TITLE,BOARD_NAME,COUNT,CREATE_DATE
+                 ORDER BY COUNT DESC) A )
+	WHERE RNUM BETWEEN ? AND ?
+	</entry>
 </properties>
