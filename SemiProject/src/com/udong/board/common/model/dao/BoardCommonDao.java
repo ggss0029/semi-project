@@ -73,7 +73,7 @@ public class BoardCommonDao {
 			while(rset.next()) {
 				list.add(new BoardCommon(rset.getInt("BOARD_NO"),rset.getString("NICKNAME")
 						,rset.getString("BOARD_TITLE"),rset.getString("BOARD_CONTENT"),rset.getString("BOARD_NAME"),rset.getString("CATEGORY")
-						,rset.getInt("COUNT"),rset.getDate("CREATE_DATE"), rset.getInt("COUNT")));
+						,rset.getInt("COUNT"),rset.getDate("CREATE_DATE"), rset.getInt("LIKECOUNT")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

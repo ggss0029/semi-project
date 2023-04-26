@@ -619,6 +619,34 @@ public class MemberDao {
 		return result;
 	}
 
+	public Member profile(Connection conn, String nickname) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member m = new Member();
+		String sql = prop.getProperty("profile");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, nickname);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				m.setNickname(rset.getString("NICKNAME"));
+				m.setBirthday(rset.getString("AGE"));
+				m.setAddress(rset.getString("ADDRESS"));
+				m.setIntroduction(rset.getString("INTRODUCTION"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return m;
+	}
+
 	public int myInfoUpdate(Connection conn, Member m) {
 		int result = 0;
 		

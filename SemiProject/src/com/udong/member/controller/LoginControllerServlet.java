@@ -32,8 +32,7 @@ public class LoginControllerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.getRequestDispatcher("views/member/loginPage.jsp").forward(request, response);
 	}
 
 	/**
@@ -54,7 +53,7 @@ public class LoginControllerServlet extends HttpServlet {
 		if(result==2) { //로그인 가능
 			 request.getSession().setAttribute("loginUser",loginUser);
 			 request.getSession().removeAttribute("count");
-			 response.sendRedirect(request.getContextPath());
+			 response.sendRedirect(request.getHeader("Referer"));
 		}else if(result==1) { //비번 틀림
 			request.getSession().setAttribute("loginError","비밀번호를 "+((int)request.getSession().getAttribute("count")+1)+"회 잘못 입력하셨습니다. 다시 시도해주세요.");
 			request.getSession().setAttribute("count", (int)request.getSession().getAttribute("count")+1);
