@@ -26,7 +26,7 @@
         .wrap{
         	position:relative;
 			z-index:1;
-            height: 1730px;
+            height: 1530px;
             width: 1500px;
             margin: auto;
         }
@@ -99,12 +99,9 @@
         
     </style>
 </head>
+<%@ include file = "../common/menubar.jsp" %>
 <body>
     <div class="wrap">
-        <div id="header">
-            <div id="header_1"></div>
-            <div id="menubar"></div>
-        </div>
         <div id="content">
             <div id="content_1">
                 <p id="adminchk"><b>관리</b></p>
@@ -161,7 +158,7 @@
 
             </div>
         </div>
-        <div id="footer"></div>
     </div>
+        <%@ include file = "../common/footer.jsp" %>
 </body>
 </html>
