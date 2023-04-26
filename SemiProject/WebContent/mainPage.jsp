@@ -497,11 +497,15 @@
             	<a href="<%=contextPath %>/newsList.bo?currentPage=1">정보 공유</a>
             </div>
             <div>
-            	<a href="<%=request.getContextPath() %>/views/member/userDelete.jsp">회원탈퇴</a>
+            	<a href="<%=request.getContextPath() %>/UserDelete.me">회원탈퇴</a>
             </div>
             <div></div>
             <div id="buy-area">
             	<a href="<%=request.getContextPath() %>/views/board/buy/buyListView.jsp">같이 사요</a> 
+            </div>
+            <div>
+            	<a href="<%=request.getContextPath() %>/NeedBoardList.me">이거 필요해요
+            	</a> 
             </div>
             <div></div>
             <div></div>

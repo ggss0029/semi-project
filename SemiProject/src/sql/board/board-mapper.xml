@@ -133,5 +133,69 @@
 	    GROUP BY BOARD_NO,NICKNAME,BOARD_TITLE,BOARD_CONTENT,BOARD_NAME,CATEGORY,COUNT,CREATE_DATE
 	    ORDER BY COUNT DESC)
 	</entry>
+	<!-- 이거필요해요 게시글 리스트 페이지 -->
+	<entry key="getBoardNeedList">
+	SELECT
+		*
+	FROM
+		(
+		SELECT 
+			ROWNUM AS RNUM
+			, B.BOARD_NO
+			, B.BOARD_TITLE
+			, B.BOARD_CONTENT 
+			, B.COUNT
+			, M.NICKNAME
+			, B.CREATE_DATE 
+			, B.BOARD_NAME
+			, (SELECT COUNT(BOARDLIKE_NO) FROM BOARD_LIKE WHERE BOARDLIKE_NO = B.BOARD_NO) AS LIKE_CNT 
+		FROM 
+			BOARD B 
+		JOIN MEMBER M ON (B.BOARD_WRITER = M.USER_NO)
+		) A
+	WHERE A.BOARD_NAME = '이거 필요해요'
+	AND A.RNUM BETWEEN ? AND ?
+	</entry>
+	
+	
+	<!-- 이거필요해요 검색페이지 -->
+	<entry key="BoardNeedWithSearch">
+		SELECT
+		*
+	FROM
+		(
+		SELECT 
+			ROWNUM AS RNUM
+			, B.BOARD_NO
+			, B.BOARD_TITLE
+			, B.BOARD_CONTENT 
+			, B.COUNT
+			, M.NICKNAME
+			, B.CREATE_DATE 
+			, B.BOARD_NAME
+			, (SELECT COUNT(BOARDLIKE_NO) FROM BOARD_LIKE WHERE BOARDLIKE_NO = B.BOARD_NO) AS LIKE_CNT 
+		FROM 
+			BOARD B 
+		JOIN MEMBER M ON (B.BOARD_WRITER = M.USER_NO)
+		) A
+	WHERE A.BOARD_NAME = '이거 필요해요'
+	AND A.RNUM BETWEEN ? AND ?
+	AND (BOARD_TITLE LIKE %?% OR BOARD_CONTENT LIKE %?%)	
+	</entry>
+	
+	
+	
+	<entry key="getBoardNeedListCount">
+	SELECT
+		*
+	FROM 
+		BOARD
+		WHERE STATUS = 'Y'
+		AND BOARD_NAME = '이거 필요해요'
+	
+	</entry>
+	
+	
+	
 	
 </properties>
