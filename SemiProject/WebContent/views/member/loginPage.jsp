@@ -165,6 +165,13 @@
     </style>
 </head>
 <body>
+<script>
+	$(function() {
+		<%if(request.getSession().getAttribute("loginUser") != null) {%>
+			history.back();
+		<%}%>
+	})
+</script>
     <div class="wrap">
         <div id="left">
             <div id="header"></div>

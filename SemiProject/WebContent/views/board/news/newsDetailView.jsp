@@ -96,10 +96,10 @@ tbody>#tr2 {
 	<%@ include file="../../common/menubar.jsp"%>
 
 	<div class="wrap">
-		<div id="header">
-			<div id="header_1"></div>
-			<div id="menubar"></div>
-		</div>
+<!-- 		<div id="header"> -->
+<!-- 			<div id="header_1"></div> -->
+<!-- 			<div id="menubar"></div> -->
+<!-- 		</div> -->
 		<div id="content">
 			<p id="p1">동네 소식</p>
 			<button id="report_btn" class="btn btn-basic">신고하기</button>

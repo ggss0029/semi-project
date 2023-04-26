@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>보낸 쪽지함</title>
+    <title>받은 쪽지함</title>
     <style>
     	div{
 /*     		border: 1px solid black; */
@@ -89,7 +89,7 @@
         	<div id="content_1" style="margin-left:10px;" align="center">
         		<div id="content_1_1">쪽지</div>
         		<div id="content_1_2">받은 쪽지함</div>
-        		<div id="content_1_3"><a href="">보낸 쪽지함</a></div>
+        		<div id="content_1_3"><a href="<%=contextPath%>/sendLetterList.le?writerNo=<%=loginUser.getUserNo()%>">보낸 쪽지함</a></div>
         		<div id="content_1_4"><a href="">쪽지 보내기</a></div>
         	</div>
         	<div id="content_2" align="center">
