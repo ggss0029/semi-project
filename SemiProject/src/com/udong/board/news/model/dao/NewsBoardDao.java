@@ -92,7 +92,8 @@ public class NewsBoardDao {
 										,rset.getString("NICKNAME")
 										,rset.getString("BOARD_TITLE")
 										,rset.getInt("COUNT")
-										,rset.getDate("CREATE_DATE")));
+										,rset.getDate("CREATE_DATE")
+										,rset.getInt("LIKE_COUNT")));
 				//순서가 적으면 아래처럼 요롷게 하기
 //				NewsBoard nb = new NewsBoard();
 //				nb.set

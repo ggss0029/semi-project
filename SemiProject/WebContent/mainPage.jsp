@@ -153,6 +153,7 @@
         .header_2{
             height: 55%;
             border-bottom: 1px solid black;
+            background-color: orange;
         }
         
         .header_2>div {
@@ -507,7 +508,7 @@
             <%} else { %>
             	<div id="member_area" align="center">
 					<div id="logout">
-                    	<b><%=loginUser.getNickname() %> 님</b> <a onclick="logout();">로그아웃</a> <br>
+                    	<b><%=loginUser.getNickname() %> 님</b> <a href="<%=contextPath%>/logout.me">로그아웃</a> <br>
 	                </div>
 	                <div id="user_info" align="center">
 	                    <div id="myPage">
@@ -522,10 +523,6 @@
         </div>
         
         <script>
-	        function logout(){
-<%-- 	        	<%request.getSession().removeAttribute("loginUser");%> --%>
-	        	location.href="mainPage.jsp";
-	        }
         	function mainPage() {
         		location.href = "<%=contextPath%>";
         	}
@@ -547,7 +544,7 @@
         		location.href = "<%=contextPath%>/enroll.me";
         	};
         </script>
-        
+            
         <div class="header_2">
             <div style="margin-left:3%"><a align="center" href="<%=contextPath %>/newsList.bo?currentPage=1"><img src="views/common/icons/정보공유.png" alt="정보공유">정보 공유</a></div>
             <div style="margin-left:2%"><a align="center" href=""><img src="views/common/icons/동네맛집.png" alt="동네맛집">동네 맛집</a></div>

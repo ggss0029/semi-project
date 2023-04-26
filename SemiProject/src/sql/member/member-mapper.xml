@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
 <properties>
 	<entry key="loginCheck">
 		SELECT USER_PWD FROM MEMBER WHERE USER_ID=?
@@ -65,6 +66,7 @@
 	</entry>
 	<entry key="getMemberListCount">
 		SELECT COUNT(USER_NO) AS COUNT FROM MEMBER
+		WHERE B.STATUS != 'N'
 	</entry>
 	<entry key="enrollMember">
 		INSERT INTO MEMBER(USER_NO, USER_ID, USER_PWD, USER_NAME, NICKNAME, BIRTHDAY, GENDER, EMAIL, ADDRESS,LOGIN_TYPE)
@@ -109,15 +111,48 @@
 		WHERE A.USER_NO = ?
 		AND A.STATUS != 'N'
 	</entry>
+	
 	<entry key="searchNickname">
 	SELECT USER_NO,NICKNAME,SUBSTR(ADDRESS, 1,INSTR(ADDRESS, ' ', 1, 2)-1) AS ADDRESS,ENROLL_DATE
     FROM MEMBER
     WHERE STATUS='Y'
 	</entry>
+	
 	<entry key="findNickname">
 	SELECT USER_NO,NICKNAME,SUBSTR(ADDRESS, 1,INSTR(ADDRESS, ' ', 1, 2)-1) AS ADDRESS,ENROLL_DATE
     FROM MEMBER
     WHERE STATUS='Y' AND NICKNAME = ?
 	</entry>
+
+	<entry key="profile">
+		SELECT NICKNAME, SUBSTR((EXTRACT(YEAR FROM SYSDATE)-SUBSTR(BIRTHDAY, 1, 4)+1), 1, 1)||'0대' AS AGE
+				, SUBSTR(ADDRESS, 1,INSTR(ADDRESS, ' ', 1, 2)-1) AS ADDRESS, NVL(INTRODUCTION, '작성된 소개글이 없습니다.') AS INTRODUCTION
+		FROM MEMBER
+		WHERE NICKNAME = ? AND STATUS = 'Y'
+	</entry>
 	
+	<!-- 개인정보수정 -->
+	<entry key="myInfoUpdate">
+		UPDATE MEMBER 
+		SET NICKNAME = ?
+			,EMAIL = ?
+			,ADDRESS = ?
+			,INTRODUCTION = ?
+		WHERE USER_ID = ?
+	</entry>
+	
+	<entry key="myInfoSelectMember">
+		SELECT *
+		FROM MEMBER
+		WHERE USER_ID = ?
+		AND STATUS = 'Y'
+	</entry>
+	
+	<!-- 비밀번호 수정 -->
+	<entry key="updatePwd">
+		UPDATE MEMBER
+		SET USER_PWD = ?
+		WHERE USER_ID = ?
+		AND STATUS = 'Y'
+	</entry>
 </properties>

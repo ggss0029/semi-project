@@ -22,7 +22,7 @@
         .wrap{
         	position:relative;
 			z-index:1;
-            height: 1730px;
+            height: 1530px;
             width: 1500px;
             margin: auto;
         }
@@ -35,12 +35,6 @@
             width: 100%;
             height: 76.5%;
             position: relative;
-        }
-
-        #footer{
-            width: 100%;
-            height: 10%;
-            background-color: darkblue;
         }
 
         #content>div{
@@ -450,7 +444,7 @@
                 </div>
             </div>
         </div>
-        <div id="footer"></div>
     </div>
+    <%@ include file = "../../common/footer.jsp" %>
 </body>
 </html>
