@@ -95,8 +95,8 @@
         <div id="content">
         	<div id="content_1" style="margin-left:10px;" align="center">
         		<div id="content_1_1">쪽지</div>
-        		<div id="content_1_2"><a href="">받은 쪽지함</a></div>
-        		<div id="content_1_3"><a href="<%=contextPath%>/sendLetterList.le?writerNo=<%=loginUser.getUserNo()%>">보낸 쪽지함</a></div>
+        		<div id="content_1_2"><a href="<%=contextPath%>/receiveLetterList.le?writerNo=<%=loginUser.getUserNo()%>&currentPage=1">받은 쪽지함</a></div>
+        		<div id="content_1_3"><a href="<%=contextPath%>/sendLetterList.le?writerNo=<%=loginUser.getUserNo()%>&currentPage=1">보낸 쪽지함</a></div>
         		<div id="content_1_4">쪽지 보내기</div>
         	</div>
         	<div id="content_2" align="center">

@@ -26,6 +26,14 @@ public class Letter {
 		this.writeDate = writeDate;
 	}
 
+	public Letter(String letterWriter, int letterNo, String letterContent, Date writeDate) {
+		super();
+		this.letterWriter = letterWriter;
+		this.letterNo = letterNo;
+		this.letterContent = letterContent;
+		this.writeDate = writeDate;
+	}
+
 
 
 	public Letter(int letterWriterNo, int letterReceiverNo, String letterContent) {

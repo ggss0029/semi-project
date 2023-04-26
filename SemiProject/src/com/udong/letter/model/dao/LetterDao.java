@@ -102,5 +102,54 @@ public class LetterDao {
 		}
 		return list;
 	}
+	public int selectreceiveLetterListCount(Connection conn, int writerNo) {
+
+		int listCount = 0;
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("selectreceiveLetterListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, writerNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return listCount;
+	}
+	public ArrayList<Letter> receiveLetterList(Connection conn, int writerNo, PageInfo pi) {
+
+		ArrayList<Letter> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("receiveLetterList");
+		
+		try {
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit()+1;
+			int endRow = (startRow+pi.getBoardLimit()) - 1;
+			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, writerNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rset=pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Letter(rset.getString("NICKNAME"),rset.getInt("LETTER_NO"),rset.getString("LETTER_CONTENT"),rset.getDate("WRITE_DATE")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 	
 }

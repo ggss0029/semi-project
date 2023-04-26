@@ -39,5 +39,21 @@ public class LetterService {
 		return list;
 	}
 
+	public int selectreceiveLetterListCount(int writerNo) {
+
+		Connection conn = JDBCTemplate.getConnection();
+		int listCount = new LetterDao().selectreceiveLetterListCount(conn,writerNo);
+		JDBCTemplate.close(conn);
+		return listCount;
+	}
+
+	public ArrayList<Letter> receiveLetterList(int writerNo, PageInfo pi) {
+
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<Letter> list = new LetterDao().receiveLetterList(conn,writerNo,pi);
+		JDBCTemplate.close(conn);
+		return list;
+	}
+
 
 }
