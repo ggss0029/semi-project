@@ -17,6 +17,8 @@
         }
 
         .wrap{
+      		position:relative;
+			z-index:1;
             height: 1530px;
             width: 1500px;
             margin: auto;

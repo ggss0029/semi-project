@@ -9,6 +9,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
     <title>유저탈퇴</title>
     <style>
         * {
@@ -24,7 +25,7 @@
         	position:relative;
 			z-index:1;
             width: 1500px;
-            height: 2000px;
+            height: 1530px;
             border: 1px solid black;
             margin: auto;
         }
@@ -210,6 +211,7 @@
 </head>
 
 <body>
+<%@ include file = "../../common/menubar.jsp" %>
     <div class="wrap">
         <div id="header">
             <div class="header_1"></div>
@@ -267,12 +269,16 @@
                             <table align="center"class="tg" width="1098px">
                                
                                
+                               
+                               
+                               
+                               
                                 <tr>
                                     <td class="wordArea">
                                         <label for="userId">  아이디 :</label>
                                     </td>
                                     <td class="tg-0lax">
-                                        <input class="full-size" type="userId" id="userId" name="userId" placeholder="아이디를 입력해주세요" ><br>
+                                        <input class="full-size" type="text" id="userId" name="userId" placeholder="아이디를 입력해주세요" ><br>
 
                                     </td>
                                     <td class="wordArea">
@@ -286,16 +292,21 @@
                                 </tbody>
                                 </table>
 
+							<div>
+								
                                 <div class="apply-wrapper">
-                                    <input type="checkbox">
+                                    <label>
+									<input type="checkbox" id="myCheckbox"> 체크박스
+									</label>
                                     <span>안내 사항을 모두 확인하였으며, 이에 동의합니다.</span>
                                 </div>
                               
 
                                 <div align="center"> 
-                                    <button type="submit" class="deleteAccButton">탈퇴</button>
+                                    <a href="javascript:void(0)" id="mybutton"  class="deleteAccButton" >탈퇴</a>
                                 </div>
-
+							</div>
+							
                             </form>
 
                             </div>
@@ -308,9 +319,60 @@
                 
             </div>
         </div>
-        <div id="footer"></div>
     </div>
+    <%@ include file = "../../common/menubar.jsp" %>
 </body>
+
+<script>
+
+$(function(){
+	var flag = <%=request.getAttribute("flag") %>
+	//첫진입시와 실패한후 동일한 화면을 띄우는데 flag에 대한 구분값
+	if(flag){
+		alert("회원탈퇴에 실패했습니다.")
+	}
+	
+	$("#mybutton").prop("disabled" , true)	
+	var contextPath = "<%= request.getContextPath()%>";
+	var userId;
+	var userPwd;
+	var checked = false;
+	
+		//change userId의 value가 변할시 (포커스아웃) 
+		$("#userId").change(function(){
+			userId = $("#userId").val();
+		}); 
+		
+		$("#userPwd").change(function(){
+			userPwd = $("#userPwd").val();
+		});
+		
+	
+		$("#myCheckbox").change(function(){
+			checked = $(this).prop("checked");
+			
+			if($(this).prop("checked")){
+				$("#mybutton").prop("disabled" , false)
+			}else{
+				$("#mybutton").prop("disabled" , true)
+			}
+		});
+	
+		$("#mybutton").click(function(){
+			
+		// 입력된 값이 유효한지 확인합니다.
+		//confirm 예 아니오
+		if(userId && userPwd && checked){
+			if(confirm("회원탈퇴 하시겠습니까?")){
+				var form = $("#delete-form"); 
+				form.submit();
+			}else{
+				return false;	
+			}
+		}
+	});
+});
+</script>
 
     
 

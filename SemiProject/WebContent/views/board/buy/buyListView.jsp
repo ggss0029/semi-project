@@ -22,7 +22,7 @@
         .wrap{
         	position:relative;
 			z-index:1;
-            height: 1730px;
+            height: 1530px;
             width: 1500px;
             margin: auto;
         }
@@ -35,12 +35,6 @@
             width: 100%;
             height: 76.5%;
             position: relative;
-        }
-
-        #footer{
-            width: 100%;
-            height: 10%;
-            background-color: darkblue;
         }
 
         #content>div{
@@ -275,7 +269,7 @@
                         <p id="b2">카테고리</p>
                         
                         <div id="category">
-                            <input type="checkbox" id="fashion"> <label for="fashion" >의류/잡화</label>
+                            <input type="checkbox" id="fashion" > <label for="fashion" >의류/잡화</label>
                             <input type="checkbox" id="beauty" > <label for="beauty">뷰티</label>
                             <input type="checkbox" id="delivery"> <label for="delivery">출산</label>
                             <input type="checkbox" id="child"> <label for="child">아동</label>
@@ -512,7 +506,8 @@
                 </div>
             </div>
         </div>
-        <div id="footer"></div>
+        
     </div>
+    <%@ include file = "../../common/footer.jsp" %>
 </body>
 </html>

@@ -65,6 +65,7 @@
 	</entry>
 	<entry key="getMemberListCount">
 		SELECT COUNT(USER_NO) AS COUNT FROM MEMBER
+		WHERE B.STATUS != 'N'
 	</entry>
 	<entry key="enrollMember">
 		INSERT INTO MEMBER(USER_NO, USER_ID, USER_PWD, USER_NAME, NICKNAME, BIRTHDAY, GENDER, EMAIL, ADDRESS,LOGIN_TYPE)
@@ -116,4 +117,29 @@
 		WHERE NICKNAME = ? AND STATUS = 'Y'
 	</entry>
 	
+	<!-- 개인정보수정 -->
+	<entry key="myInfoUpdate">
+		UPDATE MEMBER 
+		SET NICKNAME = ?
+			,EMAIL = ?
+			,ADDRESS = ?
+			,INTRODUCTION = ?
+		WHERE USER_ID = ?
+	</entry>
+	
+	
+	<entry key="myInfoSelectMember">
+		SELECT *
+		FROM MEMBER
+		WHERE USER_ID = ?
+		AND STATUS = 'Y'
+	</entry>
+	
+	<!-- 비밀번호 수정 -->
+	<entry key="updatePwd">
+		UPDATE MEMBER
+		SET USER_PWD = ?
+		WHERE USER_ID = ?
+		AND STATUS = 'Y'
+	</entry>
 </properties>

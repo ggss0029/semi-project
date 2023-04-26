@@ -215,6 +215,48 @@ public class MemberService {
 		return m;
 	}
 
+	//개인 정보 수정
+	public Member myInfoUpdate(Member m) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new MemberDao().myInfoUpdate(conn, m);
+		
+		//변경된 회원 정보를 세션에 담아야하기 대문에 다시 조회
+		Member updateMem = null;
+		
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+			
+			//변경된 정보조회 해보기
+			updateMem = new MemberDao().myInfoSelectMember(conn, m.getUserId());
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return updateMem;
+	}
+
+	public Member updatePwd(String userId, String updatePwd) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new MemberDao().updatePwd(conn, userId, updatePwd);
+		
+		Member m = null;
+		
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+			m = new MemberDao().myInfoSelectMember(conn, userId); //성공시 갱신할 회원정보 조회
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return m;
+	}
+
 	
 
 

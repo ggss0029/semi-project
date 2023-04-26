@@ -31,6 +31,32 @@ public class BoardCommonDao {
 		
 	}
 	
+	public int selectListCount(Connection conn) {
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		Statement stmt = null;
+		
+		String sql = prop.getProperty("selectListCount");
+		
+		try {
+			stmt = conn.createStatement();
+			
+			rset = stmt.executeQuery(sql);
+			
+			if(rset.next()) {
+				listCount = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(stmt);
+		}
+		
+		return listCount;
+	}
+	
 	public ArrayList<BoardCommon> bestPostList(Connection conn) {
 		
 		ArrayList<BoardCommon> list = new ArrayList<>();
@@ -56,33 +82,6 @@ public class BoardCommonDao {
 			JDBCTemplate.close(pstmt);
 		}
 		return list;
-	}
-
-	public int selectListCount(Connection conn) {
-
-		int listCount = 0;
-		ResultSet rset = null;
-		
-		Statement stmt = null;
-		
-		String sql = prop.getProperty("selectSearchListCount");
-		
-		try {
-			stmt = conn.createStatement();
-			
-			rset = stmt.executeQuery(sql);
-			
-			if(rset.next()) {
-				listCount = rset.getInt("COUNT");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(stmt);
-		}
-		
-		return listCount;
 	}
 
 	public ArrayList<BoardCommon> searchKeyword(Connection conn, String keyword) {
@@ -129,8 +128,8 @@ public class BoardCommonDao {
 			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit()+1;
 			int endRow = (startRow+pi.getBoardLimit()) - 1;
 			
-			pstmt.setInt(1, time);
-			pstmt.setString(2, searchInput);
+			pstmt.setString(1, searchInput);
+			pstmt.setInt(2, time);
 			pstmt.setInt(3, startRow);
 			pstmt.setInt(4, endRow);
 			
@@ -160,15 +159,15 @@ public class BoardCommonDao {
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
 		
-		String sql = prop.getProperty("selectSearchListTitle");
+		String sql = prop.getProperty("selectSearchListContent");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit()+1;
 			int endRow = (startRow+pi.getBoardLimit()) - 1;
 			
-			pstmt.setInt(1, time);
-			pstmt.setString(2, searchInput);
+			pstmt.setString(1, searchInput);
+			pstmt.setInt(2, time);
 			pstmt.setInt(3, startRow);
 			pstmt.setInt(4, endRow);
 			
@@ -242,8 +241,8 @@ public class BoardCommonDao {
 			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit()+1;
 			int endRow = (startRow+pi.getBoardLimit()) - 1;
 			
-			pstmt.setInt(1, time);
-			pstmt.setString(2, searchInput);
+			pstmt.setString(1, searchInput);
+			pstmt.setInt(2, time);
 			pstmt.setInt(3, startRow);
 			pstmt.setInt(4, endRow);
 			

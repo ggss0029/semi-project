@@ -14,7 +14,7 @@
         .wrap{
         	position:relative;
 			z-index:1;
-            height: 1730px;
+            height: 1530px;
             width: 1500px;
             margin: auto;
         }
@@ -27,12 +27,6 @@
             width: 100%;
             height: 76.5%;
             position: relative;
-        }
-
-        #footer{
-            width: 100%;
-            height: 10%;
-            background-color: darkblue;
         }
 
         #content>div{
@@ -271,6 +265,17 @@
 </head>
 <body>
 	<%@ include file = "../../common/menubar.jsp" %>
+	<%
+		String userId = loginUser.getUserId();
+		String userName = loginUser.getUserName();
+		String nickName = loginUser.getNickname();
+		String userPwd = loginUser.getUserPwd();
+		String birthday = loginUser.getBirthday();
+		String gender = loginUser.getGender();
+		String email = loginUser.getEmail();
+		String address = loginUser.getAddress();
+		String introduction = (loginUser.getIntroduction() == null) ? "" : loginUser.getIntroduction();
+	%>
 	 <div class="wrap">
 <!--         <div id="header"> -->
 <!--             <div id="header_1"></div> -->
@@ -310,9 +315,7 @@
                         </div>
                         
                     <form action="<%=contextPath %>/update.me" method="post" id="myInfoUpdate" entype="multipart/form-data">
-                    
-                    	<!-- 폼 태그 안에 데이터 숨겨서 보내기 -->
-                    	<input type="hidden" name="userId" value="<%=loginUser.getUserId()%>">
+                    	
                         <table class="list-area" border="0">
                             <tr style="border-bottom: 2px solid gray;">
                                 <th>
@@ -320,7 +323,7 @@
                                     <span style="color: red;"> *</span>
                                 </th>
                                 <td colspan="3">
-                                	<input type="text" name="userId" value="<%=loginUser.getUserId() %>" disabled>
+                                	<input type="text" name="userId" value="<%=loginUser.getUserId() %>" readonly> 
                                 </td>
                             </tr>
 
@@ -330,7 +333,7 @@
                                     <span style="color: red;"> *</span>
                                 </th>
                                 <td colspan="3">
-                                	<input type="text" name="userName" value="<%=loginUser.getUserName() %>" disabled>
+                                	<input type="text" name="userName" value="<%=loginUser.getUserName() %>" readonly>
                                 </td>
                             </tr>
 
@@ -342,8 +345,6 @@
                                 <td colspan="3">
                                 	<input type="text" name="nickName" value="<%=loginUser.getNickname() %>" required>
                                 	<button>중복 확인</button>
-                                	<sup style="font-size: 5px; color: red;"></sup>
-                        			<sup style="font-size: 5px; color: green;"></sup>
                                 </td>
                             </tr>
 
@@ -354,8 +355,7 @@
                                 </th>
                                 <td colspan="3">
                                 	<input type="password" name="userPwd" id="userPwd" required>
-                                	<sup style="font-size: 5px; color: red;"></sup>
-                        			<sup style="font-size: 5px; color: green;"></sup>
+
                                 </td>
                             </tr>
 
@@ -365,8 +365,6 @@
                                 </th>
                                 <td colspan="3">
                                 	<input type="password" name="updatePwd" id="updatePwd" placeholder="변경 시에만 입력">
-                                	<sup style="font-size: 5px; color: red;"></sup>
-                        			<sup style="font-size: 5px; color: green;"></sup>
                                 </td>
                             </tr>
 
@@ -376,8 +374,6 @@
                                 </th>
                                 <td colspan="3">
                                 	<input type="password" name="chkPwd" id="chkPwd" placeholder="변경 시에만 입력">
-                                	<sup style="font-size: 5px; color: red;"></sup>
-                        			<sup style="font-size: 5px; color: green;"></sup>
                                 </td>
                             </tr>
 
@@ -387,7 +383,7 @@
                                     <span style="color: red;"> *</span>
                                 </th>
                                 <td style="width: 430px;">
-                                    <%=loginUser.getBirthday() %>
+                                   <input type="text" name="birthday" value="<%=loginUser.getBirthday() %>" readonly>
                                 </td>
 
                                 <th style="width: 100px">
@@ -397,11 +393,11 @@
                                 <td>
                                 	<!-- 성별이 여자인 경우 -->
                                 	<% if(loginUser.getGender().equals("여")) {%>
-	                                    <input type="radio" name="gender" id="girl" value="여" checked disabled><label for="girl">여자</label>	
+	                                    <input type="radio" name="gender" id="girl" value="여" checked ><label for="girl">여자</label>	
 	                                    <input type="radio" name="gender" id="boy" value="남" disabled><label for="boy">남자</label>
                                     <%} else { %> <!-- 성별이 남자인 ㄱㅇ우 -->
                                     	<input type="radio" name="gender" id="girl" value="여" disabled><label for="girl">여자</label>	
-                                    	<input type="radio" name="gender" id="boy" value="남" checked disabled><label for="boy">남자</label>
+                                    	<input type="radio" name="gender" id="boy" value="남" checked><label for="boy">남자</label>
                                     <%} %>
                                 </td>
                             </tr>
@@ -432,7 +428,7 @@
                                             <input type="text" id="sample6_address" placeholder="주소" readonly><br>
                                         </div>
                                         <div class="div3">
-                                            <input type="text" id="sample6_detailAddress" placeholder="상세주소">
+                                            <input type="text" name="address" id="sample6_detailAddress" value="<%=loginUser.getAddress() %>" placeholder="상세주소">
                                             <input type="text" id="sample6_extraAddress" placeholder="참고항목" readonly>
                                         </div>
                                     </div>
@@ -443,7 +439,9 @@
                                 <th>
                                     <span style="margin-left: 10px;">사진</span>
                                 </th>
-                                <td colspan="3"></td>
+                                <td colspan="3">
+                                	<input type="file" name="profile">
+                                </td>
                             </tr>
 
                             <tr style="border-bottom: 2px solid gray;">
@@ -451,7 +449,9 @@
                                     <span style="margin-left: 10px;">자기소개</span>
                                 </th>
                                 <td colspan="3">
-                                    <textarea name="" id="" cols="90" rows="4" style="resize: none;"></textarea>
+                                    <textarea name="introduction" id=""  cols="90" rows="4" style="resize: none;">
+                                    	<%=loginUser.getIntroduction() %>
+                                    </textarea>
                                 </td>
                             </tr>
                         </table>
@@ -468,13 +468,9 @@
                 </div>
             </div>
         </div>
-        <div id="footer"></div>
     </div>
 
     <script>
-    
-    	
-    	
     	function updateInfoConfirm() {
     		var loginPwd ="<%=loginUser.getUserPwd()%>";
     		var inputPwd = $("#userPwd").val();
@@ -482,38 +478,19 @@
     		var chkPwd = $("#chkPwd").val();
     		
     		if(loginPwd == inputPwd) {
-    			if(updatePwd != chkPwd) {
-    				$(this).siblings("sup").eq(0).text("비밀번호가 일치하지 않습니다.");
+    			if(updatePwd != chkPwd) { 
+    				alert("변경하실 비밀번호와 일치하지 않습니다.");
+    				$("#updatePwd").select();
+    				return false;
     			}
+    		}else { //현재 비밀번호를 잘못 입력했을때
+    			alert("현재 비밀번호가 일치하지 않습니다.");
+    			$("#userPwd").focus();
+    			return false;
     		}
     	}
     
-        $(document).ready(function(){            
-            var now = new Date();
-            var year = now.getFullYear();
-            var mon = (now.getMonth() + 1) > 9 ? ''+(now.getMonth() + 1) : '0'+(now.getMonth() + 1); 
-            var day = (now.getDate()) > 9 ? ''+(now.getDate()) : '0'+(now.getDate());           
-            //년도 selectbox만들기               
-            for(var i = 1900 ; i <= year ; i++) {
-                $('#year').append('<option value="' + i + '">' + i + '년</option>');    
-            }
-
-            // 월별 selectbox 만들기            
-            for(var i=1; i <= 12; i++) {
-                var mm = i > 9 ? i : "0"+i ;            
-                $('#month').append('<option value="' + mm + '">' + mm + '월</option>');    
-            }
-            
-            // 일별 selectbox 만들기
-            for(var i=1; i <= 31; i++) {
-                var dd = i > 9 ? i : "0"+i ;            
-                $('#day').append('<option value="' + dd + '">' + dd+ '일</option>');    
-            }
-            $("#year  > option[value="+year+"]").attr("selected", "true");        
-            $("#month  > option[value="+mon+"]").attr("selected", "true");    
-            $("#day  > option[value="+day+"]").attr("selected", "true");       
-        
-        })
     </script>
+    <%@ include file = "../../common/footer.jsp" %>
 </body>
 </html>

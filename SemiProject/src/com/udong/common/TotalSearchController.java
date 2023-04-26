@@ -32,11 +32,13 @@ public class TotalSearchController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String keyword = request.getParameter("totalSearch");
+		
+			String keyword = request.getParameter("totalSearch");
 		
 		ArrayList<BoardCommon> list = new BoardCommonService().searchKeyword(keyword);
 		
 		request.setAttribute("list", list);
+		request.setAttribute("keyword", keyword);
 		request.getRequestDispatcher("views/common/totalSearchPage.jsp").forward(request, response);
 	}
 

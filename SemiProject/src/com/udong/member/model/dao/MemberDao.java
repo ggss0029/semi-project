@@ -647,6 +647,101 @@ public class MemberDao {
 		return m;
 	}
 
+	public int myInfoUpdate(Connection conn, Member m) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("myInfoUpdate");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, m.getNickname());
+			pstmt.setString(2, m.getEmail());
+			pstmt.setString(3, m.getAddress());
+			pstmt.setString(4, m.getIntroduction());
+			pstmt.setString(5, m.getUserId());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	
+	public Member myInfoSelectMember(Connection conn, String userId) {
+		Member m = null;
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("myInfoSelectMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				m = new Member(rset.getInt("USER_NO")
+								,rset.getString("USER_ID")
+								,rset.getString("USER_PWD")
+								,rset.getString("USER_NAME")
+								,rset.getString("NICKNAME")
+								,rset.getString("BIRTHDAY")
+								,rset.getString("GENDER")
+								,rset.getString("INTRODUCTION")
+								,rset.getString("EMAIL")
+								,rset.getString("ADDRESS")
+								,rset.getDate("ENROLL_DATE")
+								,rset.getString("STATUS")
+								,rset.getString("ADMIN")
+								,rset.getInt("USER_REPORT")
+								,rset.getInt("LOGIN_TYPE"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		
+		return m;
+	}
+
+	public int updatePwd(Connection conn, String userId, String updatePwd) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updatePwd");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, updatePwd);
+			pstmt.setString(2, userId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
 	
 
 }

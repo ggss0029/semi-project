@@ -22,7 +22,7 @@
         .wrap{
         	position:relative;
 			z-index:1;
-            height: 1730px;
+            height: 1530px;
             width: 1500px;
             margin: auto;
         }
@@ -35,12 +35,6 @@
             width: 100%;
             height: 76.5%;
             position: relative;
-        }
-
-        #footer{
-            width: 100%;
-            height: 10%;
-            background-color: darkblue;
         }
 
         #content>div{
@@ -176,7 +170,7 @@
             
         }
 
-        p{ /*contente2 안에 있는 동네소식 글씨 , 위치*/
+        #pp{ /*contente2 안에 있는 동네소식 글씨 , 위치*/
             position: absolute;
             top: 45px;
             left: 54px;
@@ -279,7 +273,7 @@
             </div>
             <div id="content_2">
                 <div id="content_2_1">
-                    <p>좋아요한 게시글</p>
+                    <p id="pp">좋아요한 게시글</p>
                     <div id="line_7"></div>
                     
                     <table class="list-area" border="1" align="center">
@@ -483,7 +477,6 @@
                 </div>
             </div>
         </div>
-        <div id="footer"></div>
     </div>
 
     <script>
@@ -514,5 +507,6 @@
         
         })
     </script>
+    <%@ include file = "../../common/footer.jsp" %>
 </body>
 </html>
