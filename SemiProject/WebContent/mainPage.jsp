@@ -547,7 +547,7 @@
         		location.href = "<%=contextPath%>/enroll.me";
         	};
         </script>
-        
+            
         <div class="header_2">
             <div style="margin-left:3%"><a align="center" href="<%=contextPath %>/newsList.bo?currentPage=1"><img src="views/common/icons/정보공유.png" alt="정보공유">정보 공유</a></div>
             <div style="margin-left:2%"><a align="center" href=""><img src="views/common/icons/동네맛집.png" alt="동네맛집">동네 맛집</a></div>
