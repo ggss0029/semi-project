@@ -31,19 +31,20 @@ public class ProfileController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nickname = request.getParameter("nickname");
-		Member m = new MemberService().profile(nickname);
-		
-		response.setContentType("json/application; charset=UTF-8");
-		new Gson().toJson(m, response.getWriter());
+		String myNickname = request.getParameter("myNickname");
+		int check = new MemberService().checkRecommend(myNickname);
+		response.getWriter().print(check);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String nickname = request.getParameter("nickname");
+		Member m = new MemberService().profile(nickname);
+		
+		response.setContentType("json/application; charset=UTF-8");
+		new Gson().toJson(m, response.getWriter());
 	}
 
 }
