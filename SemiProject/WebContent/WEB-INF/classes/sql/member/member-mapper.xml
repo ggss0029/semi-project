@@ -127,8 +127,11 @@
 	<entry key="profile">
 		SELECT NICKNAME, SUBSTR((EXTRACT(YEAR FROM SYSDATE)-SUBSTR(BIRTHDAY, 1, 4)+1), 1, 1)||'0대' AS AGE
 				, SUBSTR(ADDRESS, 1,INSTR(ADDRESS, ' ', 1, 2)-1) AS ADDRESS, NVL(INTRODUCTION, '작성된 소개글이 없습니다.') AS INTRODUCTION
+        		,COUNT(MY_NO) AS RECOMMENDED
 		FROM MEMBER
+		LEFT JOIN MEMBER_RECOMMEND ON(USER_NO = MY_NO)
 		WHERE NICKNAME = ? AND STATUS = 'Y'
+		GROUP BY NICKNAME, SUBSTR((EXTRACT(YEAR FROM SYSDATE)-SUBSTR(BIRTHDAY, 1, 4)+1), 1, 1)||'0대', SUBSTR(ADDRESS, 1,INSTR(ADDRESS, ' ', 1, 2)-1), NVL(INTRODUCTION, '작성된 소개글이 없습니다.')
 	</entry>
 	
 	<!-- 개인정보수정 -->
@@ -154,5 +157,13 @@
 		SET USER_PWD = ?
 		WHERE USER_ID = ?
 		AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="checkRecommend">
+		SELECT COUNT(*) AS COUNT
+		FROM MEMBER_RECOMMEND
+		WHERE FRIEND_NO = (SELECT USER_NO
+		                    FROM MEMBER
+		                    WHERE NICKNAME = ?)
 	</entry>
 </properties>
