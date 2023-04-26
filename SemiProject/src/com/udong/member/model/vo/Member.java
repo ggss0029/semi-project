@@ -32,7 +32,13 @@ public class Member {
 		super();
 	}
 	
-	
+	public Member(int userNo, String nickname, String address, Date enrollDate) {
+		super();
+		this.userNo = userNo;
+		this.nickname = nickname;
+		this.address = address;
+		this.enrollDate = enrollDate;
+	}
 
 	public Member(String userId, String userName, String nickname, String birthday, String gender, String introduction,
 			String email, String address) {

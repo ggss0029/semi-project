@@ -540,7 +540,7 @@
         	}
         
         	function login() {
-        		location.href = "<%=contextPath%>/views/member/loginPage.jsp";
+        		location.href = "<%=contextPath%>/login.me";
         	};
         
         	function enroll() {

@@ -205,6 +205,22 @@ public class MemberService {
 		return result;
 	}
 
+	public ArrayList<Member> searchNickname() {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<Member> list = new MemberDao().searchNickname(conn);
+		JDBCTemplate.close(conn);
+		return list;
+	}
+
+	public Member findNickname(String inputNickname) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		Member m = new MemberDao().findNickname(conn,inputNickname);
+		JDBCTemplate.close(conn);
+		return m;
+	}
+
 	
 
 

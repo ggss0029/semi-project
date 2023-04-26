@@ -109,6 +109,15 @@
 		WHERE A.USER_NO = ?
 		AND A.STATUS != 'N'
 	</entry>
-	
+	<entry key="searchNickname">
+	SELECT USER_NO,NICKNAME,SUBSTR(ADDRESS, 1,INSTR(ADDRESS, ' ', 1, 2)-1) AS ADDRESS,ENROLL_DATE
+    FROM MEMBER
+    WHERE STATUS='Y'
+	</entry>
+	<entry key="findNickname">
+	SELECT USER_NO,NICKNAME,SUBSTR(ADDRESS, 1,INSTR(ADDRESS, ' ', 1, 2)-1) AS ADDRESS,ENROLL_DATE
+    FROM MEMBER
+    WHERE STATUS='Y' AND NICKNAME = ?
+	</entry>
 	
 </properties>

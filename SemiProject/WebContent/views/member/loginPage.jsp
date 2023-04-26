@@ -165,6 +165,17 @@
     </style>
 </head>
 <body>
+<!-- 	<script> -->
+// 			$(function(){
+<%-- 				<%if(request.getSession().getAttribute("loginUser")!=null){ %> --%>
+// 				$("body").append("<button type='button' onclick='history.back();' id='backBtn1' style='display:none'>뒤로가자잇</button>");
+// 				$("#backBtn1").click();
+// 				location.href = document.referrer;
+// 				$("#refreshBtn1").click();
+// 				location.reload();
+<%-- 				<%} %> --%>
+// 			});
+<!-- 	</script> -->
     <div class="wrap">
         <div id="left">
             <div id="header"></div>
