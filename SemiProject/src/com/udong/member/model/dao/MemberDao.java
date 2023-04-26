@@ -679,6 +679,7 @@ public class MemberDao {
 				m.setBirthday(rset.getString("AGE"));
 				m.setAddress(rset.getString("ADDRESS"));
 				m.setIntroduction(rset.getString("INTRODUCTION"));
+				m.setRecommended(rset.getInt("RECOMMENDED"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -784,6 +785,31 @@ public class MemberDao {
 			JDBCTemplate.close(pstmt);
 		}
 		return result;
+	}
+
+	public int checkRecommend(Connection conn, String myNickname) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int check = 0;
+		String sql = prop.getProperty("checkRecommend");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, myNickname);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				check = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return check;
 	}
 
 	

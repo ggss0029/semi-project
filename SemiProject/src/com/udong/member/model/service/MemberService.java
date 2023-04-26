@@ -274,7 +274,14 @@ public class MemberService {
 		return m;
 	}
 
-	
-
+	public int checkRecommend(String myNickname) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int check = new MemberDao().checkRecommend(conn, myNickname);
+		
+		JDBCTemplate.close(conn);
+		
+		return check;
+	}
 
 }
