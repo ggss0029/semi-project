@@ -3,75 +3,113 @@ package com.udong.board.need.vo;
 import java.sql.Date;
 
 public class NeedAttachment {
-	
-	private int replyNo; // REPLY_NO NUMBER
+	private int fileNo; // FILE_NO NUMBER
 	private int refBno; // REF_BNO NUMBER
-	private String replyWriter; // REPLY_WRITER VARCHAR2(40 BYTE)
-	private String replyContent; // REPLY_CONTENT VARCHAR2(1000 BYTE)
-	private Date createDate; // CREATE_DATE DATE
-	private Date modifyDate; // MODIFY_DATE DATE
+	private String originName; // ORIGIN_NAME VARCHAR2(255 BYTE)
+	private String changeName; // CHANGE_NAME VARCHAR2(255 BYTE)
+	private String filePath; // FILE_PATH VARCHAR2(1000 BYTE)
+	private Date uploadDate; // UPLOAD_DATE DATE
+	private int fileLevel; // FILE_LEVEL NUMBER
 	private String status; // STATUS VARCHAR2(1 BYTE)
+	private int refUno; // REF_UNO NUMBER
+
 	public NeedAttachment() {
 		super();
 	}
-	public NeedAttachment(int replyNo, int refBno, String replyWriter, String replyContent, Date createDate,
-			Date modifyDate, String status) {
+
+	public NeedAttachment(int fileNo, int refBno, String originName, String changeName, String filePath,
+			Date uploadDate, int fileLevel, String status, int refUno) {
 		super();
-		this.replyNo = replyNo;
+		this.fileNo = fileNo;
 		this.refBno = refBno;
-		this.replyWriter = replyWriter;
-		this.replyContent = replyContent;
-		this.createDate = createDate;
-		this.modifyDate = modifyDate;
+		this.originName = originName;
+		this.changeName = changeName;
+		this.filePath = filePath;
+		this.uploadDate = uploadDate;
+		this.fileLevel = fileLevel;
 		this.status = status;
+		this.refUno = refUno;
 	}
-	public int getReplyNo() {
-		return replyNo;
+
+	public int getFileNo() {
+		return fileNo;
 	}
-	public void setReplyNo(int replyNo) {
-		this.replyNo = replyNo;
+
+	public void setFileNo(int fileNo) {
+		this.fileNo = fileNo;
 	}
+
 	public int getRefBno() {
 		return refBno;
 	}
+
 	public void setRefBno(int refBno) {
 		this.refBno = refBno;
 	}
-	public String getReplyWriter() {
-		return replyWriter;
+
+	public String getOriginName() {
+		return originName;
 	}
-	public void setReplyWriter(String replyWriter) {
-		this.replyWriter = replyWriter;
+
+	public void setOriginName(String originName) {
+		this.originName = originName;
 	}
-	public String getReplyContent() {
-		return replyContent;
+
+	public String getChangeName() {
+		return changeName;
 	}
-	public void setReplyContent(String replyContent) {
-		this.replyContent = replyContent;
+
+	public void setChangeName(String changeName) {
+		this.changeName = changeName;
 	}
-	public Date getCreateDate() {
-		return createDate;
+
+	public String getFilePath() {
+		return filePath;
 	}
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
 	}
-	public Date getModifyDate() {
-		return modifyDate;
+
+	public Date getUploadDate() {
+		return uploadDate;
 	}
-	public void setModifyDate(Date modifyDate) {
-		this.modifyDate = modifyDate;
+
+	public void setUploadDate(Date uploadDate) {
+		this.uploadDate = uploadDate;
 	}
+
+	public int getFileLevel() {
+		return fileLevel;
+	}
+
+	public void setFileLevel(int fileLevel) {
+		this.fileLevel = fileLevel;
+	}
+
 	public String getStatus() {
 		return status;
 	}
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	public int getRefUno() {
+		return refUno;
+	}
+
+	public void setRefUno(int refUno) {
+		this.refUno = refUno;
+	}
+
 	@Override
 	public String toString() {
-		return "NeedAttachment [replyNo=" + replyNo + ", refBno=" + refBno + ", replyWriter=" + replyWriter
-				+ ", replyContent=" + replyContent + ", createDate=" + createDate + ", modifyDate=" + modifyDate
-				+ ", status=" + status + "]";
+		return "NeedAttachment [fileNo=" + fileNo + ", refBno=" + refBno + ", originName=" + originName
+				+ ", changeName=" + changeName + ", filePath=" + filePath + ", uploadDate=" + uploadDate
+				+ ", fileLevel=" + fileLevel + ", status=" + status + ", refUno=" + refUno + "]";
 	}
+
+	
 	
 }

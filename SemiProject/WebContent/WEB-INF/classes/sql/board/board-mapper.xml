@@ -146,19 +146,17 @@
 		) A
 	WHERE A.BOARD_NAME = '이거 필요해요'
 	AND A.RNUM BETWEEN ? AND ?
-	AND (BOARD_TITLE LIKE %?% OR BOARD_CONTENT LIKE %?%)	
+	AND (BOARD_TITLE LIKE '%'||?||'%' OR BOARD_CONTENT LIKE '%'||?||'%')	
 	</entry>
 	
 	
 	
-	<entry key="getBoardNeedListCount">
-	SELECT
-		*
-	FROM 
-		BOARD
-		WHERE STATUS = 'Y'
-		AND BOARD_NAME = '이거 필요해요'
 	
+	<entry key="getBoardNeedListCount">
+	SELECT 
+		*COUNT(BOARD_NO) AS COUNT 
+	FROM BOARD
+	WHERE BOARD_NAME = '이거 필요해요'
 	</entry>
 	
 	
