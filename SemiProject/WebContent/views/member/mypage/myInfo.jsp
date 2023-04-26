@@ -16,7 +16,7 @@
         .wrap{
         	position:relative;
 			z-index:1;
-            height: 1730px;
+            height: 1530px;
             width: 1500px;
             margin: auto;
         }
@@ -31,12 +31,6 @@
             width: 100%;
             height: 76.5%;
             position: relative;
-        }
-
-        #footer{
-            width: 100%;
-            height: 10%;
-            background-color: darkblue;
         }
 
         #content>div{
@@ -359,7 +353,7 @@
             </div>
             <div id="content_2">
                 <div id="content_2_1">
-                    <p>나의 정보</p>
+                    <p id="pp">나의 정보</p>
                     <div id="line_7"></div>
                         <p id="p1">프로필</p>
                         <div id="box">
@@ -377,7 +371,7 @@
                                             <span style="margin-left: 10px;">회원 ID</span>
                                             <span style="color: red;"> *</span>
                                         </th>
-                                        <td colspan="3">ggss0029</td>
+                                        <td colspan="3"><%=loginUser.getUserId() %></td>
                                     </tr>
         
                                     <tr>
@@ -461,8 +455,7 @@
                 </div>
             </div>
         </div>
-        <div id="footer"></div>
     </div>
-
+	<%@ include file = "../../common/footer.jsp" %>
 </body>
 </html>

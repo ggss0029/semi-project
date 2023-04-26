@@ -153,6 +153,7 @@
         .header_2{
             height: 55%;
             border-bottom: 1px solid black;
+            background-color: orange;
         }
         
         .header_2>div {

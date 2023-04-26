@@ -111,5 +111,29 @@
 		AND A.STATUS != 'N'
 	</entry>
 	
+	<!-- 개인정보수정 -->
+	<entry key="myInfoUpdate">
+		UPDATE MEMBER 
+		SET NICKNAME = ?
+			,EMAIL = ?
+			,ADDRESS = ?
+			,INTRODUCTION = ?
+		WHERE USER_ID = ?
+	</entry>
 	
+	
+	<entry key="myInfoSelectMember">
+		SELECT *
+		FROM MEMBER
+		WHERE USER_ID = ?
+		AND STATUS = 'Y'
+	</entry>
+	
+	<!-- 비밀번호 수정 -->
+	<entry key="updatePwd">
+		UPDATE MEMBER
+		SET USER_PWD = ?
+		WHERE USER_ID = ?
+		AND STATUS = 'Y'
+	</entry>
 </properties>

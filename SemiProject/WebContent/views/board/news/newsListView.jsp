@@ -20,7 +20,7 @@
         .wrap{ 
         	position:relative;
             z-index:1;
-            height: 1730px;
+            height: 1530px;
             width: 1500px;
             margin: auto;
         }
@@ -35,13 +35,6 @@
             height: 76.5%;
             position: relative;
         }
-
-        #footer{
-            width: 100%;
-            height: 10%;
-            background-color: blue;
-        }
-
 
         #content>div{
             height: 100%;
@@ -390,10 +383,10 @@
 		                        	<tr style="height: 40px; border-bottom:1px solid black;">
 		                                <td><%=nb.getBoardNo() %></td> <!-- No. -->
 		                                <td><%=nb.getBoardTitle() %></td> <!-- 제목 -->
-		                                <td><%=nb.getBoardWriter() %></td> <!-- 작성자  닉네임 -->
+		                                <td><a data-toggle="modal" data-target="#profile" onclick="profile();"><%=nb.getBoardWriter() %></a> </td> <!-- 작성자  닉네임 -->
 		                                <td><%=nb.getCreateDate() %></td> <!-- 작성한 날짜 -->
 		                                <td><%=nb.getCount() %></td> <!-- 조회수 -->
-		                                <td></td> <!-- 좋아요한 수 -->
+		                                <td><%=nb.getLikeCount() %></td> <!-- 좋아요한 수 -->
 		                            </tr>
                         		<%} %> 
                         	<%} %>
@@ -489,7 +482,6 @@
 
             </div>
         </div>
-        <div id="footer"></div>
     </div>
 
 	
@@ -548,6 +540,6 @@
         }
    
    </script>
-    
+   <%@ include file = "../../common/footer.jsp" %>
 </body>
 </html>
