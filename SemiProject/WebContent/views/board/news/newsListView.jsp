@@ -312,6 +312,7 @@
 
                     <div id="box">
                         <p id="b1">지역선택</p>
+                        <form action="<%=contextPath %>/newsList.bo" id="newsSearch">
 	                            <input type="hidden" name="currentPage" value="<%=pi.getCurrentPage() %>">
 	                        <div id="location">
 	                                	시/도:
@@ -335,7 +336,7 @@
 	                                    <option value='제주'>제주도</option>
 	                                </select>                                                  
 	                                	구/군:
-	                                <select name="country" id="country"  class=select>
+	                                <select name="county" id="county" class=select>
 	                                    <option value=''>전체</option>
 	                                </select>
 	                            
@@ -359,22 +360,25 @@
 	
 	                        <div align="center">
 	                            <button type="reset" class="btn btn-light">초기화</button>
-	                            <button class="btn btn-primary" onclick="newsSearch();">검색</button>
+	                            <button type="submit" class="btn btn-primary">검색</button>
 	                        </div>
+	                        </form>
                     </div>
                     <div id="line_6"></div>
 					<div id="newsList"></div>
                     <table class="list-area" border="0" align="center">
                         <thead style="height: 50px; border-top:3px solid black; border-bottom:3px solid black;">
+                        <tr>
                             <th width="70">No.</th>
                             <th width="440">제목</th>
                             <th width="150">작성자</th>
                             <th width="150">작성일</th>
                             <th width="65">조회</th>
                             <th width="65">좋아요</th>
+                        </tr>
                         </thead>
                         <tbody>
-                        	<!-- 리스트 20개씩 출력? -->
+                        	<!-- 리스트 10개씩 출력? -->
                         	<%if(nlist.isEmpty()) {%> <!-- 만약 리스트가 비어있다면 -->
                         		<tr>
                         			<td colspan="6">글이 존재하지 않습니다</td>
@@ -384,7 +388,7 @@
 		                        	<tr style="height: 40px; border-bottom:1px solid black;">
 		                                <td><%=nb.getBoardNo() %></td> <!-- No. -->
 		                                <td><%=nb.getBoardTitle() %></td> <!-- 제목 -->
-		                                <td><a data-toggle="modal" data-target="#profile" onclick="profile();"><%=nb.getBoardWriter() %></a> </td> <!-- 작성자  닉네임 -->
+		                                <td><a id="nicknameHover" onclick="whoareyou();"><%=nb.getBoardWriter() %></a> </td> <!-- 작성자  닉네임 -->
 		                                <td><%=nb.getCreateDate() %></td> <!-- 작성한 날짜 -->
 		                                <td><%=nb.getCount() %></td> <!-- 조회수 -->
 		                                <td><%=nb.getLikeCount() %></td> <!-- 좋아요한 수 -->
@@ -483,10 +487,10 @@
 
             </div>
         </div>
-    </div>
+<!--     </div> -->
 
 	
-    <script language='javascript'>
+    <script>
     
     $(function(){
     	//.list-area클래스 자손tbody 자손tr 클릭됐을때
@@ -529,61 +533,67 @@
         cnt[15] = new Array('전체','거제시','김해시','마산시','밀양시','사천시','울산시','진주시','진해시','창원시','통영시','거창군','고성군','남해군','산청군','양산시','의령군','창녕군','하동군','함안군','함양군','합천군');
         cnt[16] = new Array('전체','서귀포시','제주시','남제주군','북제주군');
         function change(add) {
-        sel=document.form.county
-          /* 옵션메뉴삭제 */
-          for (i=sel.length-1; i>=0; i--){
-            sel.options[i] = null
-            }
-          /* 옵션박스추가 */
-          for (i=0; i < cnt[add].length;i++){                     
-                            sel.options[i] = new Option(cnt[add][i], cnt[add][i]);
-            }         
+//         sel=document.getElementById("location")>county
+//           /* 옵션메뉴삭제 */
+//           for (i=sel.length-1; i>=0; i--){
+//             sel.options[i] = null
+//             }
+//           /* 옵션박스추가 */
+//           for (i=0; i < cnt[add].length;i++){                     
+//                             sel.options[i] = new Option(cnt[add][i], cnt[add][i]);
+//             }        
+		for (i=$("#county").children().length-1; i>=0; i--){
+			$("#county").children().remove();
+		}
+		for (i=0; i < cnt[add].length;i++){
+			$("#county").append("<option>"+cnt[add][i]+"</option>");
+		}
         }
    
-        function newsSearch() {
-        	$.ajax({
-        		url : "newsSearch.bo",
-        		data : {
-        				city : $("#city").val(),
-        				country : $("country").val(),
-        				category : $("#category").val(),
+//         function newsSearch() {
+//         	$.ajax({
+//         		url : "newsSearch.bo",
+//         		data : {
+//         				city : $("#city").val(),
+//         				county : $("#county").val(),
+//         				category : $("#category").val(),
         				
-        		},
-        		success : function(nlist) {
-        			var result = "";
-        			if(rlist.length <1) {
-        				result = "검색 결과가 없습니다."
-        			}else {
-        				$(".list-area").children("thead").children().remove();
-        				$(".list-area thead").html("<tr>"
-                        +"<th style='width:7%;'>글 번호</th>"
-                        +"<th style='width:17%;'>게시판 이름</th>"
-                        +"<th style='width:38%;'>제목</th>"
-                        +"<th style='width:18%;'>작성자</th>"
-                        +"<th style='width:9%;'>조회수</th>"
-                        +"<th style='width:11%;'>좋아요 수</th>"
-                    	+"</tr>");
-        				for(var i = 0; i<nlist.length; i++){
-        					result += "<tr>"
-										+ "<td>"+nlist[i].boardNo+ "</td>"
-										+ "<td>"+nlist[i].boardName + "</td>"
-										+ "<td>"+nlist[i].boardTitle + "</td>"
-										+ "<td>"+nlist[i].boardWriter + "</td>"
-										+ "<td>"+nlist[i].count + "</td>"
-										+ "<td>"+nlist[i].likeCount + "</td>"
-										+"</tr>";
-        				}
-        			}
-        			$(".list-area").children("tbody").children().remove();
-        			$(".list-area tbody").html(str);
-        		}, 
+//         		},
+//         		success : function(nlist) {
+//         			var result = "";
+//         			if(rlist.length <1) {
+//         				result = "검색 결과가 없습니다."
+//         			}else {
+//         				$(".list-area").children("thead").children().remove();
+//         				$(".list-area thead").html("<tr>"
+//                         +"<th style='width:7%;'>글 번호</th>"
+//                         +"<th style='width:17%;'>게시판 이름</th>"
+//                         +"<th style='width:38%;'>제목</th>"
+//                         +"<th style='width:18%;'>작성자</th>"
+//                         +"<th style='width:9%;'>조회수</th>"
+//                         +"<th style='width:11%;'>좋아요 수</th>"
+//                     	+"</tr>");
+//         				for(var i = 0; i<nlist.length; i++){
+//         					result += "<tr>"
+// 										+ "<td>"+nlist[i].boardNo+ "</td>"
+// 										+ "<td>"+nlist[i].boardName + "</td>"
+// 										+ "<td>"+nlist[i].boardTitle + "</td>"
+// 										+ "<td>"+nlist[i].boardWriter + "</td>"
+// 										+ "<td>"+nlist[i].count + "</td>"
+// 										+ "<td>"+nlist[i].likeCount + "</td>"
+// 										+"</tr>";
+//         				}
+//         			}
+//         			$(".list-area").children("tbody").children().remove();
+//         			$(".list-area tbody").html(result);
+//         		}, 
         	
-        		error : function() {
-        			alert.log("통신 실패!");
-        		}
+//         		error : function() {
+//         			alert.log("통신 실패!");
+//         		}
         		
-        	});
-        };
+//         	});
+//         };
    </script>
    <%@ include file = "../../common/footer.jsp" %>
 </body>

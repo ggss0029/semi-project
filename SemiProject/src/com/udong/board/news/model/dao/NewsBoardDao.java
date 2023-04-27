@@ -303,7 +303,7 @@ public class NewsBoardDao {
 		return result;
 	}
 
-	public ArrayList<NewsBoard> newsBoardSearch(Connection conn, String region, String category) {
+	public ArrayList<NewsBoard> newsBoardSearch(Connection conn, PageInfo pi, String region, String category) {
 		ArrayList<NewsBoard> nlist = new ArrayList<>();
 		
 		ResultSet rset = null;
@@ -314,8 +314,14 @@ public class NewsBoardDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
+			int startRow = (pi.getCurrentPage() -1) * pi.getBoardLimit() +1;
+			int endRow = (startRow + pi.getBoardLimit()) -1;
+			
 			pstmt.setString(1, region);
 			pstmt.setString(2, category);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
 			
 			rset = pstmt.executeQuery();
 			

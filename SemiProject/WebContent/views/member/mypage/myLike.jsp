@@ -286,167 +286,23 @@
                             <th width="65">조회</th>
                         </thead>
                         <tbody>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>2</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>3</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>4</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>5</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>6</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>7</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>8</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>9</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr><tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>10</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>11</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>12</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>13</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>14</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>15</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>16</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>17</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>18</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>19</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>20</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
+                        	<%if(nlist.isEmpty()) {%>
+                        		<tr>
+                        			<td colspan="6">좋아요한 게시글이 존재하지 않습니다.</td>
+                        		</tr>
+                        	<%} else { %>
+                        		<%for(MyLike ml : mlist) { %>
+		                            <tr style="height: 40px;">
+		                                <td><input type="checkbox"> </td>
+		                                <td><%=ml.getBoardNo() %></td>
+		                                <td><%=ml.getBoardTitle() %></td>
+		                                <td><a id="nicknameHover" onclick="whoareyou();"><%=ml.getBoardWriter() %></td>
+		                                <td><%=ml.getCreateDate() %></td>
+		                                <td><%=ㅢ.getLikeCount() %></td>
+		                            </tr>
+		                        <%} %>
+		                    <%} %>
 
-                            
                         </tbody>
                         </table>
                         <br><br><br>
@@ -480,32 +336,7 @@
     </div>
 
     <script>
-        $(document).ready(function(){            
-            var now = new Date();
-            var year = now.getFullYear();
-            var mon = (now.getMonth() + 1) > 9 ? ''+(now.getMonth() + 1) : '0'+(now.getMonth() + 1); 
-            var day = (now.getDate()) > 9 ? ''+(now.getDate()) : '0'+(now.getDate());           
-            //년도 selectbox만들기               
-            for(var i = 1900 ; i <= year ; i++) {
-                $('#year').append('<option value="' + i + '">' + i + '년</option>');    
-            }
-
-            // 월별 selectbox 만들기            
-            for(var i=1; i <= 12; i++) {
-                var mm = i > 9 ? i : "0"+i ;            
-                $('#month').append('<option value="' + mm + '">' + mm + '월</option>');    
-            }
-            
-            // 일별 selectbox 만들기
-            for(var i=1; i <= 31; i++) {
-                var dd = i > 9 ? i : "0"+i ;            
-                $('#day').append('<option value="' + dd + '">' + dd+ '일</option>');    
-            }
-            $("#year  > option[value="+year+"]").attr("selected", "true");        
-            $("#month  > option[value="+mon+"]").attr("selected", "true");    
-            $("#day  > option[value="+day+"]").attr("selected", "true");       
         
-        })
     </script>
     <%@ include file = "../../common/footer.jsp" %>
 </body>

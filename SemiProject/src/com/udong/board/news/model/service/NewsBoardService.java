@@ -133,10 +133,10 @@ public class NewsBoardService {
 		return result;
 	}
 
-	public ArrayList<NewsBoard> newsBoardSearch(String region, String category) {
+	public ArrayList<NewsBoard> newsBoardSearch(PageInfo pi, String region, String category) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		ArrayList<NewsBoard> nlist = new NewsBoardDao().newsBoardSearch(conn, region, category);
+		ArrayList<NewsBoard> nlist = new NewsBoardDao().newsBoardSearch(conn, pi, region, category);
 		
 		JDBCTemplate.close(conn);
 		
