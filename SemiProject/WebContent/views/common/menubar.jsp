@@ -418,7 +418,8 @@
         </div>
         <div id="totalSearch">
         	<form action="totalSearch.do" id="totalSearch_form">
-        		<div id="totalSearch_text"><input type="search" name="totalSearch"></div>
+        		<input type="hidden" name="currentPage" value="1">
+        		<div id="totalSearch_text"><input type="search" name="inputKeyword"></div>
         		<div id="totalSearch_btn"><button><img alt="돋보기" src="<%=contextPath %>/views/common/icons/돋보기.png"></button></div>
         	</form>
         </div>
@@ -434,13 +435,13 @@
 	            </div>
 	            <div id="user_info" align="center">
 	                <div id="myPage">
-	                    <a href="<%=contextPath %>/views/member/mypage/myInfo.jsp" id="myPage"><img alt="마이페이지 아이콘" src="<%=contextPath %>/views/common/icons/마이페이지.png" id="myPageIcon" style="width: 70px; height:70px;"><br>마이페이지</a>
+	                    <a href="<%=contextPath %>/views/member/mypage/myInfo.jsp"><img alt="마이페이지 아이콘" src="<%=contextPath %>/views/common/icons/마이페이지.png" style="width: 70px; height:70px;"><br>마이페이지</a>
 	                </div>
 	                <div>
-	                	<a href="<%=contextPath%>/sendLetterList.le?writerNo=<%=loginUser.getUserNo()%>&currentPage=1" id="letter"><img alt="쪽지아이콘" src="<%=contextPath %>/views/common/icons/쪽지함.png" id="letterIcon" style="width: 70px; height:70px;"><br>쪽지함</a>
+	                	<a href="<%=contextPath%>/sendLetterList.le?writerNo=<%=loginUser.getUserNo()%>&currentPage=1"><img alt="쪽지아이콘" src="<%=contextPath %>/views/common/icons/쪽지함.png" style="width: 70px; height:70px;"><br>쪽지함</a>
 	                </div>
 	                <div id="likeBoard">
-	                	<a href="https://www.daum.net" id="likeBoard"><img alt="좋아요게시글 아이콘" src="<%=contextPath %>/views/common/icons/관심.png" id="likeBoardIcon" style="width: 70px; height:70px;"><br>관심</a>
+	                	<a href="https://www.daum.net"><img alt="좋아요게시글 아이콘" src="<%=contextPath %>/views/common/icons/관심.png" style="width: 70px; height:70px;"><br>관심</a>
 	                </div>
 	            </div>
         	</div>

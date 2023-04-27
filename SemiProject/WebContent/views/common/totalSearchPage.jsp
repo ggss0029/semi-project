@@ -5,7 +5,7 @@
     pageEncoding="UTF-8"%>
 <%
 	String totalSearch = (String)request.getSession().getAttribute("totalSearch");
-// 	PageInfo pi = (PageInfo)request.getSession().getAttribute("pi");
+ 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	ArrayList<BoardCommon> list = (ArrayList<BoardCommon>)request.getAttribute("list");
 	String keyword = (String)request.getAttribute("keyword");
 %>
@@ -118,10 +118,11 @@
             font-size: 25px;
             text-align: center;
         }
-        #paging{
-            margin-top: 5px;
-            height: 6%;
-        }
+		#pagingDiv>button{
+			width:30px;
+			height:30px;
+			margin: 5px 5px;
+		}
     </style>
 </head>
 <body>
@@ -129,11 +130,7 @@
     <div class="wrap">
         <div id="content" align="center">
         <div id="keywordDiv" align="center">
-        <%if(keyword.equals("검색어 입력 안함.")){%>
-        	<%=keyword%>
-        <%}else{ %>
-        	[<%=keyword%>]에 대한 검색 결과입니다.
-        <%} %>
+        	[<%=keyword%>]의 검색하신 결과입니다.
         </div>
             <div id="searchArea">
                 <select name="timeRange" id="timeRange">
@@ -165,6 +162,9 @@
                         </tr>
                     </thead>
                     <tbody>
+                    	<%if(list.isEmpty()){ %>
+                    		<tr><td colspan="6">검색 결과가 없습니다.</td></tr>
+                    	<%}else{ %>
 							<%for(BoardCommon b : list){ %>
 							<tr>
 								<td><%=b.getBoardNo()%></td>
@@ -175,32 +175,73 @@
 								<td><%=b.getLikeCount()%></td>
 							</tr>
 							<%} %>
+						<%} %>
                     </tbody>
                 </table>
+                 <br>
+            <div id="pagingDiv">
+            	<%if(pi.getCurrentPage()!= 1){ %>
+				<button onclick="location.href='<%=contextPath%>/totalSearch.do?currentPage=<%=pi.getCurrentPage()-1%>&inputKeyword=<%=keyword%>'">&lt;</button>
+				<%} %>
+				
+				<%for(int i=pi.getStartPage(); i<=pi.getEndPage(); i++ ){ %>
+					<%if(i != pi.getCurrentPage()){ %>
+						<button onclick="location.href='<%=contextPath%>/totalSearch.do?currentPage=<%=i%>&inputKeyword=<%=keyword%>';"><%=i %></button>
+					<%}else{ %>
+						<button disabled><%=i %></button>
+					<%} %>
+				<%} %>
+				<%if(!list.isEmpty() && pi.getCurrentPage() != pi.getMaxPage()){ %>
+					<button onclick="location.href='<%=contextPath%>/totalSearch.do?currentPage=<%=pi.getCurrentPage()+1%>&inputKeyword=<%=keyword%>'">&gt;</button>
+				<%} %>
             </div>
-            <div id="paging">
-            
             </div>
             <script>
             
-                function goSearch(){
+            	$("#pagingDiv").on("click","button",function(){
+            		goSearch($(this).text());
+            	});
+            
+                function goSearch(cp){
+                	var currentPage;
+                	console.log(cp);
+                	if(cp==undefined){
+                		currentPage = 1;
+                	}else{
+                		currentPage = cp;
+                	}
+                	
                     $.ajax({
                         url : "totalSearch.bo",
                         data : {
                                 timeRange : $("#timeRange").val(),
                                 detailRange : $("#detailRange").val(),
                                 searchInput : $("#searchInput").val(),
-                                currentPage : 1
+                                currentPage : currentPage
                         },
 
                         success : function(total){
-                        	var list = (total[0]);
-                        	var check = (total[1]);
+                        	var time = (total[0])
+                        	var searchInput = (total[1]);
+                        	var detailRange = (total[2]);
+                        	var pi = (total[3]);
+                        	var list = (total[4]);
+                        	var check = (total[5]);
                         	
-//                         	var paging = "";
-//                         	if(pi.currentPage != 1){
-//                         	}
+                        	$("#keywordDiv").html("["+searchInput+"]의 검색하신 결과입니다.");
+                        	
                         	var str ="";
+                        	
+                        $("#pagingDiv").children().remove();	
+                        	
+                        	for(var i=pi.startPage; i<=pi.endPage; i++){
+                        		if(i != pi.currentPage){
+									$("#pagingDiv").append("<button type='button'>"+i+"</button>");
+                        		}else{
+                        			$("#pagingDiv").append("<button disabled>"+i+"</button>");
+                        		}
+                        	}
+                        
                         if(check == 'check'){
                         	$("#listTable").children("thead").children().remove();
                         	$("#listTable thead").html("<tr><th style='width:9%;'>댓글 번호</th><th style='width:15%;'>댓글 작성자</th><th style='width:40%;'>댓글 내용</th>"
@@ -232,6 +273,8 @@
     						}
     						$("#listTable").children("tbody").children().remove();
     						$("#listTable tbody").html(str);
+    						
+    						
                         },
                         
                         error : function(){

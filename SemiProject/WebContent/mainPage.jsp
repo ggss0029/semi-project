@@ -667,7 +667,8 @@
             </div>
             <div id="totalSearch">
                 <form action="totalSearch.do" id="totalSearch_form">
-                    <div id="totalSearch_text"><input type="search" name="totalSearch"></div>
+                	<input type="hidden" name="currentPage" value="1">
+                    <div id="totalSearch_text"><input type="search" name="inputKeyword"></div>
                     <div id="totalSearch_btn"><button><img src="views/common/icons/돋보기.png" alt=""></button></div>
                 </form>
             </div>

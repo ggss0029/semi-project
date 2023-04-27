@@ -31,32 +31,6 @@ public class BoardCommonDao {
 		
 	}
 	
-	public int selectListCount(Connection conn) {
-		int listCount = 0;
-		ResultSet rset = null;
-		
-		Statement stmt = null;
-		
-		String sql = prop.getProperty("selectListCount");
-		
-		try {
-			stmt = conn.createStatement();
-			
-			rset = stmt.executeQuery(sql);
-			
-			if(rset.next()) {
-				listCount = rset.getInt("COUNT");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(stmt);
-		}
-		
-		return listCount;
-	}
-	
 	public ArrayList<BoardCommon> bestPostList(Connection conn) {
 		
 		ArrayList<BoardCommon> list = new ArrayList<>();
@@ -84,7 +58,7 @@ public class BoardCommonDao {
 		return list;
 	}
 
-	public ArrayList<BoardCommon> searchKeyword(Connection conn, String keyword) {
+	public ArrayList<BoardCommon> searchKeyword(Connection conn, String keyword, PageInfo pi) {
 		
 		ArrayList<BoardCommon> list = new ArrayList<>();
 		ResultSet rset = null;
@@ -93,8 +67,13 @@ public class BoardCommonDao {
 		String sql = prop.getProperty("searchKeyword");
 		
 		try {
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit()+1;
+			int endRow = (startRow+pi.getBoardLimit()) - 1;
+			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,keyword);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -266,6 +245,7 @@ public class BoardCommonDao {
 		return list;
 	}
 
+
 	public ArrayList<BoardCommon> lastestPostList(Connection conn) {
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -293,6 +273,136 @@ public class BoardCommonDao {
 		}
 		
 		return list;
+	}
+
+	public int selectKeywordCount(Connection conn, String keyword) {
+		
+		int listCount = 0;
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("selectKeywordCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, keyword);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return listCount;
+	}
+
+	public int selectListCountTitleTime(Connection conn, int time, String searchInput) {
+		
+		int listCount = 0;
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("selectListCountTitleTime");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, searchInput);
+			pstmt.setInt(2, time);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return listCount;
+	}
+
+	public int selectListCountContentTime(Connection conn, int time, String searchInput) {
+		
+		int listCount = 0;
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("selectListCountContentTime");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, searchInput);
+			pstmt.setInt(2, time);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return listCount;
+	}
+
+	public int selectListCountReplyTime(Connection conn, int time, String searchInput) {
+		
+		int listCount = 0;
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("selectListCountReplyTime");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, searchInput);
+			pstmt.setInt(2, time);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return listCount;
+	}
+
+	public int selectListCountWriterTime(Connection conn, int time, String searchInput) {
+		
+		int listCount = 0;
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("selectListCountWriterTime");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, searchInput);
+			pstmt.setInt(2, time);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return listCount;
+
 	}
 
 }

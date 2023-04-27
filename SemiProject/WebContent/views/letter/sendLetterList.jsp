@@ -96,7 +96,7 @@
         		<div id="content_1_1">쪽지</div>
         		<div id="content_1_2"><a href="<%=contextPath%>/receiveLetterList.le?writerNo=<%=loginUser.getUserNo()%>&currentPage=1">받은 쪽지함</a></div>
         		<div id="content_1_3">보낸 쪽지함</div>
-        		<div id="content_1_4"><a href="<%=contextPath%>/views/letter/writeLetter.jsp">쪽지 보내기</a></div>
+        		<div id="content_1_4"><a href="<%=contextPath%>/writeLetter.le">쪽지 보내기</a></div>
         	</div>
         	<div id="content_2" align="center">
         		<div id="content_2_1">보낸 쪽지함</div>
