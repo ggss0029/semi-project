@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.udong.board.common.model.vo.Attachment;
 import com.udong.board.common.model.vo.BoardCommon;
 import com.udong.board.common.model.vo.Reply;
 import com.udong.common.JDBCTemplate;
@@ -405,4 +406,53 @@ public class BoardCommonDao {
 
 	}
 
+	public int insertEachBoard(Connection conn, BoardCommon b) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertEachBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, b.getBoardWriter());
+			pstmt.setString(2, b.getBoardTitle());
+			pstmt.setString(3, b.getBoardContent());
+			pstmt.setString(4, b.getBoardName());
+			pstmt.setString(5, b.getCategory());
+			pstmt.setString(6, b.getRegion());
+			
+			result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+	public int insertEachAttachment(Connection conn, ArrayList<Attachment> list) {
+
+		int result = 1; 
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertEachAttachment");
+		
+		try {
+			for(Attachment at : list) {
+				pstmt= conn.prepareStatement(sql);
+				pstmt.setString(1, at.getOriginName());
+				pstmt.setString(2, at.getChangeName());
+				pstmt.setString(3, at.getFilePath());
+				pstmt.setInt(4, at.getFileLevel());
+				
+				result *= pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			result=0;
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
 }
