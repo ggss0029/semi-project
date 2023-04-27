@@ -10,6 +10,7 @@ public class BoardCommon {
 	private String boardContent;
 	private String boardName;
 	private String category;
+	private String region;
 	private int count;
 	private Date createDate;
 	private String status;
@@ -21,8 +22,18 @@ public class BoardCommon {
 	public BoardCommon() {
 		super();
 	}
-	
-	
+
+	public BoardCommon(String boardWriter, String boardTitle, String boardContent, String boardName, String category, String region) {
+		super();
+		this.boardWriter = boardWriter;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.boardName = boardName;
+		this.category = category;
+		this.region = region;
+	}
+
+
 
 	public BoardCommon(int boardNo, String boardWriter, String boardTitle, String boardName, int count, Date createDate,
 			int likeCount) {
@@ -95,6 +106,14 @@ public class BoardCommon {
 
 	public void setBoardTitle(String boardTitle) {
 		this.boardTitle = boardTitle;
+	}
+
+	public String getRegion() {
+		return region;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
 	}
 
 	public String getBoardContent() {

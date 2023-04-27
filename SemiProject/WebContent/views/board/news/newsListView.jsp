@@ -435,7 +435,7 @@
 	                        </div>
                         <%} else if (loginUser != null) {%>
                         	<div align="right" id="write_btn">
-                            	<a href="" class="btn btn-light">글쓰기</a>
+                            	<a href="<%=contextPath %>/views/board/writeBoard.jsp" class="btn btn-light">글쓰기</a>
                         	</div>
                         <%} %>
                         <br>
