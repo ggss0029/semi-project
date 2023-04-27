@@ -787,7 +787,7 @@ public class MemberDao {
 		return result;
 	}
 
-	public int checkRecommend(Connection conn, String myNickname) {
+	public int checkRecommend(Connection conn, String myNickname, String nickname) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int check = 0;
@@ -795,7 +795,8 @@ public class MemberDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, myNickname);
+			pstmt.setString(1, nickname);
+			pstmt.setString(2, myNickname);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
@@ -810,6 +811,51 @@ public class MemberDao {
 		}
 		
 		return check;
+	}
+
+	public int recommend(Connection conn, String myNickname, String nickname) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("recommend");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, myNickname);
+			pstmt.setString(2, nickname);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int getRecommend(Connection conn, String nickname) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		String sql = prop.getProperty("getRecommend");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, nickname);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return count;
 	}
 
 	

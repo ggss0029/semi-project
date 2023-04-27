@@ -222,10 +222,12 @@ public class MemberService {
 		return m;
 	}
 	
-		public Member profile(String nickname) {
+		public Member profile(String myNickname, String nickname) {
 		Connection conn = JDBCTemplate.getConnection();
 		
 		Member m = new MemberDao().profile(conn, nickname);
+		int check = new MemberDao().checkRecommend(conn, myNickname, nickname);
+		m.setCheckRec(check);
 		
 		JDBCTemplate.close(conn);
 		
@@ -274,14 +276,23 @@ public class MemberService {
 		return m;
 	}
 
-	public int checkRecommend(String myNickname) {
+	public int recommend(String myNickname, String nickname) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		int check = new MemberDao().checkRecommend(conn, myNickname);
+		int result = new MemberDao().recommend(conn, myNickname, nickname);
+		
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}
+		else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		int count = new MemberDao().getRecommend(conn, nickname);
 		
 		JDBCTemplate.close(conn);
 		
-		return check;
+		return count;
 	}
 
 }
