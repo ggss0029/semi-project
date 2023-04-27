@@ -482,26 +482,26 @@
     <div class="menubar">
         <ul id="menu">
             <li style="margin-left:2%">
-                <a>정보 공유</a>
+                <a style="cursor: default;">정보 공유</a>
                 <ul>
                     <li><a href="<%=contextPath %>/newsList.bo?currentPage=1">동네 소식</a></li>
                     <li><a href="<%=contextPath %>/views/board/clean/cleanListView.jsp">살림 꿀팁</a></li>
                     <li><a href="">자취 레시피</a></li>
                 </ul>
             </li><li><a href="">동네 맛집</a></li><li>
-                <a href="">나눔</a>
+                <a style="cursor: default;">나눔</a>
                 <ul>
                     <li><a href="">나눔할게요</a></li>
                     <li><a href="">이거 필요해요</a></li>
                 </ul>
             </li><li>
-                <a href="">함께 해요</a>
+                <a style="cursor: default;">함께 해요</a>
                 <ul>
                     <li><a href="">같이 해요</a></li>
                     <li><a href="">같이 사요</a></li>
                 </ul>
             </li><li><a href="">자유게시판</a></li><li style="margin-right:2%">
-                <a href="">소식</a>
+                <a style="cursor: default;">소식</a>
                 <ul>
                     <li><a href="">공지사항</a></li>
                     <li><a href="">자주 묻는 질문</a></li>
