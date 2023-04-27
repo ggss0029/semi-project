@@ -481,7 +481,7 @@
                 <a>정보 공유</a>
                 <ul>
                     <li><a href="<%=contextPath %>/newsList.bo?currentPage=1">동네 소식</a></li>
-                    <li><a href="<%=contextPath %>/views/board/clean/cleanListView.jsp">살림 꿀팁</a></li>
+                    <li><a href="<%=contextPath %>/cleanList.bo?currentPage=1">살림 꿀팁</a></li>
                     <li><a href="">자취 레시피</a></li>
                 </ul>
             </li><li><a href="">동네 맛집</a></li><li>

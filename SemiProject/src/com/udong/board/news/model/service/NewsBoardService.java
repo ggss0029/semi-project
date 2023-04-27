@@ -132,4 +132,14 @@ public class NewsBoardService {
 		
 		return result;
 	}
+
+	public ArrayList<NewsBoard> newsBoardSearch(String region, String category) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<NewsBoard> nlist = new NewsBoardDao().newsBoardSearch(conn, region, category);
+		
+		JDBCTemplate.close(conn);
+		
+		return nlist;
+	}
 }

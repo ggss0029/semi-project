@@ -303,6 +303,41 @@ public class NewsBoardDao {
 		return result;
 	}
 
+	public ArrayList<NewsBoard> newsBoardSearch(Connection conn, String region, String category) {
+		ArrayList<NewsBoard> nlist = new ArrayList<>();
+		
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("newsBoardSearch");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, region);
+			pstmt.setString(2, category);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				nlist.add(new NewsBoard(rset.getInt("BOARD_NO")
+										,rset.getString("NICKNAME")
+										,rset.getString("BOARD_TITLE")
+										,rset.getInt("COUNT")
+										,rset.getDate("CREATE_DATE")
+										,rset.getInt("LIKE_COUNT")));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return nlist;
+	}
+
 	
 
 }

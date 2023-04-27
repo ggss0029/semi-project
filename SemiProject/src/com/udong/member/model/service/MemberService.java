@@ -3,6 +3,7 @@ package com.udong.member.model.service;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.udong.board.common.model.vo.Attachment;
 import com.udong.common.JDBCTemplate;
 import com.udong.member.model.dao.MemberDao;
 import com.udong.member.model.vo.Member;
@@ -282,6 +283,17 @@ public class MemberService {
 		JDBCTemplate.close(conn);
 		
 		return check;
+	}
+
+	//개인 정보 수정의 닉네임 중복확인
+	public int chkNickName(String checkNick) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int count = new MemberDao().chkNickName(conn, checkNick);
+		
+		JDBCTemplate.close(conn);
+		
+		return count;
 	}
 
 }

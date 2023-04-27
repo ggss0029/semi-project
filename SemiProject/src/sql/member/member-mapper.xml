@@ -166,4 +166,12 @@
 		                    FROM MEMBER
 		                    WHERE NICKNAME = ?)
 	</entry>
+	
+	<!-- 회원 정보 수정의 닉네임 중복 검사 -->
+	<entry key="checkNick">
+		SELECT COUNT(*) "COUNT"
+		FROM MEMBER
+		WHERE NICKNAME = ? 
+		AND STATUS = 'Y'
+	</entry>
 </properties>

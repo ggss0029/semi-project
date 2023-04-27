@@ -299,7 +299,7 @@
                 <a href="<%=contextPath %>/newsList.bo?currentPage=1" id="news">동네 소식</a>
                 <div id="line_2"></div>
                 
-                <a href="<%=request.getContextPath() %>/views/board/clean/cleanListView.jsp" id="clean">살림 꿀팁</a>
+                <a href="<%=contextPath %>/cleanList.bo?currentPage=1" id="clean">살림 꿀팁</a>
                 <div id="line_3"></div>
                 
                 <a href="" id="recipe">자취 레시피</a>
@@ -312,12 +312,10 @@
 
                     <div id="box">
                         <p id="b1">지역선택</p>
-                        <form name="form" method="post" action="">
-	                        <div id="location">
 	                            <input type="hidden" name="currentPage" value="<%=pi.getCurrentPage() %>">
-	                            
+	                        <div id="location">
 	                                	시/도:
-	                                <select name='city' onchange="change(this.selectedIndex);"  class=input >
+	                                <select name="city" id="city" onchange="change(this.selectedIndex);"  class=input >
 	                                    <option value='전체'>전체</option>
 	                                    <option value='서울'>서울특별시</option>
 	                                    <option value='부산'>부산광역시</option>
@@ -337,7 +335,7 @@
 	                                    <option value='제주'>제주도</option>
 	                                </select>                                                  
 	                                	구/군:
-	                                <select name='county'  class=select>
+	                                <select name="country" id="country"  class=select>
 	                                    <option value=''>전체</option>
 	                                </select>
 	                            
@@ -345,24 +343,27 @@
 	                        <br><br><br>
 	                        <p id="b2">카테고리</p>
 	                        
-	                        <div id="category">
+	                        <div id="category" name="category">
 	                            <input type="checkbox" id="real_time"> <label for="real_time">실시간 우동</label> 
-	                            <input type="checkbox" id="festival" > <label for="festival">행사/축제</label> 
+	                            <input type="checkbox" id="event"><label for="event">행사</label> 
+	                            <input type="checkbox" id="festival" > <label for="festival">축제</label> 
 	                            <input type="checkbox" id="open"> <label for="open">신장 개업</label>
 	                            <input type="checkbox" id="danger"> <label for="danger">사건/사고</label>
-	                            <input type="checkbox" id="lost"> <label for="lost">분실/실종</label>
+	                            <input type="checkbox" id="lost"> <label for="lost">분실</label>
+	                           	<input type="checkbox" id="none"> <label for="none">실종</label>
+	                           	<input type="checkbox" id="others"> <label for="others">기타</label>
+	                           	
 	                        </div>
 	                        <br><br><br>
 	                        
 	
 	                        <div align="center">
 	                            <button type="reset" class="btn btn-light">초기화</button>
-	                            <button class="btn btn-primary">검색</button>
+	                            <button class="btn btn-primary" onclick="newsSearch();">검색</button>
 	                        </div>
-                        </form> 
                     </div>
                     <div id="line_6"></div>
-
+					<div id="newsList"></div>
                     <table class="list-area" border="0" align="center">
                         <thead style="height: 50px; border-top:3px solid black; border-bottom:3px solid black;">
                             <th width="70">No.</th>
@@ -539,6 +540,50 @@
             }         
         }
    
+        function newsSearch() {
+        	$.ajax({
+        		url : "newsSearch.bo",
+        		data : {
+        				city : $("#city").val(),
+        				country : $("country").val(),
+        				category : $("#category").val(),
+        				
+        		},
+        		success : function(nlist) {
+        			var result = "";
+        			if(rlist.length <1) {
+        				result = "검색 결과가 없습니다."
+        			}else {
+        				$(".list-area").children("thead").children().remove();
+        				$(".list-area thead").html("<tr>"
+                        +"<th style='width:7%;'>글 번호</th>"
+                        +"<th style='width:17%;'>게시판 이름</th>"
+                        +"<th style='width:38%;'>제목</th>"
+                        +"<th style='width:18%;'>작성자</th>"
+                        +"<th style='width:9%;'>조회수</th>"
+                        +"<th style='width:11%;'>좋아요 수</th>"
+                    	+"</tr>");
+        				for(var i = 0; i<nlist.length; i++){
+        					result += "<tr>"
+										+ "<td>"+nlist[i].boardNo+ "</td>"
+										+ "<td>"+nlist[i].boardName + "</td>"
+										+ "<td>"+nlist[i].boardTitle + "</td>"
+										+ "<td>"+nlist[i].boardWriter + "</td>"
+										+ "<td>"+nlist[i].count + "</td>"
+										+ "<td>"+nlist[i].likeCount + "</td>"
+										+"</tr>";
+        				}
+        			}
+        			$(".list-area").children("tbody").children().remove();
+        			$(".list-area tbody").html(str);
+        		}, 
+        	
+        		error : function() {
+        			alert.log("통신 실패!");
+        		}
+        		
+        	});
+        };
    </script>
    <%@ include file = "../../common/footer.jsp" %>
 </body>

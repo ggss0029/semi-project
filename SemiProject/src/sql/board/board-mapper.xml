@@ -222,4 +222,38 @@
                  ORDER BY COUNT DESC) A )
 	WHERE RNUM BETWEEN ? AND ?
 	</entry>
+	
+	<!-- 살림꿀팁 총 게시글 개수 구하기 -->
+	<entry key="cleanSelectListCount">
+		SELECT COUNT(*) COUNT
+		FROM BOARD
+		WHERE STATUS = 'Y'
+		AND BOARD_NAME = '살림 꿀팁' 
+	</entry>
+	
+	<!-- 살림꾹팁 리스트 불러오기) -->
+	<entry key="cleanSelectList">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+        		FROM (SELECT BOARD_NO, BOARD_TITLE, NICKNAME, CREATE_DATE, COUNT, COUNT(BOARDLIKE_NO) LIKE_COUNT
+		        		FROM BOARD B
+		        		JOIN MEMBER M ON (BOARD_WRITER = USER_NO)
+		        		LEFT JOIN BOARD_LIKE ON (BOARDLIKE_NO = BOARD_NO)
+		        		WHERE B.STATUS ='Y' AND BOARD_NAME = '살림 꿀팁'
+		        		GROUP BY BOARD_NO, BOARD_TITLE, NICKNAME, CREATE_DATE, COUNT
+		        		ORDER BY BOARD_NO DESC) A )
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="newsBoardSearch">
+		SELECT BOARD_NO, BOARD_TITLE, NICKNAME, CREATE_DATE, COUNT, COUNT(BOARDLIKE_NO) LIKE_COUNT
+		FROM BOARD B
+		JOIN MEMBER M ON (BOARD_WRITER = USER_NO)
+		LEFT JOIN BOARD_LIKE ON (BOARDLIKE_NO = BOARD_NO)
+		WHERE B.STATUS ='Y' 
+				AND BOARD_NAME = '동네 소식'
+				AND REGION = ? AND CATEGORY = ?
+		GROUP BY BOARD_NO, BOARD_TITLE, NICKNAME, CREATE_DATE, COUNT
+		ORDER BY BOARD_NO DESC
+	</entry>
 </properties>

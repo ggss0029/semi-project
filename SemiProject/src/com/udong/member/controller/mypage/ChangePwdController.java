@@ -45,6 +45,7 @@ public class ChangePwdController extends HttpServlet {
 		//session 담겨있는 loginUser에서 id값 꺼내기
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		String updatePwd = request.getParameter("updatePwd");
+		System.out.println(updatePwd);
 		
 		Member updateMem = new MemberService().updatePwd(userId, updatePwd);
 		
@@ -52,11 +53,11 @@ public class ChangePwdController extends HttpServlet {
 			request.setAttribute("errorMsg", "비밀번호 수정 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		} else {
-			request.getSession().setAttribute("alertMsg", "비밀번호 수정 완료. 변경된 비밀번호로 재로그인해주세요.");
+			request.getSession().setAttribute("alertMsg", "비밀번호 수정 완료.");
 			request.getSession().setAttribute("loginUser", updateMem);
 			
-			//재요청
-			response.sendRedirect(request.getContextPath());
+//			//재요청
+			response.sendRedirect("views/member/mypage/myInfo.jsp");
 		}
 	}
 

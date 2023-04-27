@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+ <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <style>
          div{
             /* border: 1px solid black; */
@@ -314,7 +315,7 @@
                             </ul>
                         </div>
                         
-                    <form action="<%=contextPath %>/update.me" method="post" id="myInfoUpdate" entype="multipart/form-data">
+                    <form action="<%=contextPath %>/update.me" method="post" id="myInfoUpdate">
                     	
                         <table class="list-area" border="0">
                             <tr style="border-bottom: 2px solid gray;">
@@ -343,8 +344,9 @@
                                     <span style="color: red;"> *</span>
                                 </th>
                                 <td colspan="3">
-                                	<input type="text" name="nickName" value="<%=loginUser.getNickname() %>" required>
-                                	<button>중복 확인</button>
+                                	<input type="text" id="nickName" name="nickName" value="<%=loginUser.getNickname() %>" required>
+                                	<button type="button" id="nickBtn" onclick="myNickChk();">중복 확인</button>
+                                	<font id = "colorNickName" size="2"></font>
                                 </td>
                             </tr>
 
@@ -380,7 +382,7 @@
                                 </th>
                                 <td colspan="3">
                                     <input type="email" name="email" value="<%=loginUser.getEmail()%>" required>
-                                    <button>인증</button>
+                                    <button>인증번호 전송</button>
                                 </td>
                             </tr>
 
@@ -391,18 +393,18 @@
                                 </th>
                                 <td colspan="3">
                                     <div class="input_area3">
-                                        <div class="div1">
-                                            <input type="text" id="sample6_postcode" placeholder="우편번호" readonly>
-                                            <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" id="address"><br>
-                                        </div>
-                                        <div class="div2">
-                                            <input type="text" id="sample6_address" placeholder="주소" readonly><br>
-                                        </div>
-                                        <div class="div3">
-                                            <input type="text" name="address" id="sample6_detailAddress" value="<%=loginUser.getAddress() %>" placeholder="상세주소">
-                                            <input type="text" id="sample6_extraAddress" placeholder="참고항목" readonly>
-                                        </div>
-                                    </div>
+				                        <div class="div1">
+				                            <input type="text" id="sample6_postcode" name="sample6_postcode" value="<%=loginUser.getAddress().substring(loginUser.getAddress().length()-5, loginUser.getAddress().length())%>" placeholder="우편번호" readonly>
+				                            <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" id="address"><br>
+				                        </div>
+				                        <div class="div2">
+				                            <input type="text" id="sample6_address" name="sample6_address" value="" placeholder="주소" readonly><br>
+				                        </div>
+				                        <div class="div3">
+				                            <input type="text" id="sample6_detailAddress" name="sample6_detailAddress" value="<%=loginUser.getAddress() %>" placeholder="상세주소">
+				                            <input type="text" id="sample6_extraAddress" name="sample6_extraAddress" placeholder="참고항목" readonly>
+				                        </div>
+				                    </div>
                                 </td>
                             </tr>
 
@@ -420,9 +422,10 @@
                                     <span style="margin-left: 10px;">자기소개</span>
                                 </th>
                                 <td colspan="3">
-                                    <textarea name="introduction" id=""  cols="90" rows="4" style="resize: none;">
-                                    	<%=loginUser.getIntroduction() %>
-                                    </textarea>
+                                	<div align="right">
+                                		<p class="textCount"></p><p class="textTotal"></p>
+                                	</div>
+                                    <textarea class="introduction" name="introduction" cols="90" rows="4" style="resize: none;" maxLength="133"><%=loginUser.getIntroduction() %></textarea>
                                 </td>
                             </tr>
                         </table>
@@ -436,11 +439,110 @@
                         
                 </form>
                 
+                <script>
+                	function myNickChk() {
+                		$.ajax({
+                			url : "<%=contextPath%>/checkNickname.me",
+                			data : { inputNickname : $("#nickName").val()},
+                			success : function(result) {
+                				if(result == "NNNNY") {
+                					if(confirm("사용 가능한 닉네임 입니다! 사용하시겠습니까?")) {
+                						$("#nickName").attr("readonly",true); //닉넴 변경 불가
+                					}else {
+                						alert("이미 존재하거나 탈퇴한 유저의 아이디입니다.");
+                						$("#nickName").focus();
+                					}
+                				}else {
+                					alert("이미 사용중인 닉네임입니다.");
+                        			$("#nickname").focus();
+                				}
+                				
+                			},
+                			error : function() {
+                				alert("통신 실패..");
+                			}
+                		});
+                	};
+                	
+                	
+                	//주소
+                	function sample6_execDaumPostcode() {
+                        new daum.Postcode({
+                            oncomplete: function(data) {
+                                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+                            
+                                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                                var addr = ''; // 주소 변수
+                                var extraAddr = ''; // 참고항목 변수
+                            
+                                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                                    addr = data.roadAddress;
+                                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                                    addr = data.jibunAddress;
+                                }
+                            
+                                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                                if(data.userSelectedType === 'R'){
+                                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                                        extraAddr += data.bname;
+                                    }
+                                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                                    }
+                                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                                    if(extraAddr !== ''){
+                                        extraAddr = ' (' + extraAddr + ')';
+                                    }
+                                    // 조합된 참고항목을 해당 필드에 넣는다.
+                                    document.getElementById("sample6_extraAddress").value = extraAddr;
+                                
+                                } else {
+                                    document.getElementById("sample6_extraAddress").value = '';
+                                }
+                            
+                                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                                document.getElementById('sample6_postcode').value = data.zonecode;
+                                document.getElementById("sample6_address").value = addr;
+                                // 커서를 상세주소 필드로 이동한다.
+                                document.getElementById("sample6_detailAddress").focus();
+                            }
+                        }).open();
+                    };
+
+                
+                //글자수 보기 (미완성......)
+                	$(".introduction").keyup(function() {
+                		var content = $("#introduction").val();
+                		
+                		//글자수 세기
+                		if(content.length == 0 || content == "") {
+                			$(".textCount").html('0자');
+                		}else {
+                			$(".textTotal").html(content.length + '자');
+                		}
+                		
+                		//글자수 제한
+                		if(content.length > 133) {
+                			//133자 부터는 타이핑이 되지 않도록 하기
+                			$("#introduction").val($("#introduction").val().subString(0,133));
+                			
+                			//200자가 넘으면 알림창 뜨도록 하기
+                			alert('글자수는 133까지 입력 가능합니다.')
+                		}
+                	})
+                	
+                </script>
+                
                 <!-- The Modal -->
 				<div class="modal" id="changePwd">
 				  <div class="modal-dialog modal-lg">
 				    <div class="modal-content">
-				
+						
 				      <!-- Modal Header -->
 				      <div class="modal-header">
 				        <h4 class="modal-title">비밀번호 변경</h4>
@@ -449,7 +551,16 @@
 				
 				      <!-- Modal body -->
 				      <div class="modal-body">
-				      	<form action="<%=contextPath %>/updatePwd.me" method="post">
+				      <div id="box2" style="border: 1px solid black; border-radius: 30px;">
+                            <ul id="my_ul2" style="margin-top:15px">
+                                <li id="my_li2">비밀번호는 <b>8자리 이상 15자리 미만의 숫자와 영문, 특수문자(!@#$%^&*)</b> 를 조합하여 입력해주세요.</li>
+                                <li id="my_li2">비밀번호가 타인에게 유츨되지 않도록 주의하시고, <br>쉽게 유출 될 수 있는 전화번호, 주민등록번호 등을 
+                                    비밀번호로 사용하지 마시기 바랍니다.</li>
+                                <li id="my_li2"> <span style="color: red;"> *</span> 표시된 부분은 <b>필수 입력 사항</b>입니다.</li>
+                            </ul>
+                        </div>
+                        <br>
+				      	<form action="<%=contextPath %>/updatePwd.me" method="post" onsubmit="return validate();">
 				      		<input type="hidden" name="userId" value="<%=loginUser.getUserId() %>">
 				      		
 				      		<table align="center">
@@ -459,7 +570,7 @@
 	                                    <span style="color: red;"> *</span>
 	                                </th>
 	                                <td>
-	                                	<input type="password" name="userPwd" id="userPwd" class="nowPwd" required style="width:400px;">
+	                                	<input type="password" name="userPwd" id="userPwd" class="nowPwd" required style="width:300px;" required>
 	                                	<font id="check" size="2"></font>
 	
 	                                </td>
@@ -468,18 +579,20 @@
 	                            <tr>
 	                                <th>
 	                                    <span>비밀번호 변경</span>
+	                                    <span style="color: red;"> *</span>
 	                                </th>
 	                                <td>
-	                                	<input type="password" name="updatePwd" id="updatePwd" class="pw" placeholder="변경 시에만 입력">
+	                                	<input type="password" name="updatePwd" id="updatePwd" class="pw" style="width:300px;" required>
 	                                </td>
 	                            </tr>
 	
 	                            <tr>
 	                                <th>
 	                                    <span>비밀번호 변경 확인</span>
+	                                    <span style="color: red;"> *</span>
 	                                </th>
 	                                <td>
-	                                	<input type="password" name="chkPwd" id="chkPwd" class="pw" placeholder="변경 시에만 입력">
+	                                	<input type="password" name="chkPwd" id="chkPwd" class="pw" style="width:300px;" required>
 	                                	<font id="checkPw" size="2"></font>
 	                                </td>
 	                            </tr>
@@ -487,10 +600,10 @@
 				      		<br>
 				      		
 				      		<div id="changebtn" style="text-align: center;">
-					      		<button type="submit" class="btn btn-info" onclick="return validate();" align="center">비밀번호 변경</button>
+					      		<input type="submit" class="btn btn-info" value="비밀번호 변경">
 				      		</div>
 				      		
-				      	</form>
+				      	</form>d
 				      	
 				      	<script>
 							function validate(){
@@ -498,14 +611,30 @@
 								var inputPwd = $("#userPwd").val();
 								var updatePwd = $("#updatePwd").val();
 								var chkPwd = $("#chkPwd").val();
+								console.log(inputPwd);
+								console.log(updatePwd);
+								console.log(chkPwd);
+								
+								
+								//비밀번호 검사
+								
 								
 								if(loginPwd == inputPwd) { //현재 비밀번호가 일치한다면
-									if(updatePwd != chkPwd) { //바꾼비밀번호와 재확인이 일치 하지 않는다면
-										alert("변경할 비밀번호와 확인이 일치하지 않습니다.");
-										$("input[name=updatePwd]").select();
+									var regExp = /^[a-zA-Z0-9!@#$%^&*]{7,14}$/; //유효성 검사를 해준다.
+									if(!regExp.test(updatePwd)){ //변경할 비밀번호가 유효값이 아닐경우
+										alert("유효한 비밀번호 형식이 아닙니다.");
+										$("#updatePwd").focus();
+										//여기서 오류떠서 유효성 검사가 안된거임.(나는 updatePwd.focus()로 했는데 벨류값을 들고갔기 떄문에 실행이 안됨.)
 										return false;
 									}
-									
+									else {
+										if(updatePwd != chkPwd) { //바꾼비밀번호와 재확인이 일치 하지 않는다면
+											alert("변경할 비밀번호와 확인이 일치하지 않습니다.");
+											$("input[name=updatePwd]").select();
+											return false;
+										}
+									}
+
 								}else { //현재 비밀번호가 일치하지 않는다면
 									alert("현재 비밀번호가 일치하지 않습니다.");
 									$("input[name=userPwd]").focus();
