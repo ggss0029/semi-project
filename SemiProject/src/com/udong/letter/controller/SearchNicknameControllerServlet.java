@@ -34,7 +34,6 @@ public class SearchNicknameControllerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		ArrayList<Member> list = new MemberService().searchNickname();
-		System.out.println(list);
 		response.setContentType("json/application; charset=UTF-8");
 		new Gson().toJson(list, response.getWriter());
 	}
