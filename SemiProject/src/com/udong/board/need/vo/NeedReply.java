@@ -2,7 +2,7 @@ package com.udong.board.need.vo;
 
 import java.sql.Date;
 
-public class NeedRelpy {
+public class NeedReply {
 	
 	private int replyNo; // REPLY_NO NUMBER
 	private int refBno; // REF_BNO NUMBER
@@ -11,10 +11,10 @@ public class NeedRelpy {
 	private Date createDate; // CREATE_DATE DATE
 	private Date modifyDate; // MODIFY_DATE DATE
 	private String status; // STATUS VARCHAR2(1 BYTE)
-	public NeedRelpy() {
+	public NeedReply() {
 		super();
 	}
-	public NeedRelpy(int replyNo, int refBno, String replyWriter, String replyContent, Date createDate, Date modifyDate,
+	public NeedReply(int replyNo, int refBno, String replyWriter, String replyContent, Date createDate, Date modifyDate,
 			String status) {
 		super();
 		this.replyNo = replyNo;
@@ -24,6 +24,15 @@ public class NeedRelpy {
 		this.createDate = createDate;
 		this.modifyDate = modifyDate;
 		this.status = status;
+	}
+	
+	
+	public NeedReply(int replyNo, String replyContent, int refBno, String replyWriter, Date createDate) {
+		this.replyNo = replyNo;
+		this.replyContent = replyContent;
+		this.refBno = refBno;
+		this.replyWriter = replyWriter;
+		this.createDate = createDate;
 	}
 	public int getReplyNo() {
 		return replyNo;
@@ -69,7 +78,7 @@ public class NeedRelpy {
 	}
 	@Override
 	public String toString() {
-		return "NeedRelpy [replyNo=" + replyNo + ", refBno=" + refBno + ", replyWriter=" + replyWriter
+		return "NeedReply [replyNo=" + replyNo + ", refBno=" + refBno + ", replyWriter=" + replyWriter
 				+ ", replyContent=" + replyContent + ", createDate=" + createDate + ", modifyDate=" + modifyDate
 				+ ", status=" + status + "]";
 	}
