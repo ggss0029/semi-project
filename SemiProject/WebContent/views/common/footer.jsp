@@ -140,7 +140,7 @@
 					<div align="center">
 						<br>
 						<div class="modal_btns">
-							<button type="button" class="btn btn-secondary">쪽지보내기</button>
+							<button type="button" onclick="sendLetter();" class="btn btn-secondary">쪽지보내기</button>
 							<button type="button" class="btn btn-secondary">쓴글보기</button>
 						</div>
 						<br>
@@ -154,6 +154,12 @@
 	</div>
 	
 	<script>
+	
+		function sendLetter(){
+			var modalNickname = $("#p_nickname").children().text();
+			location.href="<%=contextPath%>/writeLetter.le?modalNickname="+modalNickname;
+		}
+	
     	$("#profile").on('show.bs.modal', function(e) {
     		 
     	});

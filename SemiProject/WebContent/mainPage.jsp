@@ -37,6 +37,7 @@
         .header_1{
             border-bottom: 1px solid black;
             height: 45%; /*180px*/
+/*             background-color: red; */
         }
 
         .header_1>div {
@@ -157,7 +158,7 @@
         .header_2{
             height: 55%;
             border-bottom: 1px solid black;
-            /*background-color: orange;*/
+/*             background-color: orange; */
         }
         
         .header_2>div {
@@ -188,8 +189,10 @@
        .outer{
             width: 1500px;
             height: 1400px;
-            border: 1px solid black;
             margin: auto;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            border-bottom: 1px solid black;
         }
 
         .outer>div{
@@ -204,6 +207,7 @@
         .content_1 {
             width: 100%;
             height: 35%;
+            border-bottom: 1px solid black;
         }
 
         .content_1>div {
@@ -213,19 +217,40 @@
         }
 
         .c1 {
-            background-color: yellow;
+/*             background-color: yellow; */
+            border-right: 1px solid black;
+/*             overflow: hidden; */
         }
         
         .c1>div {
         	width: 100%;
         }
         
+        .c1_title {
+        	height: 99px;
+        }
+        
         .c1_title>* {
         	float:left;
         }
+        
+        .contentline1 {
+        	height: 1px;
+        }
+        
+        .c1_table {
+        	height: 390px;
+        }
+        
+        .c1_table>table {
+        	width: 80%;
+        	height: 80%;
+        	margin-top: 39px;
+        	margin-left: 10%;
+        }
 
         .c2 {
-            background-color: green;
+/*             background-color: green; */
         }
         
         .c2>div {
@@ -235,17 +260,25 @@
         .c2_title>* {
         	float:left;
         }
+        
+        .c2_table>table {
+        	width: 80%;
+        	height: 80%;
+        	margin: 40px 10%;
+        }
 
         .content_2 {
-            background-color: blue;
+/*             background-color: blue; */
             width: 100%;
             height: 32.5%;
+            border-bottom: 1px solid black;
         }
 
         .content_3 {
-            background-color: pink;
+/*             background-color: pink; */
             width: 100%;
             height: 32.5%;
+            border-bottom: 1px solid black;
         }
         
         .content_2>div, .content_3>div {
@@ -255,10 +288,9 @@
         .c3, .c4 {
             height: 20%;
         }
-
-        .c3>div, .c4>div {
-            height: 100%;
-            float: left;
+        
+        .c3 *, .c4 * {
+        	float: left;
         }
 
         #footer{
@@ -289,6 +321,26 @@
         #footer_2>p {
             text-align: center;
         }
+        
+        .boardNameTag{
+        	margin: 0 auto;
+        	text-align:center; 
+        	width:140px; 
+        	border-radius:5px; 
+        	font-size: 17px;
+        	font-height: 530;
+         	color:white;
+        }
+        
+        .bgc1 { background-color: #BE5EC2; }
+        .bgc2 { background-color: #F862A7; }
+        .bgc3 { background-color: #FF7B87; }
+        .bgc4 { background-color: #FFA26A; }
+        .bgc5 { background-color: #FFCE5E; }
+        .bgc6 { background-color: #F9F871; color:black; }
+        .bgc7 { background-color: #9BDE7E; }
+        .bgc8 { background-color: #4BBC8E; }
+        .bgc9 { background-color: #1C6E7D; }
 
         .main_swiper1 { position: relative; height: 80%; }
         .main_swiper2 { position: relative; height: 80%; }
@@ -331,7 +383,7 @@
 		var min = now.getMinutes();
 		var sec = now.getSeconds();
 		var milsec = now.getMilliseconds();
-		var renewTime = (60-min)*60*1000 + (60-sec)*1000 + (1000-milsec) - 1; // 정각까지 얼마나 차이나는지 계산
+		var renewTime = (60-min-1)*60*1000 + (60-sec)*1000 + (1000-milsec); // 정각까지 얼마나 차이나는지 계산
 		
 		function callback() {
 			$.ajax({
@@ -339,7 +391,6 @@
 				success: function(mostSearch) {
 					$(mostSearch).each(function(index, value) {
 						console.log(index + ", " + value);
-
 						$("."+(index+1)).text(value);
 					});
 				},
@@ -352,9 +403,125 @@
 		function callback2() {
 			setInterval(callback, 1000*60*60);
 		}
+		
+		function showBestPost() {
+			$.ajax({
+				url: "bestPost.bo",
+				method: "post",
+				success: function(list) {
+					var str = "";
+					
+					for(var i=0;i<5;i++) {
+						var j=0;
+						switch(list[i].boardName) {
+							case "동네 소식":
+								j=1;
+								break;
+							case "살림 꿀팁":
+								j=2;
+								break;
+							case "자취 레시피":
+								j=3;
+								break;
+							case "동네 맛집":
+								j=4;
+								break;
+							case "나눔 할게요":
+								j=5;
+								break;
+							case "이거 필요해요":
+								j=6;
+								break;
+							case "같이 해요":
+								j=7;
+								break;
+							case "같이 사요":
+								j=8;
+								break;
+							case "자유 게시판":
+								j=9;
+								break;
+						};
+						
+						if(i==0) {
+							str += "<tr>"
+								 + "<td style='color:red; width: 15%; font-size: 20px; font-weight:550; text-align:center;'>" + (i+1) + "</td>";
+						}
+						else {
+							str += "<tr>"
+								 + "<td style='font-size: 20px; font-weight:550; text-align:center;'>" + (i+1) + "</td>";
+						}
+						str += "<td style='width: 25%;'><div class='boardNameTag bgc" + j + "'>" + list[i].boardName + "</div></td>"
+							 + "<td style='font-size: 20px;'>" + list[i].boardTitle + "</td>"
+							 + "</tr>";
+					}
+					
+					$(".c1_table").children().html(str);
+				},
+				error: function() {
+					console.log("통신 실패");
+				}
+			});
+		}
+		
+		function showLastestPost() {
+			$.ajax({
+				url: "lastestPost.bo",
+				method: "post",
+				success: function(list) {
+					var str = "";
+					
+					for(var i=0;i<list.length;i++) {
+						var j=0;
+						switch(list[i].boardName) {
+							case "동네 소식":
+								j=1;
+								break;
+							case "살림 꿀팁":
+								j=2;
+								break;
+							case "자취 레시피":
+								j=3;
+								break;
+							case "동네 맛집":
+								j=4;
+								break;
+							case "나눔 할게요":
+								j=5;
+								break;
+							case "이거 필요해요":
+								j=6;
+								break;
+							case "같이 해요":
+								j=7;
+								break;
+							case "같이 사요":
+								j=8;
+								break;
+							case "자유 게시판":
+								j=9;
+								break;
+						};
+						
+						str += "<tr>"
+						 	 + "<td style='width: 25%;'><div class='boardNameTag bgc" + j +"'>" + list[i].boardName + "</div></td>"
+						 	 + "<td style='font-size: 20px;'>" + list[i].boardTitle + "</td>"
+						 	 + "</tr>";
+					}
+					
+					$(".c2_table").children().html(str);
+				},
+				error: function() {
+					console.log("통신 실패");
+				}
+			});
+		}
+		
 		callback();
 		setTimeout(callback, renewTime); // 시간 계산 후 정각에 가져옴
 		setTimeout(callback2, renewTime); // 정각마다 검색어 순위 top10 가져옴
+		showBestPost();
+		showLastestPost();
 	});
 </script>
     <div id="header">
@@ -500,7 +667,8 @@
             </div>
             <div id="totalSearch">
                 <form action="totalSearch.do" id="totalSearch_form">
-                    <div id="totalSearch_text"><input type="search" name="totalSearch"></div>
+                	<input type="hidden" name="currentPage" value="1">
+                    <div id="totalSearch_text"><input type="search" name="inputKeyword"></div>
                     <div id="totalSearch_btn"><button><img src="views/common/icons/돋보기.png" alt=""></button></div>
                 </form>
             </div>
@@ -574,34 +742,29 @@
         <div id="content">
             <div class="content_1">
                 <div class="c1">
-                	<div class="c1_title" style="height: 99px">
+                	<div class="c1_title">
                 		<p style="padding:0; margin:20px; font-size: 40px">인기글</p>
-                		<button style="margin-left: 470px; margin-top: 30px;" class="btn btn-light" onclick="bestPost();">더보기 ></button>
+                		<button style="margin-left: 470px; margin-top: 30px;" class="btn" onclick="bestPost();">더보기 ></button>
                 	</div>
-                	<div style="border: 1px solid black; height:1px"></div>
-                	<div style="height: 400px">
-                	
+                	<div style="background-color:black; height:1px"></div>
+                	<div class="c1_table">
+                		<table></table>
                 	</div>
                 </div>
                 <div class="c2">
                 	<div class="c2_title" style="height: 99px">
                 		<p style="padding:0; margin:20px; font-size: 40px">최신글</p>
                 	</div>
-                	<div style="border: 1px solid black; height:1px"></div>
-                	<div style="height: 400px">
-                		<a href="<%=request.getContextPath() %>/views/member/userDelete.jsp" style="color:white;">회원탈퇴</a><br>
-                		<a href="<%=request.getContextPath() %>/views/board/buy/buyListView.jsp" style="color:white;">같이 사요</a> 
+                	<div style="background-color:black; height:1px"></div>
+                	<div class="c2_table" style="height: 390px">
+                		<table></table>
                 	</div>
                 </div>
             </div>
             <div class="content_2">
                 <div class="c3">
-                    <div style="width: 85%;">
-                        <p style="margin:20px; font-size: 45px; font-weight: 500;">동네 맛집</p>
-                    </div>
-                    <div align="center" style="width: 15%;">
-                        <button style="margin-top:23%; margin-left:30%;" class="btn btn-light">더보기 ></button>
-                    </div>
+                	<p style="padding:0; margin:16px; font-size: 40px; font-weight: 500;">동네 맛집</p>
+                	<button style="margin-top:25px; margin-left:1150px;" class="btn">더보기 ></button>
                 </div>
                 <div class="main_swiper1">
                     <div class="swiper-container swiper1">
@@ -625,12 +788,8 @@
             </div>
             <div class="content_3" >
                 <div class="c4">
-                    <div style="width: 85%; ">
-                        <p style="margin:20px; font-size: 45px; font-weight: 500;">나눔 할게요</p>
-                    </div>
-                    <div align="center" style="width: 15%;">
-                        <button style="margin-top:23%; margin-left:30%;" class="btn btn-light">더보기 ></button>
-                    </div>
+                	<p style="padding:0; margin:16px; font-size: 40px; font-weight: 500;">나눔 할게요</p>
+                	<button style="margin-top:25px; margin-left:1150px;" class="btn">더보기 ></button>
                 </div>
                 <div class="main_swiper2">
                     <div class="swiper-container swiper2">
