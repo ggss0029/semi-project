@@ -209,9 +209,8 @@
     </style>
     
 </head>
-
 <body>
-<%@ include file = "../../common/menubar.jsp" %>
+<%@ include file = "../common/menubar.jsp" %>
     <div class="wrap">
         <div id="header">
             <div class="header_1"></div>
@@ -320,9 +319,8 @@
             </div>
         </div>
     </div>
-    <%@ include file = "../../common/menubar.jsp" %>
 </body>
-
+<%@ include file = "../common/footer.jsp" %>
 <script>
 
 $(function(){

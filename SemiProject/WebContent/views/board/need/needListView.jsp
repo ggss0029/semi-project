@@ -230,7 +230,7 @@
 			if(searchType == "search_share"){
 				location.href = contextPath +  "/NeedBoardList.me?search_share=" + content;
 			}
-		});	
+		});	 
 	});
 
 	
