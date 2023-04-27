@@ -60,6 +60,10 @@
         	z-index: 3;
         }
         
+        #viewTable {
+        	cursor: pointer;
+        }
+        
         #most_search_list>table {
         	width: 100%;
         }
@@ -409,13 +413,14 @@
             	</div>
             </div>
             <div style="width:15%;">
-            	<p style="font-weight: 700; font-size: 30px" onclick="showList();">∨</p>
+            	<p style="font-weight: 700; font-size: 30px" onclick="showList();" id="viewTable">∨</p>
         	</div>
         </div>
         <div id="totalSearch">
         	<form action="totalSearch.do" id="totalSearch_form">
-        		<div id="totalSearch_text"><input type="search" name="totalSearch"></div>
-        		<div id="totalSearch_btn"><button><img alt="돋보기" src="<%=contextPath %>/views/common/icons/free-icon-magnifying-glass-49116.png"></button></div>
+        		<input type="hidden" name="currentPage" value="1">
+        		<div id="totalSearch_text"><input type="search" name="inputKeyword"></div>
+        		<div id="totalSearch_btn"><button><img alt="돋보기" src="<%=contextPath %>/views/common/icons/돋보기.png"></button></div>
         	</form>
         </div>
         <%if(loginUser==null) {%>
@@ -430,13 +435,13 @@
 	            </div>
 	            <div id="user_info" align="center">
 	                <div id="myPage">
-	                    <a href="<%=contextPath %>/views/member/mypage/myInfo.jsp" id="myPage"><img alt="마이페이지 아이콘" src="<%=contextPath %>/views/common/icons/free-icon-person-5393061.png" id="myPageIcon" style="width: 70px; height:70px;"><br>마이페이지</a>
+	                    <a href="<%=contextPath %>/views/member/mypage/myInfo.jsp"><img alt="마이페이지 아이콘" src="<%=contextPath %>/views/common/icons/마이페이지.png" style="width: 70px; height:70px;"><br>마이페이지</a>
 	                </div>
 	                <div>
-	                	<a href="<%=contextPath%>/sendLetterList.le?writerNo=<%=loginUser.getUserNo()%>&currentPage=1" id="letter"><img alt="쪽지아이콘" src="<%=contextPath %>/views/common/icons/envelope-of-white-paper.png" id="letterIcon" style="width: 70px; height:70px;"><br>쪽지함</a>
+	                	<a href="<%=contextPath%>/sendLetterList.le?writerNo=<%=loginUser.getUserNo()%>&currentPage=1"><img alt="쪽지아이콘" src="<%=contextPath %>/views/common/icons/쪽지함.png" style="width: 70px; height:70px;"><br>쪽지함</a>
 	                </div>
 	                <div id="likeBoard">
-	                	<a href="https://www.daum.net" id="likeBoard"><img alt="좋아요게시글 아이콘" src="<%=contextPath %>/views/common/icons/free-icon-heart-5392920.png" id="likeBoardIcon" style="width: 70px; height:70px;"><br>관심</a>
+	                	<a href="https://www.daum.net"><img alt="좋아요게시글 아이콘" src="<%=contextPath %>/views/common/icons/관심.png" style="width: 70px; height:70px;"><br>관심</a>
 	                </div>
 	            </div>
         	</div>
@@ -478,26 +483,26 @@
     <div class="menubar">
         <ul id="menu">
             <li style="margin-left:2%">
-                <a>정보 공유</a>
+                <a style="cursor: default;">정보 공유</a>
                 <ul>
                     <li><a href="<%=contextPath %>/newsList.bo?currentPage=1">동네 소식</a></li>
                     <li><a href="<%=contextPath %>/cleanList.bo?currentPage=1">살림 꿀팁</a></li>
                     <li><a href="">자취 레시피</a></li>
                 </ul>
             </li><li><a href="">동네 맛집</a></li><li>
-                <a href="">나눔</a>
+                <a style="cursor: default;">나눔</a>
                 <ul>
                     <li><a href="">나눔할게요</a></li>
                     <li><a href="">이거 필요해요</a></li>
                 </ul>
             </li><li>
-                <a href="">함께 해요</a>
+                <a style="cursor: default;">함께 해요</a>
                 <ul>
                     <li><a href="">같이 해요</a></li>
                     <li><a href="">같이 사요</a></li>
                 </ul>
             </li><li><a href="">자유게시판</a></li><li style="margin-right:2%">
-                <a href="">소식</a>
+                <a style="cursor: default;">소식</a>
                 <ul>
                     <li><a href="">공지사항</a></li>
                     <li><a href="">자주 묻는 질문</a></li>

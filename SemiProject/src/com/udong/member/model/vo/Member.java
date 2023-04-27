@@ -19,7 +19,8 @@ public class Member {
 	private String admin; //ADMIN	VARCHAR2(1 BYTE)
 	private int userReport; //USER_REPORT	NUMBER
 	private int loginType; //LOGIN_TYPE	NUMBER
-	private int recommended;
+	private int recommended; // 추천갯수
+	private int checkRec; // profile에서 내가 그 사람 추천했는지 확인용
 	
 	//회원정보수정 멤버변수
 	public Member(String userId, String userName, String nickname, String birthday, String gender,
@@ -49,6 +50,14 @@ public class Member {
 
 	public void setRecommended(int recommended) {
 		this.recommended = recommended;
+	}
+
+	public int getCheckRec() {
+		return checkRec;
+	}
+
+	public void setCheckRec(int checkRec) {
+		this.checkRec = checkRec;
 	}
 
 	public Member() {
@@ -218,13 +227,7 @@ public class Member {
 				+ ", nickname=" + nickname + ", birthday=" + birthday + ", gender=" + gender + ", introduction="
 				+ introduction + ", email=" + email + ", address=" + address + ", enrollDate=" + enrollDate
 				+ ", status=" + status + ", admin=" + admin + ", userReport=" + userReport + ", loginType=" + loginType
-				+ "]";
+				+ ", recommended=" + recommended + ", checkRec=" + checkRec + "]";
 	}
-
-	
-	
-	
-
-	
 	
 }
