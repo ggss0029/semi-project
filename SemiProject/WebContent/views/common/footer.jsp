@@ -117,7 +117,7 @@
 					<div style="border-bottom: 0.5px solid lightgray; width: 100%; height: 100%;">
 						<div id="p_img">
 							<!--프로필 없으면-->
-							<img src="<%=contextPath %>/views/member/icons/free-icon-user-181549.png" alt="프로필사진">
+							<img src="<%=contextPath %>/views/member/icons/기본프로필.png" alt="프로필사진">
 							<!--프로필 있으면-->
 							<!-- <img src="" alt="프로필사진"> -->
 						</div>
@@ -154,63 +154,63 @@
 	</div>
 	
 	<script>
-    	$("#profile").on('show.bs.modal', function(e) { 
-    		
+    	$("#profile").on('show.bs.modal', function(e) {
+    		 
     	});
     	
     	function whoareyou() {
     		<%if(loginUser != null) {%>
 				$.ajax({
 		    		url: "profile.me",
-		    		method: "post",
-		    		data: { nickname: $(event.target).html() },
-		    		success: function(member) {
-		    			$("#p_nickname").children().text(member.nickname);
-		    			$("#p_age").children().text(member.birthday + " 거주");
-		    			$("#p_address").children().text(member.address);
-		    			$("#p_introduction").children().text(member.introduction);
-		    			$("#p_recommend").text(member.recommended);
-		    			},
-		    			error: function() {
-		    				console.log("통신 실패");
-		    			}
-		    		});
-					$("#profile").modal('show');
-		    	<%} else { %>
-		    		$("#profile").modal('hide');
-		    	<%}%>
-    		});
-    	}
+			    	method: "post",
+			    	data: { 
+			    		myNickname: "<%=loginUser.getNickname()%>",
+			    		nickname: $(event.target).html()
+			    	},
+			    	success: function(member) {
+			    		$("#p_nickname").children().text(member.nickname);
+			    		$("#p_age").children().text(member.birthday);
+			    		$("#p_address").children().text(member.address + " 거주");
+			    		$("#p_introduction").children().text(member.introduction);
+			    		$("#p_recommend").text(member.recommended);
+			    		if (member.checkRec == 1) { // 추천 불가능
+			    			$("#rec").attr("disabled", true);
+			    		}
+			    		else {
+			    			$("#rec").attr("disabled", false);
+			    		}
+			    	},
+			    	error: function() {
+			    		console.log("통신 실패");
+			    	}
+			    });
+				$("#profile").modal('show');
+			<%}%>
+    	};
     	
-    	function recommend() { // 내가 추천한 회원인지 확인
-    		return new Promise(function(resolve, reject) {
-    			<%if(loginUser != null) {%>
-		    		$.ajax({
-		    			url: "profile.me",
-		    			data: { myNickname: "<%=loginUser.getNickname()%>" },
-		    			success: function(check) {
-		    				console.log(check);
-		    				if (check == 1) { // 추천 불가능
-		    					$("#rec").attr("disabled", true);
-		    				}
-		    				else { // 추천 가능
-		    					alert("추천 가능.");
-		    				}
-		    			},
-		    			error: function() {
-		    				console.log("통신 실패");
-		    			}
-		    		})
-	    		<%}%>    			
-    		});
-    	}
-    	
-    	function successFunction() {
-//     		alert("")
-    	}
-    	
-    	function errorFunction() {
-    		
+    	function recommend() {
+    		<%if(loginUser != null) {%>
+	    		$.ajax({
+	    			url: "profile.me",
+	    			data: {
+	    				myNickname: "<%=loginUser.getNickname()%>",
+			    		nickname: $("#p_nickname").children().html()
+	    			},
+	    			success: function(count) {
+	    				if(count == $("#p_recommend").text()) {
+	    					alert("추천 실패");
+	    				}
+	    				else {
+		    				alert("추천 왼료");
+	    					$("#p_recommend").text(count);
+				    		$("#rec").attr("disabled", true);
+	    				}
+	    			},
+	    			error: function() {
+	    				console.log("통신 실패");
+	    			}
+	    		});
+    		<%}%>
     	}
     </script>
 </body>

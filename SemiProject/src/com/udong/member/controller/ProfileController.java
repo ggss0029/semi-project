@@ -32,16 +32,18 @@ public class ProfileController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String myNickname = request.getParameter("myNickname");
-		int check = new MemberService().checkRecommend(myNickname);
-		response.getWriter().print(check);
+		String nickname = request.getParameter("nickname");
+		int count = new MemberService().recommend(myNickname, nickname);
+		response.getWriter().print(count);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String myNickname = request.getParameter("myNickname");
 		String nickname = request.getParameter("nickname");
-		Member m = new MemberService().profile(nickname);
+		Member m = new MemberService().profile(myNickname, nickname);
 		
 		response.setContentType("json/application; charset=UTF-8");
 		new Gson().toJson(m, response.getWriter());

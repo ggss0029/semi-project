@@ -65,6 +65,10 @@
         	z-index: 2;
         }
         
+        #viewTable {
+        	cursor: pointer;
+        }
+        
         #most_search_list>table {
         	width: 100%;
         }
@@ -153,7 +157,7 @@
         .header_2{
             height: 55%;
             border-bottom: 1px solid black;
-            background-color: orange;
+            /*background-color: orange;*/
         }
         
         .header_2>div {
@@ -491,13 +495,13 @@
                     </div>
                 </div>
                 <div style="width:15%;">
-                	<p style="font-weight: 700; font-size: 30px" onclick="showList();">∨</p>
+                	<p style="font-weight: 700; font-size: 30px" onclick="showList();" id="viewTable">∨</p>
                 </div>
             </div>
             <div id="totalSearch">
                 <form action="totalSearch.do" id="totalSearch_form">
                     <div id="totalSearch_text"><input type="search" name="totalSearch"></div>
-                    <div id="totalSearch_btn"><button><img src="views/common/icons/free-icon-magnifying-glass-49116.png" alt=""></button></div>
+                    <div id="totalSearch_btn"><button><img src="views/common/icons/돋보기.png" alt=""></button></div>
                 </form>
             </div>
             <%if(loginUser==null) {%>
@@ -512,13 +516,13 @@
 	                </div>
 	                <div id="user_info" align="center">
 	                    <div id="myPage">
-		                    <a href="<%=contextPath %>/views/member/mypage/myInfo.jsp" id="myPage"><img alt="마이페이지 아이콘" src="<%=contextPath %>/views/common/icons/free-icon-person-5393061.png" id="myPageIcon" style="width: 70px; height:70px;"><br>마이페이지</a>
+		                    <a href="<%=contextPath %>/views/member/mypage/myInfo.jsp" id="myPage"><img alt="마이페이지 아이콘" src="<%=contextPath %>/views/common/icons/마이페이지.png" id="myPageIcon" style="width: 70px; height:70px;"><br>마이페이지</a>
 		                </div>
 		                <div>
-		                	<a href="<%=contextPath%>/sendLetterList.le?writerNo=<%=loginUser.getUserNo()%>&currentPage=1" id="letter"><img alt="쪽지아이콘" src="<%=contextPath %>/views/common/icons/envelope-of-white-paper.png" id="letterIcon" style="width: 70px; height:70px;"><br>쪽지함</a>
+		                	<a href="<%=contextPath%>/sendLetterList.le?writerNo=<%=loginUser.getUserNo()%>&currentPage=1" id="letter"><img alt="쪽지아이콘" src="<%=contextPath %>/views/common/icons/쪽지함.png" id="letterIcon" style="width: 70px; height:70px;"><br>쪽지함</a>
 		                </div>
 		                <div id="likeBoard">
-		                	<a href="https://www.daum.net" id="likeBoard"><img alt="좋아요게시글 아이콘" src="<%=contextPath %>/views/common/icons/free-icon-heart-5392920.png" id="likeBoardIcon" style="width: 70px; height:70px;"><br>관심</a>
+		                	<a href="https://www.daum.net" id="likeBoard"><img alt="좋아요게시글 아이콘" src="<%=contextPath %>/views/common/icons/관심.png" id="likeBoardIcon" style="width: 70px; height:70px;"><br>관심</a>
 		                </div>
 	                </div>
             	</div>
