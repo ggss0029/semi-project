@@ -266,4 +266,33 @@ public class BoardCommonDao {
 		return list;
 	}
 
+	public ArrayList<BoardCommon> lastestPostList(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<BoardCommon> list = new ArrayList<>();
+		String sql = prop.getProperty("lastestPostList");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);
+			
+			while(rset.next()) {
+				BoardCommon bc = new BoardCommon();
+				bc.setBoardNo(rset.getInt("BOARD_NO"));
+				bc.setBoardTitle(rset.getString("BOARD_TITLE"));
+				bc.setBoardName(rset.getString("BOARD_NAME"));
+				
+				list.add(bc);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(stmt);
+		}
+		
+		return list;
+	}
+
 }

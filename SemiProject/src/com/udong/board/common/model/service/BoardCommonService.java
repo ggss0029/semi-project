@@ -69,4 +69,14 @@ public class BoardCommonService {
 		
 	}
 
+	public ArrayList<BoardCommon> lastestPostList() {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<BoardCommon> list = new BoardCommonDao().lastestPostList(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
+	}
+
 }

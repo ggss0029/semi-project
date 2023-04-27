@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.udong.board.common.model.service.BoardCommonService;
 import com.udong.board.common.model.vo.BoardCommon;
 
@@ -37,7 +38,7 @@ public class BestPostControllerServlet extends HttpServlet {
 			request.setAttribute("bestPostList",list);
 			request.getRequestDispatcher("views/common/bestPost.jsp").forward(request, response);
 		}else {
-			request.setAttribute("errorMsg","게시글 삭제 실패");
+			request.setAttribute("errorMsg","인기게시글 조회 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 	}
@@ -46,8 +47,15 @@ public class BestPostControllerServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		ArrayList<BoardCommon> list = new BoardCommonService().bestPostList();
+		
+		if(!list.isEmpty()) {
+			response.setContentType("json/application; charset=UTF-8");
+			new Gson().toJson(list, response.getWriter());
+		}else {
+			request.setAttribute("errorMsg","인기게시글 조회 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 	}
 
 }
