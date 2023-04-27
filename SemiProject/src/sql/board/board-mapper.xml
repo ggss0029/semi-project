@@ -228,7 +228,6 @@
 	WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
-<<<<<<< HEAD
 	<entry key="lastestPostList">
 		SELECT *
 		FROM (SELECT BOARD_NO, BOARD_TITLE, BOARD_NAME
@@ -236,7 +235,8 @@
 		        WHERE STATUS = 'Y'
 		        ORDER BY BOARD_NO DESC)
 		<![CDATA[where rownum <= 8]]>
-=======
+	</entry>
+	
 	<entry key="selectKeywordCount">
 	SELECT COUNT(*) COUNT
 	FROM BOARD
@@ -265,6 +265,5 @@
 	SELECT COUNT(*) COUNT
 	FROM BOARD
 	WHERE BOARD_WRITER = (SELECT USER_NO FROM MEMBER WHERE NICKNAME=?) AND TO_CHAR(CREATE_DATE,'YYMMDD')>TO_CHAR(SYSDATE-?,'YYMMDD')
->>>>>>> refs/remotes/origin/main
 	</entry>
 </properties>
