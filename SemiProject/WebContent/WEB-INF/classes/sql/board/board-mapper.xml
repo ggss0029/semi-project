@@ -228,6 +228,15 @@
 	WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
+	<entry key="lastestPostList">
+		SELECT *
+		FROM (SELECT BOARD_NO, BOARD_TITLE, BOARD_NAME
+		        FROM BOARD
+		        WHERE STATUS = 'Y'
+		        ORDER BY BOARD_NO DESC)
+		<![CDATA[where rownum <= 8]]>
+	</entry>
+	
 	<entry key="selectKeywordCount">
 	SELECT COUNT(*) COUNT
 	FROM BOARD
