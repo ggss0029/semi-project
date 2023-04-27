@@ -23,7 +23,7 @@ public class BoardCommonService {
 	public ArrayList<BoardCommon> searchKeyword(String keyword, PageInfo pi) {
 		
 		Connection conn = JDBCTemplate.getConnection();
-		ArrayList<BoardCommon> list = new BoardCommonDao().searchKeyword(conn,keyword,pi);
+		ArrayList<BoardCommon> list = new BoardCommonDao().searchKeyword(conn,keyword, pi);
 		JDBCTemplate.close(conn);
 		return list;
 	}
@@ -59,6 +59,16 @@ public class BoardCommonService {
 		JDBCTemplate.close(conn);
 		return list;
 		
+	}
+
+	public ArrayList<BoardCommon> lastestPostList() {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<BoardCommon> list = new BoardCommonDao().lastestPostList(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
 	}
 
 	public int selectKeywordCount(String keyword) {

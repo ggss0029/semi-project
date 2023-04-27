@@ -5,7 +5,7 @@
 		SELECT SEARCH_TITLE AS KEYWORD
 		FROM (SELECT SEARCH_TITLE, COUNT
         		FROM MOST_SEARCH
-        		ORDER BY COUNT DESC)
+        		ORDER BY COUNT DESC, SEARCH_TITLE)
 		<![CDATA[where rownum <= 10]]>
 	</entry>
 </properties>
