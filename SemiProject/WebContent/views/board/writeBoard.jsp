@@ -155,8 +155,8 @@
         <div id="content" align="center">
             <div id="content_1">
                 <div id="doWrite">게시글 등록</div> <br>
-        <form name="form" action="<%=request.getContextPath()%>/insert.bo" method="post" enctype="multipart/form-data">
-        	<input type="hidden" name="userNo" value="<%=loginUser.getUserNo() %>">
+        <form name="form" action="<%=request.getContextPath()%>/insert.bo" method="post" enctype="multipart/form-data" onsubmit="checkFileLength();">
+        	<input type="hidden" name="userNickname" value="<%=loginUser.getNickname()%>">
                 <div id="categoryBar" align="left">
                     <select name="boardCategory" onchange="change1(this.selectedIndex);" id="boardCategory" style="width: 870px; height: 46px; font-size: 18px;">
                         <option value="카테고리">카테고리</option>
@@ -193,19 +193,24 @@
                             }
                           /* 옵션박스추가 */
                           for (i=0; i < ctgr[add].length;i++){                     
-                                            sel1.options[i] = new Option(ctgr[add][i], ctgr[add][i]);
+                            sel1.options[i] = new Option(ctgr[add][i], ctgr[add][i]);
                             }
                           if(add==4){
                         	  $("#restaurantDiv").css("display","block");
                         	  $("#cityCategory").css("display","none");
                         	  $("#imgDiv").css("display","block");
+                        	  $("#titleImg").attr("required",true);
+                        	  $("#file0").attr("required",true);
                           }else if(add==1 || add==7 || add==8){
                         	  $("#cityCategory").css("display","block");
                         	  $("#restaurantDiv").css("display","none");
                           }else if(add == 5){
+                        	  console.log(5);
                         	  $("#cityCategory").css("display","block");
                         	  $("#restaurantDiv").css("display","none");
                         	  $("#imgDiv").css("display","block");
+                        	  $("#titleImg").attr("required",true);
+                        	  $("#file0").attr("required",true);
                           }else{
                         	  $("#restaurantDiv").css("display","none");
                         	  $("#cityCategory").css("display","none");
@@ -282,11 +287,12 @@
                     	<input type="text" name="restaurantAddress" class="restaurantAddress" style="width: 800px; height: 46px; font-size: 18px;" placeholder="맛집 주소" readonly> 
                     	<button type="button" onclick="openMap();" id="openMapBtn" class="btn btn-warning" style="font-size:15px; height:46px; width:86px; margin-bottom:10px; padding: 0px;">지도 보기</button>
                     <br>
+                    </div>
 	                    <div id="imgDiv" style="display:none; height:100%;">
 	                    	<div id="imgListDiv" style="width:90%;">
 		                    	<div>
 		                    		&lt;대표 이미지&gt; <br>
-		                    		<img width="250" height="170" id="titleImg" required>
+		                    		<img width="250" height="170" id="titleImg">
 		                    	</div>
 		                    	<div>
 		                    		&lt;이미지 1&gt; <br>
@@ -298,20 +304,18 @@
 	    	                	<button type="button" class="btn btn-danger" id="delBtn" onclick="delImg();" style="width:120px; height:50px; font-size:15px;">이미지 삭제</button>
 	                    	</div>
 	                    </div>
-                    </div>
+                    
                     
                     <div id="contentArea">
                         <textarea name="content" id="boardContent" cols="30" rows="25" style="resize: none; font-size: 20px;" placeholder="내용을 입력해주세요."></textarea>
                     </div><br>
-                    <div id="upFile" align="left">
-                        <input type="file" name="upfile" style="font-size: 20px;"> 
-                    </div>
                     <div id="file-area" align="center" align="left">
-						<input type="file" id="thumbFile" name="thumbFile" onchange="loadImg(this,0);" required>
+						<input type="file" id="file0" name="file0" onchange="loadImg(this,0);">
 						<input type="file" id="file1" name="file1" onchange="loadImg(this,1);">
 					</div>
                     
                     <br>
+                    <input type="hidden" name="fileLength" id="fileLength">
                     <div id="btns" align="center">
                         <button type="submit" id="submitBtn" class="btn btn-outline-secondary">등록</button>
                         <button onclick="goMain();" class="btn btn-outline-secondary">취소</button>
@@ -319,6 +323,10 @@
          </form>
          
          <script>
+         	function checkFileLength(){
+         		$("#fileLength").val($("#file-area").children().length);
+         	}
+         	
                     		var count = 2;
                     	function addImg(){
                     		$("#imgListDiv").append("<div>&lt;이미지 "+count+"&gt;<br> <img onclick='putImg();' id='contentImg"+count+"' width='200' height='150'><div>");
@@ -349,7 +357,7 @@
         				$(function(){
         					$("#file-area").hide();
         					$("#titleImg").click(function(){
-        						$("#thumbFile").click();
+        						$("#file0").click();
         					});
         					$("#contentImg1").click(function(){
         						$("#file1").click();
