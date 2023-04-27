@@ -1,9 +1,6 @@
 <%@page import="com.udong.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -153,16 +150,13 @@
     </style>
 </head>
 <body>
+	<%@include file="./../common/menubar.jsp"%>
     <div class="wrap">
-        <div id="header">
-            <div id="header_1"></div>
-            <div id="menubar"></div>
-        </div>
         <div id="content" align="center">
             <div id="content_1">
                 <div id="doWrite">게시글 등록</div> <br>
         <form name="form" action="<%=request.getContextPath()%>/insert.bo" method="post" enctype="multipart/form-data">
-<%--         	<input type="hidden" name="userNo" value="<%=loginUser.getUserNo() %>"> --%>
+        	<input type="hidden" name="userNo" value="<%=loginUser.getUserNo() %>">
                 <div id="categoryBar" align="left">
                     <select name="boardCategory" onchange="change1(this.selectedIndex);" id="boardCategory" style="width: 870px; height: 46px; font-size: 18px;">
                         <option value="카테고리">카테고리</option>
@@ -287,8 +281,6 @@
                     	<input type="text" name="restaurantName" class="restaurantName" style="width: 455px; height: 46px; font-size: 18px;" placeholder="맛집 이름" readonly>
                     	<input type="text" name="restaurantAddress" class="restaurantAddress" style="width: 800px; height: 46px; font-size: 18px;" placeholder="맛집 주소" readonly> 
                     	<button type="button" onclick="openMap();" id="openMapBtn" class="btn btn-warning" style="font-size:15px; height:46px; width:86px; margin-bottom:10px; padding: 0px;">지도 보기</button>
-<!--                     	<button type="button" onclick="closeMap1();" id="closeMapBtn" class="btn btn-danger" style="display:none; font-size:15px; height:46px; width:86px; padding: 0px; margin:0px;">지도 끄기</button> -->
-                    
                     <br>
 	                    <div id="imgDiv" style="display:none; height:100%;">
 	                    	<div id="imgListDiv" style="width:90%;">
@@ -302,12 +294,31 @@
 		                    	</div>
 	                    	</div>
 	                    	<div id="imgBtns" style="width:10%;">
-		                    	<button class="btn btn-info" id="addBtn" onclick="addImg();" style="width:120px; height:50px; font-size:15px;">이미지 추가</button><br>
-	    	                	<button class="btn btn-danger" id="delBtn" onclick="delImg();" style="width:120px; height:50px; font-size:15px;">이미지 삭제</button>
+		                    	<button type="button" class="btn btn-info" id="addBtn" onclick="addImg();" style="width:120px; height:50px; font-size:15px;">이미지 추가</button><br>
+	    	                	<button type="button" class="btn btn-danger" id="delBtn" onclick="delImg();" style="width:120px; height:50px; font-size:15px;">이미지 삭제</button>
 	                    	</div>
 	                    </div>
                     </div>
-                    <script>
+                    
+                    <div id="contentArea">
+                        <textarea name="content" id="boardContent" cols="30" rows="25" style="resize: none; font-size: 20px;" placeholder="내용을 입력해주세요."></textarea>
+                    </div><br>
+                    <div id="upFile" align="left">
+                        <input type="file" name="upfile" style="font-size: 20px;"> 
+                    </div>
+                    <div id="file-area" align="center" align="left">
+						<input type="file" id="thumbFile" name="thumbFile" onchange="loadImg(this,0);" required>
+						<input type="file" id="file1" name="file1" onchange="loadImg(this,1);">
+					</div>
+                    
+                    <br>
+                    <div id="btns" align="center">
+                        <button type="submit" id="submitBtn" class="btn btn-outline-secondary">등록</button>
+                        <button onclick="goMain();" class="btn btn-outline-secondary">취소</button>
+                    </div>
+         </form>
+         
+         <script>
                     		var count = 2;
                     	function addImg(){
                     		$("#imgListDiv").append("<div>&lt;이미지 "+count+"&gt;<br> <img onclick='putImg();' id='contentImg"+count+"' width='200' height='150'><div>");
@@ -340,26 +351,34 @@
         					$("#titleImg").click(function(){
         						$("#thumbFile").click();
         					});
-        					$("#contentImg"+count).click(function(){
-//         						$("#file"+count).click();
+        					$("#contentImg1").click(function(){
+        						$("#file1").click();
         					});
         				});
         				
         				function putImg(){
-        					console.log(event.target);
-        					
+        					var fileNum = $(event.target).prop("id").charAt(10);
+        					var fileId = "file"+fileNum
+        					var inputFile = document.getElementById(fileId);
+        						inputFile.click();
         				}
-        			function loadImg(inputFile,num){
-						if(inputFile.files.length == 1){
-							var reader = new FileReader();
-							reader.readAsDataURL(inputFile.files[0]);
-							reader.onload = function(e){
+        				
+        				function loadImg(inputFile,num){
+							if(inputFile.files.length == 1){
+								var reader = new FileReader();
+								reader.readAsDataURL(inputFile.files[0]);
+								reader.onload = function(e){
 								
 								switch(num){
 								case 0: $("#titleImg").attr("src",e.target.result); break;
 								case 1: $("#contentImg1").attr("src",e.target.result); break;
 								case 2: $("#contentImg2").attr("src",e.target.result); break;
 								case 3: $("#contentImg3").attr("src",e.target.result); break;
+								case 4: $("#contentImg4").attr("src",e.target.result); break;
+								case 5: $("#contentImg5").attr("src",e.target.result); break;
+								case 6: $("#contentImg6").attr("src",e.target.result); break;
+								case 7: $("#contentImg7").attr("src",e.target.result); break;
+								case 8: $("#contentImg8").attr("src",e.target.result); break;
 								}
 							}
 						}else{
@@ -368,29 +387,19 @@
 							case 1: $("#contentImg1").attr("src",null); break;
 							case 2: $("#contentImg2").attr("src",null); break;
 							case 3: $("#contentImg3").attr("src",null); break;
+							case 4: $("#contentImg4").attr("src",null); break;
+							case 5: $("#contentImg5").attr("src",null); break;
+							case 6: $("#contentImg6").attr("src",null); break;
+							case 7: $("#contentImg7").attr("src",null); break;
+							case 8: $("#contentImg8").attr("src",null); break;
 							}
 						}
 				}
                     </script>
-                    <div id="contentArea">
-                        <textarea name="content" id="boardContent" cols="30" rows="25" style="resize: none; font-size: 20px;" placeholder="내용을 입력해주세요."></textarea>
-                    </div><br>
-                    <div id="upFile" align="left">
-                        <input type="file" name="upfile" style="font-size: 20px;"> 
-                    </div>
-                    <div id="file-area" align="center" align="left">
-						<input type="file" id="thumbFile" name="thumbFile" onchange="loadImg(this,0);" required>
-						<input type="file" id="file1" name="file1" onchange="loadImg(this,1);">
-					</div>
-                    
-                    <br>
-                    <div id="btns" align="center">
-                        <button type="submit" class="btn btn-outline-secondary">등록</button>
-                        <button onclick="goMain();" class="btn btn-outline-secondary">취소</button>
-                    </div>
-         </form>
+         
             </div>
         <script>
+        
         	function goMain(){
         		location.href="<%=request.getContextPath()%>/mainPage.jsp";
         	}        	
@@ -663,8 +672,8 @@
                                                             </script>
                        </div>
                     </div>
-            <div id="footer"></div>
                            <br>
+    <%@include file="./../common/footer.jsp" %>
     </div>
 </body>
 </html>

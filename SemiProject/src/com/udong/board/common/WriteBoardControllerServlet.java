@@ -48,7 +48,9 @@ public class WriteBoardControllerServlet extends HttpServlet {
 			int maxSize = 20 * 1024 * 1024;
 			
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/");
+			
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath,maxSize,"UTF-8",new MyFileRenamePolicy());
+			
 			int userNo = Integer.parseInt(multiRequest.getParameter("userNo"));
 			String boardCategory = multiRequest.getParameter("boardCategory");
 			String detailCategory = multiRequest.getParameter("detailCategory");
@@ -57,6 +59,7 @@ public class WriteBoardControllerServlet extends HttpServlet {
 			String title = multiRequest.getParameter("title");
 			String content = multiRequest.getParameter("content");
 			
+			System.out.println(userNo+" "+boardCategory+" "+detailCategory+" "+restaurantName+" "+restaurantAddress+" "+title+" "+content);
 			ArrayList<Attachment> list = new ArrayList<>();
 			
 			for(int i=1; i<=4; i++) {

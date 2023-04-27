@@ -218,7 +218,7 @@
 								btnNaverLogin.click();
 							});
   							</script>
-                            <div id="findIdPwd"><a href="findIdPwdPage.jsp">아이디 찾기 / 비밀번호 찾기</a></div>
+                            <div id="findIdPwd"><a href="<%=contextPath%>/views/member/findIdPwdPage.jsp">아이디 찾기 / 비밀번호 찾기</a></div>
                             <div id="enroll"><label for="goEnroll">아이디가 없으신가요?</label> <a href="" id="goEnroll">회원가입</a></div>
                         </div>
                         </div>
