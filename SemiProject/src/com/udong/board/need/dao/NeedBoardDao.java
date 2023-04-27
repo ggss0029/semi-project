@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
+import com.udong.board.need.vo.NeedAttachment;
 import com.udong.board.need.vo.NeedBoard;
+import com.udong.board.need.vo.NeedReply;
 import com.udong.board.news.model.vo.NewsBoard;
 import com.udong.common.JDBCTemplate;
 import com.udong.member.model.dao.MemberDao;
@@ -144,5 +146,118 @@ private Properties prop = new Properties();
 		
 		return result;
 	}
+
+
+	public int insertBoard(Connection conn, NeedBoard nb) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertNeedBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, Integer.parseInt(nb.getCategory()));
+			pstmt.setString(2, nb.getBoardTitle());
+			pstmt.setString(3, nb.getBoardContent());
+			pstmt.setInt(4,Integer.parseInt(nb.getBoardWriter()));
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+		
+	}
+
+
+	public int insertAttachment(Connection conn, NeedAttachment at) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertNeedAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, at.getOriginName());
+			pstmt.setString(2, at.getChangeName());
+			pstmt.setString(3, at.getFilePath());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int needInsertReply(Connection conn, NeedReply r) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("needInsertReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1,  r.getReplyContent());
+			pstmt.setInt(2, r.getRefBno());
+			pstmt.setInt(3,  Integer.parseInt(r.getReplyWriter()));
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public ArrayList<NeedReply> selectReply(Connection conn, int bno) {
+		
+		ArrayList<NeedReply> list = new ArrayList<>();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("selectReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, bno);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new NeedReply(rset.getInt("REPLY_NO")
+								   ,rset.getString("REPLY_CONTENT")
+								   ,rset.getInt("REF_BNO")
+								   ,rset.getString("REPLY_WRITER")
+								   ,rset.getDate("CREATE_DATE")));
+			}
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return list;
+	}
+	
 
 }

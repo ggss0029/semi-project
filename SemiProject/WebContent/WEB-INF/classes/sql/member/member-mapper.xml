@@ -99,6 +99,7 @@
 	</entry>
 	<entry key="getBlackListCount">
 		SELECT COUNT(USER_NO) AS COUNT FROM MEMBER
+		WHERE STATUS = 'B' 
 	</entry>
 	<entry key="blackUpdate">
 		UPDATE MEMBER A
