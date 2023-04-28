@@ -98,15 +98,44 @@ public class FreeBoardService {
 
 
 	public FreeBoard selectFreeBoard(int bno) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection conn = JDBCTemplate.getConnection();
+		
+		FreeBoard fb = new FreeBoardDao().selectBoard(conn,bno);
+		
+		JDBCTemplate.close(conn);
+		
+		return fb;
 	}
 
 
 	public FreeAttachment selectFreeAttachment(int bno) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection conn = JDBCTemplate.getConnection();
+		
+		FreeAttachment fat = new FreeBoardDao().selectAttachment(conn,bno);
+		
+		JDBCTemplate.close(conn);
+		
+		return fat;
 	}
+
+
+	public int increaseCount(int bno) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new FreeBoardDao().increaseCount(conn,bno);
+		
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.close(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+
 
 
 }

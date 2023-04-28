@@ -100,7 +100,7 @@
 	    ORDER BY COUNT DESC)
 	<![CDATA[WHERE RANK <= 10]]>
 	</entry>
-	<!-- 이거필요해요 게시글 리스트 페이지 -->
+	<!-- 자유 게시판 게시글 리스트 페이지 -->
 	<entry key="getBoardFreeList">
 	SELECT
 		*
@@ -120,13 +120,13 @@
 			BOARD B 
 		JOIN MEMBER M ON (B.BOARD_WRITER = M.USER_NO)
 		) A
-	WHERE A.BOARD_NAME = '이거 필요해요'
+	WHERE A.BOARD_NAME = '자유 게시판'
 	AND A.RNUM BETWEEN ? AND ?
 	</entry>
 	
 	
-	<!-- 이거필요해요 검색페이지 -->
-	<entry key="BoardNeedWithSearch">
+	<!-- 자유게시판 검색페이지 -->
+	<entry key="BoardFreeWithSearch">
 		SELECT
 		*
 	FROM
@@ -153,13 +153,13 @@
 	
 	
 	
-	<entry key="getBoardNeedListCount">
+	<entry key="getBoardFreeListCount">
 	SELECT
 		*
 	FROM 
 		BOARD
 		WHERE STATUS = 'Y'
-		AND BOARD_NAME = '이거 필요해요'
+		AND BOARD_NAME = '자유 게시판'
 	
 	</entry>
 	

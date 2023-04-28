@@ -223,7 +223,7 @@ private Properties prop = new Properties();
 		return result;
 	}
 
-
+	//댓글 조회
 	public ArrayList<FreeReply> selectReply(Connection conn, int bno) {
 		
 		ArrayList<FreeReply> list = new ArrayList<>();
@@ -256,6 +256,84 @@ private Properties prop = new Properties();
 		}
 		
 		return list;
+	}
+
+	//게시글 정보조회
+	public FreeBoard selectBoard(Connection conn, int bno) {
+		
+		FreeBoard fb = null;
+		ResultSet rset = null;
+		PreparedStatement pstmt =null;
+		
+		String sql = prop.getProperty("selectFreeBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				fb = new FreeBoard(rset.getInt("BOARD_NO")
+									,rset.getString("BOARD_TITLE")
+									,rset.getString("NICKNAME")
+									,rset.getDate("CREATE_DATE")
+									,rset.getInt("COUNT")
+									,rset.getInt("LIKE_CNT"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return fb;
+		
+	}
+
+	//첨부파일 조회
+	public FreeAttachment selectAttachment(Connection conn, int bno) {
+		
+		FreeAttachment fat = null;
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("selectFreeAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1,  bno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				fat = new FreeAttachment(rset.getInt("FILE_NO")
+						   ,rset.getString("ORIGIN_NAME")
+						   ,rset.getString("CHANGE_NAME")
+						   ,rset.getString("FILE_PATH"));	
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return fat;
+		
+		
+		
+		return null;
+	}
+
+
+	public int increaseCount(Connection conn, int bno) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 
