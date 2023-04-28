@@ -137,6 +137,12 @@ public class FreeBoardService {
 	}
 
 
+	public int updateFreeBoard(FreeBoard fb, FreeAttachment fat) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
 
 }
 

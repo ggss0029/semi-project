@@ -325,15 +325,29 @@ private Properties prop = new Properties();
 		}
 		return fat;
 		
-		
-		
-		return null;
 	}
 
-
+	//게시글
 	public int increaseCount(Connection conn, int bno) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		int result = 0;
+		PreparedStatement pstmt =null;
+		
+		String sql = prop.getProperty("increaseFreeCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bno);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+		
 	}
 	
 
