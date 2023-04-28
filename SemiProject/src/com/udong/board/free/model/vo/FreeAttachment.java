@@ -1,8 +1,8 @@
-package com.udong.board.need.vo;
+package com.udong.board.free.model.vo;
 
 import java.sql.Date;
 
-public class NeedAttachment {
+public class FreeAttachment {
 	private int fileNo; // FILE_NO NUMBER
 	private int refBno; // REF_BNO NUMBER
 	private String originName; // ORIGIN_NAME VARCHAR2(255 BYTE)
@@ -13,11 +13,11 @@ public class NeedAttachment {
 	private String status; // STATUS VARCHAR2(1 BYTE)
 	private int refUno; // REF_UNO NUMBER
 
-	public NeedAttachment() {
+	public FreeAttachment() {
 		super();
 	}
 
-	public NeedAttachment(int fileNo, int refBno, String originName, String changeName, String filePath,
+	public FreeAttachment(int fileNo, int refBno, String originName, String changeName, String filePath,
 			Date uploadDate, int fileLevel, String status, int refUno) {
 		super();
 		this.fileNo = fileNo;
@@ -30,6 +30,17 @@ public class NeedAttachment {
 		this.status = status;
 		this.refUno = refUno;
 	}
+	
+	
+
+	public FreeAttachment(int fileNo, String originName, String changeName, String filePath) {
+		super();
+		this.fileNo = fileNo;
+		this.originName = originName;
+		this.changeName = changeName;
+		this.filePath = filePath;
+	}
+
 
 	public int getFileNo() {
 		return fileNo;
@@ -105,7 +116,7 @@ public class NeedAttachment {
 
 	@Override
 	public String toString() {
-		return "NeedAttachment [fileNo=" + fileNo + ", refBno=" + refBno + ", originName=" + originName
+		return "FreeAttachment [fileNo=" + fileNo + ", refBno=" + refBno + ", originName=" + originName
 				+ ", changeName=" + changeName + ", filePath=" + filePath + ", uploadDate=" + uploadDate
 				+ ", fileLevel=" + fileLevel + ", status=" + status + ", refUno=" + refUno + "]";
 	}

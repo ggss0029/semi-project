@@ -104,7 +104,7 @@
 	        	<div id="content_2_2">
     	    		<form action="<%=contextPath%>/writeLetter.le" method="post">
 						발신자 : <input type="text" name="sender" value="<%=loginUser.getNickname()%>" readonly>
-						수신자 : <input type="text" name="receiver" id="receiver" style="width:250px;" placeholder="수신자 닉네임을 입력해주세요." required><input type="hidden" name="receiverNo" id="receiverNo"><input type="hidden" name="senderNo" value="<%=loginUser.getUserNo()%>">
+						수신자 : <input type="text" name="receiver" id="receiver" style="width:250px;" placeholder="수신자 닉네임을 검색하세요." readonly><input type="hidden" name="receiverNo" id="receiverNo"><input type="hidden" name="senderNo" value="<%=loginUser.getUserNo()%>">
 						<button type="button" onclick="searchNickname();" class="btn btn-success" data-toggle="modal" data-target="#myModal">닉네임 찾기</button>
 						<br><br>
 						<textarea required maxlength="300" name="letterContent" placeholder="최대 300자까지 작성 가능합니다." rows="10" cols="30" style="width:1000px; height:400px; font-size:20px; resize:none;"></textarea>

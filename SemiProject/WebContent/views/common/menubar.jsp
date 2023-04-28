@@ -489,7 +489,7 @@
                     <li><a href="<%=contextPath %>/cleanList.bo?currentPage=1">살림 꿀팁</a></li>
                     <li><a href="">자취 레시피</a></li>
                 </ul>
-            </li><li><a href="">동네 맛집</a></li><li>
+            </li><li><a href="<%=contextPath %>/foodList.bo?currentPage=1">동네 맛집</a></li><li>
                 <a style="cursor: default;">나눔</a>
                 <ul>
                     <li><a href="">나눔할게요</a></li>

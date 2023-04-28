@@ -179,13 +179,11 @@
 			    		$("#p_address").children().text(member.address + " 거주");
 			    		$("#p_introduction").children().text(member.introduction);
 			    		$("#p_recommend").text(member.recommended);
-			    		if (member.checkRec == 1) { // 이미 추천
-			    			$("#rec").removeClass("btn-outline-primary");
-			    			$("#rec").addClass("btn-primary");
+			    		if (member.checkRec == 1) { // 추천 불가능
+			    			$("#rec").attr("disabled", true);
 			    		}
 			    		else {
-			    			$("#rec").removeClass("btn-primary");
-			    			$("#rec").addClass("btn-outline-primary");
+			    			$("#rec").attr("disabled", false);
 			    		}
 			    	},
 			    	error: function() {
@@ -198,11 +196,6 @@
     	
     	function recommend() {
     		<%if(loginUser != null) {%>
-    			var $checkRec = 0;
-	    		if($("#rec").hasClass("btn-outline-primary")) {
-	    			$checkRec = 1;
-	    		}
-	    		
 	    		$.ajax({
 	    			url: "profile.me",
 	    			data: {
@@ -217,11 +210,10 @@
 	    					$("#rec").removeClass("btn-outline-primary");
 			    			$("#rec").addClass("btn-primary");
 	    				}
-	    				else { // 추천 취소
-		    				alert("추천 취소");
+	    				else {
+		    				alert("추천 왼료");
 	    					$("#p_recommend").text(count);
-	    					$("#rec").removeClass("btn-primary");
-	    					$("#rec").addClass("btn-outline-primary");
+				    		$("#rec").attr("disabled", true);
 	    				}
 	    			},
 	    			error: function() {

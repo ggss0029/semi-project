@@ -1,8 +1,8 @@
-package com.udong.board.need.vo;
+package com.udong.board.free.model.vo;
 
 import java.sql.Date;
 
-public class NeedBoard {
+public class FreeBoard {
 
 	private int boardNo;// BOARD_NO NUMBER
 	private String boardWriter;// BOARD_WRITER NUMBER --String 으로 하기
@@ -19,10 +19,10 @@ public class NeedBoard {
 	private int likeCnt; 
 	
 	
-	public NeedBoard() {
+	public FreeBoard() {
 		super();
 	}
-	public NeedBoard(int boardNo, String boardWriter, String boardTitle, String boardContent, String boardName,
+	public FreeBoard(int boardNo, String boardWriter, String boardTitle, String boardContent, String boardName,
 			String category, int count, Date createDate, String region, String foodType, String status,
 			int boardReport) {
 		super();
@@ -41,7 +41,7 @@ public class NeedBoard {
 	}
 	
 //	NO.	제목	작성자	작성일	조회	추천수
-	public NeedBoard(int boardNo, String boardTitle, String boardWriter, Date createDate ,int count , int likeCnt) {
+	public FreeBoard(int boardNo, String boardTitle, String boardWriter, Date createDate ,int count , int likeCnt) {
 		super();
 		this.boardNo = boardNo;
 		this.boardTitle = boardTitle;
@@ -133,7 +133,7 @@ public class NeedBoard {
 	
 	@Override
 	public String toString() {
-		return "NeedBoard [boardNo=" + boardNo + ", boardWriter=" + boardWriter + ", boardTitle=" + boardTitle
+		return "FreeBoard [boardNo=" + boardNo + ", boardWriter=" + boardWriter + ", boardTitle=" + boardTitle
 				+ ", boardContent=" + boardContent + ", boardName=" + boardName + ", category=" + category + ", count="
 				+ count + ", createDate=" + createDate + ", region=" + region + ", foodType=" + foodType + ", status="
 				+ status + ", boardReport=" + boardReport + "]";
