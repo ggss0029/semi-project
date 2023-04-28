@@ -117,8 +117,8 @@
        
         </style>
 </head>
-<%@ include file = "../common/menubar.jsp" %>
 <body>
+<%@ include file = "../common/menubar.jsp" %>
     <div class="wrap">
         <div id="content">
             <div id="content_1">

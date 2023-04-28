@@ -110,29 +110,6 @@ public class NewsBoardDao {
 		return nlist;
 	}
 
-	public int newsIncreaseCount(Connection conn, int newsBoardNo) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("newsIncreaseCount");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setInt(1, newsBoardNo);
-			
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			JDBCTemplate.close(pstmt);
-		}
-		
-		return result;
-	}
-
 	//게시글 하나 조회하는 메소드
 	public NewsBoard selectNews(Connection conn, int newsBoardNo) {
 		NewsBoard nb = new NewsBoard();

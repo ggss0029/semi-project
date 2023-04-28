@@ -48,6 +48,7 @@ public class UserDeleteController extends HttpServlet {
 		
 		if(result > 0) {
 			//탈퇴에 업데이트된 값이있을때  메인페이지 화면으로 보내주기위함
+			request.getSession().removeAttribute("loginUser");
 			response.sendRedirect(request.getContextPath());
 		}else {
 			//첫진입시에는 실패했다고 말을할수없기때문에 
