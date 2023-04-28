@@ -165,7 +165,7 @@ tbody>#tr2 {
 						onclick="location.href = '<%=contextPath%>/newsUpdate.bo?bno=<%=nb.getBoardNo()%>'"
 						class="btn btn-secondary">수정</button>
 					<button
-						onclick="location.href = '<%=contextPath%>/newsDelete.bo?bno=<%=nb.getBoardNo()%>'"
+						onclick="location.href = '<%=contextPath%>/deletePost.bo?bno=<%=nb.getBoardNo()%>'"
 						class="btn btn-dark">삭제</button>
 				</div>
 				<%
