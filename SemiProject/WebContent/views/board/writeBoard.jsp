@@ -8,18 +8,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시글 작성</title>
-    <!-- Latest compiled and minified CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-        <!-- jQuery library -->
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
-        <!-- Popper JS -->
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-        <!-- Latest compiled JavaScript -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <style>
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
@@ -284,7 +272,7 @@
                         <input type="text" name="title" placeholder="제목을 입력하세요." style="width: 1348px; height: 60px; font-size: 18px;" required>
                     </div>
                      <div id="restaurantDiv" style="display:none; float:left;">
-                    	<input type="text" name="restaurantName" class="restaurantName" style="width: 455px; height: 46px; font-size: 18px;" placeholder="맛집 이름" readonly>
+                    	<input type="text" name="restaurantName" class="restaurantName" style="width: 445px; height: 46px; font-size: 18px;" placeholder="맛집 이름" required>
                     	<input type="text" name="restaurantAddress" class="restaurantAddress" style="width: 800px; height: 46px; font-size: 18px;" placeholder="맛집 주소" readonly> 
                     	<button type="button" onclick="openMap();" id="openMapBtn" class="btn btn-warning" style="font-size:15px; height:46px; width:86px; margin-bottom:10px; padding: 0px;">지도 보기</button>
                     <br>
@@ -657,14 +645,14 @@
                                                             }
 
                                                             function openMap(){
-                                                                $("#mapDiv").css("transform","translateY(-2060px)");
+                                                                $("#mapDiv").css("transform","translateY(-2660px)");
                                                                 map.relayout();
 //                                                                 $("#closeMapBtn").css("display","block");
 //                                                                 $("#openMapBtn").css("display","none");
                                                             }
 
                                                             function closeMap1(){
-                                                                $("#mapDiv").css("transform","translateY(2060px)");
+                                                                $("#mapDiv").css("transform","translateY(2660px)");
                                                                 $("#openMapBtn").css("display","block");
                                                                 $("#closeMapBtn").css("display","none");
                                                             }

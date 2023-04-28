@@ -363,7 +363,7 @@
                         <div align="center" class="paging-area">
                         	<%for(int i=pi.getStartPage(); i<=pi.getEndPage(); i++ ){ %>
 								<%if(i != pi.getCurrentPage()){ %>
-									<button onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=i%>';"><%=i %></button>
+									<button onclick="location.href='<%=contextPath%>/foodList.bo?currentPage=<%=i%>';"><%=i %></button>
 								<%}else{ %>
 									<button disabled><%=i %></button>
 								<%} %>
