@@ -43,15 +43,16 @@ public class DeleteBoardController extends HttpServlet {
 			if(before.contains("myPost")) {
 				response.sendRedirect(request.getHeader("Referer"));
 			}
-			else if(before.contains("newsList")) { // 동네 소식
+			else if(before.contains("news")) { // 동네 소식
+				System.out.println("삭제 후 동네소식으로 이동함");
 				response.sendRedirect(request.getContextPath() + "/newsList.bo?currentPage=1");
 			}
-			else if(before.contains("FreeBoardList")) { // 자유 게시판
-				response.sendRedirect(request.getContextPath() + "FreeBoardList.bo?currentPage=1");
+			else if(before.contains("Free")) { // 자유 게시판
+				response.sendRedirect(request.getContextPath() + "/FreeBoardList.bo?currentPage=1");
 			}
-//			else if() { // 살림 꿀팁
-//				
-//			}
+			else if(before.contains("clean")) { // 살림 꿀팁
+				response.sendRedirect(request.getContextPath() + "/cleanList.bo?currentPage=1");
+			}
 //			else if() { // 자취 레시피
 //				
 //			}
