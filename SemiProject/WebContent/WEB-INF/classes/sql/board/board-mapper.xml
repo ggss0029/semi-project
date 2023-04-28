@@ -87,6 +87,14 @@
 		WHERE REPLY_NO = ?
 		AND STATUS = 'Y'
 	</entry>
+	
+	<!-- 동네 소식 게시글 삭제 -->
+	<entry key="deleteNewsBoard">
+		UPDATE BOARD
+		SET STATUS = 'N'
+		WHERE BOARD_NO = ?
+		AND STATUS = 'Y'
+	</entry>
 
 	<entry key="bestPostList">
 	SELECT *
@@ -229,6 +237,42 @@
 	WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
+	<!-- 살림꿀팁 총 게시글 개수 구하기 -->
+	<entry key="cleanSelectListCount">
+		SELECT COUNT(*) COUNT
+		FROM BOARD
+		WHERE STATUS = 'Y'
+		AND BOARD_NAME = '살림 꿀팁' 
+	</entry>
+	
+	<!-- 살림꾹팁 리스트 불러오기) -->
+	<entry key="cleanSelectList">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+        		FROM (SELECT BOARD_NO, BOARD_TITLE, NICKNAME, CREATE_DATE, COUNT, COUNT(BOARDLIKE_NO) LIKE_COUNT
+		        		FROM BOARD B
+		        		JOIN MEMBER M ON (BOARD_WRITER = USER_NO)
+		        		LEFT JOIN BOARD_LIKE ON (BOARDLIKE_NO = BOARD_NO)
+		        		WHERE B.STATUS ='Y' AND BOARD_NAME = '살림 꿀팁'
+		        		GROUP BY BOARD_NO, BOARD_TITLE, NICKNAME, CREATE_DATE, COUNT
+		        		ORDER BY BOARD_NO DESC) A )
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="newsBoardSearch">
+	SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+        		FROM (SELECT BOARD_NO, BOARD_TITLE, NICKNAME, CREATE_DATE, COUNT, COUNT(BOARDLIKE_NO) LIKE_COUNT
+		        		FROM BOARD B
+		        		JOIN MEMBER M ON (BOARD_WRITER = USER_NO)
+		        		LEFT JOIN BOARD_LIKE ON (BOARDLIKE_NO = BOARD_NO)
+		        		WHERE B.STATUS ='Y' AND BOARD_NAME = '동네 소식'
+		        				AND (REGION = ? OR CATEGORY = ?)
+		        		GROUP BY BOARD_NO, BOARD_TITLE, NICKNAME, CREATE_DATE, COUNT
+		        		ORDER BY BOARD_NO DESC) A )
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
 	<entry key="lastestPostList">
 		SELECT *
 		FROM (SELECT BOARD_NO, BOARD_TITLE, BOARD_NAME
@@ -306,6 +350,16 @@
 	LEFT JOIN BOARD_LIKE BL ON BOARD_NO = BOARDLIKE_NO
 	WHERE B.STATUS = 'Y' AND BOARD_NO = ?
 	GROUP BY BOARD_NO,NICKNAME,BOARD_TITLE,BOARD_CONTENT,BOARD_NAME,CATEGORY,COUNT,CREATE_DATE,REGION,BOARD_REPORT
+	</entry>
+	
+	<!-- 살림꿀팁 게시글 하나 조회 -->
+	<entry key="selectClean">
+		SELECT BOARD_NO, BOARD_TITLE, NICKNAME, CREATE_DATE, BOARD_CONTENT
+		FROM BOARD B
+		JOIN MEMBER M ON (BOARD_WRITER = USER_NO)
+		WHERE B.STATUS = 'Y'
+		AND BOARD_NAME = '살림 꿀팁'
+		AND BOARD_NO = ?
 	</entry>
 	
 	<entry key="foodSelectListCount">

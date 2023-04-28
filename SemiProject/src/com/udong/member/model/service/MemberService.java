@@ -3,8 +3,11 @@ package com.udong.member.model.service;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.udong.board.common.model.vo.Attachment;
 import com.udong.common.JDBCTemplate;
+import com.udong.common.model.vo.PageInfo;
 import com.udong.member.model.dao.MemberDao;
+import com.udong.member.model.vo.Board;
 import com.udong.member.model.vo.Member;
 
 public class MemberService {
@@ -294,6 +297,41 @@ public class MemberService {
 		
 		return count;
 	}
+	
+
+	//개인 정보 수정의 닉네임 중복확인
+	public int chkNickName(String checkNick) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int count = new MemberDao().chkNickName(conn, checkNick);
+		
+		JDBCTemplate.close(conn);
+		
+		return count;
+	}
+
+	//좋아요한 게시글 총  개수 구하기
+	public int likeSelectListCount(int userNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int listCount = new MemberDao().likeSelectListCount(conn, userNo);
+		
+		JDBCTemplate.close(conn);
+		
+		return listCount;
+	}
+
+	//좋아요한 게시글 리스트 조회
+	public ArrayList<Board> likeSelectList(PageInfo pi, int userNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Board> list = new MemberDao().likeSelectList(conn, pi, userNo);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
+	}
+	
 
 	public int unrecommend(String myNickname, String nickname) {
 		Connection conn = JDBCTemplate.getConnection();
