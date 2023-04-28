@@ -38,8 +38,41 @@ public class DeleteBoardController extends HttpServlet {
 		int result = new BoardCommonService().deletePost(bnoArr);
 		if(result > 0) { // 삭제 성공
 			request.getSession().setAttribute("alertMsg", "게시글 삭제가 완료되었습니다.");
-			System.out.println(request.getHeader("Referer"));
-			response.sendRedirect(request.getHeader("Referer"));
+			String before = request.getHeader("Referer");
+			
+			if(before.contains("myPost")) {
+				response.sendRedirect(request.getHeader("Referer"));
+			}
+			else if(before.contains("newsList")) { // 동네 소식
+				response.sendRedirect(request.getContextPath() + "/newsList.bo?currentPage=1");
+			}
+			else if(before.contains("FreeBoardList")) { // 자유 게시판
+				response.sendRedirect(request.getContextPath() + "FreeBoardList.bo?currentPage=1");
+			}
+//			else if() { // 살림 꿀팁
+//				
+//			}
+//			else if() { // 자취 레시피
+//				
+//			}
+//			else if() { // 동네 맛집
+//				
+//			}
+//			else if() { // 나눔 할게요
+//				
+//			}
+//			else if() { // 이거 필요해요
+//				
+//			}
+//			else if() { // 같이 해요
+//				
+//			}
+//			else if() { // 같이 사요
+//				
+//			}
+//			else { // 공지사항
+//				
+//			}
 		}
 		else { // 삭제 실패
 			request.setAttribute("errorMsg", "게시판 삭제 실패");

@@ -227,7 +227,6 @@
 					$("input[class=check]:checked").each(function() {
 						str += "bno=" + $(this).val() + "&";
 					})
-					console.log(str);
 					
 					if(confirm("정말 삭제하시겠습니까?")) {
 						location.href = "<%=contextPath%>/deletePost.bo?" + str;
