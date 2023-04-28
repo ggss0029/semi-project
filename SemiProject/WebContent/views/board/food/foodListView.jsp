@@ -1,6 +1,11 @@
+<%@page import="com.udong.board.food.model.vo.FoodBoard"%>
 <%@page import="com.udong.common.model.vo.PageInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, com.udong.board.news.model.vo.NewsBoard"%>
+<%
+	ArrayList<FoodBoard> list = (ArrayList<FoodBoard>)request.getAttribute("fblist");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -287,9 +292,9 @@
                         <p id="b1">지역선택</p>
                         <form name="form" method="post" action="">
 	                        <div id="location">
-	                            <input type="hidden" name="currentPage" value="">
+	                            <input type="hidden" name="currentPage" value="<%=pi.getCurrentPage()%>">
 	                                	시/도:
-	                                <select name='city' onchange="change(this.selectedIndex);"  class=input >
+	                                <select name='city' id="cityCategory" onchange="change(this.selectedIndex);"  class=input >
 	                                    <option value='전체'>전체</option>
 	                                    <option value='서울'>서울특별시</option>
 	                                    <option value='부산'>부산광역시</option>
@@ -309,51 +314,60 @@
 	                                    <option value='제주'>제주도</option>
 	                                </select>                                                  
 	                                	구/군:
-	                                <select name='county'  class=select>
-	                                    <option value=''>전체</option>
+	                                <select name='country' id="countryCategory" class=select>
+	                                    <option value='전체'>전체</option>
 	                                </select>
 	                            
 	                        </div>
 	                        <br>
 	                        <p id="b2">카테고리</p>
-	                        <div id="category">
-                                    <input type="checkbox" id="forOne"> <label for="forOne">1인분</label>
-                                    <input type="checkbox" id="JB"> <label for="JB">족발/보쌈</label>
-                                    <input type="checkbox" id="japan"> <label for="japan">돈까스/회/일식</label>
-                                    <input type="checkbox" id="meat"> <label for="meat">고기/구이</label>
-                                    <input type="checkbox" id="pizza"> <label for="pizza">피자</label>
-                                    <input type="checkbox" id="chicken"> <label for="chicken">치킨</label>
-                                    <input type="checkbox" id="soup"> <label for="soup">찜/탕/찌개</label> <br>
-                                    <input type="checkbox" id="america"> <label for="america">양식</label>
-                                    <input type="checkbox" id="china"> <label for="china">중식</label>
-                                    <input type="checkbox" id="asian"> <label for="asian">아시안</label>
-                                    <input type="checkbox" id="burger"> <label for="burger">버거</label>
-                                    <input type="checkbox" id="noodle"> <label for="noodle">백반/죽/국수</label>
-                                    <input type="checkbox" id="snack"> <label for="snack">분식</label>
-                                    <input type="checkbox" id="cafe"> <label for="cafe">카페/디저트</label>
-                                    <input type="checkbox" id="etc"> <label for="etc">기타</label>
+	                        <div id="foodCategory">
+                                    <input type="checkbox" class="check" id="forOne" value="1인분"> <label for="forOne">1인분</label>
+                                    <input type="checkbox" class="check" id="JB" value="족발/보쌈"> <label for="JB">족발/보쌈</label>
+                                    <input type="checkbox" class="check" id="japan" value="돈까스/회/일식"> <label for="japan">돈까스/회/일식</label>
+                                    <input type="checkbox" class="check" id="meat" value="고기/구이"> <label for="meat">고기/구이</label>
+                                    <input type="checkbox" class="check" id="pizza" value="피자"> <label for="pizza">피자</label>
+                                    <input type="checkbox" class="check" id="chicken" value="치킨"> <label for="chicken">치킨</label>
+                                    <input type="checkbox" class="check" id="soup" value="찜/탕/찌개"> <label for="soup">찜/탕/찌개</label> <br>
+                                    <input type="checkbox" class="check" id="america" value="양식"> <label for="america">양식</label>
+                                    <input type="checkbox" class="check" id="china" value="중식"> <label for="china">중식</label>
+                                    <input type="checkbox" class="check" id="asian" value="아시안"> <label for="asian">아시안</label>
+                                    <input type="checkbox" class="check" id="burger" value="버거"> <label for="burger">버거</label>
+                                    <input type="checkbox" class="check" id="noodle" value="백반/죽/국수"> <label for="noodle">백반/죽/국수</label>
+                                    <input type="checkbox" class="check" id="snack" value="분식"> <label for="snack">분식</label>
+                                    <input type="checkbox" class="check" id="cafe" value="카페/디저트"> <label for="cafe">카페/디저트</label>
+                                    <input type="checkbox" class="check" id="etc" value="기타"> <label for="etc">기타</label>
 	                        </div>
-	                        <br><br><br>
+	                        <br>
 	                        <div align="center">
 	                        	<br>
 	                            <button type="reset" class="btn btn-light">초기화</button>
-	                            <button class="btn btn-primary">검색</button>
+	                            <button type="button" class="btn btn-primary" onclick="categorySearch();">검색</button>
 	                        </div>
                         </form> 
                     </div>
                     <div id="line_6"></div>
                         <br><br>
-						 <div id="photoArea" align="center">
-                        <div class="thumbnail">
-                            <input type="hidden" name="bno" value=" ">
-					        <img src="" width="230px" height="200px">
-                            <p>
-                                안채영 햄버거 장인 <br>
-                                No.1   조회수 : 100,000
-                            </p>
-                        </div>
+					<div id="photoArea" align="center">
+						<%for(FoodBoard fb : list) {%> 
+	                        <div class="thumbnail">
+	                            <input type="hidden" name="bno" value="<%=fb.getBoardNo()%>">
+						        <img src="<%=contextPath + fb.getTitleImg()%>" width="230px" height="200px">
+	                            <p>&lt; <%=fb.getBoardTitle()%> &gt;
+	                                	 <br>
+	                                	작성자 : <%=fb.getBoardWriter()%>   조회수 : <%=fb.getCount()%>
+	                            </p>
+	                        </div>
+                        <%} %>
                     </div>
                         <div align="center" class="paging-area">
+                        	<%for(int i=pi.getStartPage(); i<=pi.getEndPage(); i++ ){ %>
+								<%if(i != pi.getCurrentPage()){ %>
+									<button onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=i%>';"><%=i %></button>
+								<%}else{ %>
+									<button disabled><%=i %></button>
+								<%} %>
+							<%} %>
                         </div>
                         <%if (loginUser != null) {%>
                         	<div align="right" id="write_btn">
@@ -367,13 +381,18 @@
 	
     <script language='javascript'>
     
-    $(function(){
-	    $(".list-area>tbody>tr").click(function(){
-	        var bno = $(this).children().eq(0).text();
-	       	location.href = '<%=contextPath %>/newsDetail.bo?bno='+bno;
-	    });
-    });
-        
+    function categorySearch(){
+    	
+    	var city = $("#cityCategory").val();
+    	var country = $("#countryCategory").val();
+    
+		var str = "";
+			str += "city=" + city + "&country=" + country + "&"
+		$("input[class=check]:checked").each(function() {
+			str += "FC=" + $(this).val() + "&";
+		});
+    };
+    
     window.onpageshow = function(event) {
 	    if ( event.persisted || (window.performance && window.performance.navigation.type == 2)) {
 	        location.reload();
@@ -398,17 +417,14 @@
         cnt[15] = new Array('전체','거제시','김해시','마산시','밀양시','사천시','울산시','진주시','진해시','창원시','통영시','거창군','고성군','남해군','산청군','양산시','의령군','창녕군','하동군','함안군','함양군','합천군');
         cnt[16] = new Array('전체','서귀포시','제주시','남제주군','북제주군');
         function change(add) {
-        sel=document.form.county
-          /* 옵션메뉴삭제 */
+        sel=document.form.country
           for (i=sel.length-1; i>=0; i--){
             sel.options[i] = null
             }
-          /* 옵션박스추가 */
           for (i=0; i < cnt[add].length;i++){                     
                             sel.options[i] = new Option(cnt[add][i], cnt[add][i]);
             }         
         }
-   
    </script>
    <%@ include file = "../../common/footer.jsp" %>
 </body>
