@@ -155,9 +155,9 @@ public class BoardCommonDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new BoardCommon(rset.getInt("BOARD_NO")
+				list.add(new BoardCommon(rset.getString("BOARD_CONTENT")
+										,rset.getInt("BOARD_NO")
 								  ,rset.getString("NICKNAME")
-								  ,rset.getString("BOARD_TITLE")
 								  ,rset.getString("BOARD_NAME")
 								  ,rset.getInt("COUNT")
 								  ,rset.getDate("CREATE_DATE")

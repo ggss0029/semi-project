@@ -84,9 +84,9 @@ public class WriteBoardControllerServlet extends HttpServlet {
 					at.setFilePath("/resources/");
 					
 					if(i==0) {
-						at.setFileLevel(1);
-					}else {
 						at.setFileLevel(2);
+					}else {
+						at.setFileLevel(1);
 					}
 					list.add(at);
 				}

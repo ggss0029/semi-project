@@ -96,6 +96,7 @@ public class TotalSearchControllerServlet extends HttpServlet {
 			ArrayList<BoardCommon> list = new BoardCommonService().selectSearchListContent(pi,time,searchInput);
 			total.add(pi);
 			total.add(list);
+			total.add("content");
 		}else if(detailRange.contentEquals("댓글")) {
 			
 			listCount = new BoardCommonService().selectListCountReplyTime(time,searchInput);
@@ -113,7 +114,7 @@ public class TotalSearchControllerServlet extends HttpServlet {
 			ArrayList<Reply> list = new BoardCommonService().selectSearchListReply(pi,time,searchInput);
 			total.add(pi);
 			total.add(list);
-			total.add("check");
+			total.add("reply");
 			request.getSession().setAttribute("checkReply", 1);
 		}else if(detailRange.contentEquals("작성자")) {
 			

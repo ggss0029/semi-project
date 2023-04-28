@@ -3,6 +3,7 @@ package com.udong.board.food.model.dao;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -11,6 +12,7 @@ import java.util.Properties;
 
 import com.udong.board.food.model.vo.FoodBoard;
 import com.udong.common.JDBCTemplate;
+import com.udong.common.model.vo.PageInfo;
 
 
 public class FoodBoardDao {
@@ -51,18 +53,21 @@ public class FoodBoardDao {
 		return listCount;
 	}
 
-	public ArrayList<FoodBoard> selectFoodList(Connection conn) {
+	public ArrayList<FoodBoard> selectFoodList(Connection conn, PageInfo pi) {
 		
 		int listCount = 0;
 		ArrayList<FoodBoard> list = new ArrayList<>();
 		ResultSet rset = null;
-		Statement stmt = null;
-		
+		PreparedStatement pstmt = null;
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit()+1;
+		int endRow = (startRow+pi.getBoardLimit()) - 1;
 		String sql = prop.getProperty("selectFoodList");
 		
 		try {
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery(sql);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				FoodBoard fb = new FoodBoard(rset.getInt("BOARD_NO")
@@ -81,7 +86,7 @@ public class FoodBoardDao {
 			e.printStackTrace();
 		}finally {
 			JDBCTemplate.close(rset);
-			JDBCTemplate.close(stmt);
+			JDBCTemplate.close(pstmt);
 		}
 		return list;
 	}

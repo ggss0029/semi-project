@@ -16,7 +16,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>검색 결과</title>
-    <style>
+	<style>
         div{
 /*             border: 1px solid black;  */
             box-sizing: border-box;
@@ -229,6 +229,12 @@
                         			$("#pagingDiv").append("<button disabled>"+i+"</button>");
                         		}
                         	}
+                        	
+							if(list.length==0){
+								$("#listTable").children("tbody").children().remove();
+								str+="<tr><td colspan='5'>검색 결과가 없습니다.</td></tr>";
+	    						$("#listTable tbody").html(str);
+							};
                         
                         if(check == 'check'){
                         	$("#listTable").children("thead").children().remove();
@@ -243,6 +249,21 @@
     								+ "<td>"+list[i].modifyDate + "</td>"
     								+"</tr>";
     						}
+    					}else if(check == 'content'){
+   							$("#listTable").children("thead").children().remove();
+							$("#listTable thead").html("<tr><th style='width:7%;'>글 번호</th><th style='width:17%;'>게시판 이름</th>"
+		                            +"<th style='width:38%;'>게시글 내용</th><th style='width:18%;'>작성자</th><th style='width:9%;'>조회수</th>"
+		                            +"<th style='width:11%;'>좋아요 수</th></tr>");
+							for(var i =0; i<list.length; i++){
+    							str+= "<tr>"
+    								+ "<td>"+list[i].boardNo+ "</td>"
+    								+ "<td>"+list[i].boardName + "</td>"
+    								+ "<td>"+list[i].boardContent + "</td>"
+    								+ "<td>"+list[i].boardWriter + "</td>"
+    								+ "<td>"+list[i].count + "</td>"
+    								+ "<td>"+list[i].likeCount + "</td>"
+    								+"</tr>";	
+							}	    						
                         }else{
     							$("#listTable").children("thead").children().remove();
     							$("#listTable thead").html("<tr><th style='width:7%;'>글 번호</th><th style='width:17%;'>게시판 이름</th>"
