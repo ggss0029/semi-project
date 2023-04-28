@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"  import="java.util.ArrayList, com.udong.board.clean.model.vo.CleanBoard"%>
+    <%@page import="com.udong.common.model.vo.PageInfo"%>
+<%
+	ArrayList<CleanBoard> clist = (ArrayList<CleanBoard>)request.getAttribute("clist");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -254,7 +259,7 @@
                 <div id="line_1"></div>
                 <a href="<%=contextPath %>/newsList.bo?currentPage=1" id="news">동네 소식</a>
                 <div id="line_2"></div>
-                <a href="" id="clean">살림 꿀팁</a>
+                <a href="<%=contextPath %>/cleanList.bo?currentPage=1" id="clean">살림 꿀팁</a>
                 <div id="line_3"></div>
                 <a href="" id="recipe">자취 레시피</a>
                 <div id="line_4"></div>
@@ -266,7 +271,8 @@
 
                     <div id="box">
                         <p id="b2">카테고리</p>
-                        
+						<form name="form" method="post" action="">
+                        <input type="hidden" name="currentPage" value="<%=pi.getCurrentPage() %>">
                         <div id="category">
                             <input type="checkbox" id="cleaning"> <label for="cleaning" >청소</label> 
                             <input type="checkbox" id="cook" > <label for="cook">요리</label> 
@@ -281,6 +287,7 @@
                             <button type="reset" class="btn btn-light">초기화</button>
                             <button class="btn btn-primary" >검색</button>
                         </div>
+                        </form> 
                     </div>
                     <div id="line_6"></div>
 
@@ -294,6 +301,24 @@
                             <th width="65">좋아요</th>
                         </thead>
                         <tbody>
+                        <!-- 리스트 20개씩 출력? -->
+                        	<%if(clist.isEmpty()) {%> <!-- 만약 리스트가 비어있다면 -->
+                        		<tr>
+                        			<td colspan="6">글이 존재하지 않습니다</td>
+                        		</tr>
+                        	<%} else {%> <!-- 목록이 있으면 (반복문으로 전부 출력해주기) -->
+                        		<%for(CleanBoard cb : clist) {%> <!-- 순차적으로 전부 접근할 것이기 때문에 향상된 for문 사용 -->
+		                        	<tr style="height: 40px; border-bottom:1px solid black;">
+		                                <td><%=cb.getBoardNo() %></td> <!-- No. -->
+		                                <td><%=cb.getBoardTitle() %></td> <!-- 제목 -->
+		                                <td><a data-toggle="modal" data-target="#profile" onclick="profile();"><%=cb.getBoardWriter() %></a> </td> <!-- 작성자  닉네임 -->
+		                                <td><%=cb.getCreateDate() %></td> <!-- 작성한 날짜 -->
+		                                <td><%=cb.getCount() %></td> <!-- 조회수 -->
+		                                <td><%=cb.getLikeCount() %></td> <!-- 좋아요한 수 -->
+		                            </tr>
+                        		<%} %> 
+                        	<%} %>
+                        	<!--  
                             <tr style="height: 40px; border-bottom:1px solid black;">
                                 <td>1</td>
                                 <td>첫 게시물</td>
@@ -302,131 +327,33 @@
                                 <td>100</td>
                                 <td>1004</td>
                             </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            
+                            -->
                         </tbody>
                         </table>
                         <br>
+                        <%if(loginUser != null) { %>
                         <div align="right" id="write_btn">
                             <button class="btn btn-light">글쓰기</button>
                         </div>
+                        <%} %>
                         <br><br>
 
                         <div align="center" class="paging-area">
-                            <button>&lt;</button>
-                            <button>12345678910</button>
-                            <button>&gt;</button>
+                            <%if(pi.getCurrentPage() != 1) {%>
+                            	<button onclick="location.href='<%=contextPath %>/cleanList.bo?currentPage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
+                            <%} %>
+                            
+                            <%for(int i = pi.getStartPage(); i <= pi.getEndPage(); i++) { %>
+                            	<%if(i != pi.getCurrentPage()) {%>
+                            	<button onclick="location.href='<%=contextPath %>/cleanList.bo?currentPage=<%=i%>';"><%=i %></button>
+                            	<%} else {%>
+                            		<button disabled><%=i %></button>
+                            	<%} %>
+                            <%} %>
+                            
+                            <%if(pi.getCurrentPage() != pi.getMaxPage()) { %>
+	                            <button onclick="location.href='<%=contextPath %>/cleanList.bo?currentPage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
+                            <%} %>
                         </div>
 
                         <div id="search">
@@ -445,6 +372,25 @@
             </div>
         </div>
     </div>
+     <script language='javascript'>
+    
+    $(function(){
+    	//.list-area클래스 자손tbody 자손tr 클릭됐을때
+	    $(".list-area>tbody>tr").click(function(){
+	        //목록에 글을 클릭했을때 해당 글번호가 있어야
+	        //그 글에 대해서 상세조회를 할 수 있으니 글번호를 추출하여 서버에 넘기기
+	        // console.log($(this).children().eq(0).text());
+	        var bno = $(this).children().eq(0).text();
+	        //요쳥할 url?키=벨류&키=벨류 .....
+	        //물음표 뒤에 내용들을 쿼리 스트링이라고한다. - 직접 기술하여 넘기기
+	        // '/jsp/detail.no?nno='+nno
+	       	location.href = '<%=contextPath %>/cleanDetail.bo?bno='+bno;
+	    });
+    	
+    });
+        
+   
+   </script>
     <%@ include file = "../../common/footer.jsp" %>
 </body>
 </html>

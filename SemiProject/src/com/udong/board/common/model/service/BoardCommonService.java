@@ -178,4 +178,24 @@ public class BoardCommonService {
 		return alist;
 	}
 
+	public int deletePost(int[] bnoArr) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = 0;
+		
+		int count = 0;
+		for(int i=0;i<bnoArr.length;i++) {
+			count += new BoardCommonDao().deletePost(conn, bnoArr[i]);
+		}
+		
+		if(count == bnoArr.length) { // 삭제 성공
+			JDBCTemplate.commit(conn);
+			result = 1;
+		}
+		else { // 삭제 실패
+			JDBCTemplate.rollback(conn);
+		}
+		
+		return result;
+	}
+
 }

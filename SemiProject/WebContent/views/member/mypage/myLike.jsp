@@ -1,5 +1,11 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.udong.member.model.vo.Board"%>
+<%@page import="com.udong.common.model.vo.PageInfo"%>
+<%
+	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -265,7 +271,7 @@
                 <a href="<%=contextPath %>/myPost.me?cPage=1" id="write_board">작성한 게시글</a>
                 <div id="line_4"></div>
 
-                <a href="<%=request.getContextPath() %>/views/member/mypage/myLike.jsp" id="like_board">좋아요한 게시글</a>
+                <a href="<%=contextPath %>/likeList.me?currentPage=1" id="like_board">좋아요한 게시글</a>
                 <div id="line_5"></div>
 
                 <a href="" id="out">회원 탈퇴</a>
@@ -276,236 +282,93 @@
                     <p id="pp">좋아요한 게시글</p>
                     <div id="line_7"></div>
                     
+                    <input type="hidden" name="currentPage" value="<%=pi.getCurrentPage() %>">
                     <table class="list-area" border="1" align="center">
                         <thead style="height: 50px;">
+                        	<tr>
                             <th width="50"><input type="checkbox"> </th>
                             <th width="70">No.</th>
                             <th width="450">제목</th>
                             <th width="150">작성자</th>
                             <th width="150">작성일</th>
                             <th width="65">조회</th>
+                            </tr>
                         </thead>
                         <tbody>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>2</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>3</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>4</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>5</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>6</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>7</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>8</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>9</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr><tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>10</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>11</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>12</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>13</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>14</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>15</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>16</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>17</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>18</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>19</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td><input type="checkbox"> </td>
-                                <td>20</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                            </tr>
+                        	<%if(list.isEmpty()) {%>
+                        		<tr>
+                        			<td colspan="6">좋아요한 게시글이 존재하지 않습니다.</td>
+                        		</tr>
+                        	<%} else { %>
+                        		<%for(Board ml : list) { %>
+		                            <tr style="height: 40px;">
+		                                <td><input type="checkbox"> </td>
+		                                <td><%=ml.getBoardNo() %></td>
+		                                <td><%=ml.getBoardTitle() %></td>
+		                                <td><a id="nicknameHover" onclick="whoareyou();"><%=ml.getBoardWriter() %></td>
+		                                <td><%=ml.getCreateDate() %></td>
+		                                <td><%=ml.getLikeCount() %></td>
+		                            </tr>
+		                        <%} %>
+		                    <%} %>
 
-                            
                         </tbody>
                         </table>
+                        <%if (loginUser != null) {%>
+                        	<div align="right" id="write_btn">
+	                            <a href="<%=contextPath %>" class="btn btn-dark">삭제</a>
+	                        </div>
+	                    <%} %>
                         <br><br><br>
                         <div align="center" class="paging-area">
-                            <button>&lt;</button>
-                            <button>12345678910</button>
-                            <button>&gt;</button>
+    
+                        	<%if(pi.getCurrentPage() != 1) {%>
+                            	<button onclick="location.href='<%=contextPath %>/likeList.me?currentPage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
+                            <%} %>
+                            
+                            <%for(int i = pi.getStartPage(); i <= pi.getEndPage(); i++) { %>
+                            	<%if(i != pi.getCurrentPage()) {%>
+                            	<button onclick="location.href='<%=contextPath %>/likeList.me?currentPage=<%=i%>';"><%=i %></button>
+                            	<%} else {%>
+                            		<button disabled><%=i %></button>
+                            	<%} %>
+                            <%} %>
+                            
+                            <%if(pi.getCurrentPage() != pi.getMaxPage()) { %>
+	                            <button onclick="location.href='<%=contextPath %>/likeList.me?currentPage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
+                            <%} %>
                         </div>
 
-                        <div id="search">
-                            <form action="search.do" id="search_form">
-                                <div id="search_select">
-                                    <select name="" id="" style="height: 38px;">
-                                        <option value="">제목+내용</option>
-                                    </select>
+<!--                         <div id="search"> -->
+<!--                             <form action="search.do" id="search_form"> -->
+<!--                                 <div id="search_select"> -->
+<!--                                     <select name="" id="" style="height: 38px;"> -->
+<!--                                         <option value="">제목+내용</option> -->
+<!--                                     </select> -->
 
-                                </div>
-                                <div id="search_text">
-                                    <input type="search" name="keyword">
-                                </div>
+<!--                                 </div> -->
+<!--                                 <div id="search_text"> -->
+<!--                                     <input type="search" name="keyword"> -->
+<!--                                 </div> -->
                     
-                                <div id="search_btn">
-                                    <input type="button" value="검색" class="btn btn-secondary">
-                                </div>
-                            </form>
+<!--                                 <div id="search_btn"> -->
+<!--                                     <input type="button" value="검색" class="btn btn-secondary"> -->
+<!--                                 </div> -->
+<!--                             </form> -->
                     
-                        </div>
+<!--                         </div> -->
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        $(document).ready(function(){            
-            var now = new Date();
-            var year = now.getFullYear();
-            var mon = (now.getMonth() + 1) > 9 ? ''+(now.getMonth() + 1) : '0'+(now.getMonth() + 1); 
-            var day = (now.getDate()) > 9 ? ''+(now.getDate()) : '0'+(now.getDate());           
-            //년도 selectbox만들기               
-            for(var i = 1900 ; i <= year ; i++) {
-                $('#year').append('<option value="' + i + '">' + i + '년</option>');    
-            }
-
-            // 월별 selectbox 만들기            
-            for(var i=1; i <= 12; i++) {
-                var mm = i > 9 ? i : "0"+i ;            
-                $('#month').append('<option value="' + mm + '">' + mm + '월</option>');    
-            }
-            
-            // 일별 selectbox 만들기
-            for(var i=1; i <= 31; i++) {
-                var dd = i > 9 ? i : "0"+i ;            
-                $('#day').append('<option value="' + dd + '">' + dd+ '일</option>');    
-            }
-            $("#year  > option[value="+year+"]").attr("selected", "true");        
-            $("#month  > option[value="+mon+"]").attr("selected", "true");    
-            $("#day  > option[value="+day+"]").attr("selected", "true");       
-        
-        })
+    $(function(){
+	    $(".list-area>tbody>tr").click(function(){
+	        var bno = $(this).children().eq(0).text();
+	       	location.href = '<%=contextPath %>/likeList.me?bno='+bno;
+	    });
+    });
     </script>
     <%@ include file = "../../common/footer.jsp" %>
 </body>

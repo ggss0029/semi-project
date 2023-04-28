@@ -524,7 +524,6 @@
 		
 		$(".c2_table>table").on("mouseenter", "tr", function() {
 			$(this).css("cursor", "pointer");
-			$(this).children().first().css("cursor", "default");
 		});
 		
 		callback();
@@ -745,7 +744,7 @@
             <div style="margin-left:2%"><a align="center" href=""><img src="views/common/icons/나눔.png" alt="나눔">나눔</a></div>
             <div style="margin-left:2%"><a align="center" href=""><img src="views/common/icons/함께해요.png" alt="함께해요">함께 해요 </a></div>
             <div style="margin-left:2%"><a align="center" href="<%=contextPath %>/FreeBoardList.bo?currentPage=1"><img src="views/common/icons/자유게시판.png" alt="자유게시판">자유게시판</a></div>
-            <div style="margin-left:2%; margin-right:3%"><a align="center" href=""><img src="views/common/icons/소식.png" alt="소식">소식</a></div>
+            <div style="margin-left:2%; margin-right:3%"><a align="center" href="<%=contextPath %>/views/board/faq/faqView.jsp"><img src="views/common/icons/소식.png" alt="소식">소식</a></div>
         </div>
     </div>
     <div class="outer">
