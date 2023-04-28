@@ -142,4 +142,20 @@ public class NewsBoardService {
 		
 		return nlist;
 	}
+
+	//동네소식 게시글 삭제
+	public int deleteNewsBoard(int newsBoardNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new NewsBoardDao().deleteNewsBoard(conn, newsBoardNo);
+		
+		if(result >0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		return result;
+	}
 }

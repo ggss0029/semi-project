@@ -344,6 +344,31 @@ public class NewsBoardDao {
 		return nlist;
 	}
 
+
+	//동네소식 게시글 삭제
+	public int deleteNewsBoard(Connection conn, int newsBoardNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteNewsBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, newsBoardNo); 
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+	
+
 	
 
 }

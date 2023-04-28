@@ -87,6 +87,14 @@
 		WHERE REPLY_NO = ?
 		AND STATUS = 'Y'
 	</entry>
+	
+	<!-- 동네 소식 게시글 삭제 -->
+	<entry key="deleteNewsBoard">
+		UPDATE BOARD
+		SET STATUS = 'N'
+		WHERE BOARD_NO = ?
+		AND STATUS = 'Y'
+	</entry>
 
 	<entry key="bestPostList">
 	SELECT *
