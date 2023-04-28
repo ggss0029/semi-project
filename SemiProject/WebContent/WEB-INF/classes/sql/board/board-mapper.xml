@@ -101,7 +101,7 @@
 	<![CDATA[WHERE RANK <= 10]]>
 	</entry>
 	<!-- 이거필요해요 게시글 리스트 페이지 -->
-	<entry key="getBoardNeedList">
+	<entry key="getBoardFreeList">
 	SELECT
 		*
 	FROM
@@ -120,13 +120,13 @@
 			BOARD B 
 		JOIN MEMBER M ON (B.BOARD_WRITER = M.USER_NO)
 		) A
-	WHERE A.BOARD_NAME = '이거 필요해요'
+	WHERE A.BOARD_NAME = '자유 게시판'
 	AND A.RNUM BETWEEN ? AND ?
 	</entry>
 	
 	
 	<!-- 이거필요해요 검색페이지 -->
-	<entry key="BoardNeedWithSearch">
+	<entry key="BoardFreeWithSearch">
 		SELECT
 		*
 	FROM
@@ -145,7 +145,7 @@
 			BOARD B 
 		JOIN MEMBER M ON (B.BOARD_WRITER = M.USER_NO)
 		) A
-	WHERE A.BOARD_NAME = '이거 필요해요'
+	WHERE A.BOARD_NAME = '자유 게시판'
 	AND A.RNUM BETWEEN ? AND ?
 	AND (BOARD_TITLE LIKE '%'||?||'%' OR BOARD_CONTENT LIKE '%'||?||'%')	
 	</entry>
@@ -153,11 +153,11 @@
 	
 	
 	
-	<entry key="getBoardNeedListCount">
+	<entry key="getBoardFreeListCount">
 	SELECT 
 		*COUNT(BOARD_NO) AS COUNT 
 	FROM BOARD
-	WHERE BOARD_NAME = '이거 필요해요'
+	WHERE BOARD_NAME = '자유 게시판'
 	</entry>
 	
 	

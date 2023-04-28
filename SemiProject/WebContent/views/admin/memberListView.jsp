@@ -45,7 +45,6 @@
         #footer{
             width: 100%;
             height: 10%;
-            background-color: darkblue;
         }
         #header>div{
             width: 100%;
@@ -56,7 +55,6 @@
         }
         #menubar{
             height: 33%;
-            background-color: orange;
         }
         #content>div{
             height: 100%;
@@ -65,7 +63,6 @@
         
         #content_1{
             width: 25%;
-            background-color: yellow;
         }
         #content_2{
             width: 75%;
@@ -113,7 +110,6 @@
             text-align: center;
             border: 1px solid black;
         }
-        
        
         </style>
 </head>
@@ -156,13 +152,13 @@
                     <br><br><br>
                     <thead>
                         <tr>
-                            <th width="145px;" height="100px;">아이디</th>
-                            <th width="145px;" height="100px;">이름</th>
-                            <th width="145px;" height="100px;">생년월일</th>
-                            <th width="145px;" height="100px;">이메일</th>
-                            <th width="145px;" height="100px;">주소</th>
-                            <th width="145px;" height="100px;">가입일</th>
-                            <th width="145px;" height="100px;">강제추방</th>
+                            <th width="145px;" height="80px;">아이디</th>
+                            <th width="145px;" height="80px;">이름</th>
+                            <th width="145px;" height="80px;">생년월일</th>
+                            <th width="145px;" height="80px;">이메일</th>
+                            <th width="145px;" height="80px;">주소</th>
+                            <th width="145px;" height="80px;">가입일</th>
+                            <th width="145px;" height="80px;">강제추방</th>
                         </tr>
                     </thead>
            <%for(Member member : list){ %>
@@ -217,13 +213,7 @@
 	});
 	
 	
-	/*
-	$(function(){
-		$("#search_btn").on('click' , function(){
-			location.href = "MemberList.me?email="+$("#search_email").val();
-		})
-	})
-	*/
+	
 
 </script>
 </html>

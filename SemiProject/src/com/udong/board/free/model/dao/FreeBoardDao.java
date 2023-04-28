@@ -1,4 +1,4 @@
-package com.udong.board.need.dao;
+package com.udong.board.free.model.dao;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,19 +11,18 @@ import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
-import com.udong.board.need.vo.NeedAttachment;
-import com.udong.board.need.vo.NeedBoard;
-import com.udong.board.need.vo.NeedReply;
-import com.udong.board.news.model.vo.NewsBoard;
+import com.udong.board.free.model.vo.FreeAttachment;
+import com.udong.board.free.model.vo.FreeBoard;
+import com.udong.board.free.model.vo.FreeReply;
 import com.udong.common.JDBCTemplate;
 import com.udong.member.model.dao.MemberDao;
 import com.udong.member.model.vo.Member;
 
-public class NeedBoardDao {
+public class FreeBoardDao {
 	
 private Properties prop = new Properties();
 	
-	public NeedBoardDao() {
+	public FreeBoardDao() {
 		
 		String filePath = MemberDao.class.getResource("/sql/board/board-mapper.xml").getPath();
 		try {
@@ -40,23 +39,23 @@ private Properties prop = new Properties();
 	}
 	
 
-	public ArrayList<NeedBoard> getBoardList(Connection conn, String page , String searchContent) {
+	public ArrayList<FreeBoard> getBoardList(Connection conn, String page , String searchContent) {
 
-		ArrayList<NeedBoard> list = new ArrayList<NeedBoard>();
+		ArrayList<FreeBoard> list = new ArrayList<FreeBoard>();
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
 		Integer offset = 0;
-		Integer Limit = 10;
-		String sql = prop.getProperty("getBoardNeedList");
+		Integer Limit = 11;
+		String sql = prop.getProperty("getBoardFreeList");
 		
 		if(searchContent != null) {
-			sql = prop.getProperty("BoardNeedWithSearch");
+			sql = prop.getProperty("BoardFreeWithSearch");
 		}
 	
 		
 		if(page != null && !page.equals("1")) {
-			offset = (Integer.parseInt(page)-1) * 10 + 1;
-			Limit = (Integer.parseInt(page)*10);
+			offset = (Integer.parseInt(page)-1) * 11 + 1;
+			Limit = (Integer.parseInt(page)*11);
 		}
 //		NO.	제목	작성자	작성일	조회	추천수
 		try {
@@ -75,7 +74,7 @@ private Properties prop = new Properties();
 			rset= pstmt.executeQuery();
 		
 			while(rset.next()) {
-				list.add(new NeedBoard(rset.getInt("BOARD_NO")
+				list.add(new FreeBoard(rset.getInt("BOARD_NO")
 										,rset.getString("BOARD_TITLE")
 										,rset.getString("NICKNAME")
 										,rset.getDate("CREATE_DATE")
@@ -100,7 +99,7 @@ private Properties prop = new Properties();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("getBoardNeedListCount");
+		String sql = prop.getProperty("getBoardFreeListCount");
 		
 //		if(searchContent) {
 //			
@@ -128,7 +127,7 @@ private Properties prop = new Properties();
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String sql = prop.getProperty("deleteNeedBoard");
+		String sql = prop.getProperty("deleteFreeBoard");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -148,11 +147,11 @@ private Properties prop = new Properties();
 	}
 
 
-	public int insertBoard(Connection conn, NeedBoard nb) {
+	public int insertBoard(Connection conn, FreeBoard nb) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String sql = prop.getProperty("insertNeedBoard");
+		String sql = prop.getProperty("insertFreeBoard");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -175,11 +174,11 @@ private Properties prop = new Properties();
 	}
 
 
-	public int insertAttachment(Connection conn, NeedAttachment at) {
+	public int insertAttachment(Connection conn, FreeAttachment at) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String sql = prop.getProperty("insertNeedAttachment");
+		String sql = prop.getProperty("insertFreeAttachment");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -199,12 +198,12 @@ private Properties prop = new Properties();
 	}
 
 
-	public int needInsertReply(Connection conn, NeedReply r) {
+	public int FreeInsertReply(Connection conn, FreeReply r) {
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String sql = prop.getProperty("needInsertReply");
+		String sql = prop.getProperty("FreeInsertReply");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -225,9 +224,9 @@ private Properties prop = new Properties();
 	}
 
 
-	public ArrayList<NeedReply> selectReply(Connection conn, int bno) {
+	public ArrayList<FreeReply> selectReply(Connection conn, int bno) {
 		
-		ArrayList<NeedReply> list = new ArrayList<>();
+		ArrayList<FreeReply> list = new ArrayList<>();
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
 
@@ -241,7 +240,7 @@ private Properties prop = new Properties();
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new NeedReply(rset.getInt("REPLY_NO")
+				list.add(new FreeReply(rset.getInt("REPLY_NO")
 								   ,rset.getString("REPLY_CONTENT")
 								   ,rset.getInt("REF_BNO")
 								   ,rset.getString("REPLY_WRITER")

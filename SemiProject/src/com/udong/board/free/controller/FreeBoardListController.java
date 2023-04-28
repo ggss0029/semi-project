@@ -1,4 +1,4 @@
-package com.udong.board.need.controller;
+package com.udong.board.free.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,22 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.udong.board.need.model.NeedBoardService;
-import com.udong.board.need.vo.NeedBoard;
+import com.udong.board.free.model.service.FreeBoardService;
+import com.udong.board.free.model.vo.FreeBoard;
 import com.udong.member.model.service.MemberService;
 import com.udong.member.model.vo.Member;
 
 /**
- * Servlet implementation class NeedBoardListController
+ * Servlet implementation class FreeBoardListController
  */
-@WebServlet("/NeedBoardList.me")
-public class NeedBoardListController extends HttpServlet {
+@WebServlet("/FreeBoardList.bo")
+public class FreeBoardListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NeedBoardListController() {
+    public FreeBoardListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,22 +42,21 @@ public class NeedBoardListController extends HttpServlet {
 		
 		
 		
-		ArrayList<NeedBoard> list = new NeedBoardService().getBoardList(page ,searchContent);
-		System.out.println("list : " + list.toString());
-		Integer count = new NeedBoardService().getboardListCount(searchContent);
-		int totalPage = count % 10 == 0 ? count / 10 : (count / 10) + 1;
+		ArrayList<FreeBoard> list = new FreeBoardService().getBoardList(page ,searchContent);
+		Integer count = new FreeBoardService().getboardListCount(searchContent);
+		int totalPage = count % 11 == 0 ? count / 11 : (count / 11) + 1;
 		int currentPage = page == null ? 1 : Integer.parseInt(page);
 		int minPage = (int) Math.floor((double)currentPage / 10) * 10 + 1;
 		int maxPage = (int) Math.ceil((double)currentPage / 10) * 10 >= totalPage ? totalPage : (int) Math.ceil(currentPage / 10) * 10; 
 		 
-		request.setAttribute("NeedList", list);
+		request.setAttribute("FreeList", list);
 		
 		request.setAttribute("totalPage", totalPage);
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("minPage", minPage);
 		request.setAttribute("maxPage", maxPage);
 		
-		request.getRequestDispatcher("views/board/need/needListView.jsp").forward(request, response);
+		request.getRequestDispatcher("views/board/free/freeListView.jsp").forward(request, response);
 		
 	}
 		

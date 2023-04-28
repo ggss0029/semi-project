@@ -1,15 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.udong.member.model.vo.Member"%>
-    
-    <%
-    String contextPath = request.getContextPath(); 
-    %>
   
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>유저탈퇴</title>
     <style>
         * {
@@ -69,7 +67,6 @@
         }
 
         .content_2 {
-            background-color: green;
             width: 75%;
             position: relative;/*놓침*/
         }
@@ -82,12 +79,6 @@
             margin: 12.5px;
         }
 
-        #footer {
-            background-color: purple;
-            width: 100%;
-            height: 10%;
-        }
-
         #p1 {
             font-size: 45px;
             font-weight: 550;
@@ -97,7 +88,7 @@
             font-size: 16px;
         }
 
-        a {
+        .category>a {
             text-decoration: none;
             color: black;
             font-size: 30px;
@@ -108,14 +99,14 @@
         }
 
         /* 표 스타일 */
-        table {
+        #deldtetable {
             border-collapse: collapse;
         }
-        tr{
+        #deldtetable>tr{
             border: 1px solid darkgrey; 
         }
 
-        th, td {
+        #deldtetable>tr>td {
             border: 1px solid darkgrey; 
             height: 50px;
             /*width: 25%;*/
@@ -123,8 +114,12 @@
         }
         
 
-        td .wordArea{
+        #deldtetable>tr>td .wordArea{
             width: 20%;
+        }
+        
+        #delete-form {
+        	height: 30%;
         }
 
 
@@ -212,15 +207,11 @@
 <body>
 <%@ include file = "../common/menubar.jsp" %>
     <div class="wrap">
-        <div id="header">
-            <div class="header_1"></div>
-            <div class="header_2"></div>
-        </div>
         <div id="content">
             <div class="content_1">
                 <div class="category">
                     <p id="p1">
-                        자주 묻는 질문
+                       	 자주 묻는 질문
                     </p>
                     <hr>
                     <a href="">나의 정보</a> <br>
@@ -239,24 +230,23 @@
                 <!--page-area-->
                 <div class="page-area">
 
-                    <div class="outer">
 
-                        <div id="container">
+                       <div id="container">
 
                             <!--회원탈퇴 안내란-->
-                            <div id="deleteInform" width="1098px" height="500px" >
+                            <div id="deleteInform" width="1098px" height="500px"  >
                                 <h1>회원탈퇴</h1>
                                 <p class="leave-discription">
-                                    회원탈퇴를 신청하기전에 안내사항을 꼭 확인해주세요.
+                                    	회원탈퇴를 신청하기전에 안내사항을 꼭 확인해주세요.
                                 </p>
 
                                 <hr>
                                 <p style="font-size: 15px">
-                                    탈퇴한 아이디는 본인과 타인 모두 재사용 및 복구가 불가하오니 신중하게 선택하시기 바랍니다.<br>
-                                    <br>
-                                    각종 게시판에 올린 게시글 및 댓글은 탈퇴 시 자동 삭제되지 않고 그대로 남아 있습니다.<br>
-                                    <br>
-                                    삭제를 원하는 게시글이 있다면 반드시 탈퇴 전 비공개 처리하거나 삭제하시기 바랍니다.<br>
+					                                    탈퇴한 아이디는 본인과 타인 모두 재사용 및 복구가 불가하오니 신중하게 선택하시기 바랍니다.<br>
+					                <br>
+					                                    각종 게시판에 올린 게시글 및 댓글은 탈퇴 시 자동 삭제되지 않고 그대로 남아 있습니다.<br>
+					                <br>
+					                                    삭제를 원하는 게시글이 있다면 반드시 탈퇴 전 비공개 처리하거나 삭제하시기 바랍니다.<br>
                                     <br>
                                 </p>
                             </div>
@@ -265,62 +255,51 @@
 
                             <form id="delete-form" action="<%=contextPath%>/UserDelete.me" method="post">
                     
-                            <table align="center"class="tg" width="1098px">
+                            	<table align="center"class="tg" width="1098px" id="deldtetable">
                                
-                               
-                               
-                               
-                               
-                               
-                                <tr>
-                                    <td class="wordArea">
-                                        <label for="userId">  아이디 :</label>
-                                    </td>
-                                    <td class="tg-0lax">
-                                        <input class="full-size" type="text" id="userId" name="userId" placeholder="아이디를 입력해주세요" ><br>
+	                                <tr>
+	                                    <td class="wordArea">
+	                                        <label for="userId">  아이디 :</label>
+	                                    </td>
+	                                    <td class="tg-0lax">
+	                                        <input class="full-size" type="text" id="userId" name="userId" placeholder="아이디를 입력해주세요"><br>
+	
+	                                    </td>
+	                                    <td class="wordArea">
+	                                        <label for="userPwd">  비밀번호 :</label>
+	                                    </td>
+	                                    <td class="tg-0lax">
+	                                        <input class="full-size" type="password" id="userPwd" name="userPwd" placeholder="비밀번호를 입력해주세요" ><br>
+	
+	                                    </td>
+	                                </tr>
+                              	</table>
 
-                                    </td>
-                                    <td class="wordArea">
-                                        <label for="userPwd">  비밀번호 :</label>
-                                    </td>
-                                    <td class="tg-0lax">
-                                        <input class="full-size" type="password" id="userPwd" name="userPwd" placeholder="비밀번호를 입력해주세요" ><br>
-
-                                    </td>
-                                </tr>
-                                </tbody>
-                                </table>
-
-							<div>
-								
-                                <div class="apply-wrapper">
-                                    <label>
-									<input type="checkbox" id="myCheckbox"> 체크박스
-									</label>
-                                    <span>안내 사항을 모두 확인하였으며, 이에 동의합니다.</span>
-                                </div>
-                              
-
-                                <div align="center"> 
-                                    <a href="javascript:void(0)" id="mybutton"  class="deleteAccButton" >탈퇴</a>
-                                </div>
-							</div>
+								<div>
+									
+	                                <div class="apply-wrapper">
+	                                    <label for="myCheckbox">안내 사항을 모두 확인하였으며, 이에 동의합니다.
+										<input type="checkbox" id="myCheckbox">
+										</label>
+	                                </div>
+	                              
+	
+	                                <div align="center"> 
+	                                    <a href="javascript:void(0)" id="mybutton"  class="deleteAccButton" >탈퇴</a>
+	                                </div>
+								</div>
 							
                             </form>
 
-                            </div>
-                    </div>
-                    
-
-
+                       </div>
 
                 </div>
                 
             </div>
         </div>
     </div>
+    <%@ include file = "../common/footer.jsp" %>
 </body>
-<%@ include file = "../common/footer.jsp" %>
 <script>
 
 $(function(){

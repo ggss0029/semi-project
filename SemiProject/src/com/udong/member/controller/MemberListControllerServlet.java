@@ -45,7 +45,7 @@ public class MemberListControllerServlet extends HttpServlet {
 		ArrayList<Member> list = new MemberService().getMemberList(page , userId , email);
 		System.out.println("list : " + list.toString());
 		Integer count = userId == null && email == null ? new MemberService().getMemberListCount() : 1;
-		int totalPage = count % 7 == 0 ? count / 7 : (count / 7) + 1;
+		int totalPage = count % 11 == 0 ? count / 11 : (count / 11) + 1;
 		int currentPage = page == null ? 1 : Integer.parseInt(page);
 		int minPage = (int) Math.floor((double)currentPage / 10) * 10 + 1;
 		int maxPage = (int) Math.ceil((double)currentPage / 10) * 10 >= totalPage ? totalPage : (int) Math.ceil(currentPage / 10) * 10; 
