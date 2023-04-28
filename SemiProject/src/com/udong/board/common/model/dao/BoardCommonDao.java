@@ -3,6 +3,7 @@ package com.udong.board.common.model.dao;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -454,5 +455,88 @@ public class BoardCommonDao {
 			JDBCTemplate.close(pstmt);
 		}
 		return result;
+	}
+
+	public int increaseCount(Connection conn, int boardNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("increaseCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+	public BoardCommon selectBestPostDetail(Connection conn, int boardNo) {
+		
+		BoardCommon b = null;
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectBestPostDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				b = new BoardCommon(rset.getInt("BOARD_NO")
+							 ,rset.getString("NICKNAME")
+							 ,rset.getString("BOARD_TITLE")
+							 ,rset.getString("BOARD_CONTENT")
+							 ,rset.getString("BOARD_NAME")
+							 ,rset.getString("CATEGORY")
+							 ,rset.getString("REGION")
+							 ,rset.getInt("COUNT")
+							 ,rset.getDate("CREATE_DATE")
+							 ,rset.getInt("BOARD_REPORT")
+							 ,rset.getInt("LIKECOUNT"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return b;
+	}
+
+	public ArrayList<Attachment> selectAttachment(Connection conn, int boardNo) {
+		
+		ArrayList<Attachment> alist = new ArrayList<>(); 
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectAttachment");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Attachment at = new Attachment(rset.getInt("FILE_NO")
+								   ,rset.getInt("REF_BNO")
+								   ,rset.getString("ORIGIN_NAME")
+								   ,rset.getString("CHANGE_NAME")
+								   ,rset.getString("FILE_PATH")
+								   ,rset.getInt("FILE_LEVEL"));
+				alist.add(at);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return alist;
 	}
 }
