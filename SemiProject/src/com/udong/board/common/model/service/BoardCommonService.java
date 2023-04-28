@@ -113,6 +113,26 @@ public class BoardCommonService {
 		return listCount;
 	}
 
+	public int selectMyPostList(int userNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int listCount = new BoardCommonDao().selectMyPostList(conn, userNo);
+		
+		JDBCTemplate.close(conn);
+		
+		return listCount;
+	}
+
+	public ArrayList<BoardCommon> selectMyPost(PageInfo pi, int userNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<BoardCommon> list = new BoardCommonDao().selectMyPost(conn, pi, userNo);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
+	}
+
 	public int insertEachBoard(BoardCommon b, ArrayList<Attachment> list) {
 		
 		Connection conn = JDBCTemplate.getConnection();

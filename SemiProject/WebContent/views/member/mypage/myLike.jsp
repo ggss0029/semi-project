@@ -262,7 +262,7 @@
                 <a href="<%=request.getContextPath() %>/views/member/mypage/myInfoUpdate.jsp" id="update">개인정보수정</a>
                 <div id="line_3"></div>
 
-                <a href="" id="write_board">작성한 게시글</a>
+                <a href="<%=contextPath %>/myPost.me?cPage=1" id="write_board">작성한 게시글</a>
                 <div id="line_4"></div>
 
                 <a href="<%=request.getContextPath() %>/views/member/mypage/myLike.jsp" id="like_board">좋아요한 게시글</a>

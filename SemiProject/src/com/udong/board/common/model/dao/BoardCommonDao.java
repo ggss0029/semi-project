@@ -407,6 +407,67 @@ public class BoardCommonDao {
 
 	}
 
+	public int selectMyPostList(Connection conn, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		String sql = prop.getProperty("selectMyPostList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return listCount;
+	}
+
+	public ArrayList<BoardCommon> selectMyPost(Connection conn, PageInfo pi, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<BoardCommon> list = new ArrayList<>();
+		String sql = prop.getProperty("selectMyPost");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
+			int endRow = (startRow + pi.getBoardLimit()) -1;
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				BoardCommon bc = new BoardCommon();
+				bc.setBoardNo(rset.getInt("BOARD_NO"));
+				bc.setBoardTitle(rset.getString("BOARD_TITLE"));
+				bc.setBoardName(rset.getString("BOARD_NAME"));
+				bc.setCount(rset.getInt("COUNT"));
+				bc.setCreateDate(rset.getDate("CREATE_DATE"));
+				
+				list.add(bc);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return list;
+	}
+
 	public int insertEachBoard(Connection conn, BoardCommon b) {
 		
 		int result = 0;
@@ -539,4 +600,5 @@ public class BoardCommonDao {
 		}
 		return alist;
 	}
+
 }

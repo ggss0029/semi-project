@@ -33,7 +33,15 @@ public class ProfileController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String myNickname = request.getParameter("myNickname");
 		String nickname = request.getParameter("nickname");
-		int count = new MemberService().recommend(myNickname, nickname);
+		int checkRec = Integer.parseInt(request.getParameter("checkRec"));
+		
+		int count = 0;
+		if(checkRec == 1) { // 미추천
+			count = new MemberService().recommend(myNickname, nickname);
+		}
+		else { // 이미 추천
+			count = new MemberService().unrecommend(myNickname, nickname);
+		}
 		response.getWriter().print(count);
 	}
 

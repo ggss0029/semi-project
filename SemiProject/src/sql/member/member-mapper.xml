@@ -185,4 +185,10 @@
 		                    FROM MEMBER
 		                    WHERE NICKNAME = ?)
 	</entry>
+	
+	<entry key="unrecommend">
+		DELETE FROM MEMBER_RECOMMEND
+		WHERE MY_NO = (SELECT USER_NO FROM MEMBER WHERE NICKNAME = ?)
+				AND FRIEND_NO = (SELECT USER_NO FROM MEMBER WHERE NICKNAME = ?)
+	</entry>
 </properties>
