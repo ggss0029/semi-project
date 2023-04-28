@@ -36,25 +36,16 @@ public class NewsBoardService {
 	}
 
 	//게시글 하나 조회하는 메소드
-	public NewsBoard selectNews(int newsBoardNo) {
+	public NewsBoard selectNews(int boardNo) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		NewsBoard nb = new NewsBoardDao().selectNews(conn, newsBoardNo);
+		NewsBoard nb = new NewsBoardDao().selectNews(conn, boardNo);
 		
 		JDBCTemplate.close(conn);
 		
 		return nb;
 	}
 
-	public NewsAttachment selectNewsAttachment(int newsBoardNo) {
-		Connection conn = JDBCTemplate.getConnection();
-		
-		NewsAttachment na = new NewsBoardDao().selectNewsAttachment(conn, newsBoardNo);
-		
-		JDBCTemplate.close(conn);
-		
-		return na;
-	}
 
 	//댓글 작성
 	public int newsInsertReply(NewsReply r) {

@@ -33,5 +33,16 @@ public class CleanService {
 		return clist;
 	}
 
+	//게시글 하나 조회하는 메소드
+	public CleanBoard selectClean(int boardNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		CleanBoard cb = new CleanDao().selectClean(conn, boardNo);
+		
+		JDBCTemplate.close(conn);
+		
+		return cb;
+	}
+
 
 }

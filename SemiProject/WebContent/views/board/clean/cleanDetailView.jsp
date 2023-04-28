@@ -1,27 +1,26 @@
 <%@page import="com.udong.board.common.model.vo.BoardCommon"%>
-<%@page import="com.udong.board.news.model.vo.NewsAttachment"%>
-<%@page import="com.udong.board.news.model.vo.NewsBoard"%>
-<%@page import="com.udong.board.news.model.vo.*"%>
+<%@page import="com.udong.board.clean.model.vo.CleanBoard"%>
+<%@page import="com.udong.board.clean.model.vo.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
 <%
-	NewsBoard nb = new NewsBoard();
+	CleanBoard cb = new CleanBoard();
 	if(request.getAttribute("bestPost")!=null){
 		BoardCommon b = (BoardCommon)request.getAttribute("bestPost");
-		nb.setBoardTitle(b.getBoardTitle());
-		nb.setBoardWriter(b.getBoardWriter());
-		nb.setCreateDate(b.getCreateDate());
-		nb.setBoardContent(b.getBoardContent());
-	}else if(request.getAttribute("newsBoard")!=null){
-		nb = (NewsBoard)request.getAttribute("newsBoard");
+		cb.setBoardTitle(b.getBoardTitle());
+		cb.setBoardWriter(b.getBoardWriter());
+		cb.setCreateDate(b.getCreateDate());
+		cb.setBoardContent(b.getBoardContent());
+	}else if(request.getAttribute("cleanBoard")!=null){
+		cb = (CleanBoard)request.getAttribute("cleanBoard");
 	}
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>동네 소식</title>
+<title>살림 꿀팁</title>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
@@ -110,7 +109,7 @@ tbody>#tr2 {
 <!-- 			<div id="menubar"></div> -->
 <!-- 		</div> -->
 		<div id="content">
-			<p id="p1">동네 소식</p>
+			<p id="p1">살림 꿀팁</p>
 			<button id="report_btn" class="btn btn-basic">신고하기</button>
 
 			<div id="line_1"></div>
@@ -118,18 +117,18 @@ tbody>#tr2 {
 			<table border="0" align="center" id="detail-area">
 				<tr style="height:80px;">
 					<td colspan="2"
-						style="height: 50px; font-size: 30px; font-weight: 600; border-bottom: 1px solid black;"><%=nb.getBoardTitle()%></td>
+						style="height: 50px; font-size: 30px; font-weight: 600; border-bottom: 1px solid black;"><%=cb.getBoardTitle()%></td>
 				</tr>
 				<tr style="border-bottom: 1px solid black; height:80px;">
 					<td style="height: 50px; font-size: 20px; font-weight: 600; ">
-						<a data-toggle="modal" data-target="#profile"><%=nb.getBoardWriter()%></a>
+						<a data-toggle="modal" data-target="#profile"><%=cb.getBoardWriter()%></a>
 					</td>
 					
 					<td style="height: 50px; font-size: 20px; font-weight: 600;"
-						align="right"><%=nb.getCreateDate()%></td>
+						align="right"><%=cb.getCreateDate()%></td>
 				</tr>
 				<tr style="height: 700px">
-					<td colspan="2" style="height: auto; vertical-align : top "><br><%=nb.getBoardContent()%></td>
+					<td colspan="2" style="height: auto; vertical-align : top "><br><%=cb.getBoardContent()%></td>
 					
 				</tr>
 <!-- 				<tr style="height:60px;"> -->
@@ -158,14 +157,14 @@ tbody>#tr2 {
 					</div>
 					
 				<%
-					if (loginUser != null && loginUser.getNickname().equals(nb.getBoardWriter())) {
+					if (loginUser != null && loginUser.getNickname().equals(cb.getBoardWriter())) {
 				%>
 				<div class="board_btn" style="float: right; margin-right: 70px">
 					<button
-						onclick="location.href = '<%=contextPath%>/newsUpdate.bo?bno=<%=nb.getBoardNo()%>'"
+						onclick="location.href = '<%=contextPath%>/Update.bo?bno=<%=cb.getBoardNo()%>'"
 						class="btn btn-secondary">수정</button>
 					<button
-						onclick="location.href = '<%=contextPath%>/newsDelete.bo?bno=<%=nb.getBoardNo()%>'"
+						onclick="location.href = '<%=contextPath%>/Delete.bo?bno=<%=cb.getBoardNo()%>'"
 						class="btn btn-dark">삭제</button>
 				</div>
 				<%
@@ -178,7 +177,7 @@ tbody>#tr2 {
 			<hr>
 			<div id="tabs">
 				<ul>
-					<li><a href="#tabs-1">댓글</a></li>
+					<li>댓글</li>
 				</ul>
 
 				<%
@@ -231,7 +230,7 @@ tbody>#tr2 {
 				});
 
 				$(function() {
-					newsSelectReplyList();
+					cleanSelectReplyList();
 				});
 
 				//댓글 작성
@@ -239,16 +238,16 @@ tbody>#tr2 {
 					//게시글 번호 필요
 					//게시글 번호 들고가서 성공시 -> 댓글 리스트 조회함수 실행 후 textarea 작성한 것 비워주기
 					$.ajax({
-						url : "newsInsertReply.bo",
+						url : "cleanInsertReply.bo",
 						data : {
 							content : $("#replyContent").val(),
-							newsBoardNo : <%=nb.getBoardNo()%>
+							cleanBoardNo : <%=cb.getBoardNo()%>
 				},
 						type : "post",
 						success : function(result) {
 							if (result > 0) {
 								alert("댓글 작성 완료!");
-								newsSelectReplyList(); //댓글 리스트 갱신
+								cleanSelectReplyList(); //댓글 리스트 갱신
 								$("#replyContent").val(""); // 내용을 작성한 textarea를 다 지워줌
 							}
 						},
@@ -259,12 +258,12 @@ tbody>#tr2 {
 				}
 
 				//댓글 목록 죄회
-				function newsSelectReplyList() {
+				function cleanSelectReplyList() {
 					
 					$.ajax({
-								url : "newsSelectReplyList.bo",
+								url : "cleanSelectReplyList.bo",
 								data : {
-									newsBoardNo : <%=nb.getBoardNo()%>
+									cleanBoardNo : <%=cb.getBoardNo()%>
 										},
 								success : function(rlist) {
 									var result = "";
@@ -281,8 +280,8 @@ tbody>#tr2 {
 													+ "</span>"
 													+ "<span style='font-size: 15px;'>"
 													+ rlist[i].createDate
-													+ "<button id='delete_reply' class='btn btn-dark btn-sm' onclick='newsDeleteReply(" + rlist[i].replyNo+")' style='float:right'>삭제하기</button>"
-													+ "<button id='update_reply' class='btn btn-secondary btn-sm' onclick='newsUpdateReplyForm("+ rlist[i].replyNo + ",\"" + rlist[i].replyWriter + "\"" + ",\"" + rlist[i].createDate + "\"" +",\""+ rlist[i].replyContent+"\");' style='float:right'>수정하기</button>"
+													+ "<button id='delete_reply' class='btn btn-dark btn-sm' onclick='cleanDeleteReply(" + rlist[i].replyNo+")' style='float:right'>삭제하기</button>"
+													+ "<button id='update_reply' class='btn btn-secondary btn-sm' onclick='cleanUpdateReplyForm("+ rlist[i].replyNo + ",\"" + rlist[i].replyWriter + "\"" + ",\"" + rlist[i].createDate + "\"" +",\""+ rlist[i].replyContent+"\");' style='float:right'>수정하기</button>"
 													+ "</span><br>"
 													+ "<p class='list-group-item-text'>"
 													+ rlist[i].replyContent
@@ -302,16 +301,16 @@ tbody>#tr2 {
 					
 				
 					//댓글 삭제
-					function newsDeleteReply(replyNo) {
+					function cleanDeleteReply(replyNo) {
 						
 						$.ajax({
-							url : "newsDeleteReply.bo",
+							url : "cleanDeleteReply.bo",
 							data : { replyNo : replyNo }, 
 							type : "get",
 							success : function(result) {
 								if (result > 0) {
 									alert("댓글 삭제 완료!");
-									newsSelectReplyList(); //댓글 리스트 갱신
+									cleanSelectReplyList(); //댓글 리스트 갱신
 								}
 							},
 							error : function() {
@@ -321,7 +320,7 @@ tbody>#tr2 {
 					}
 					
 					//댓글 수정 폼
-					function newsUpdateReplyForm(replyNo, replyWriter, createDate, replyContent) {
+					function cleanUpdateReplyForm(replyNo, replyWriter, createDate, replyContent) {
 								var result = "";
 									result += "<div id='tabs-1'>"
 											+ "<div class='list-group'>"
@@ -330,8 +329,8 @@ tbody>#tr2 {
 											+ replyWriter
 											+ "&nbsp;&nbsp;&nbsp;&nbsp;"
 											+ createDate
-											+ "<button id='cancel_reply' class='btn btn-dark btn-sm' onclick='newsSelectReplyList()' style='float:right'>취소</button> "
-											+ "<button id='update_reply' class='btn btn-secondary btn-sm' onclick='newsUpdateReply("+replyNo+")' style='float:right'>수정하기</button>"
+											+ "<button id='cancel_reply' class='btn btn-dark btn-sm' onclick='cleanSelectReplyList()' style='float:right'>취소</button> "
+											+ "<button id='update_reply' class='btn btn-secondary btn-sm' onclick='cleanUpdateReply("+replyNo+")' style='float:right'>수정하기</button>"
 											+ "</span>"
 											+ "<p class='list-group-item-text'>"
 											+ "<textarea id='changeContent' rows='3' class='form-control' style='resize: none;'>"+replyContent+"</textarea>"
@@ -344,11 +343,11 @@ tbody>#tr2 {
 					}
 					
 					
-					function newsUpdateReply(replyNo, newContent) {
+					function cleanUpdateReply(replyNo, newContent) {
 						
 						var newContent = $("#changeContent").val();
 						$.ajax({
-							url:"newsUpdateReply.bo",
+							url:"cleanUpdateReply.bo",
 							type:"post",
 							data: {
 								replyNo : replyNo,
@@ -356,7 +355,7 @@ tbody>#tr2 {
 							},
 							success : function(result) {
 								alert("댓글이 수정되었습니다.");
-								newsSelectReplyList();
+								cleanSelectReplyList();
 							},
 							error : function() {
 								alert("댓글 수정 실패...");

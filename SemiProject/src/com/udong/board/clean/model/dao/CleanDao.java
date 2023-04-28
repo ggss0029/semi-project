@@ -105,4 +105,38 @@ private Properties prop = new Properties();
 		}
 		return clist;
 	}
+
+	public CleanBoard selectClean(Connection conn, int boardNo) {
+		CleanBoard cb = new CleanBoard();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("selectClean");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				cb = new CleanBoard(rset.getInt("BOARD_NO")
+									,rset.getString("BOARD_TITLE")
+									,rset.getString("NICKNAME")
+									,rset.getString("BOARD_CONTENT")			
+									,rset.getDate("CREATE_DATE"));
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return cb;
+	}
+		
 }

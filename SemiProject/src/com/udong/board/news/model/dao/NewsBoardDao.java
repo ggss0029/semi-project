@@ -111,7 +111,7 @@ public class NewsBoardDao {
 	}
 
 	//게시글 하나 조회하는 메소드
-	public NewsBoard selectNews(Connection conn, int newsBoardNo) {
+	public NewsBoard selectNews(Connection conn, int boardNo) {
 		NewsBoard nb = new NewsBoard();
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
@@ -121,7 +121,7 @@ public class NewsBoardDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, newsBoardNo);
+			pstmt.setInt(1, boardNo);
 			
 			rset = pstmt.executeQuery();
 			

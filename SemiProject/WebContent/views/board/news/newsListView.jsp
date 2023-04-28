@@ -426,17 +426,11 @@
                         </tbody>
                         </table>
                         <br>
-                        <!-- 로그인 유저가 관리자(admin일떄  글쓰기, 수정, 삭제  가능-->
-                        <%if(loginUser != null && loginUser.getUserId().equals("admin")) { %> 
+                        <!-- 회원, 관리자만 글쓰기 가능 -->
+                        <%if(loginUser != null) { %> 
 	                        <div align="right" id="write_btn">
 	                            <a href="<%=request.getContextPath() %>/views/board/writeBoard.jsp" class="btn btn-light">글쓰기</a>
-	                            <a href="<%=contextPath %>/NewsUpdate.bo" class="btn btn-secondary">수정</a>
-	                            <a href="<%=contextPath %>/NewsDelete.bo" class="btn btn-dark">삭제</a>
 	                        </div>
-                        <%} else if (loginUser != null) {%>
-                        	<div align="right" id="write_btn">
-                            	<a href="<%=contextPath %>/views/board/writeBoard.jsp" class="btn btn-light">글쓰기</a>
-                        	</div>
                         <%} %>
                         <br>
 
