@@ -31,7 +31,7 @@
 	</entry>
 	
 	<!-- 조회수  -->
-	<entry key="increaseCount">
+	<entry key="newsIncreaseCount">
 		UPDATE BOARD
 		SET COUNT = COUNT +1
 		WHERE BOARD_NO = ?
@@ -101,7 +101,7 @@
 	<![CDATA[WHERE RANK <= 10]]>
 	</entry>
 	<!-- 이거필요해요 게시글 리스트 페이지 -->
-	<entry key="getBoardNeedList">
+	<entry key="getBoardFreeList">
 	SELECT
 		*
 	FROM
