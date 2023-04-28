@@ -10,6 +10,7 @@ public class BoardCommon {
 	private String boardContent;
 	private String boardName;
 	private String category;
+	private String region;
 	private int count;
 	private Date createDate;
 	private String status;
@@ -21,8 +22,18 @@ public class BoardCommon {
 	public BoardCommon() {
 		super();
 	}
-	
-	
+
+	public BoardCommon(String boardWriter, String boardTitle, String boardContent, String boardName, String category, String region) {
+		super();
+		this.boardWriter = boardWriter;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.boardName = boardName;
+		this.category = category;
+		this.region = region;
+	}
+
+
 
 	public BoardCommon(int boardNo, String boardWriter, String boardTitle, String boardName, int count, Date createDate,
 			int likeCount) {
@@ -52,7 +63,21 @@ public class BoardCommon {
 		this.likeCount = likeCount;
 	}
 
-
+	public BoardCommon(int boardNo, String boardWriter, String boardTitle, String boardContent, String boardName,
+			String category, String region, int count, Date createDate, int boardReport, int likeCount) {
+		super();
+		this.boardNo = boardNo;
+		this.boardWriter = boardWriter;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.boardName = boardName;
+		this.category = category;
+		this.region = region;
+		this.count = count;
+		this.createDate = createDate;
+		this.boardReport = boardReport;
+		this.likeCount = likeCount;
+	}
 
 	public BoardCommon(int boardNo, String boardWriter, String boardTitle, String boardContent, String boardName,
 			String category, int count, Date createDate, String status, int boardReport, int boardLikeNo,
@@ -95,6 +120,14 @@ public class BoardCommon {
 
 	public void setBoardTitle(String boardTitle) {
 		this.boardTitle = boardTitle;
+	}
+
+	public String getRegion() {
+		return region;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
 	}
 
 	public String getBoardContent() {

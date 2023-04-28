@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.oreilly.servlet.MultipartRequest;
+import com.udong.board.common.model.service.BoardCommonService;
 import com.udong.board.common.model.vo.Attachment;
+import com.udong.board.common.model.vo.BoardCommon;
 import com.udong.common.MyFileRenamePolicy;
 
 /**
@@ -48,18 +50,32 @@ public class WriteBoardControllerServlet extends HttpServlet {
 			int maxSize = 20 * 1024 * 1024;
 			
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/");
+			
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath,maxSize,"UTF-8",new MyFileRenamePolicy());
-			int userNo = Integer.parseInt(multiRequest.getParameter("userNo"));
-			String boardCategory = multiRequest.getParameter("boardCategory");
-			String detailCategory = multiRequest.getParameter("detailCategory");
-			String restaurantName = multiRequest.getParameter("restaurantName");
-			String restaurantAddress = multiRequest.getParameter("restaurantAddress");
-			String title = multiRequest.getParameter("title");
-			String content = multiRequest.getParameter("content");
+			String nickname = multiRequest.getParameter("userNickname");
+			String boardName = multiRequest.getParameter("boardCategory");
+			String boardTitle = multiRequest.getParameter("title");
+			String boardContent = multiRequest.getParameter("content");
+			String category = multiRequest.getParameter("detailCategory");
+			String region;
+			if(boardName.equals("동네 맛집")) {
+				region = multiRequest.getParameter("restaurantName") + "$" + multiRequest.getParameter("restaurantAddress");
+			}else if(boardName.equals("동네 소식") || boardName.equals("나눔 할게요") || boardName.equals("같이 사요") || boardName.equals("같이 해요")) {
+				region = multiRequest.getParameter("city")+" "+multiRequest.getParameter("country"); 
+			}else {
+				region = null;
+			}
+			BoardCommon b = new BoardCommon();
+				b.setBoardWriter(nickname);
+				b.setBoardName(boardName);
+				b.setBoardTitle(boardTitle);
+				b.setBoardContent(boardContent);
+				b.setCategory(category);
+				b.setRegion(region);
 			
 			ArrayList<Attachment> list = new ArrayList<>();
 			
-			for(int i=1; i<=4; i++) {
+			for(int i=0; i<=Integer.parseInt(multiRequest.getParameter("fileLength")); i++) {
 				String key = "file"+i;
 				if(multiRequest.getOriginalFileName(key) != null) {
 					Attachment at = new Attachment();
@@ -67,18 +83,23 @@ public class WriteBoardControllerServlet extends HttpServlet {
 					at.setChangeName(multiRequest.getFilesystemName(key));
 					at.setFilePath("/resources/");
 					
-					if(i==1) {
+					if(i==0) {
 						at.setFileLevel(1);
 					}else {
 						at.setFileLevel(2);
 					}
-					
 					list.add(at);
 				}
 			}
-		}else {
+			int result = new BoardCommonService().insertEachBoard(b,list);
 			
+			if(result>0) {
+				request.getSession().setAttribute("alertMsg", "게시글 작성 완료");
+				response.sendRedirect(request.getHeader("Referer"));
+			}else {
+				request.setAttribute("errorMsg", "게시글 작성 실패");
+				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			}
 		}
 	}
-
 }

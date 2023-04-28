@@ -144,7 +144,7 @@
 							<button type="button" class="btn btn-secondary">쓴글보기</button>
 						</div>
 						<br>
-						<button type="button" class="btn btn-primary" style="width: 200px; height: 80px;" id="rec" onclick="recommend();">
+						<button type="button" class="btn" style="width: 200px; height: 80px;" id="rec" onclick="recommend();">
 							<p align="left" style="margin-left: 5px;">추천&#128077;</p><p id="p_recommend" style="font-weight: 500; font-size: 35px; margin-bottom: 10px;">1004</p>
 						</button>
 					</div>
@@ -200,11 +200,15 @@
 	    			url: "profile.me",
 	    			data: {
 	    				myNickname: "<%=loginUser.getNickname()%>",
-			    		nickname: $("#p_nickname").children().html()
+			    		nickname: $("#p_nickname").children().html(),
+			    		checkRec: $checkRec
 	    			},
 	    			success: function(count) {
-	    				if(count == $("#p_recommend").text()) {
-	    					alert("추천 실패");
+	    				if(count > $("#p_recommend").text()) { //추천
+	    					alert("추천 완료");
+	    					$("#p_recommend").text(count);
+	    					$("#rec").removeClass("btn-outline-primary");
+			    			$("#rec").addClass("btn-primary");
 	    				}
 	    				else {
 		    				alert("추천 왼료");

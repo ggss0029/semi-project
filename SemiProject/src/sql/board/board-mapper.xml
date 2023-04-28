@@ -31,7 +31,7 @@
 	</entry>
 	
 	<!-- 조회수  -->
-	<entry key="newsIncreaseCount">
+	<entry key="increaseCount">
 		UPDATE BOARD
 		SET COUNT = COUNT +1
 		WHERE BOARD_NO = ?
@@ -101,7 +101,7 @@
 	<![CDATA[WHERE RANK <= 10]]>
 	</entry>
 	<!-- 이거필요해요 게시글 리스트 페이지 -->
-	<entry key="getBoardFreeList">
+	<entry key="getBoardNeedList">
 	SELECT
 		*
 	FROM
@@ -120,13 +120,13 @@
 			BOARD B 
 		JOIN MEMBER M ON (B.BOARD_WRITER = M.USER_NO)
 		) A
-	WHERE A.BOARD_NAME = '자유 게시판'
+	WHERE A.BOARD_NAME = '이거 필요해요'
 	AND A.RNUM BETWEEN ? AND ?
 	</entry>
 	
 	
 	<!-- 이거필요해요 검색페이지 -->
-	<entry key="BoardFreeWithSearch">
+	<entry key="BoardNeedWithSearch">
 		SELECT
 		*
 	FROM
@@ -153,11 +153,14 @@
 	
 	
 	
-	<entry key="getBoardFreeListCount">
-	SELECT 
-		*COUNT(BOARD_NO) AS COUNT 
-	FROM BOARD
-	WHERE BOARD_NAME = '자유 게시판'
+	<entry key="getBoardNeedListCount">
+	SELECT
+		*
+	FROM 
+		BOARD
+		WHERE STATUS = 'Y'
+		AND BOARD_NAME = '이거 필요해요'
+	
 	</entry>
 	
 	
