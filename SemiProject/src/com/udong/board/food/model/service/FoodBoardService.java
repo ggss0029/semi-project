@@ -21,7 +21,7 @@ public class FoodBoardService {
 	public ArrayList<FoodBoard> selectFoodList(PageInfo pi) {
 		
 		Connection conn = JDBCTemplate.getConnection();
-		ArrayList<FoodBoard> list = new FoodBoardDao().selectFoodList(conn);
+		ArrayList<FoodBoard> list = new FoodBoardDao().selectFoodList(conn,pi);
 		JDBCTemplate.close(conn);
 		return list;
 	}
