@@ -214,6 +214,7 @@
                           }else{
                         	  $("#restaurantDiv").css("display","none");
                         	  $("#cityCategory").css("display","none");
+                        	  $("#imgDiv").css("display","none");
                           }
                         }
                         </script>
