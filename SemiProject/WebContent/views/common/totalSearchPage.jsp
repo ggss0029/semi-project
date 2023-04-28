@@ -273,7 +273,7 @@
                 };
             </script>
         </div>
-        <div id="footer"></div>
     </div>
+    <%@ include file = "footer.jsp" %>
 </body>
 </html>

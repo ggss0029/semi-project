@@ -959,6 +959,26 @@ public class MemberDao {
 		return list;
 	}
 
+	public int unrecommend(Connection conn, String myNickname, String nickname) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("unrecommend");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, myNickname);
+			pstmt.setString(2, nickname);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
 	
 
 	
