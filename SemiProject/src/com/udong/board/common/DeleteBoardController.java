@@ -76,7 +76,7 @@ public class DeleteBoardController extends HttpServlet {
 		}
 		else { // 삭제 실패
 			request.setAttribute("errorMsg", "게시판 삭제 실패");
-			request.getRequestDispatcher("views/oommon/errorPage.jsp").forward(request, response);
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 	}
 

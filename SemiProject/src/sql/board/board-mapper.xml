@@ -367,4 +367,10 @@
 		FROM BOARD
 		WHERE STATUS = 'Y' AND BOARD_NAME='동네 맛집'
 	</entry>
+	
+	<entry key="deletePost">
+		UPDATE BOARD
+		SET STATUS = 'N'
+		WHERE BOARD_NO = ? AND STATUS = 'Y'
+	</entry>
 </properties>
