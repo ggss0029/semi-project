@@ -180,10 +180,12 @@
 			    		$("#p_introduction").children().text(member.introduction);
 			    		$("#p_recommend").text(member.recommended);
 			    		if (member.checkRec == 1) { // 추천 불가능
-			    			$("#rec").attr("disabled", true);
+			    			$("#rec").removeClass("btn-outline-primary");
+			    			$("#rec").addClass("btn-primary");
 			    		}
 			    		else {
-			    			$("#rec").attr("disabled", false);
+			    			$("#rec").removeClass("btn-primary");
+			    			$("#rec").addClass("btn-outline-primary");
 			    		}
 			    	},
 			    	error: function() {
@@ -195,6 +197,11 @@
     	};
     	
     	function recommend() {
+    		var $checkRec = 0; 
+    		if($("#rec").hasClass("btn-outline-primary")) {
+				$checkRec = 1;
+			}
+    		
     		<%if(loginUser != null) {%>
 	    		$.ajax({
 	    			url: "profile.me",
@@ -211,9 +218,10 @@
 			    			$("#rec").addClass("btn-primary");
 	    				}
 	    				else {
-		    				alert("추천 왼료");
+		    				alert("추천 취소");
 	    					$("#p_recommend").text(count);
-				    		$("#rec").attr("disabled", true);
+	    					$("#rec").removeClass("btn-primary");
+			    			$("#rec").addClass("btn-outline-primary");
 	    				}
 	    			},
 	    			error: function() {
