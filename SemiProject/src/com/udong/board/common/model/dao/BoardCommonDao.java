@@ -602,6 +602,7 @@ public class BoardCommonDao {
 	}
 
 	public int deletePost(Connection conn, int boardNo) {
+		System.out.println(boardNo);
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String sql = prop.getProperty("deletePost");
@@ -613,6 +614,8 @@ public class BoardCommonDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
 		}
 		
 		return result;
