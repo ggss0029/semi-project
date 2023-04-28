@@ -295,4 +295,23 @@ public class MemberService {
 		return count;
 	}
 
+	public int unrecommend(String myNickname, String nickname) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new MemberDao().unrecommend(conn, myNickname, nickname);
+		
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}
+		else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		int count = new MemberDao().getRecommend(conn, nickname);
+		
+		JDBCTemplate.close(conn);
+		
+		return count;
+	}
+
 }
