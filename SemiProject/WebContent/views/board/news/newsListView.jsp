@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, com.udong.board.news.model.vo.NewsBoard"%>
 <%
-ArrayList<NewsBoard> nlist = (ArrayList<NewsBoard>)request.getAttribute("nlist");
+	ArrayList<NewsBoard> nlist = (ArrayList<NewsBoard>)request.getAttribute("nlist");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 %>
 <!DOCTYPE html>
