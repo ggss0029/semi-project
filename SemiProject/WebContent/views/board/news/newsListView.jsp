@@ -2,7 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, com.udong.board.news.model.vo.NewsBoard"%>
 <%
-	ArrayList<NewsBoard> nlist = (ArrayList<NewsBoard>)request.getAttribute("nlist");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 %>
 <!DOCTYPE html>
@@ -299,7 +298,7 @@
                 <a href="<%=contextPath %>/newsList.bo?currentPage=1" id="news">동네 소식</a>
                 <div id="line_2"></div>
                 
-                <a href="<%=request.getContextPath() %>/views/board/clean/cleanListView.jsp" id="clean">살림 꿀팁</a>
+                <a href="<%=contextPath %>/cleanList.bo?currentPage=1" id="clean">살림 꿀팁</a>
                 <div id="line_3"></div>
                 
                 <a href="" id="recipe">자취 레시피</a>
@@ -312,12 +311,11 @@
 
                     <div id="box">
                         <p id="b1">지역선택</p>
-                        <form name="form" method="post" action="">
-	                        <div id="location">
+                        <form action="<%=contextPath %>/newsList.bo" id="newsSearch">
 	                            <input type="hidden" name="currentPage" value="<%=pi.getCurrentPage() %>">
-	                            
+	                        <div id="location">
 	                                	시/도:
-	                                <select name='city' onchange="change(this.selectedIndex);"  class=input >
+	                                <select name="city" id="city" onchange="change(this.selectedIndex);"  class=input >
 	                                    <option value='전체'>전체</option>
 	                                    <option value='서울'>서울특별시</option>
 	                                    <option value='부산'>부산광역시</option>
@@ -337,7 +335,7 @@
 	                                    <option value='제주'>제주도</option>
 	                                </select>                                                  
 	                                	구/군:
-	                                <select name='county'  class=select>
+	                                <select name="county" id="county" class=select>
 	                                    <option value=''>전체</option>
 	                                </select>
 	                            
@@ -345,35 +343,41 @@
 	                        <br><br><br>
 	                        <p id="b2">카테고리</p>
 	                        
-	                        <div id="category">
+	                        <div id="category" name="category">
 	                            <input type="checkbox" id="real_time"> <label for="real_time">실시간 우동</label> 
-	                            <input type="checkbox" id="festival" > <label for="festival">행사/축제</label> 
+	                            <input type="checkbox" id="event"><label for="event">행사</label> 
+	                            <input type="checkbox" id="festival" > <label for="festival">축제</label> 
 	                            <input type="checkbox" id="open"> <label for="open">신장 개업</label>
 	                            <input type="checkbox" id="danger"> <label for="danger">사건/사고</label>
-	                            <input type="checkbox" id="lost"> <label for="lost">분실/실종</label>
+	                            <input type="checkbox" id="lost"> <label for="lost">분실</label>
+	                           	<input type="checkbox" id="none"> <label for="none">실종</label>
+	                           	<input type="checkbox" id="others"> <label for="others">기타</label>
+	                           	
 	                        </div>
 	                        <br><br><br>
 	                        
 	
 	                        <div align="center">
 	                            <button type="reset" class="btn btn-light">초기화</button>
-	                            <button class="btn btn-primary">검색</button>
+	                            <button type="submit" class="btn btn-primary">검색</button>
 	                        </div>
-                        </form> 
+	                        </form>
                     </div>
                     <div id="line_6"></div>
-
+					<div id="newsList"></div>
                     <table class="list-area" border="0" align="center">
                         <thead style="height: 50px; border-top:3px solid black; border-bottom:3px solid black;">
+                        <tr>
                             <th width="70">No.</th>
                             <th width="440">제목</th>
                             <th width="150">작성자</th>
                             <th width="150">작성일</th>
                             <th width="65">조회</th>
                             <th width="65">좋아요</th>
+                        </tr>
                         </thead>
                         <tbody>
-                        	<!-- 리스트 20개씩 출력? -->
+                        	<!-- 리스트 10개씩 출력? -->
                         	<%if(nlist.isEmpty()) {%> <!-- 만약 리스트가 비어있다면 -->
                         		<tr>
                         			<td colspan="6">글이 존재하지 않습니다</td>
@@ -383,7 +387,7 @@
 		                        	<tr style="height: 40px; border-bottom:1px solid black;">
 		                                <td><%=nb.getBoardNo() %></td> <!-- No. -->
 		                                <td><%=nb.getBoardTitle() %></td> <!-- 제목 -->
-		                                <td><a data-toggle="modal" data-target="#profile" onclick="profile();"><%=nb.getBoardWriter() %></a> </td> <!-- 작성자  닉네임 -->
+		                                <td><a id="nicknameHover" onclick="whoareyou();"><%=nb.getBoardWriter() %></a> </td> <!-- 작성자  닉네임 -->
 		                                <td><%=nb.getCreateDate() %></td> <!-- 작성한 날짜 -->
 		                                <td><%=nb.getCount() %></td> <!-- 조회수 -->
 		                                <td><%=nb.getLikeCount() %></td> <!-- 좋아요한 수 -->
@@ -421,17 +425,11 @@
                         </tbody>
                         </table>
                         <br>
-                        <!-- 로그인 유저가 관리자(admin일떄  글쓰기, 수정, 삭제  가능-->
-                        <%if(loginUser != null && loginUser.getUserId().equals("admin")) { %> 
+                        <!-- 회원, 관리자만 글쓰기 가능 -->
+                        <%if(loginUser != null) { %> 
 	                        <div align="right" id="write_btn">
 	                            <a href="<%=request.getContextPath() %>/views/board/writeBoard.jsp" class="btn btn-light">글쓰기</a>
-	                            <a href="<%=contextPath %>/NewsUpdate.bo" class="btn btn-secondary">수정</a>
-	                            <a href="<%=contextPath %>/NewsDelete.bo" class="btn btn-dark">삭제</a>
 	                        </div>
-                        <%} else if (loginUser != null) {%>
-                        	<div align="right" id="write_btn">
-                            	<a href="<%=contextPath %>/views/board/writeBoard.jsp" class="btn btn-light">글쓰기</a>
-                        	</div>
                         <%} %>
                         <br>
 
@@ -482,10 +480,10 @@
 
             </div>
         </div>
-    </div>
+<!--     </div> -->
 
 	
-    <script language='javascript'>
+    <script>
     
     $(function(){
     	//.list-area클래스 자손tbody 자손tr 클릭됐을때
@@ -528,17 +526,67 @@
         cnt[15] = new Array('전체','거제시','김해시','마산시','밀양시','사천시','울산시','진주시','진해시','창원시','통영시','거창군','고성군','남해군','산청군','양산시','의령군','창녕군','하동군','함안군','함양군','합천군');
         cnt[16] = new Array('전체','서귀포시','제주시','남제주군','북제주군');
         function change(add) {
-        sel=document.form.county
-          /* 옵션메뉴삭제 */
-          for (i=sel.length-1; i>=0; i--){
-            sel.options[i] = null
-            }
-          /* 옵션박스추가 */
-          for (i=0; i < cnt[add].length;i++){                     
-                            sel.options[i] = new Option(cnt[add][i], cnt[add][i]);
-            }         
+//         sel=document.getElementById("location")>county
+//           /* 옵션메뉴삭제 */
+//           for (i=sel.length-1; i>=0; i--){
+//             sel.options[i] = null
+//             }
+//           /* 옵션박스추가 */
+//           for (i=0; i < cnt[add].length;i++){                     
+//                             sel.options[i] = new Option(cnt[add][i], cnt[add][i]);
+//             }        
+		for (i=$("#county").children().length-1; i>=0; i--){
+			$("#county").children().remove();
+		}
+		for (i=0; i < cnt[add].length;i++){
+			$("#county").append("<option>"+cnt[add][i]+"</option>");
+		}
         }
    
+//         function newsSearch() {
+//         	$.ajax({
+//         		url : "newsSearch.bo",
+//         		data : {
+//         				city : $("#city").val(),
+//         				county : $("#county").val(),
+//         				category : $("#category").val(),
+        				
+//         		},
+//         		success : function(nlist) {
+//         			var result = "";
+//         			if(rlist.length <1) {
+//         				result = "검색 결과가 없습니다."
+//         			}else {
+//         				$(".list-area").children("thead").children().remove();
+//         				$(".list-area thead").html("<tr>"
+//                         +"<th style='width:7%;'>글 번호</th>"
+//                         +"<th style='width:17%;'>게시판 이름</th>"
+//                         +"<th style='width:38%;'>제목</th>"
+//                         +"<th style='width:18%;'>작성자</th>"
+//                         +"<th style='width:9%;'>조회수</th>"
+//                         +"<th style='width:11%;'>좋아요 수</th>"
+//                     	+"</tr>");
+//         				for(var i = 0; i<nlist.length; i++){
+//         					result += "<tr>"
+// 										+ "<td>"+nlist[i].boardNo+ "</td>"
+// 										+ "<td>"+nlist[i].boardName + "</td>"
+// 										+ "<td>"+nlist[i].boardTitle + "</td>"
+// 										+ "<td>"+nlist[i].boardWriter + "</td>"
+// 										+ "<td>"+nlist[i].count + "</td>"
+// 										+ "<td>"+nlist[i].likeCount + "</td>"
+// 										+"</tr>";
+//         				}
+//         			}
+//         			$(".list-area").children("tbody").children().remove();
+//         			$(".list-area tbody").html(result);
+//         		}, 
+        	
+//         		error : function() {
+//         			alert.log("통신 실패!");
+//         		}
+        		
+//         	});
+//         };
    </script>
    <%@ include file = "../../common/footer.jsp" %>
 </body>

@@ -45,7 +45,6 @@
         #footer{
             width: 100%;
             height: 10%;
-            background-color: darkblue;
         }
         #header>div{
             width: 100%;
@@ -56,7 +55,6 @@
         }
         #menubar{
             height: 33%;
-            background-color: orange;
         }
         #content>div{
             height: 100%;
@@ -65,7 +63,6 @@
         
         #content_1{
             width: 25%;
-            background-color: yellow;
         }
         #content_2{
             width: 75%;

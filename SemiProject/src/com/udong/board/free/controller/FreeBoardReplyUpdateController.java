@@ -1,4 +1,4 @@
-package com.udong.board.need.controller;
+package com.udong.board.free.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,21 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.udong.board.need.model.NeedBoardService;
-import com.udong.board.need.vo.NeedReply;
-import com.udong.member.model.vo.Member;
-
 /**
- * Servlet implementation class NeedBoardReplyListController
+ * Servlet implementation class FreeBoardReplyUpdateController
  */
-@WebServlet("/NeedBoardReplyInsert.me")
-public class NeedBoardReplyInsertController extends HttpServlet {
+@WebServlet("/ReplyUpdate.bo")
+public class FreeBoardReplyUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NeedBoardReplyInsertController() {
+    public FreeBoardReplyUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,22 +34,8 @@ public class NeedBoardReplyInsertController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String content = request.getParameter("content");
-		int needBoardNo = Integer.parseInt(request.getParameter("bno"));
-		
-		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-		int userNo = loginUser.getUserNo();
-		
-		NeedReply r = new NeedReply();
-		r.setReplyContent(content);
-		r.setRefBno(needBoardNo);
-		r.setReplyWriter(String.valueOf(userNo));
-		
-		int result = new NeedBoardService().needInsertReply(r);
-		
-		response.getWriter().print(result);
-		
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

@@ -87,6 +87,14 @@
 		WHERE REPLY_NO = ?
 		AND STATUS = 'Y'
 	</entry>
+	
+	<!-- 동네 소식 게시글 삭제 -->
+	<entry key="deleteNewsBoard">
+		UPDATE BOARD
+		SET STATUS = 'N'
+		WHERE BOARD_NO = ?
+		AND STATUS = 'Y'
+	</entry>
 
 	<entry key="bestPostList">
 	SELECT *
@@ -100,8 +108,8 @@
 	    ORDER BY COUNT DESC)
 	<![CDATA[WHERE RANK <= 10]]>
 	</entry>
-	<!-- 이거필요해요 게시글 리스트 페이지 -->
-	<entry key="getBoardNeedList">
+	<!-- 자유 게시판 게시글 리스트 페이지 -->
+	<entry key="getBoardFreeList">
 	SELECT
 		*
 	FROM
@@ -120,13 +128,13 @@
 			BOARD B 
 		JOIN MEMBER M ON (B.BOARD_WRITER = M.USER_NO)
 		) A
-	WHERE A.BOARD_NAME = '이거 필요해요'
+	WHERE A.BOARD_NAME = '자유 게시판'
 	AND A.RNUM BETWEEN ? AND ?
 	</entry>
 	
 	
-	<!-- 이거필요해요 검색페이지 -->
-	<entry key="BoardNeedWithSearch">
+	<!-- 자유게시판 검색페이지 -->
+	<entry key="BoardFreeWithSearch">
 		SELECT
 		*
 	FROM
@@ -145,7 +153,7 @@
 			BOARD B 
 		JOIN MEMBER M ON (B.BOARD_WRITER = M.USER_NO)
 		) A
-	WHERE A.BOARD_NAME = '이거 필요해요'
+	WHERE A.BOARD_NAME = '자유 게시판'
 	AND A.RNUM BETWEEN ? AND ?
 	AND (BOARD_TITLE LIKE '%'||?||'%' OR BOARD_CONTENT LIKE '%'||?||'%')	
 	</entry>
@@ -153,13 +161,13 @@
 	
 	
 	
-	<entry key="getBoardNeedListCount">
+	<entry key="getBoardFreeListCount">
 	SELECT
 		*
 	FROM 
 		BOARD
 		WHERE STATUS = 'Y'
-		AND BOARD_NAME = '이거 필요해요'
+		AND BOARD_NAME = '자유 게시판'
 	
 	</entry>
 	
@@ -227,6 +235,42 @@
                  GROUP BY BOARD_NO,NICKNAME,BOARD_TITLE,BOARD_NAME,COUNT,CREATE_DATE
                  ORDER BY COUNT DESC) A )
 	WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<!-- 살림꿀팁 총 게시글 개수 구하기 -->
+	<entry key="cleanSelectListCount">
+		SELECT COUNT(*) COUNT
+		FROM BOARD
+		WHERE STATUS = 'Y'
+		AND BOARD_NAME = '살림 꿀팁' 
+	</entry>
+	
+	<!-- 살림꾹팁 리스트 불러오기) -->
+	<entry key="cleanSelectList">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+        		FROM (SELECT BOARD_NO, BOARD_TITLE, NICKNAME, CREATE_DATE, COUNT, COUNT(BOARDLIKE_NO) LIKE_COUNT
+		        		FROM BOARD B
+		        		JOIN MEMBER M ON (BOARD_WRITER = USER_NO)
+		        		LEFT JOIN BOARD_LIKE ON (BOARDLIKE_NO = BOARD_NO)
+		        		WHERE B.STATUS ='Y' AND BOARD_NAME = '살림 꿀팁'
+		        		GROUP BY BOARD_NO, BOARD_TITLE, NICKNAME, CREATE_DATE, COUNT
+		        		ORDER BY BOARD_NO DESC) A )
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="newsBoardSearch">
+	SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+        		FROM (SELECT BOARD_NO, BOARD_TITLE, NICKNAME, CREATE_DATE, COUNT, COUNT(BOARDLIKE_NO) LIKE_COUNT
+		        		FROM BOARD B
+		        		JOIN MEMBER M ON (BOARD_WRITER = USER_NO)
+		        		LEFT JOIN BOARD_LIKE ON (BOARDLIKE_NO = BOARD_NO)
+		        		WHERE B.STATUS ='Y' AND BOARD_NAME = '동네 소식'
+		        				AND (REGION = ? OR CATEGORY = ?)
+		        		GROUP BY BOARD_NO, BOARD_TITLE, NICKNAME, CREATE_DATE, COUNT
+		        		ORDER BY BOARD_NO DESC) A )
+		WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
 	<entry key="lastestPostList">
@@ -306,5 +350,21 @@
 	LEFT JOIN BOARD_LIKE BL ON BOARD_NO = BOARDLIKE_NO
 	WHERE B.STATUS = 'Y' AND BOARD_NO = ?
 	GROUP BY BOARD_NO,NICKNAME,BOARD_TITLE,BOARD_CONTENT,BOARD_NAME,CATEGORY,COUNT,CREATE_DATE,REGION,BOARD_REPORT
+	</entry>
+	
+	<!-- 살림꿀팁 게시글 하나 조회 -->
+	<entry key="selectClean">
+		SELECT BOARD_NO, BOARD_TITLE, NICKNAME, CREATE_DATE, BOARD_CONTENT
+		FROM BOARD B
+		JOIN MEMBER M ON (BOARD_WRITER = USER_NO)
+		WHERE B.STATUS = 'Y'
+		AND BOARD_NAME = '살림 꿀팁'
+		AND BOARD_NO = ?
+	</entry>
+	
+	<entry key="foodSelectListCount">
+		SELECT COUNT(*) COUNT
+		FROM BOARD
+		WHERE STATUS = 'Y' AND BOARD_NAME='동네 맛집'
 	</entry>
 </properties>

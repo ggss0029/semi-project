@@ -441,7 +441,7 @@
 	                	<a href="<%=contextPath%>/sendLetterList.le?writerNo=<%=loginUser.getUserNo()%>&currentPage=1"><img alt="쪽지아이콘" src="<%=contextPath %>/views/common/icons/쪽지함.png" style="width: 70px; height:70px;"><br>쪽지함</a>
 	                </div>
 	                <div id="likeBoard">
-	                	<a href="https://www.daum.net"><img alt="좋아요게시글 아이콘" src="<%=contextPath %>/views/common/icons/관심.png" style="width: 70px; height:70px;"><br>관심</a>
+	                	<a href="<%=contextPath %>/likeList.me?currentPage=1"><img alt="좋아요게시글 아이콘" src="<%=contextPath %>/views/common/icons/관심.png" style="width: 70px; height:70px;"><br>관심</a>
 	                </div>
 	            </div>
         	</div>
@@ -486,10 +486,10 @@
                 <a style="cursor: default;">정보 공유</a>
                 <ul>
                     <li><a href="<%=contextPath %>/newsList.bo?currentPage=1">동네 소식</a></li>
-                    <li><a href="<%=contextPath %>/views/board/clean/cleanListView.jsp">살림 꿀팁</a></li>
+                    <li><a href="<%=contextPath %>/cleanList.bo?currentPage=1">살림 꿀팁</a></li>
                     <li><a href="">자취 레시피</a></li>
                 </ul>
-            </li><li><a href="">동네 맛집</a></li><li>
+            </li><li><a href="<%=contextPath %>/foodList.bo?currentPage=1">동네 맛집</a></li><li>
                 <a style="cursor: default;">나눔</a>
                 <ul>
                     <li><a href="">나눔할게요</a></li>

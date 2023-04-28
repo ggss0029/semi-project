@@ -111,7 +111,7 @@ public class NewsBoardDao {
 	}
 
 	//게시글 하나 조회하는 메소드
-	public NewsBoard selectNews(Connection conn, int newsBoardNo) {
+	public NewsBoard selectNews(Connection conn, int boardNo) {
 		NewsBoard nb = new NewsBoard();
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
@@ -121,7 +121,7 @@ public class NewsBoardDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, newsBoardNo);
+			pstmt.setInt(1, boardNo);
 			
 			rset = pstmt.executeQuery();
 			
@@ -279,6 +279,72 @@ public class NewsBoardDao {
 		
 		return result;
 	}
+
+	public ArrayList<NewsBoard> newsBoardSearch(Connection conn, PageInfo pi, String region, String category) {
+		ArrayList<NewsBoard> nlist = new ArrayList<>();
+		
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("newsBoardSearch");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() -1) * pi.getBoardLimit() +1;
+			int endRow = (startRow + pi.getBoardLimit()) -1;
+			
+			pstmt.setString(1, region);
+			pstmt.setString(2, category);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				nlist.add(new NewsBoard(rset.getInt("BOARD_NO")
+										,rset.getString("NICKNAME")
+										,rset.getString("BOARD_TITLE")
+										,rset.getInt("COUNT")
+										,rset.getDate("CREATE_DATE")
+										,rset.getInt("LIKE_COUNT")));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return nlist;
+	}
+
+
+	//동네소식 게시글 삭제
+	public int deleteNewsBoard(Connection conn, int newsBoardNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteNewsBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, newsBoardNo); 
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+	
 
 	
 

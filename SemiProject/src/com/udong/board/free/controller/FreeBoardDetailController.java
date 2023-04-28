@@ -1,4 +1,4 @@
-package com.udong.board.need.controller;
+package com.udong.board.free.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,19 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.udong.board.need.model.NeedBoardService;
+import com.udong.board.free.model.service.FreeBoardService;
 
 /**
- * Servlet implementation class NeedBoardDeleteController
+ * Servlet implementation class FreeBoardDetailController
  */
-@WebServlet("/NeedDelete")
-public class NeedBoardDeleteController extends HttpServlet {
+@WebServlet("/FreeDetail.bo")
+public class FreeBoardDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NeedBoardDeleteController() {
+    public FreeBoardDetailController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,10 +29,20 @@ public class NeedBoardDeleteController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		int bno = Integer.parseInt(request.getParameter("bno"));
 		
-		int result = new NeedBoardService().deleteBoard(boardNo);
+		// 조회수증가 게시글 조회 첨부파일 조회
 		
+		FreeBoardService freeService =  new FreeBoardService();
+		
+		int result = freeService.increaseCount(bno);
+		
+		if(result>0) {
+			
+		}
+			
+		
+	
 	}
 
 	/**

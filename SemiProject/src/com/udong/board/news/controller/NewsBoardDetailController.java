@@ -44,10 +44,8 @@ public class NewsBoardDetailController extends HttpServlet {
 		//조회수 증가가 잘 되었다면 해당 게시글 정보 조회해오기
 		if(result>0) {
 			NewsBoard nb = new NewsBoardService().selectNews(boardNo);
-			NewsAttachment na = new NewsBoardService().selectNewsAttachment(boardNo);
 //			System.out.println(nb); //null나오는데 맞는건가?
 			request.setAttribute("newsBoard", nb);
-			request.setAttribute("NewsAttachment", na);
 			
 			request.getRequestDispatcher("views/board/news/newsDetailView.jsp").forward(request, response);
 		}else { //조회수 증가 실패했다면 에러페이지로 보내버리기!

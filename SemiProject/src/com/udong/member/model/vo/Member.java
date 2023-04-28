@@ -22,6 +22,21 @@ public class Member {
 	private int recommended; // 추천갯수
 	private int checkRec; // profile에서 내가 그 사람 추천했는지 확인용
 	
+	
+	//회원정보수정 멤버변수
+	public Member(String userId, String userName, String nickname, String birthday, String gender,
+			 String email, String address, String introduction) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.nickname = nickname;
+		this.birthday = birthday;
+		this.gender = gender;
+		this.email = email;
+		this.address = address;
+		this.introduction = introduction;
+	}
+
 	public String getIntroduction() {
 		return introduction;
 	}
@@ -56,19 +71,6 @@ public class Member {
 		this.nickname = nickname;
 		this.address = address;
 		this.enrollDate = enrollDate;
-	}
-
-	public Member(String userId, String userName, String nickname, String birthday, String gender, String introduction,
-			String email, String address) {
-		super();
-		this.userId = userId;
-		this.userName = userName;
-		this.nickname = nickname;
-		this.birthday = birthday;
-		this.gender = gender;
-		this.introduction = introduction;
-		this.email = email;
-		this.address = address;
 	}
 
 	public Member(String userId, String userPwd, String userName, String nickname, String birthday, String gender,

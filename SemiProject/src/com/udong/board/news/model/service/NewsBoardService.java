@@ -36,25 +36,16 @@ public class NewsBoardService {
 	}
 
 	//게시글 하나 조회하는 메소드
-	public NewsBoard selectNews(int newsBoardNo) {
+	public NewsBoard selectNews(int boardNo) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		NewsBoard nb = new NewsBoardDao().selectNews(conn, newsBoardNo);
+		NewsBoard nb = new NewsBoardDao().selectNews(conn, boardNo);
 		
 		JDBCTemplate.close(conn);
 		
 		return nb;
 	}
 
-	public NewsAttachment selectNewsAttachment(int newsBoardNo) {
-		Connection conn = JDBCTemplate.getConnection();
-		
-		NewsAttachment na = new NewsBoardDao().selectNewsAttachment(conn, newsBoardNo);
-		
-		JDBCTemplate.close(conn);
-		
-		return na;
-	}
 
 	//댓글 작성
 	public int newsInsertReply(NewsReply r) {
@@ -114,6 +105,32 @@ public class NewsBoardService {
 		
 		JDBCTemplate.close(conn);
 		
+		return result;
+	}
+
+	public ArrayList<NewsBoard> newsBoardSearch(PageInfo pi, String region, String category) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<NewsBoard> nlist = new NewsBoardDao().newsBoardSearch(conn, pi, region, category);
+		
+		JDBCTemplate.close(conn);
+		
+		return nlist;
+	}
+
+	//동네소식 게시글 삭제
+	public int deleteNewsBoard(int newsBoardNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new NewsBoardDao().deleteNewsBoard(conn, newsBoardNo);
+		
+		if(result >0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
 		return result;
 	}
 }
