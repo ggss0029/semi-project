@@ -30,6 +30,17 @@ public class FreeAttachment {
 		this.status = status;
 		this.refUno = refUno;
 	}
+	
+	
+
+	public FreeAttachment(int fileNo, String originName, String changeName, String filePath) {
+		super();
+		this.fileNo = fileNo;
+		this.originName = originName;
+		this.changeName = changeName;
+		this.filePath = filePath;
+	}
+
 
 	public int getFileNo() {
 		return fileNo;
