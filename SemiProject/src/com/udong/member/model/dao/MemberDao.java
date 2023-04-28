@@ -363,7 +363,7 @@ public class MemberDao {
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
 		Integer offset = 0;
-		Integer Limit = 7;
+		Integer Limit = 11;
 		String sql = prop.getProperty("MemberList");
 		
 		
@@ -378,8 +378,8 @@ public class MemberDao {
 		 
 		
 		if(page != null && !page.equals("1")) {
-			offset = (Integer.parseInt(page)-1) * 7 + 1;
-			Limit = (Integer.parseInt(page)*7);
+			offset = (Integer.parseInt(page)-1) * 11 + 1;
+			Limit = (Integer.parseInt(page)*11);
 		}
 		
 		

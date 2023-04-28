@@ -1,4 +1,4 @@
-package com.udong.board.need.controller;
+package com.udong.board.free.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,20 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.udong.board.need.model.NeedBoardService;
-import com.udong.board.need.vo.NeedReply;
+import com.udong.board.free.model.vo.FreeReply;
+import com.udong.board.free.model.service.FreeBoardService;
 
 /**
- * Servlet implementation class NeedBoardReplyListController
+ * Servlet implementation class FreeBoardReplyListController
  */
-@WebServlet("/NeedBoardReplyList")
-public class NeedBoardReplyList extends HttpServlet {
+@WebServlet("/FreeBoardReplyList")
+public class FreeBoardReplyList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NeedBoardReplyList() {
+    public FreeBoardReplyList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,7 +35,7 @@ public class NeedBoardReplyList extends HttpServlet {
 	
 		int bno = Integer.parseInt(request.getParameter("bno"));
 		
-		ArrayList<NeedReply> list = new NeedBoardService().selectReply(bno);
+		ArrayList<FreeReply> list = new FreeBoardService().selectReply(bno);
 		
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(list,response.getWriter());

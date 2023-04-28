@@ -1,7 +1,8 @@
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import ="com.udong.board.need.vo.NeedBoard,java.util.ArrayList"%>
+    pageEncoding="UTF-8" import ="com.udong.board.free.model.vo.FreeBoard"%>
 <% 
-	ArrayList<NeedBoard> list = (ArrayList<NeedBoard>) request.getAttribute("NeedList");
+	ArrayList<FreeBoard> list = (ArrayList<FreeBoard>) request.getAttribute("FreeList");
 	int totalPage = (int)request.getAttribute("totalPage");
 	int currentPage = (int)request.getAttribute("currentPage");
 	int minPage = (int)request.getAttribute("minPage");
@@ -101,7 +102,7 @@
             text-align: center;
         }
        
-        .sharechk{ width: 161px; height: 50px; position: absolute; left: 50%; margin-left: -200px; bottom: 5%;
+        .Freechk{ width: 161px; height: 50px; position: absolute; left: 50%; margin-left: -200px; bottom: 5%;
         }
         .search.do {
             position: absolute;
@@ -131,20 +132,18 @@
     <div class="wrap">
         <div id="content">
             <div id="content_1">
-                <p id="share"><b>나눔</b></p>
+                <p id="share"><b>자유 게시판</b></p>
                 <hr style="border: solid 1px gray;">
-                <a href="" id="sharechk">나눔 해요</a>
-                <hr style="border: solid 1px gray;">
-                <a href="" id="ineed">이거 필요해요</a>
+                <a href="" id="Freechk">자유 게시판</a>
                 <hr style="border: solid 1px gray;">
 
             </div>
             <div id="content_2">
                 
-                <p id="content_title">이거 필요해요</p>
+                <p id="content_title">자유 게시판</p>
                 <hr style="border: solid 1px gray;">
                 <table align="center">
-                    <select id="search_type" name="search_type" class="sharechk" >
+                    <select id="search_type" name="search_type" class="Freechk" >
                         <option id="search_share" value="search_share">제목+내용</option>
                         <label>
                             <input type="search" id="search_content" class="search_content">
@@ -170,7 +169,7 @@
                             <th width="100px;" >추천수</th>
                         </tr>
                     </thead>
-            <%for(NeedBoard board : list){ %>        
+            <%for(FreeBoard board : list){ %>        
             <tr>
                 <td><%= board.getBoardNo() %></td>
                 <td><%= board.getBoardTitle() %></td>
@@ -185,7 +184,7 @@
         <br>
         <!--관리자 버튼-->
         <button type="button" class="btn btn-primary"
-        style="right: 2%;
+        style="right: 2%; 
                             width: 83px;
                             height: 50px;
                             bottom: 9.5%;
@@ -228,7 +227,7 @@
 			var searchType = $("#search_type").val();
 			var content = $("#search_content").val();
 			if(searchType == "search_share"){
-				location.href = contextPath +  "/NeedBoardList.me?search_share=" + content;
+				location.href = contextPath +  "/FreeBoardList.bo?search_share=" + content;
 			}
 		});	 
 	});
