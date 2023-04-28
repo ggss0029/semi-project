@@ -387,7 +387,7 @@
                         		<%for(NewsBoard nb : nlist) {%> <!-- 순차적으로 전부 접근할 것이기 때문에 향상된 for문 사용 -->
 		                        	<tr style="height: 40px; border-bottom:1px solid black;">
 		                                <td><%=nb.getBoardNo() %></td> <!-- No. -->
-		                                <td><%=nb.getBoardTitle() %></td> <!-- 제목 -->
+		                                <td class="goDetail1"><%=nb.getBoardTitle() %></td> <!-- 제목 -->
 		                                <td><a id="nicknameHover" onclick="whoareyou();"><%=nb.getBoardWriter() %></a> </td> <!-- 작성자  닉네임 -->
 		                                <td><%=nb.getCreateDate() %></td> <!-- 작성한 날짜 -->
 		                                <td><%=nb.getCount() %></td> <!-- 조회수 -->
@@ -488,15 +488,17 @@
     
     $(function(){
     	//.list-area클래스 자손tbody 자손tr 클릭됐을때
-	    $(".list-area>tbody>tr").click(function(){
+	    $(".goDetail1").click(function(){
 	        //목록에 글을 클릭했을때 해당 글번호가 있어야
 	        //그 글에 대해서 상세조회를 할 수 있으니 글번호를 추출하여 서버에 넘기기
 	        // console.log($(this).children().eq(0).text());
-	        var bno = $(this).children().eq(0).text();
+	        var bno = $(this).parent().children().first().text();
+	        var nno = $(this).siblings().eq(0).text();
+	        console.log(nno);
 	        //요쳥할 url?키=벨류&키=벨류 .....
 	        //물음표 뒤에 내용들을 쿼리 스트링이라고한다. - 직접 기술하여 넘기기
 	        // '/jsp/detail.no?nno='+nno
-	       	location.href = '<%=contextPath %>/newsDetail.bo?bno='+bno;
+<%-- 	       	location.href = '<%=contextPath %>/newsDetail.bo?bno='+bno; --%>
 	    });
     	
     });
