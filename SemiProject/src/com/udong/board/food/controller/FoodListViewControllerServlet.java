@@ -56,8 +56,9 @@ public class FoodListViewControllerServlet extends HttpServlet {
 		
 		ArrayList<FoodBoard> list = new FoodBoardService().selectFoodList(pi);
 
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("views/board/foodListView.jsp").forward(request, response);
+		request.setAttribute("fblist", list);
+		request.setAttribute("pi",pi);
+		request.getRequestDispatcher("views/board/food/foodListView.jsp").forward(request, response);
 	}
 
 	/**

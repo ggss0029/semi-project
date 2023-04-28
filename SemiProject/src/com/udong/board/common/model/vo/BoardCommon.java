@@ -33,7 +33,17 @@ public class BoardCommon {
 		this.region = region;
 	}
 
-
+	public BoardCommon(String boardContent, int boardNo, String boardWriter, String boardName, int count, Date createDate,
+			int likeCount) {
+		super();
+		this.boardContent = boardContent;
+		this.boardNo = boardNo;
+		this.boardWriter = boardWriter;
+		this.boardName = boardName;
+		this.count = count;
+		this.createDate = createDate;
+		this.likeCount = likeCount;
+	}
 
 	public BoardCommon(int boardNo, String boardWriter, String boardTitle, String boardName, int count, Date createDate,
 			int likeCount) {

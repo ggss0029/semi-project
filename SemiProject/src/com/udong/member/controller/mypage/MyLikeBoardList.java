@@ -64,7 +64,6 @@ public class MyLikeBoardList extends HttpServlet {
 		//페이지 정보들을 하나의 공간에 담아보기 (VO이용)
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		ArrayList<Board> list = new MemberService().likeSelectList(pi, userNo);
-		System.out.println(pi);
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
