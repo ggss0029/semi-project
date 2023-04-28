@@ -15,6 +15,7 @@ import java.util.Properties;
 import com.udong.board.clean.model.vo.CleanBoard;
 import com.udong.board.news.model.dao.NewsBoardDao;
 import com.udong.board.news.model.vo.NewsBoard;
+import com.udong.board.news.model.vo.NewsReply;
 import com.udong.common.JDBCTemplate;
 import com.udong.common.model.vo.PageInfo;
 
@@ -137,6 +138,12 @@ private Properties prop = new Properties();
 			JDBCTemplate.close(pstmt);
 		}
 		return cb;
+	}
+
+	//댓글 작성
+	public int cleanInsertReply(Connection conn, NewsReply r) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 		
 }

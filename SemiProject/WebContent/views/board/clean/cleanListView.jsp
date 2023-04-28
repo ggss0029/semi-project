@@ -293,12 +293,14 @@
 
                     <table class="list-area" border="0" align="center">
                         <thead style="height: 50px; border-top:3px solid black; border-bottom:3px solid black;">
+                        <tr>
                             <th width="70">No.</th>
                             <th width="440">제목</th>
                             <th width="150">작성자</th>
                             <th width="150">작성일</th>
                             <th width="65">조회</th>
                             <th width="65">좋아요</th>
+                        </tr>
                         </thead>
                         <tbody>
                         <!-- 리스트 20개씩 출력? -->
@@ -331,10 +333,10 @@
                         </tbody>
                         </table>
                         <br>
-                        <%if(loginUser != null) { %>
-                        <div align="right" id="write_btn">
-                            <button class="btn btn-light">글쓰기</button>
-                        </div>
+                        <%if(loginUser != null) { %> 
+	                        <div align="right" id="write_btn">
+	                            <a href="<%=request.getContextPath() %>/views/board/writeBoard.jsp" class="btn btn-light">글쓰기</a>
+	                        </div>
                         <%} %>
                         <br><br>
 

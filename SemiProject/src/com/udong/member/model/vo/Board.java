@@ -2,6 +2,7 @@ package com.udong.member.model.vo;
 
 import java.sql.Date;
 
+//좋아요한 게시글을 위한 VO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 public class Board {
 	private int boardNo;// BOARD_NO NUMBER
 	private String boardWriter;// BOARD_WRITER NUMBER --String 으로 하기

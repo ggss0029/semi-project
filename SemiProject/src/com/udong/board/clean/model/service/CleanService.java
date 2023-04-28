@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import com.udong.board.clean.model.dao.CleanDao;
 import com.udong.board.clean.model.vo.CleanBoard;
+import com.udong.board.news.model.dao.NewsBoardDao;
+import com.udong.board.news.model.vo.NewsReply;
 import com.udong.common.JDBCTemplate;
 import com.udong.common.model.vo.PageInfo;
 
@@ -42,6 +44,23 @@ public class CleanService {
 		JDBCTemplate.close(conn);
 		
 		return cb;
+	}
+
+	//댓글 작성
+	public int cleanInsertReply(NewsReply r) {
+Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new CleanDao().cleanInsertReply(conn, r);
+		
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
 	}
 
 
