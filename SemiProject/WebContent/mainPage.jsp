@@ -524,7 +524,6 @@
 		
 		$(".c2_table>table").on("mouseenter", "tr", function() {
 			$(this).css("cursor", "pointer");
-			$(this).children().first().css("cursor", "default");
 		});
 		
 		callback();

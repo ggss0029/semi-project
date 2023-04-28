@@ -115,6 +115,11 @@
 		text-align: center;
 	}
 	
+	#list-area>tbody>tr:hover {
+		background-color: #F5F5F5;
+        cursor: pointer;
+	}
+	
 	#button-area {
 		width: 90%;
 		margin: 0 auto;
@@ -148,7 +153,7 @@
 					<table id="list-area" border="1">
 						<thead>
 							<tr height="50">
-								<th style="width: 5%;"></th>
+								<th style="width: 5%;"><input type="checkbox" id="checkAll" onclick="checkall();"></th>
 								<th style="width: 10%;">No.</th>
 								<th style="width: 15%">게시판</th>
 								<th style="width: 50%;">제목</th>
@@ -164,7 +169,7 @@
 							<%} else {%>
 								<%for(BoardCommon bc : list) {%>
 									<tr height="40">
-										<td><input type="checkbox" ></td>
+										<td><input type="checkbox" class="check" name="bno" value="<%=bc.getBoardNo() %>"></td>
 										<td><%=bc.getBoardNo() %></td>
 										<td><%=bc.getBoardName() %></td>
 										<td><%=bc.getBoardTitle() %></td>
@@ -177,7 +182,7 @@
 					</table>
 					<br>
 					<div id="button-area" align="right">
-						<a class="btn btn-light">삭제</a>
+						<a class="btn btn-light" onclick="deleteMypost();">삭제</a>
 					</div>
 					
 					<br><br><br><br>
@@ -208,9 +213,25 @@
 			</div>
 			
 			<script>
-				$(function() {
+				function checkall() {
+					if($("#checkAll").prop("checked")) {
+						$("input[class=check]").prop("checked", true);
+					}
+					else {
+						$("input[type=checkbox]").prop("checked", false);
+					}
+				}
+				
+				function deleteMypost() {
+					var str = "";
+					$("input[class=check]:checked").each(function() {
+						str += "bno=" + $(this).val() + "&";
+					})
 					
-				})
+					if(confirm("정말 삭제하시겠습니까?")) {
+						location.href = "<%=contextPath%>/deletePost.bo?" + str;
+					}
+				}
 			</script>
 		</div>
 	</div>
