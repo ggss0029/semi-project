@@ -17,10 +17,48 @@ public class FoodBoard {
 	private int boardReport;
 	private int boardLikeNo;
 	private int likeCount;
+	private String titleImg;
 	
 	public FoodBoard() {
 		super();
 	}
+	
+	
+
+	public FoodBoard(int boardNo, String boardWriter, String boardTitle, String category, String region, int count,
+			Date createDate, int boardReport, int likeCount, String titleImg) {
+		super();
+		this.boardNo = boardNo;
+		this.boardWriter = boardWriter;
+		this.boardTitle = boardTitle;
+		this.category = category;
+		this.region = region;
+		this.count = count;
+		this.createDate = createDate;
+		this.boardReport = boardReport;
+		this.likeCount = likeCount;
+		this.titleImg = titleImg;
+	}
+
+
+
+	public FoodBoard(int boardNo, String boardWriter, String boardTitle, String boardContent, String boardName,
+			String category, String region, int count, Date createDate, int boardReport, int likeCount) {
+		super();
+		this.boardNo = boardNo;
+		this.boardWriter = boardWriter;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.boardName = boardName;
+		this.category = category;
+		this.region = region;
+		this.count = count;
+		this.createDate = createDate;
+		this.boardReport = boardReport;
+		this.likeCount = likeCount;
+	}
+
+
 
 	public FoodBoard(int boardNo, String boardWriter, String boardTitle, String boardContent, String boardName,
 			String category, String region, int count, Date createDate, String status, int boardReport, int boardLikeNo,
@@ -144,6 +182,16 @@ public class FoodBoard {
 	public void setLikeCount(int likeCount) {
 		this.likeCount = likeCount;
 	}
+
+	public String getTitleImg() {
+		return titleImg;
+	}
+	
+	public void setTitleImg(String titleImg) {
+		this.titleImg = titleImg;
+	}
+
+
 
 	@Override
 	public String toString() {

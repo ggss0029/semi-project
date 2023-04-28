@@ -6,8 +6,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 
+import com.udong.board.food.model.vo.FoodBoard;
 import com.udong.common.JDBCTemplate;
 
 
@@ -47,6 +49,41 @@ public class FoodBoardDao {
 			JDBCTemplate.close(stmt);
 		}
 		return listCount;
+	}
+
+	public ArrayList<FoodBoard> selectFoodList(Connection conn) {
+		
+		int listCount = 0;
+		ArrayList<FoodBoard> list = new ArrayList<>();
+		ResultSet rset = null;
+		Statement stmt = null;
+		
+		String sql = prop.getProperty("selectFoodList");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);
+			
+			while(rset.next()) {
+				FoodBoard fb = new FoodBoard(rset.getInt("BOARD_NO")
+											,rset.getString("NICKNAME")
+											,rset.getString("BOARD_TITLE")
+											,rset.getString("CATEGORY")
+											,rset.getString("REGION")
+											,rset.getInt("COUNT")
+											,rset.getDate("CREATE_DATE")
+											,rset.getInt("BOARD_REPORT")
+											,rset.getInt("LIKECOUNT")
+											,rset.getString("TITLEIMG"));
+				list.add(fb);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(stmt);
+		}
+		return list;
 	}
 
 }
