@@ -7,6 +7,7 @@ import com.udong.board.common.model.dao.BoardCommonDao;
 import com.udong.board.common.model.vo.Attachment;
 import com.udong.board.common.model.vo.BoardCommon;
 import com.udong.board.common.model.vo.Reply;
+import com.udong.board.news.model.dao.NewsBoardDao;
 import com.udong.common.JDBCTemplate;
 import com.udong.common.model.vo.PageInfo;
 
@@ -126,6 +127,35 @@ public class BoardCommonService {
 		JDBCTemplate.close(conn);
 		
 		return result*result2;
+	}
+
+	public int increaseCount(int boardNo) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new BoardCommonDao().increaseCount(conn, boardNo);
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
+
+	public BoardCommon selectBestPostDetail(int boardNo) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		BoardCommon b = new BoardCommonDao().selectBestPostDetail(conn,boardNo);
+		JDBCTemplate.close(conn);
+		return b;
+	}
+
+	public ArrayList<Attachment> selectAttachment(int boardNo) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<Attachment> alist = new BoardCommonDao().selectAttachment(conn,boardNo);
+		JDBCTemplate.close(conn);
+		return alist;
 	}
 
 }

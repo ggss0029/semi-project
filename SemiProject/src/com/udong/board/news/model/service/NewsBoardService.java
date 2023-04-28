@@ -35,22 +35,6 @@ public class NewsBoardService {
 		return nlist;
 	}
 
-	//조회수 증가 메소드
-	public int newsIncreaseCount(int newsBoardNo) {
-		Connection conn = JDBCTemplate.getConnection();
-		
-		int result = new NewsBoardDao().newsIncreaseCount(conn, newsBoardNo);
-		
-		if(result>0) {
-			JDBCTemplate.commit(conn);
-		}else {
-			JDBCTemplate.rollback(conn);
-		}
-		
-		JDBCTemplate.close(conn);
-		return result;
-	}
-
 	//게시글 하나 조회하는 메소드
 	public NewsBoard selectNews(int newsBoardNo) {
 		Connection conn = JDBCTemplate.getConnection();
