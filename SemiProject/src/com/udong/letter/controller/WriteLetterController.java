@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.udong.letter.model.service.LetterService;
 import com.udong.letter.model.vo.Letter;
+import com.udong.member.model.vo.Member;
 
 /**
  * Servlet implementation class SendLetterController
@@ -51,7 +52,7 @@ public class WriteLetterController extends HttpServlet {
 		
 		if(result>0) {
 			request.getSession().setAttribute("alertMsg", "쪽지 보내기 완료");
-			response.sendRedirect(request.getContextPath()+"/views/letter/sendLetterList.jsp");
+			response.sendRedirect(request.getContextPath()+"/sendLetterList.le?currentPage=1&writerNo="+((Member)request.getSession().getAttribute("loginUser")).getUserNo());
 			
 		}else {
 			request.setAttribute("errorMsg", "쪽지 보내기 실패");

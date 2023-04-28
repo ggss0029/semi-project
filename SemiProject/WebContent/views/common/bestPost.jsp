@@ -86,6 +86,15 @@
         	background-color:#F5F5F5;
         	cursor:pointer; 
         }
+        .bgc1 { background-color: #BE5EC2; }
+        .bgc2 { background-color: #F862A7; }
+        .bgc3 { background-color: #FF7B87; }
+        .bgc4 { background-color: #FFA26A; }
+        .bgc5 { background-color: #FFCE5E; }
+        .bgc6 { background-color: #F9F871; color:black; }
+        .bgc7 { background-color: #9BDE7E; }
+        .bgc8 { background-color: #4BBC8E; }
+        .bgc9 { background-color: #1C6E7D; }
     </style>
 </head>
 <body>
@@ -96,7 +105,7 @@
                 <div id="doWrite">오늘의 인기글</div> <br>
             </div>
             <div id="content_2">
-                <table id="listTable" border="1">
+                <table id="listTable" border="0">
                 	<thead>
 	                    <tr>
 	                        <th style="width:7%;">랭킹</th>
@@ -112,8 +121,8 @@
 	                    <%for(int i=0;i<list.size();i++){%>
 						<tr>
 							<td><input type="hidden" id="bNoHidden" value="<%=list.get(i).getBoardNo()%>"><%=i+1%></td>
-							<td><%=list.get(i).getBoardName()%></td>
-							<td><%=list.get(i).getBoardTitle()%></td>
+							<td><div id="boardNameTd<%=i%>"><%=list.get(i).getBoardName()%></div></td>
+							<td class="goDetail"><%=list.get(i).getBoardTitle()%></td>
 							<td><a id="nicknameHover" onclick="whoareyou();"><%=list.get(i).getBoardWriter()%></a></td>
 							<td><%=list.get(i).getCount()%></td>
 							<td><%=list.get(i).getCreateDate()%></td>
@@ -123,8 +132,40 @@
                     <%}%>
                 </table>
                 <script>
-                	$("#listTable>tbody>tr").click(function(){
-                		var bno = $(this).children().children("input").val();
+                	for(var i=0 ; i<<%=list.size()%> ; i++){
+                		switch($("#boardNameTd"+i).text()) {
+						case "동네 소식":
+							$("#boardNameTd"+i).addClass("bgc1").css("border-radius","7px").css("color","white");
+							break;
+						case "살림 꿀팁":
+							$("#boardNameTd"+i).addClass("bgc2").css("border-radius","7px").css("color","white");
+							break;
+						case "자취 레시피":
+							$("#boardNameTd"+i).addClass("bgc3").css("border-radius","7px").css("color","white");
+							break;
+						case "동네 맛집":
+							$("#boardNameTd"+i).addClass("bgc4").css("border-radius","7px").css("color","white");
+							break;
+						case "나눔 할게요":
+							$("#boardNameTd"+i).addClass("bgc5").css("border-radius","7px").css("color","white");
+							break;
+						case "자유 게시판":	
+							$("#boardNameTd"+i).addClass("bgc6").css("border-radius","7px");
+							break;
+						case "같이 해요":
+							$("#boardNameTd"+i).addClass("bgc7").css("border-radius","7px").css("color","white");
+							break;
+						case "같이 사요":
+							$("#boardNameTd"+i).addClass("bgc8").css("border-radius","7px").css("color","white");
+							break;
+						case "이거 필요해요":						
+							$("#boardNameTd"+i).addClass("bgc9").css("border-radius","7px").css("color","white");
+							break;
+					};
+                	}
+                
+                $(".goDetail").click(function(){
+                	var bno = $(this).parent().children().first().children("input").val();
                 		location.href="<%=contextPath%>/bestDetail.bo?bno="+bno;
                 	});
                 </script>
