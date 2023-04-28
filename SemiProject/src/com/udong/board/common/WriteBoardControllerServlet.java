@@ -60,8 +60,10 @@ public class WriteBoardControllerServlet extends HttpServlet {
 			String region;
 			if(boardName.equals("동네 맛집")) {
 				region = multiRequest.getParameter("restaurantName") + "$" + multiRequest.getParameter("restaurantAddress");
+			}else if(boardName.equals("동네 소식") || boardName.equals("나눔 할게요") || boardName.equals("같이 사요") || boardName.equals("같이 해요")) {
+				region = multiRequest.getParameter("city")+" "+multiRequest.getParameter("country"); 
 			}else {
-				region = null; 
+				region = null;
 			}
 			BoardCommon b = new BoardCommon();
 				b.setBoardWriter(nickname);
