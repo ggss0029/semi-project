@@ -1,3 +1,4 @@
+<%@page import="com.udong.board.common.model.vo.BoardCommon"%>
 <%@page import="com.udong.board.news.model.vo.NewsAttachment"%>
 <%@page import="com.udong.board.news.model.vo.NewsBoard"%>
 <%@page import="com.udong.board.news.model.vo.*"%>
@@ -5,14 +6,22 @@
 	pageEncoding="UTF-8"%>
 
 <%
-	NewsBoard nb = (NewsBoard) request.getAttribute("newsBoard");
-	NewsAttachment na = (NewsAttachment) request.getAttribute("newsAttachment");
+	NewsBoard nb = new NewsBoard();
+	if(request.getAttribute("bestPost")!=null){
+		BoardCommon b = (BoardCommon)request.getAttribute("bestPost");
+		nb.setBoardTitle(b.getBoardTitle());
+		nb.setBoardWriter(b.getBoardWriter());
+		nb.setCreateDate(b.getCreateDate());
+		nb.setBoardContent(b.getBoardContent());
+	}else if(request.getAttribute("newsBoard")!=null){
+		nb = (NewsBoard)request.getAttribute("newsBoard");
+	}
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>동네 소식</title>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
@@ -123,18 +132,18 @@ tbody>#tr2 {
 					<td colspan="2" style="height: auto; vertical-align : top "><br><%=nb.getBoardContent()%></td>
 					
 				</tr>
-				<tr style="height:60px;">
-					<td colspan="2"
-						style="border-top: 1px solid black; border-bottom: 1px solid;">
-						<!-- 첨부파일이 없는 경우 첨부파일이 없습니다. -->
-				 	<%if (na == null) { %> 
-				 		첨부파일이 없습니다. 
-				 	<%} else { %> 
-					 <a href="<%=contextPath + na.getFilePath() + "/" + na.getChangeName()%>"
-						download="<%=na.getOriginName()%>"><%=na.getOriginName()%></a> 
-					<% } %>
-					</td>
-				</tr>
+<!-- 				<tr style="height:60px;"> -->
+<!-- 					<td colspan="2" -->
+<!-- 						style="border-top: 1px solid black; border-bottom: 1px solid;"> -->
+<!-- 						첨부파일이 없는 경우 첨부파일이 없습니다. -->
+<%-- 				 	<%if (na == null) { %>  --%>
+<!-- 				 		첨부파일이 없습니다.  -->
+<%-- 				 	<%} else { %>  --%>
+<%-- 					 <a href="<%=contextPath + na.getFilePath() + "/" + na.getChangeName()%>" --%>
+<%-- 						download="<%=na.getOriginName()%>"><%=na.getOriginName()%></a>  --%>
+<%-- 					<% } %> --%>
+<!-- 					</td> -->
+<!-- 				</tr> -->
 			</table>
 
 			<div class="like-area">
@@ -148,47 +157,8 @@ tbody>#tr2 {
 							</button>
 					</div>
 					
-			<script>
-				$(function(){
-					//추천버튼 클릭시 (추천 추가 또는 추천 제거)
-					$.ajax({
-						url : "newsLikeUpdate.do",
-						type : "post",
-						data : {
-							newsBoardNo :  <%=nb.getBoardNo()%>,
-							userNo : userNo
-						},
-						success: function() {
-							likeCount();
-						},
-						error : function() {
-							alert("실패~")
-						}
-						
-					});
-				});
-				
-				function likeCount() {
-					$.ajax({
-						url : "newsLikeCount.do",
-						type : "post",
-						data : {
-							newsBoardNo :  <%=nb.getBoardNo()%>
-						},
-						success : function(result) {
-							$("#like_count").html(result);
-						},
-						error : function() {
-							alert("카운트 실패~")
-						}
-					});
-				};
-				
-				likeCount();
-			</script>
-				
 				<%
-					if (loginUser != null && loginUser.getUserId().equals(nb.getBoardWriter())) {
+					if (loginUser != null && loginUser.getNickname().equals(nb.getBoardWriter())) {
 				%>
 				<div class="board_btn" style="float: right;">
 					<button

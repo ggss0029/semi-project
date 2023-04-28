@@ -144,7 +144,7 @@
 							<button type="button" class="btn btn-secondary">쓴글보기</button>
 						</div>
 						<br>
-						<button type="button" class="btn btn-primary" style="width: 200px; height: 80px;" id="rec" onclick="recommend();">
+						<button type="button" class="btn" style="width: 200px; height: 80px;" id="rec" onclick="recommend();">
 							<p align="left" style="margin-left: 5px;">추천&#128077;</p><p id="p_recommend" style="font-weight: 500; font-size: 35px; margin-bottom: 10px;">1004</p>
 						</button>
 					</div>
@@ -179,11 +179,13 @@
 			    		$("#p_address").children().text(member.address + " 거주");
 			    		$("#p_introduction").children().text(member.introduction);
 			    		$("#p_recommend").text(member.recommended);
-			    		if (member.checkRec == 1) { // 추천 불가능
-			    			$("#rec").attr("disabled", true);
+			    		if (member.checkRec == 1) { // 이미 추천
+			    			$("#rec").removeClass("btn-outline-primary");
+			    			$("#rec").addClass("btn-primary");
 			    		}
 			    		else {
-			    			$("#rec").attr("disabled", false);
+			    			$("#rec").removeClass("btn-primary");
+			    			$("#rec").addClass("btn-outline-primary");
 			    		}
 			    	},
 			    	error: function() {
@@ -196,20 +198,30 @@
     	
     	function recommend() {
     		<%if(loginUser != null) {%>
+    			var $checkRec = 0;
+	    		if($("#rec").hasClass("btn-outline-primary")) {
+	    			$checkRec = 1;
+	    		}
+	    		
 	    		$.ajax({
 	    			url: "profile.me",
 	    			data: {
 	    				myNickname: "<%=loginUser.getNickname()%>",
-			    		nickname: $("#p_nickname").children().html()
+			    		nickname: $("#p_nickname").children().html(),
+			    		checkRec: $checkRec
 	    			},
 	    			success: function(count) {
-	    				if(count == $("#p_recommend").text()) {
-	    					alert("추천 실패");
-	    				}
-	    				else {
-		    				alert("추천 왼료");
+	    				if(count > $("#p_recommend").text()) { //추천
+	    					alert("추천 완료");
 	    					$("#p_recommend").text(count);
-				    		$("#rec").attr("disabled", true);
+	    					$("#rec").removeClass("btn-outline-primary");
+			    			$("#rec").addClass("btn-primary");
+	    				}
+	    				else { // 추천 취소
+		    				alert("추천 취소");
+	    					$("#p_recommend").text(count);
+	    					$("#rec").removeClass("btn-primary");
+	    					$("#rec").addClass("btn-outline-primary");
 	    				}
 	    			},
 	    			error: function() {

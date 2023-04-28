@@ -25,7 +25,7 @@
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <style>
         .header {
-            border: 1px solid black;
+            border-bottom: 1px solid black;
             height: 180px;
         }
 
@@ -155,7 +155,7 @@
         }
 
         .menubar {
-            border: 1px solid black;
+            border-bottom: 1px solid black;
             height: 90px;
         }
 
@@ -283,7 +283,7 @@
         <div id="most_search_list">
             <table>
             	<tr>
-            		<td colspan="2" align="right"><button onclick="closeList();">&times;</button></td>
+            		<td colspan="2" align="right"><button style="border:0;" onclick="closeList();">&times;</button></td>
             	</tr>
             	<tr>
             		<td width="50" align="center" style="font-weight: 700; font-size: 22px">1</td>

@@ -429,7 +429,7 @@
 							case "나눔 할게요":
 								j=5;
 								break;
-							case "이거 필요해요":
+							case "자유 게시판":
 								j=6;
 								break;
 							case "같이 해요":
@@ -438,7 +438,7 @@
 							case "같이 사요":
 								j=8;
 								break;
-							case "자유 게시판":
+							case "이거 필요해요":
 								j=9;
 								break;
 						};
@@ -489,7 +489,7 @@
 							case "나눔 할게요":
 								j=5;
 								break;
-							case "이거 필요해요":
+							case "자유 게시판":
 								j=6;
 								break;
 							case "같이 해요":
@@ -498,7 +498,7 @@
 							case "같이 사요":
 								j=8;
 								break;
-							case "자유 게시판":
+							case "이거 필요해요":
 								j=9;
 								break;
 						};
@@ -516,6 +516,16 @@
 				}
 			});
 		}
+		
+		$(".c1_table>table").on("mouseenter", "tr", function() {
+			$(this).css("cursor", "pointer");
+			$(this).children().first().css("cursor", "default");
+		});
+		
+		$(".c2_table>table").on("mouseenter", "tr", function() {
+			$(this).css("cursor", "pointer");
+			$(this).children().first().css("cursor", "default");
+		});
 		
 		callback();
 		setTimeout(callback, renewTime); // 시간 계산 후 정각에 가져옴

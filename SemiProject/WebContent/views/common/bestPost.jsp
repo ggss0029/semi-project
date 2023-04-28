@@ -72,15 +72,19 @@
             width: 90%;
         }
         #content_2>table{
-            width: 100%;
-            height: 100%;
-            font-size: 30px;
+        	margin-top:30px;
+        	width:90%;
+            font-size: 25px;
             text-align: center;
         }
         #doWrite{
             border-bottom: 1px solid black;
             font-size: 70px;
             text-align: left;
+        }
+        #listTable>tbody tr:hover{
+        	background-color:#F5F5F5;
+        	cursor:pointer; 
         }
     </style>
 </head>
@@ -93,27 +97,37 @@
             </div>
             <div id="content_2">
                 <table id="listTable" border="1">
-                    <tr  style="height:9.9%;">
-                        <th style="width:7%;">랭킹</th>
-                        <th style="width:15%;">게시판 이름</th>
-                        <th style="width:36%;">제목</th>
-                        <th style="width:9%;">작성자</th>
-                        <th style="width:9%;">조회수</th>
-                        <th style="width:13%;">작성일</th>
-                        <th style="width:11%;">좋아요 수</th>
-                    </tr>
-                    <%for(int i=0;i<list.size();i++){%>
-					<tr>
-						<td><%=i+1%></td>
-						<td><%=list.get(i).getBoardName()%></td>
-						<td><%=list.get(i).getBoardTitle()%></td>
-						<td><a id="nicknameHover" onclick="whoareyou();"><%=list.get(i).getBoardWriter()%></a></td>
-						<td><%=list.get(i).getCount()%></td>
-						<td><%=list.get(i).getCreateDate()%></td>
-						<td><%=list.get(i).getLikeCount()%></td>
-					</tr>                 
+                	<thead>
+	                    <tr>
+	                        <th style="width:7%;">랭킹</th>
+	                        <th style="width:15%;">게시판 이름</th>
+	                        <th style="width:36%;">제목</th>
+	                        <th style="width:9%;">작성자</th>
+	                        <th style="width:9%;">조회수</th>
+	                        <th style="width:13%;">작성일</th>
+	                        <th style="width:11%;">좋아요 수</th>
+	                    </tr>
+	                </thead>
+	                <tbody>
+	                    <%for(int i=0;i<list.size();i++){%>
+						<tr>
+							<td><input type="hidden" id="bNoHidden" value="<%=list.get(i).getBoardNo()%>"><%=i+1%></td>
+							<td><%=list.get(i).getBoardName()%></td>
+							<td><%=list.get(i).getBoardTitle()%></td>
+							<td><a id="nicknameHover" onclick="whoareyou();"><%=list.get(i).getBoardWriter()%></a></td>
+							<td><%=list.get(i).getCount()%></td>
+							<td><%=list.get(i).getCreateDate()%></td>
+							<td><%=list.get(i).getLikeCount()%></td>
+						</tr>
+					</tbody>                 
                     <%}%>
                 </table>
+                <script>
+                	$("#listTable>tbody>tr").click(function(){
+                		var bno = $(this).children().children("input").val();
+                		location.href="<%=contextPath%>/bestDetail.bo?bno="+bno;
+                	});
+                </script>
             </div>
         </div>
     </div>
