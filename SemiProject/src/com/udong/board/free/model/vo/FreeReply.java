@@ -1,8 +1,8 @@
-package com.udong.board.need.vo;
+package com.udong.board.free.model.vo;
 
 import java.sql.Date;
 
-public class NeedReply {
+public class FreeReply {
 	
 	private int replyNo; // REPLY_NO NUMBER
 	private int refBno; // REF_BNO NUMBER
@@ -11,10 +11,10 @@ public class NeedReply {
 	private Date createDate; // CREATE_DATE DATE
 	private Date modifyDate; // MODIFY_DATE DATE
 	private String status; // STATUS VARCHAR2(1 BYTE)
-	public NeedReply() {
+	public FreeReply() {
 		super();
 	}
-	public NeedReply(int replyNo, int refBno, String replyWriter, String replyContent, Date createDate, Date modifyDate,
+	public FreeReply(int replyNo, int refBno, String replyWriter, String replyContent, Date createDate, Date modifyDate,
 			String status) {
 		super();
 		this.replyNo = replyNo;
@@ -27,7 +27,7 @@ public class NeedReply {
 	}
 	
 	
-	public NeedReply(int replyNo, String replyContent, int refBno, String replyWriter, Date createDate) {
+	public FreeReply(int replyNo, String replyContent, int refBno, String replyWriter, Date createDate) {
 		this.replyNo = replyNo;
 		this.replyContent = replyContent;
 		this.refBno = refBno;
@@ -78,7 +78,7 @@ public class NeedReply {
 	}
 	@Override
 	public String toString() {
-		return "NeedReply [replyNo=" + replyNo + ", refBno=" + refBno + ", replyWriter=" + replyWriter
+		return "FreeReply [replyNo=" + replyNo + ", refBno=" + refBno + ", replyWriter=" + replyWriter
 				+ ", replyContent=" + replyContent + ", createDate=" + createDate + ", modifyDate=" + modifyDate
 				+ ", status=" + status + "]";
 	}
