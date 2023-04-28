@@ -193,4 +193,25 @@
 		WHERE NICKNAME = ? 
 		AND STATUS = 'Y'
 	</entry>
+	
+	<!-- 좋아요한 게시글 갸수 구허가 -->
+	<entry key="likeSelectListCount">
+		SELECT COUNT(*) COUNT
+		FROM BOARD_LIKE
+		WHERE USER_NO = ?
+	</entry>
+	
+	<!-- 좋아요한 게시글 리스트 조회 -->
+	<entry key="likeSelectList">
+	SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+        		FROM ( SELECT BOARD_NO, BOARD_NAME, BOARD_TITLE, NICKNAME, CREATE_DATE, COUNT
+						FROM BOARD B
+						JOIN MEMBER M ON (BOARD_WRITER = USER_NO)
+						WHERE B.BOARD_NO IN (SELECT BOARDLIKE_NO 
+						                    FROM BOARD_LIKE 
+						                    WHERE USER_NO = ?)
+						ORDER BY BOARD_NO DESC) A )
+	WHERE RNUM BETWEEN ? AND ?
+	</entry>
 </properties>

@@ -1,5 +1,11 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.udong.member.model.vo.Board"%>
+<%@page import="com.udong.common.model.vo.PageInfo"%>
+<%
+	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -265,7 +271,7 @@
                 <a href="" id="write_board">작성한 게시글</a>
                 <div id="line_4"></div>
 
-                <a href="<%=request.getContextPath() %>/views/member/mypage/myLike.jsp" id="like_board">좋아요한 게시글</a>
+                <a href="<%=contextPath %>/likeList.me?currentPage=1" id="like_board">좋아요한 게시글</a>
                 <div id="line_5"></div>
 
                 <a href="" id="out">회원 탈퇴</a>
@@ -276,67 +282,93 @@
                     <p id="pp">좋아요한 게시글</p>
                     <div id="line_7"></div>
                     
+                    <input type="hidden" name="currentPage" value="<%=pi.getCurrentPage() %>">
                     <table class="list-area" border="1" align="center">
                         <thead style="height: 50px;">
+                        	<tr>
                             <th width="50"><input type="checkbox"> </th>
                             <th width="70">No.</th>
                             <th width="450">제목</th>
                             <th width="150">작성자</th>
                             <th width="150">작성일</th>
                             <th width="65">조회</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        	<%if(nlist.isEmpty()) {%>
+                        	<%if(list.isEmpty()) {%>
                         		<tr>
                         			<td colspan="6">좋아요한 게시글이 존재하지 않습니다.</td>
                         		</tr>
                         	<%} else { %>
-                        		<%for(MyLike ml : mlist) { %>
+                        		<%for(Board ml : list) { %>
 		                            <tr style="height: 40px;">
 		                                <td><input type="checkbox"> </td>
 		                                <td><%=ml.getBoardNo() %></td>
 		                                <td><%=ml.getBoardTitle() %></td>
 		                                <td><a id="nicknameHover" onclick="whoareyou();"><%=ml.getBoardWriter() %></td>
 		                                <td><%=ml.getCreateDate() %></td>
-		                                <td><%=ㅢ.getLikeCount() %></td>
+		                                <td><%=ml.getLikeCount() %></td>
 		                            </tr>
 		                        <%} %>
 		                    <%} %>
 
                         </tbody>
                         </table>
+                        <%if (loginUser != null) {%>
+                        	<div align="right" id="write_btn">
+	                            <a href="<%=contextPath %>" class="btn btn-dark">삭제</a>
+	                        </div>
+	                    <%} %>
                         <br><br><br>
                         <div align="center" class="paging-area">
-                            <button>&lt;</button>
-                            <button>12345678910</button>
-                            <button>&gt;</button>
+    
+                        	<%if(pi.getCurrentPage() != 1) {%>
+                            	<button onclick="location.href='<%=contextPath %>/likeList.me?currentPage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
+                            <%} %>
+                            
+                            <%for(int i = pi.getStartPage(); i <= pi.getEndPage(); i++) { %>
+                            	<%if(i != pi.getCurrentPage()) {%>
+                            	<button onclick="location.href='<%=contextPath %>/likeList.me?currentPage=<%=i%>';"><%=i %></button>
+                            	<%} else {%>
+                            		<button disabled><%=i %></button>
+                            	<%} %>
+                            <%} %>
+                            
+                            <%if(pi.getCurrentPage() != pi.getMaxPage()) { %>
+	                            <button onclick="location.href='<%=contextPath %>/likeList.me?currentPage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
+                            <%} %>
                         </div>
 
-                        <div id="search">
-                            <form action="search.do" id="search_form">
-                                <div id="search_select">
-                                    <select name="" id="" style="height: 38px;">
-                                        <option value="">제목+내용</option>
-                                    </select>
+<!--                         <div id="search"> -->
+<!--                             <form action="search.do" id="search_form"> -->
+<!--                                 <div id="search_select"> -->
+<!--                                     <select name="" id="" style="height: 38px;"> -->
+<!--                                         <option value="">제목+내용</option> -->
+<!--                                     </select> -->
 
-                                </div>
-                                <div id="search_text">
-                                    <input type="search" name="keyword">
-                                </div>
+<!--                                 </div> -->
+<!--                                 <div id="search_text"> -->
+<!--                                     <input type="search" name="keyword"> -->
+<!--                                 </div> -->
                     
-                                <div id="search_btn">
-                                    <input type="button" value="검색" class="btn btn-secondary">
-                                </div>
-                            </form>
+<!--                                 <div id="search_btn"> -->
+<!--                                     <input type="button" value="검색" class="btn btn-secondary"> -->
+<!--                                 </div> -->
+<!--                             </form> -->
                     
-                        </div>
+<!--                         </div> -->
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        
+    $(function(){
+	    $(".list-area>tbody>tr").click(function(){
+	        var bno = $(this).children().eq(0).text();
+	       	location.href = '<%=contextPath %>/likeList.me?bno='+bno;
+	    });
+    });
     </script>
     <%@ include file = "../../common/footer.jsp" %>
 </body>
