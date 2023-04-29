@@ -384,4 +384,20 @@
 		SET STATUS = 'N'
 		WHERE BOARD_NO = ? AND STATUS = 'Y'
 	</entry>
+	
+	<entry key="deleteAttachment">
+		UPDATE ATTACHMENT
+		SET STATUS = 'N'
+		WHERE REF_BNO = ? AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="foodPostList">
+		SELECT *
+		FROM (SELECT BOARD_NO, BOARD_TITLE, FILE_PATH||CHANGE_NAME AS "IMG", COUNT
+        		FROM BOARD B
+        		JOIN ATTACHMENT A ON(BOARD_NO = REF_BNO)
+        		WHERE B.STATUS = 'Y'
+        		ORDER BY COUNT DESC)
+		<![CDATA[WHERE ROWNUM <= 8]]>
+	</entry>
 </properties>

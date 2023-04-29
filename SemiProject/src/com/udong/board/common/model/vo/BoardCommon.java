@@ -18,6 +18,7 @@ public class BoardCommon {
 	private int boardLikeNo;
 	private String nickname;
 	private int likeCount;
+	private String img;
 	
 	public BoardCommon() {
 		super();
@@ -223,6 +224,14 @@ public class BoardCommon {
 	}
 
 
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
 
 	@Override
 	public String toString() {

@@ -231,7 +231,7 @@
                             <input type="text" id="sample6_extraAddress" name="sample6_extraAddress" placeholder="참고항목" readonly>
                         </div>
                     </div>
-                    <input type="hidden" name="loginType" id="loginType">
+                    <input type="hidden" name="loginType" id="loginType" value=1>
                     <br>
                     <label for="">개인정보동의</label> <br>
                     <div class="read">
