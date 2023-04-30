@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.udong.board.faq.model.vo.FaqBoard"%>
+<%@page import="com.udong.common.model.vo.PageInfo"%>
+<%
+	ArrayList<FaqBoard> flist = (ArrayList<FaqBoard>)request.getAttribute("flist");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -206,7 +211,7 @@
                 <div id="line_1"></div>
                 <a href="<%=contextPath %>/newsList.bo?currentPage=1" id="news">공지 사항</a>
                 <div id="line_2"></div>
-                <a href="" id="clean">자주 묻는 질문</a>
+                <a href="<%=contextPath %>/faqList.bo?currentPage=1" id="faq">자주 묻는 질문</a>
                 <div id="line_3"></div>
             </div>
             <div id="content_2">
@@ -219,132 +224,47 @@
                         ul>li*10>div.faq-box__question>span{질문 $}^div.faq-box__answer>lorem*10
                       -->
                         <ul>
+                      	<%for(FaqBoard fb : flist) { %>
                           <li>
-                            <div class="faq-box__question"><span>Q. 방금 등록한 게시글이 검색되지 않아요</span></div>
+                            <div class="faq-box__question"><span class="goDetail1">Q. <%=fb.getFaqTitle() %></span></div>
                             <div class="faq-box__answer">
-                              <div>
-                                게시글 등록 후 검색되기까지 최대 3분의 시간이 필요합니다.
+                              	<div>
+                                <%=fb.getFaqContent() %>
                                 </div>
-                              <div>
-                                조금만 기다렸다가 다시 검색해주시길 바랍니다 ^_^
-                              </div>
+                                <%if(loginUser != null && loginUser.getUserId().equals("admin")) { %> 
+                                <button onclick="location.href = '<%=contextPath%>/faqUpdate.bo?bno=<%=fb.getFaqNo()%>'" class="btn btn-info">수정하기</button>
+                                <button onclick="location.href = '<%=contextPath%>/faqDelete.bo?bno=<%=fb.getFaqNo()%>'" class="btn btn-danger">삭제하기</button>
+                                <%} %>
                             </div>
                           </li>
-                          <li>
-                            <div class="faq-box__question"><span>Q. 게시글 신고는 어떻게 하나요?</span></div>
-                            <div class="faq-box__answer">
-                              <div>
-                                부적절한 게시글을 상세보기 하시면 상단에 신고하기 버튼이 있습니다.
-                              </div>
-                              <div>
-                                악의적인 신고를 방지하기 위해 관리자의 검열을 통해서 게시글 삭제 및 회원 이용 정지를 조치할 예정입니다.
-                              </div>
-                            </div>
-                          </li>
-                          <li>
-                            <div class="faq-box__question"><span>Q. 회원 이용 정지 기준이 어떻게 되나요?</span></div>
-                            <div class="faq-box__answer">
-                              <div>
-                                부절한 게시글(음란물, 광고성 게시글 등)을 작성하시거나 
-                              </div>
-                              <div>
-                                욕설, 비하, 성희롱 등 언쟁이 될 만한 요소를 작성하시게 되면 비매너 사유로 경고 5번 부여 후 초과 시 이용 정지가 됩니다.
-                            </div>
-                          </li>
-                          <li>
-                            <div class="faq-box__question"><span>Q. </span></div>
-                            <div class="faq-box__answer">
-                             <div>
-                               - 수령일 기준 7일 이내에 교환/반품에 대한 청약철회 의사를 밝혀주시면 처리가 가능합니다.
-                             </div>
-                              <div>
-                                - 교환/반품 절차 : 마이페이지 → 주문내역 → 교환/반품 신청 → 수거기사님 방문예정
-                              </div>
-                              <div>
-                                - 구매하신 쇼핑몰에서 신청해주시거나, 고객센터(1544-9180)으로 신청 부탁드립니다.
-                              </div>
-                              <div>
-                                - 구매하신 제품의 AS를 원하는 경우에도 고객센터(1544-9180)으로 연락 부탁드립니다.
-                              </div>
-                            </div>
-                          </li>
-                          <li>
-                            <div class="faq-box__question"><span>Q. </span></div>
-                            <div class="faq-box__answer">
-                              <div>
-                                - 단순 변심으로 인한 교환/환불 시 왕복 배송비 발생 됩니다.
-                              </div>
-                              <div>
-                                - 제품 불량으로 인한 교환/환불 시 배송비는 발생되지 않습니다.
-                              </div>
-                              <div>
-                                - 교환으로 인한 차액 발생시 구매하신 쇼핑몰 또는 카카오 상담톡으로 문의주시면 도와드리겠습니다.
-                              </div>
-                            </div>
-                          </li>
-                          <li>
-                            <div class="faq-box__question"><span>Q. </span></div>
-                            <div class="faq-box__answer">
-                             <div>
-                               - 무통장입금 건은 입금 후 영업시간이내 1~2시간 이후에 확인이 가능하며,
-                             </div>
-                              <div>
-                                주문 후 7일 이내로 입금 확인이 안될 경우 주문이 자동으로 취소 처리됩니다.
-                              </div>
-                              <br>
-                              <div style="font-weight:bold;">
-                                ▼자동 입금이 되지 않는 4가지 경우▼
-                              </div>
-                              <div>
-                                 1. 입금자명이 다를 경우 - 주문 시 기재한 입금자명과 실제 입금자명이 다를 경우 연락 부탁드립니다.
-                              </div>
-                              <div>
-                                2. 결제 금액과 입금 금액이 불일치할 경우 - 결제 금액과 입금 금액이 일치하지 않을 경우 연락 부탁드리며, 초과 입금해주신 금액은 환불 처리 가능합니다.
-                              </div>
-                              <div>
-                                 3. 같은 주문서가 중복으로 존재할 경우 동일한 결제 정보의 주문서가 두 개 이상일 경우 자동 입금 연결이 되지 않습니다.
-                              </div>
-                              <div>
-                                4. 구매의사가 없는 주문서의 경우 마이페이지 주문내역에서 취소하시고, 입금해주신 금액은 환불 처리 가능합니다.
-                              </div>
-                            </div>
-                          </li>
-                          <li>
-                            <div class="faq-box__question"><span>Q. </span></div>
-                            <div class="faq-box__answer">
-                            <div>
-                              - 회원가입 없이 [비회원 구매] 버튼을 선택하여 주문이 가능합니다.
-                            </div>
-                              <div>
-                                - 비회원으로 주문시 주문 내용을 확인을 위해 '주문번호'와 '비밀번호'를 꼭 메모 부탁드립니다.
-                              </div>
-                              <div>
-                                - 주문번호를 잊으신 경우에는 고객센터(1544-9180)으로 연락 부탁드립니다.
-                              </div>
-                            </div>
-                          </li>
-                          <li>
-                            <div class="faq-box__question"><span>Q. </span></div>
-                            <div class="faq-box__answer">
-                             <div>
-                               - 비회원 주문의 경우 직접 취소 및 주문서 변경 처리가 어렵습니다.
-                             </div>
-                              <div>
-                                - 비회원 or 네이버 로그인으로 주문 후 취소/변경 및 교환/반품을 원하실 경우,
-                              </div>
-                              <div>
-                                고객센터(1544-9180)로 주문자이름 , 휴대폰번호, 요청 내용과 함께 문의주시면 도와드리겠습니다.
-                              </div>
-                              <div>
-                                - 단, 이미 제품이 발송된 경우에는 주문 취소가 불가합니다.
-                              </div>
-                            </div>
-                          </li>
+                          <%} %> 
                         </ul>
                       </div>
-                    
+                    	<%if(loginUser != null && loginUser.getUserId().equals("admin")) { %> 
+	                        <div align="right" id="write_btn">
+	                            <a href="<%=request.getContextPath() %>/views/board/faq/faqDetailView.jsp" class="btn btn-light">글쓰기</a>
+	                        </div>
+                        <%} %>
+                    	
                         <br><br>
-
+						<div align="center" class="paging-area">
+    
+                        	<%if(pi.getCurrentPage() != 1) {%>
+                            	<button onclick="location.href='<%=contextPath %>/faqList.bo?currentPage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
+                            <%} %>
+                            
+                            <%for(int i = pi.getStartPage(); i <= pi.getEndPage(); i++) { %>
+                            	<%if(i != pi.getCurrentPage()) {%>
+                            	<button onclick="location.href='<%=contextPath %>/faqList.bo?currentPage=<%=i%>';"><%=i %></button>
+                            	<%} else {%>
+                            		<button disabled><%=i %></button>
+                            	<%} %>
+                            <%} %>
+                            
+                            <%if(pi.getCurrentPage() != pi.getMaxPage()) { %>
+	                            <button onclick="location.href='<%=contextPath %>/faqList.bo?currentPage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
+                            <%} %>
+                        </div>
                         
                 </div>
             </div>
@@ -353,6 +273,21 @@
     <%@ include file = "../../common/footer.jsp" %>
     
      <script>
+	     $(function(){
+	     	//.list-area클래스 자손tbody 자손tr 클릭됐을때
+	 	    $(".goDetail1").click(function(){
+	 	        
+	 	        var bno = $(this).parent().children().first().text();
+	//  	        var nno = $(this).siblings().eq(0).text();
+	//  	        console.log(nno);
+				//if(loginUser != null && loginUser.getUserId().equals("admin")) {
+					
+<%-- 	 	       		location.href = '<%=contextPath%>/faqDetail.bo?bno='+bno; --%>
+				
+	 	    });
+	     	
+	     });
+     
         function FaqBox_init() {
       $('.faq-box > ul > li').click(function() {
         var $this = $(this);

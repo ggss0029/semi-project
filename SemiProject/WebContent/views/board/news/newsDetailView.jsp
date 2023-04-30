@@ -149,13 +149,24 @@ tbody>#tr2 {
 			<div class="like-area">
 					<div class="like" style="float: left;">
 						<% if (loginUser != null) %>
-							<button type="button" id="like_btn">
-								<i class="fas fa-heart"></i>
-								
+							<button type="button" id="like_btn">♡</button>
 								&nbsp; 
-								<span class="like_count"></span> <!-- 추천 수 보여주기 -->
-							</button>
+							<span class="like_count"></span> <!-- 추천 수 보여주기 -->
 					</div>
+					
+					<script>
+						$(document).ready(function() {
+							 $('#like_btn').click(function() {
+								 $.ajax({
+									 url : "likeOn",
+									 type : "post",
+									 data : {
+										 userNo : 
+									 }
+								 })
+							 }
+						})
+					</script>
 					
 				<%
 					if (loginUser != null && loginUser.getNickname().equals(nb.getBoardWriter())) {

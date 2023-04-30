@@ -1,8 +1,8 @@
-package com.udong.member.model.vo;
+package com.udong.board.buy.model.vo;
 
 import java.sql.Date;
 
-public class Board {
+public class BuyBoard {
 	private int boardNo;// BOARD_NO NUMBER
 	private String boardWriter;// BOARD_WRITER NUMBER --String 으로 하기
 	private String boardTitle; // BOARD_TITLE VARCHAR2(100 BYTE)
@@ -17,23 +17,37 @@ public class Board {
 	private int boardReport;// BOARD_REPORT NUMBER
 	private int likeCount; // 좋아요 수
 
-	public Board() {
+	public BuyBoard() {
 		super();
 	}
 	
-	//좋아요한 게시글 조회
-	public Board(int boardNo, String boardWriter, String boardTitle, String boardName, int count, Date createDate) {
+	
+	//게시글 하나 조회 멤버 변수
+	public BuyBoard(int boardNo, String boardTitle, String boardWriter, String boardContent, Date createDate) {
+		super();
+		this.boardNo = boardNo;
+		this.boardTitle = boardTitle;
+		this.boardWriter = boardWriter;
+		this.boardContent = boardContent;
+		this.createDate = createDate;
+	}
+
+
+
+	//게시글 리스트 멤버변수
+	public BuyBoard(int boardNo, String boardWriter, String boardTitle, int count, Date createDate, int likeCount) {
 		super();
 		this.boardNo = boardNo;
 		this.boardWriter = boardWriter;
 		this.boardTitle = boardTitle;
-		this.boardName = boardName;
 		this.count = count;
 		this.createDate = createDate;
+		this.likeCount = likeCount;
 	}
-	
 
-	public Board(int boardNo, String boardWriter, String boardTitle, String boardContent, String boardName,
+
+
+	public BuyBoard(int boardNo, String boardWriter, String boardTitle, String boardContent, String boardName,
 			String category, int count, Date createDate, String region, String foodType, String status, int boardReport,
 			int likeCount) {
 		super();
@@ -51,7 +65,6 @@ public class Board {
 		this.boardReport = boardReport;
 		this.likeCount = likeCount;
 	}
-
 
 	public int getBoardNo() {
 		return boardNo;
@@ -159,7 +172,7 @@ public class Board {
 
 	@Override
 	public String toString() {
-		return "Board [boardNo=" + boardNo + ", boardWriter=" + boardWriter + ", boardTitle=" + boardTitle
+		return "BuyBoard [boardNo=" + boardNo + ", boardWriter=" + boardWriter + ", boardTitle=" + boardTitle
 				+ ", boardContent=" + boardContent + ", boardName=" + boardName + ", category=" + category + ", count="
 				+ count + ", createDate=" + createDate + ", region=" + region + ", foodType=" + foodType + ", status="
 				+ status + ", boardReport=" + boardReport + ", likeCount=" + likeCount + "]";

@@ -403,4 +403,174 @@
         		ORDER BY COUNT DESC)
 		<![CDATA[WHERE ROWNUM <= 8]]>
 	</entry>
+	
+	<!-- 살림꿀팁 댓글 작성 -->
+	<entry key="cleanInsertReply">
+		INSERT INTO REPLY(REPLY_NO, REPLY_CONTENT, REF_BNO, REPLY_WRITER)
+		VALUES(SEQ_RNO.NEXTVAL,?,?,?)
+	</entry>
+	
+	<!-- 살림꿀팁 댓글 목록 조회 -->
+	<entry key="cleanSelectReply">
+		SELECT REPLY_NO, REPLY_CONTENT, REF_BNO, NICKNAME, TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') CREATE_DATE
+		FROM REPLY R
+		JOIN MEMBER M ON(REPLY_WRITER = USER_NO)
+		WHERE R.STATUS = 'Y'
+		AND REF_BNO = ?
+		ORDER BY CREATE_DATE DESC, REPLY_NO DESC
+	</entry>
+	
+	<!-- 살림꿀팁 댓글 삭제 -->
+	<entry key="cleanDeleteReply">
+		UPDATE REPLY
+		SET STATUS = 'N'
+		WHERE REPLY_NO = ?
+		AND STATUS = 'Y'
+	</entry>
+	
+	<!-- 살림꿀팁 댓글 수정 -->
+	<entry key="cleanUpdateReply">
+		UPDATE REPLY
+		SET REPLY_CONTENT = ?
+			,MODIFY_DATE = SYSDATE
+		WHERE REPLY_NO = ?
+		AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectMyLike">
+	SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+        		FROM ( SELECT BOARD_NO, BOARD_NAME, BOARD_TITLE, NICKNAME, CREATE_DATE, COUNT
+						FROM BOARD B
+						JOIN MEMBER M ON (BOARD_WRITER = USER_NO)
+						WHERE B.BOARD_NO IN (SELECT BOARDLIKE_NO 
+						                    FROM BOARD_LIKE 
+						                    WHERE USER_NO = ?)
+						ORDER BY BOARD_NO DESC) A )
+	WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	
+	<!-- ================================================================= -->
+	
+	<!-- 같이사요(buy) 총 게시글 개수 구하기 -->
+	<entry key="buySelectListCount">
+		SELECT COUNT(*) COUNT
+		FROM BOARD
+		WHERE STATUS = 'Y'
+		AND BOARD_NAME = '같이 사요' 
+	</entry>
+
+	<!-- 같이사요(buy) 리스트 불러오기(아직 좋아요 카운트 안불러옴) -->
+	<entry key="buySelectList">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+        		FROM (SELECT BOARD_NO, BOARD_TITLE, NICKNAME, CREATE_DATE, COUNT, COUNT(BOARDLIKE_NO) LIKE_COUNT
+		        		FROM BOARD B
+		        		JOIN MEMBER M ON (BOARD_WRITER = USER_NO)
+		        		LEFT JOIN BOARD_LIKE ON (BOARDLIKE_NO = BOARD_NO)
+		        		WHERE B.STATUS ='Y' AND BOARD_NAME = '같이 사요'
+		        		GROUP BY BOARD_NO, BOARD_TITLE, NICKNAME, CREATE_DATE, COUNT
+		        		ORDER BY BOARD_NO DESC) A )
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<!-- 조회수  -->
+	<entry key="increaseCount">
+		UPDATE BOARD
+		SET COUNT = COUNT +1
+		WHERE BOARD_NO = ?
+		AND STATUS = 'Y'
+	</entry>
+	
+	<!--같이사요(buy) 게시글 하나 정보 조회하기 -->
+	<entry key="selectBuy">
+		SELECT BOARD_NO, BOARD_TITLE, NICKNAME, CREATE_DATE, BOARD_CONTENT
+		FROM BOARD B
+		JOIN MEMBER M ON (BOARD_WRITER = USER_NO)
+		WHERE B.STATUS = 'Y'
+		AND BOARD_NAME = '같이 사요'
+		AND BOARD_NO = ?
+	</entry>
+	
+	<!-- 같이사요(buy) 댓글 작성 -->
+	<entry key="buyInsertReply">
+		INSERT INTO REPLY(REPLY_NO, REPLY_CONTENT, REF_BNO, REPLY_WRITER)
+		VALUES(SEQ_RNO.NEXTVAL,?,?,?)
+	</entry>
+	
+	<!-- 같이사요(buy) 댓글 목록 조회 -->
+	<entry key="buySelectReply">
+		SELECT REPLY_NO, REPLY_CONTENT, REF_BNO, NICKNAME, TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') CREATE_DATE
+		FROM REPLY R
+		JOIN MEMBER M ON(REPLY_WRITER = USER_NO)
+		WHERE R.STATUS = 'Y'
+		AND REF_BNO = ?
+		ORDER BY CREATE_DATE DESC, REPLY_NO DESC
+	</entry>
+	
+	<!-- 같이사요(buy) 댓글 삭제 -->
+	<entry key="buyDeleteReply">
+		UPDATE REPLY
+		SET STATUS = 'N'
+		WHERE REPLY_NO = ?
+		AND STATUS = 'Y'
+	</entry>
+	
+	<!-- 같이사요(buy) 댓글 수정 -->
+	<entry key="buyUpdateReply">
+		UPDATE REPLY
+		SET REPLY_CONTENT = ?
+			,MODIFY_DATE = SYSDATE
+		WHERE REPLY_NO = ?
+		AND STATUS = 'Y'
+	</entry>
+	
+	<!-- faq -->
+	<entry key="faqSelectListCount">
+		SELECT COUNT(*) COUNT
+		FROM FAQ
+		WHERE STATUS = 'Y' 
+	</entry>
+	
+	<entry key="faqSelectList">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+        		FROM (SELECT FAQ_NO, FAQ_TITLE, FAQ_CONTENT
+		        		FROM FAQ
+		        		WHERE STATUS ='Y'
+		        		ORDER BY FAQ_NO DESC) A )
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="faqInsertBoard">
+		INSERT INTO FAQ(FAQ_NO
+						   ,FAQ_TITLE
+						   ,FAQ_CONTENT)
+					VALUES(SEQ_FNO.NEXTVAL
+							,?
+							,?)
+	</entry>
+	
+	<entry key="faqDeleteBoard">
+		UPDATE FAQ
+		SET STATUS = 'N'
+		WHERE FAQ_NO = ? AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectFaq">
+		SELECT FAQ_NO, FAQ_TITLE, FAQ_CONTENT
+		FROM FAQ
+		WHERE STATUS = 'Y'
+		AND FAQ_NO = ?
+	</entry>
+	
+	<entry key="updateFaq">
+		UPDATE FAQ
+		SET FAQ_TITLE = ? 
+			,FAQ_CONTENT = ?
+		WHERE FAQ_NO = ?
+		AND STATUS = 'Y'
+	</entry>
+	
 </properties>

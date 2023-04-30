@@ -16,7 +16,6 @@ import java.util.Properties;
 import com.udong.board.news.model.vo.NewsBoard;
 import com.udong.common.JDBCTemplate;
 import com.udong.common.model.vo.PageInfo;
-import com.udong.member.model.vo.Board;
 import com.udong.member.model.vo.Member;
 
 public class MemberDao {
@@ -917,46 +916,6 @@ public class MemberDao {
 			JDBCTemplate.close(pstmt);
 		}
 		return listCount;
-	}
-
-	//내가 좋아요한 게시글 리스트 조회
-	public ArrayList<Board> likeSelectList(Connection conn, PageInfo pi, int userNo) {
-		ArrayList<Board> list = new ArrayList<>();
-		
-		ResultSet rset = null;
-		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("likeSelectList");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			int startRow = (pi.getCurrentPage() -1) * pi.getBoardLimit() +1;
-			int endRow = (startRow + pi.getBoardLimit()) -1;
-			
-			pstmt.setInt(1, userNo);
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
-			
-			rset= pstmt.executeQuery();
-			
-			while(rset.next()) {
-				 list.add(new Board(rset.getInt("BOARD_NO")
-										,rset.getString("NICKNAME")
-										,rset.getString("BOARD_TITLE")
-										,rset.getString("BOARD_NAME")
-										,rset.getInt("COUNT")
-										,rset.getDate("CREATE_DATE")));
-			
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(pstmt);
-		}
-		return list;
 	}
 
 	public int unrecommend(Connection conn, String myNickname, String nickname) {
