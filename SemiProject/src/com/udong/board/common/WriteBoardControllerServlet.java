@@ -1,5 +1,6 @@
 package com.udong.board.common;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -36,8 +37,8 @@ public class WriteBoardControllerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
+		request.getRequestDispatcher("views/board/writeBoard.jsp").forward(request, response);
 	}
 
 	/**
@@ -72,13 +73,15 @@ public class WriteBoardControllerServlet extends HttpServlet {
 				b.setBoardContent(boardContent);
 				b.setCategory(category);
 				b.setRegion(region);
+				
+			Attachment at = null;
 			
 			ArrayList<Attachment> list = new ArrayList<>();
 			
 			for(int i=0; i<=Integer.parseInt(multiRequest.getParameter("fileLength")); i++) {
 				String key = "file"+i;
 				if(multiRequest.getOriginalFileName(key) != null) {
-					Attachment at = new Attachment();
+					at = new Attachment();
 					at.setOriginName(multiRequest.getOriginalFileName(key));
 					at.setChangeName(multiRequest.getFilesystemName(key));
 					at.setFilePath("/resources/");
@@ -94,9 +97,14 @@ public class WriteBoardControllerServlet extends HttpServlet {
 			int result = new BoardCommonService().insertEachBoard(b,list);
 			
 			if(result>0) {
-				request.getSession().setAttribute("alertMsg", "게시글 작성 완료");
+				request.getSession().setAttribute("goBefore","뒤로 가 임마");
 				response.sendRedirect(request.getHeader("Referer"));
 			}else {
+				if(!list.isEmpty()) {
+					for(int i=0; i<=Integer.parseInt(multiRequest.getParameter("fileLength")); i++) {
+						new File(savePath+list.get(i).getChangeName()).delete();
+					}
+				}
 				request.setAttribute("errorMsg", "게시글 작성 실패");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}
