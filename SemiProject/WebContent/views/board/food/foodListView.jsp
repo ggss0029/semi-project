@@ -371,7 +371,7 @@
                         </div>
                         <%if (loginUser != null) {%>
                         	<div align="right" id="write_btn">
-                            	<a href="<%=contextPath %>/views/board/writeBoard.jsp" class="btn btn-light">글쓰기</a>
+                            	<a href="<%=contextPath %>/insert.bo" class="btn btn-light">글쓰기</a>
                         	</div>
                         <%} %>
                         </div>
@@ -387,10 +387,41 @@
     	var country = $("#countryCategory").val();
     
 		var str = "";
-			str += "city=" + city + "&country=" + country + "&"
 		$("input[class=check]:checked").each(function() {
 			str += "FC=" + $(this).val() + "&";
 		});
+			str += "city=" + city + "&country=" + country
+		
+			$.ajax({
+				url : "foodCategoryList.bo?"+str,
+				data : {
+						city : city,
+						country : country,
+		},
+				type : "post",
+				success : function(flist) {
+					$("#photoArea").children().remove();
+					$(".paging-area").children().remove();
+					console.log(flist);
+					if(flist[0] == null){
+						alert("검색된 게시물이 없습니다.");
+					}else {
+						var str = "";
+						for(var i in flist){
+	                    str += "<div class='thumbnail'><input type='hidden' name='bno' value="+flist[i].boardNo+">"
+					        +"<img src='/udong/"+flist[i].titleImg+"' width='230px' height='200px'>"
+	                        +"<p>&lt;"+flist[i].boardTitle+"&gt;<br>"
+	                            	+"작성자 :"+flist[i].boardWriter+"   조회수 : "+flist[i].count
+	                        +"</p></div>"
+						}
+						$("#photoArea").append(str);
+					}	
+				},
+				error : function() {
+					alert("카테고리 조회 실패");
+				}
+			});
+			
     };
     
     window.onpageshow = function(event) {

@@ -141,7 +141,7 @@
 						<br>
 						<div class="modal_btns">
 							<button type="button" onclick="sendLetter();" class="btn btn-secondary">쪽지보내기</button>
-							<button type="button" class="btn btn-secondary">쓴글보기</button>
+							<button type="button" onclick="writtenBoard();" class="btn btn-secondary">쓴글보기</button>
 						</div>
 						<br>
 						<button type="button" class="btn" style="width: 200px; height: 80px;" id="rec" onclick="recommend();">
@@ -229,6 +229,11 @@
 	    			}
 	    		});
     		<%}%>
+    	}
+    	
+    	function writtenBoard() {
+    		var nickname = $("#p_nickname").children().html();
+    		location.href = "<%=contextPath%>/writtenBoardList.bo?nickname=" + nickname + "&cPage=1";
     	}
     </script>
 </body>
