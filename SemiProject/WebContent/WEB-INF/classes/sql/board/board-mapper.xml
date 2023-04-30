@@ -583,6 +583,64 @@
 	    GROUP BY BOARD_NO,NICKNAME,BOARD_TITLE,CATEGORY,B.COUNT,CREATE_DATE,REGION,BOARD_REPORT,FILE_PATH||CHANGE_NAME
 	</entry>
 	
+	<!-- ============================ -->
+	
+	<entry key="noticeSelectListCount">
+		SELECT COUNT(*) COUNT
+		FROM NOTICE
+		WHERE STATUS = 'Y'
+	</entry>
+	
+	<entry key="noticeSelectList">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+        		FROM (SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT , NICKNAME, CREATE_DATE, COUNT
+						FROM NOTICE N
+						JOIN MEMBER M ON (NOTICE_WRITER = USER_NO)
+						WHERE N.STATUS ='Y'
+						ORDER BY NOTICE_NO DESC) A )
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectNotice">
+		SELECT NOTICE_NO, NOTICE_TITLE, NICKNAME, CREATE_DATE, NOTICE_CONTENT
+		FROM NOTICE N
+		JOIN MEMBER M ON (NOTICE_WRITER = USER_NO)
+		WHERE N.STATUS = 'Y'
+		AND NOTICE_NO = ?
+	</entry>
+	
+	<entry key="noticeInsertBoard">
+		INSERT INTO NOTICE(NOTICE_NO
+						   ,NOTICE_TITLE
+						   ,NOTICE_CONTENT
+						   ,NOTICE_WRITER)
+					VALUES(SEQ_NNO.NEXTVAL
+							,?
+							,?
+							,?)
+	</entry>
+	
+	<entry key="updateNotice">
+		UPDATE NOTICE
+		SET NOTICE_TITLE = ? 
+			,NOTICE_CONTENT = ?
+		WHERE NOTICE_NO = ?
+		AND STATUS = 'Y'
+	</entry>
+	
+	<!-- 공ㅈ사항 조회수  -->
+	<entry key="noticeIncreaseCount">
+		UPDATE NOTICE
+		SET COUNT = COUNT +1
+		WHERE NOTICE_NO = ?
+		AND STATUS = 'Y'
+	</entry>
+	<entry key="noticeDeleteBoard">
+		UPDATE NOTICE
+		SET STATUS = 'N'
+		WHERE NOTICE_NO = ? AND STATUS = 'Y'
+	</entry>
 	<entry key="foodRegionCategoryList">
     	SELECT BOARD_NO,NICKNAME,BOARD_TITLE,CATEGORY,B.COUNT,CREATE_DATE,REGION,BOARD_REPORT,FILE_PATH||CHANGE_NAME "TITLEIMG",COUNT(BOARDLIKE_NO)AS LIKECOUNT
         FROM BOARD B
