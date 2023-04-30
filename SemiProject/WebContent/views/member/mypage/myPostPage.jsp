@@ -234,8 +234,13 @@
 						}
 					});
 					
-					$("#list-area>tbody>tr").click(function() {
-						
+					$("#list-area>tbody>tr>td").click(function() {
+						var str = $(this).html();
+						if(str.indexOf('input') == -1) {
+							var bno = $(this).parent().children().eq(1).text(); // 게시글 번호
+							var bname = $(this).parent().children().eq(2).text(); // 게시판 이름
+							location.href = "<%=contextPath%>/searchBoard.bo?bno=" + bno + "&bname=" + bname;
+						}
 					});
 				})
 			
