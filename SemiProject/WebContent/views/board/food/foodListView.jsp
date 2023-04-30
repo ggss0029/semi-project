@@ -401,6 +401,7 @@
 				type : "post",
 				success : function(flist) {
 					$("#photoArea").children().remove();
+					$(".paging-area").children().remove();
 					console.log(flist);
 					if(flist[0] == null){
 						alert("검색된 게시물이 없습니다.");
