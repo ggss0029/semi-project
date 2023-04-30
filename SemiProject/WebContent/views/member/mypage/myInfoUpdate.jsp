@@ -398,11 +398,11 @@
 				                            <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" id="address"><br>
 				                        </div>
 				                        <div class="div2">
-				                            <input type="text" id="sample6_address" name="sample6_address" value="" placeholder="주소" readonly><br>
+				                            <input type="text" id="sample6_address" name="sample6_address" value="<%=loginUser.getAddress().substring(0, loginUser.getAddress().indexOf('(')-1) %>" placeholder="주소" readonly><br>
 				                        </div>
 				                        <div class="div3">
-				                            <input type="text" id="sample6_detailAddress" name="sample6_detailAddress" value="" placeholder="상세주소">
-				                            <input type="text" id="sample6_extraAddress" name="sample6_extraAddress" value=""  placeholder="참고항목" readonly>
+				                            <input type="text" id="sample6_detailAddress" name="sample6_detailAddress" value="<%=loginUser.getAddress().substring(loginUser.getAddress().indexOf(')')+2, loginUser.getAddress().indexOf('-')) %>" placeholder="상세주소">
+				                            <input type="text" id="sample6_extraAddress" name="sample6_extraAddress" value="<%=loginUser.getAddress().substring(loginUser.getAddress().indexOf('('), loginUser.getAddress().indexOf(')')+1) %>" placeholder="참고항목" readonly>
 				                        </div>
 				                    </div>
                                 </td>
@@ -425,7 +425,11 @@
                                 	<div align="right">
                                 		<p class="textCount"></p><p class="textTotal"></p>
                                 	</div>
-                                    <textarea class="introduction" name="introduction" cols="90" rows="4" style="resize: none;" maxLength="133"><%=loginUser.getIntroduction() %></textarea>
+                                	<%if (loginUser.getIntroduction() != null) {%>
+                                    	<textarea class="introduction" name="introduction" cols="90" rows="4" style="resize: none;" maxLength="133"><%=loginUser.getIntroduction() %></textarea>
+                                    <%} else { %>
+                                    	<textarea class="introduction" name="introduction" cols="90" rows="4" style="resize: none;" maxLength="133">작성된 소개글이 없습니다.</textarea>
+                                    <%} %>
                                 </td>
                             </tr>
                         </table>

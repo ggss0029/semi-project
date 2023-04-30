@@ -1,4 +1,4 @@
-package com.udong.common;
+package com.udong.common.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;

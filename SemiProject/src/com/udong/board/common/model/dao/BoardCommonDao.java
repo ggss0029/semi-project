@@ -610,7 +610,6 @@ public class BoardCommonDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, boardNo);
 			result = pstmt.executeUpdate();
-			System.out.println(result);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -619,6 +618,53 @@ public class BoardCommonDao {
 		}
 		
 		return result;
+	}
+	
+	public int deleteAttachment(Connection conn, int boardNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("deleteAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public ArrayList<BoardCommon> foodPostList(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<BoardCommon> list = new ArrayList<>();
+		String sql = prop.getProperty("foodPostList");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);
+			
+			while(rset.next()) {
+				BoardCommon bc = new BoardCommon();
+				bc.setBoardNo(rset.getInt("BOARD_NO"));
+				bc.setBoardTitle(rset.getString("BOARD_TITLE"));
+				bc.setImg(rset.getString("IMG"));
+				list.add(bc);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(stmt);
+		}
+		
+		return list;
 	}
 
 	public ArrayList<BoardCommon> selectMyLike(Connection conn, PageInfo pi, int userNo) {

@@ -213,12 +213,38 @@
 			</div>
 			
 			<script>
+				$(function() {
+					var checkCount = 0;
+					
+					$("input[class=check]").change(function() {
+						if($(this).is(":checked")) {
+							checkCount++;
+							console.log(checkCount);
+						}
+						else {
+							checkCount--;
+							console.log(checkCount);
+						}
+						
+						if(checkCount == $("input[class=check]").length) {
+							$("#checkAll").prop("checked", true);
+						}
+						else {
+							$("#checkAll").prop("checked", false);
+						}
+					});
+					
+					$("#list-area>tbody>tr").click(function() {
+						
+					});
+				})
+			
 				function checkall() {
 					if($("#checkAll").prop("checked")) {
 						$("input[class=check]").prop("checked", true);
 					}
 					else {
-						$("input[type=checkbox]").prop("checked", false);
+						$("input[class=check]").prop("checked", false);
 					}
 				}
 				
@@ -228,8 +254,13 @@
 						str += "bno=" + $(this).val() + "&";
 					})
 					
-					if(confirm("정말 삭제하시겠습니까?")) {
-						location.href = "<%=contextPath%>/deletePost.bo?" + str;
+					if(str == "") {
+						alert("선택된 게시글이 없습니다.");
+					}
+					else {
+						if(confirm("정말 삭제하시겠습니까?")) {
+							location.href = "<%=contextPath%>/deletePost.bo?" + str;
+						}
 					}
 				}
 			</script>

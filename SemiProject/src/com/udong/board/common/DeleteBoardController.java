@@ -1,6 +1,7 @@
 package com.udong.board.common;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.udong.board.common.model.service.BoardCommonService;
+import com.udong.board.common.model.vo.Attachment;
 
 /**
  * Servlet implementation class DeleteBoardController
@@ -33,6 +35,14 @@ public class DeleteBoardController extends HttpServlet {
 		int[] bnoArr = new int[bnoString.length]; // 삭제할 게시판 번호 담은 배열
 		for(int i=0;i<bnoString.length;i++) {
 			bnoArr[i] = Integer.parseInt(bnoString[i]);
+		}
+		
+		for(int i=0;i<bnoArr.length;i++) { // 첨부파일 있는지 확인
+			ArrayList<Attachment> alist = new BoardCommonService().selectAttachment(bnoArr[i]);
+			
+			if(!alist.isEmpty()) { // 첨부파일 존재하면 status N으로 변경
+				new BoardCommonService().deleteAttachment(bnoArr[i]);
+			}
 		}
 		
 		int result = new BoardCommonService().deletePost(bnoArr);
