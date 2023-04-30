@@ -1,3 +1,5 @@
+<%@page import="com.udong.board.common.model.vo.Attachment"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.udong.board.common.model.vo.BoardCommon"%>
 <%@page import="com.udong.board.food.model.vo.FoodBoard"%>
 <%@page import="com.udong.board.news.model.vo.*"%>
@@ -12,9 +14,10 @@
 		fb.setBoardWriter(b.getBoardWriter());
 		fb.setCreateDate(b.getCreateDate());
 		fb.setBoardContent(b.getBoardContent());
-	}else if(request.getAttribute("foodBoard")!=null){
-		fb = (FoodBoard)request.getAttribute("foodBoard");
+	}else if(request.getAttribute("fb")!=null){
+		fb = (FoodBoard)request.getAttribute("fb");
 	}
+	ArrayList<Attachment> alist = (ArrayList<Attachment>)request.getAttribute("alist");
 %>
 <!DOCTYPE html>
 <html>
@@ -98,16 +101,15 @@ table {
 tbody>#tr2 {
 	height: 50px;
 }
+#foodWriter>a:hover{
+	cursor:pointer;
+}
 </style>
 </head>
 <body>
 	<%@ include file="../../common/menubar.jsp"%>
 
 	<div class="wrap">
-<!-- 		<div id="header"> -->
-<!-- 			<div id="header_1"></div> -->
-<!-- 			<div id="menubar"></div> -->
-<!-- 		</div> -->
 		<div id="content">
 			<p id="p1">동네 맛집</p>
 			<button id="report_btn" class="btn btn-basic">신고하기</button>
@@ -116,22 +118,92 @@ tbody>#tr2 {
 
 			<table border="0" align="center" id="detail-area">
 				<tr style="height:80px;">
-					<td colspan="2"
+					<td colspan="4"
 						style="height: 50px; font-size: 30px; font-weight: 600; border-bottom: 1px solid black;"><%=fb.getBoardTitle()%></td>
 				</tr>
 				<tr style="border-bottom: 1px solid black; height:80px;">
-					<td style="height: 50px; font-size: 20px; font-weight: 600; ">
-						<a data-toggle="modal" data-target="#profile"><%=fb.getBoardWriter()%></a>
+					<td style="height: 50px; font-size: 20px; font-weight: 600;" id="foodWriter" colspan="3">
+						작성자 <a data-toggle="modal" data-target="#profile"><%=fb.getBoardWriter()%></a>
 					</td>
-					
 					<td style="height: 50px; font-size: 20px; font-weight: 600;"
-						align="right"><%=fb.getCreateDate()%></td>
+						align="right">조회수 <%=fb.getCount()%> &nbsp;&nbsp;  작성일 <%=fb.getCreateDate()%></td>
 				</tr>
-				<tr style="height: 700px">
-					<td colspan="2" style="height: auto; vertical-align : top "><br><%=fb.getBoardContent()%></td>
-					
+				<tr>
+					<td style="height: 50px; font-size: 30px; font-weight: 600; border-bottom: 1px solid black;">식당 이름 : <%=fb.getRegion().substring(0,fb.getRegion().indexOf("$")) %></td>
+					<td colspan="3" style="height: 50px; font-size: 30px; font-weight: 600; border-bottom: 1px solid black;">식당 주소 : <%=fb.getRegion().substring(fb.getRegion().indexOf("$")+1,fb.getRegion().length())%></td>
+				</tr>
+				<tr>
+					<%if(alist.size()>4){ %>
+						<%for(int i=0; i<4 ; i++){ %>
+							<td>
+								<img src="<%=contextPath +alist.get(i).getFilePath()+alist.get(i).getChangeName()%>" width="300px" height="270px">
+							</td>
+						<%} %>
+					<%}else{ %>
+						<%for(int i=0; i<alist.size() ; i++){ %>
+							<td>
+								<img src="<%=contextPath +alist.get(i).getFilePath()+alist.get(i).getChangeName()%>" width="300px" height="270px">
+							</td>
+						<%} %>
+					<%} %>
+				</tr>
+				<tr>
+				<%if(alist.size()>4 && alist.size() != 9){ %>
+					<%for(int i=4; i<alist.size() ; i++){ %>
+							<td>
+								<img src="<%=contextPath +alist.get(i).getFilePath()+alist.get(i).getChangeName()%>" width="300px" height="270px">
+							</td>
+					<%} %>
+				<%}else if(alist.size() == 9){ %>
+					<%for(int i=4; i<alist.size()-1 ; i++){ %>
+							<td>
+								<img src="<%=contextPath +alist.get(i).getFilePath()+alist.get(i).getChangeName()%>" width="300px" height="270px">
+							</td>
+					<%} %>
+					</tr>
+					<tr>
+						<td><img src="<%=contextPath +alist.get(8).getFilePath()+alist.get(8).getChangeName()%>" width="300px" height="270px"></td>
+					</tr>
+				<%} %>
+				</tr>		
+				<tr style="height: auto">
+					<td colspan="4" style="height: auto; vertical-align : top "><br><%=fb.getBoardContent()%></td>
 				</tr>
 			</table>
+			<br><br>
+<div id="map" style="width:100%;height:350px;"></div>
+			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7122a55dfee4ed591b995856dce3e752&libraries=services"></script>
+<script>
+var mapContainer = document.getElementById('map'), 
+    mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), 
+        level: 3 
+    };  
+
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+var geocoder = new kakao.maps.services.Geocoder();
+
+geocoder.addressSearch("<%=fb.getRegion().substring(fb.getRegion().indexOf("$")+1,fb.getRegion().length())%>", function(result, status) {
+
+     if (status === kakao.maps.services.Status.OK) {
+
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+        var infowindow = new kakao.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;"><%=fb.getRegion().substring(0,fb.getRegion().indexOf("$")) %></div>'
+        });
+        infowindow.open(map, marker);
+
+        map.setCenter(coords);
+    } 
+});    
+</script>
 
 			<div class="like-area">
 					<div class="like" style="float: left;">
@@ -176,7 +248,7 @@ tbody>#tr2 {
 							style="resize: none;" placeholder="폭언, 비매너 댓글은 상처받아요ㅠ,ㅠ"></textarea>
 						<div class="input-group-btn">
 							<button onclick="insertReply();" class="btn btn-light"
-								type="submit" style="height: 110px">댓글 등록</button>
+								type="button" style="height: 110px">댓글 등록</button>
 						</div>
 					</div>
 				</div>
@@ -203,9 +275,9 @@ tbody>#tr2 {
 				<br><br><br>
 			</div>
 			<script>
-				$(function() {
-					$("#tabs").tabs();
-				});
+// 				$(function() {
+// 					$("#tabs").tabs();
+// 				});
 
 				$(function() {
 					foodSelectReplyList();
@@ -216,14 +288,17 @@ tbody>#tr2 {
 						url : "foodInsertReply.bo",
 						data : {
 							content : $("#replyContent").val(),
-							newsBoardNo : <%=fb.getBoardNo()%>
+							foodBoardNo : <%=fb.getBoardNo()%>,
+							<%if(loginUser != null){%>
+								userNo : <%=loginUser.getUserNo()%>
+							<%}%>
 				},
 						type : "post",
 						success : function(result) {
 							if (result > 0) {
 								alert("댓글 작성 완료!");
-								foodSelectReplyList(); //댓글 리스트 갱신
-								$("#replyContent").val(""); // 내용을 작성한 textarea를 다 지워줌
+								foodSelectReplyList();
+								$("#replyContent").val("");
 							}
 						},
 						error : function() {
@@ -238,7 +313,7 @@ tbody>#tr2 {
 					$.ajax({
 								url : "foodSelectReplyList.bo",
 								data : {
-									newsBoardNo : <%=fb.getBoardNo()%>
+									boardNo : <%=fb.getBoardNo()%>
 										},
 								success : function(flist) {
 									var result = "";
@@ -255,8 +330,8 @@ tbody>#tr2 {
 													+ "</span>"
 													+ "<span style='font-size: 15px;'>"
 													+ flist[i].createDate
-													+ "<button id='delete_reply' class='btn btn-dark btn-sm' onclick='newsDeleteReply(" + flist[i].replyNo+")' style='float:right'>삭제하기</button>"
-													+ "<button id='update_reply' class='btn btn-secondary btn-sm' onclick='newsUpdateReplyForm("+ flist[i].replyNo + ",\"" + flist[i].replyWriter + "\"" + ",\"" + flist[i].createDate + "\"" +",\""+ flist[i].replyContent+"\");' style='float:right'>수정하기</button>"
+													+ "<button id='delete_reply' class='btn btn-dark btn-sm' onclick='foodDeleteReply(" + flist[i].replyNo+")' style='float:right'>삭제하기</button>"
+													+ "<button id='update_reply' class='btn btn-secondary btn-sm' onclick='foodUpdateReplyForm("+ flist[i].replyNo + ",\"" + flist[i].replyWriter + "\"" + ",\"" + flist[i].createDate + "\"" +",\""+ flist[i].replyContent+"\");' style='float:right'>수정하기</button>"
 													+ "</span><br>"
 													+ "<p class='list-group-item-text'>"
 													+ flist[i].replyContent
@@ -274,8 +349,6 @@ tbody>#tr2 {
 							});
 					};
 					
-				
-					//댓글 삭제
 					function foodDeleteReply(replyNo) {
 						
 						$.ajax({
@@ -294,7 +367,6 @@ tbody>#tr2 {
 					});
 					}
 					
-					//댓글 수정 폼
 					function foodUpdateReplyForm(replyNo, replyWriter, createDate, replyContent) {
 								var result = "";
 									result += "<div id='tabs-1'>"
@@ -304,8 +376,8 @@ tbody>#tr2 {
 											+ replyWriter
 											+ "&nbsp;&nbsp;&nbsp;&nbsp;"
 											+ createDate
-											+ "<button id='cancel_reply' class='btn btn-dark btn-sm' onclick='newsSelectReplyList()' style='float:right'>취소</button> "
-											+ "<button id='update_reply' class='btn btn-secondary btn-sm' onclick='newsUpdateReply("+replyNo+")' style='float:right'>수정하기</button>"
+											+ "<button id='cancel_reply' class='btn btn-dark btn-sm' onclick='foodSelectReplyList()' style='float:right'>취소</button> "
+											+ "<button id='update_reply' class='btn btn-secondary btn-sm' onclick='foodUpdateReply("+replyNo+")' style='float:right'>수정하기</button>"
 											+ "</span>"
 											+ "<p class='list-group-item-text'>"
 											+ "<textarea id='changeContent' rows='3' class='form-control' style='resize: none;'>"+replyContent+"</textarea>"

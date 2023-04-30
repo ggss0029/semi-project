@@ -40,6 +40,24 @@ public class FoodBoard {
 		this.titleImg = titleImg;
 	}
 
+	
+
+	public FoodBoard(int boardNo, String boardWriter, String boardTitle, String boardContent, String category,
+			String region, int count, Date createDate, int boardReport, int likeCount, String titleImg) {
+		super();
+		this.boardNo = boardNo;
+		this.boardWriter = boardWriter;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.category = category;
+		this.region = region;
+		this.count = count;
+		this.createDate = createDate;
+		this.boardReport = boardReport;
+		this.likeCount = likeCount;
+		this.titleImg = titleImg;
+	}
+
 
 
 	public FoodBoard(int boardNo, String boardWriter, String boardTitle, String boardContent, String boardName,

@@ -39,7 +39,7 @@ public class SearchBoardController extends HttpServlet {
 			//response.sendRedirect(request.getContextPath() + "/buyDetail.bo?bno=" + boardNo);
 		}
 		else if(boardName.equals("동네 맛집")) {
-			//response.sendRedirect(request.getContextPath() + "/buyDetail.bo?bno=" + boardNo);
+			response.sendRedirect(request.getContextPath() + "/foodDetail.bo?bno=" + boardNo);
 		}
 		else if(boardName.equals("나눔 할게요")) {
 			//response.sendRedirect(request.getContextPath() + "/buyDetail.bo?bno=" + boardNo);
