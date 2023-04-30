@@ -382,7 +382,10 @@
                                 </th>
                                 <td colspan="3">
                                     <input type="email" name="email" value="<%=loginUser.getEmail()%>" required>
-                                    <button>인증번호 전송</button>
+                                    <button onclick="" disabled>인증번호 전송</button> 
+                                    &nbsp;&nbsp;&nbsp;
+                                    <input type="text" name="email-num">
+                                    <button disabled>인증번호 입력</button>
                                 </td>
                             </tr>
 
@@ -652,7 +655,8 @@
 								
 								
 								if(loginPwd == inputPwd) { //현재 비밀번호가 일치한다면
-									var regExp = /^[a-zA-Z0-9!@#$%^&*]{7,14}$/; //유효성 검사를 해준다.
+									var regExp = /^[a-zA-Z0-9]{7,14}$/; //유효성 검사를 해준다.
+									var regExp2 = /[!@#$%^&*]/g;
 									if(!regExp.test(updatePwd)){ //변경할 비밀번호가 유효값이 아닐경우
 										alert("유효한 비밀번호 형식이 아닙니다.");
 										$("#updatePwd").focus();
