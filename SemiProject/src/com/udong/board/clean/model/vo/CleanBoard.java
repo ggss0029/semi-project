@@ -26,8 +26,8 @@ public class CleanBoard {
 	public CleanBoard(int boardNo, String boardTitle,  String boardWriter, String boardContent, Date createDate) {
 		super();
 		this.boardNo = boardNo;
-		this.boardTitle = boardTitle;
 		this.boardWriter = boardWriter;
+		this.boardTitle = boardTitle;
 		this.boardContent = boardContent;
 		this.createDate = createDate;
 	}

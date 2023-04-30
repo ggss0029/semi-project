@@ -7,7 +7,6 @@ import com.udong.board.common.model.vo.Attachment;
 import com.udong.common.JDBCTemplate;
 import com.udong.common.model.vo.PageInfo;
 import com.udong.member.model.dao.MemberDao;
-import com.udong.member.model.vo.Board;
 import com.udong.member.model.vo.Member;
 
 public class MemberService {
@@ -320,18 +319,6 @@ public class MemberService {
 		
 		return listCount;
 	}
-
-	//좋아요한 게시글 리스트 조회
-	public ArrayList<Board> likeSelectList(PageInfo pi, int userNo) {
-		Connection conn = JDBCTemplate.getConnection();
-		
-		ArrayList<Board> list = new MemberDao().likeSelectList(conn, pi, userNo);
-		
-		JDBCTemplate.close(conn);
-		
-		return list;
-	}
-	
 
 	public int unrecommend(String myNickname, String nickname) {
 		Connection conn = JDBCTemplate.getConnection();

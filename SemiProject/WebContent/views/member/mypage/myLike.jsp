@@ -1,9 +1,9 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, com.udong.member.model.vo.Board"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.udong.board.common.model.vo.BoardCommon"%>
 <%@page import="com.udong.common.model.vo.PageInfo"%>
 <%
-	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
+	ArrayList<BoardCommon> list = (ArrayList<BoardCommon>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 %>
 <!DOCTYPE html>
@@ -208,55 +208,11 @@
             margin: 170px 0 0 80px;
             font-size: 17px;
         }
-
-        /* 하단 검색창 */
-        #search{
-            width: 600px;
-            height: 150px;
-            position: relative; /*검색창을 가운데로 옮기기 위한 기준잡기*/
-        }
-
-        #search_form{
-            /* border: 2px solid blue; */
-            width: 80%;
-            height: 20%;
-            position: absolute;
-            right: 0px;
-            left: 310px;
-            top: 10px;
-            bottom: 0px;
-        }
-
-        #search_select{
-            float: left;
-            width: 20px;
-        }
-
-        #search_text{
-            float: left;
-            margin-left: 80px;
-            width: 100px;
-        }
-
-        #search_text>input{
-            width: 300px;
-            height: 38px;
-        }
-
-        #search_btn{
-            float: left;
-            margin-left: 200px;
-        }
-
     </style>
 </head>
 <body>
 	<%@ include file = "../../common/menubar.jsp" %>
     <div class="wrap">
-        <div id="header">
-            <div id="header_1"></div>
-            <div id="menubar"></div>
-        </div>
         <div id="content">
             <div id="content_1">
                 <p>마이페이지</p>
@@ -286,10 +242,10 @@
                     <table class="list-area" border="1" align="center">
                         <thead style="height: 50px;">
                         	<tr>
-                            <th width="50"><input type="checkbox"> </th>
+                            <th width="50"><input type="checkbox" id="checkAll" onclick="checkall();"> </th>
                             <th width="70">No.</th>
+                            <th width="150">게시판</th>
                             <th width="450">제목</th>
-                            <th width="150">작성자</th>
                             <th width="150">작성일</th>
                             <th width="65">조회</th>
                             </tr>
@@ -300,14 +256,14 @@
                         			<td colspan="6">좋아요한 게시글이 존재하지 않습니다.</td>
                         		</tr>
                         	<%} else { %>
-                        		<%for(Board ml : list) { %>
+                        		<%for(BoardCommon ml : list) { %>
 		                            <tr style="height: 40px;">
-		                                <td><input type="checkbox"> </td>
+		                                <td><input type="checkbox" class="check" name="bno" value="<%=ml.getBoardNo() %>"> </td>
 		                                <td><%=ml.getBoardNo() %></td>
-		                                <td><%=ml.getBoardTitle() %></td>
-		                                <td><a id="nicknameHover" onclick="whoareyou();"><%=ml.getBoardWriter() %></td>
+		                                <td><%=ml.getBoardName() %></td>
+		                                <td class="goDetail1"><%=ml.getBoardTitle() %></td>
 		                                <td><%=ml.getCreateDate() %></td>
-		                                <td><%=ml.getLikeCount() %></td>
+		                                <td><%=ml.getCount() %></td>
 		                            </tr>
 		                        <%} %>
 		                    <%} %>
@@ -316,7 +272,7 @@
                         </table>
                         <%if (loginUser != null) {%>
                         	<div align="right" id="write_btn">
-	                            <a href="<%=contextPath %>" class="btn btn-dark">삭제</a>
+	                            <button class="btn btn-dark">좋아요 취소</button>
 	                        </div>
 	                    <%} %>
                         <br><br><br>
@@ -364,11 +320,20 @@
 
     <script>
     $(function(){
-	    $(".list-area>tbody>tr").click(function(){
-	        var bno = $(this).children().eq(0).text();
+	    $(".goDetail1").click(function(){
+	        var bno = $(this).parent().children().eq(0).text();
 	       	location.href = '<%=contextPath %>/likeList.me?bno='+bno;
 	    });
     });
+    
+    function checkall() {
+		if($("#checkAll").prop("checked")) {
+			$("input[class=check]").prop("checked", true);
+		}
+		else {
+			$("input[type=checkbox]").prop("checked", false);
+		}
+	}
     </script>
     <%@ include file = "../../common/footer.jsp" %>
 </body>

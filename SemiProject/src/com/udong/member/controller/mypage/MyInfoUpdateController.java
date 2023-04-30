@@ -80,7 +80,7 @@ public class MyInfoUpdateController extends HttpServlet {
 			request.getSession().setAttribute("alertMsg", "정보 수정되었습니다.");
 			request.getSession().setAttribute("loginUser", updateMem); //동일 키 값으로 작성하면 갱신됨
 			
-			response.sendRedirect(request.getHeader("Referer")); //바로 전 페이지로 보내기
+			response.sendRedirect(request.getContextPath() + "/views/member/mypage/myInfo.jsp");
 			
 		}else { //실패시  에러페이지로 위임
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

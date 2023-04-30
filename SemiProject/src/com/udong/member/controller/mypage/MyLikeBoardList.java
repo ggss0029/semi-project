@@ -9,11 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.udong.board.news.model.service.NewsBoardService;
+import com.udong.board.common.model.service.BoardCommonService;
+import com.udong.board.common.model.vo.BoardCommon;
 import com.udong.common.model.vo.PageInfo;
-import com.udong.member.model.dao.MemberDao;
 import com.udong.member.model.service.MemberService;
-import com.udong.member.model.vo.Board;
 import com.udong.member.model.vo.Member;
 
 /**
@@ -35,8 +34,8 @@ public class MyLikeBoardList extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-		int listCount = new MemberService().likeSelectListCount(userNo);
+		Member m = (Member)request.getSession().getAttribute("loginUser");
+		int listCount = new MemberService().likeSelectListCount(m.getUserNo());
 //		System.out.println(listCount); //확인 완료
 		
 		//현재 페이지
@@ -63,7 +62,7 @@ public class MyLikeBoardList extends HttpServlet {
 		
 		//페이지 정보들을 하나의 공간에 담아보기 (VO이용)
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-		ArrayList<Board> list = new MemberService().likeSelectList(pi, userNo);
+		ArrayList<BoardCommon> list = new BoardCommonService().selectMyLike(pi, m.getUserNo());
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);

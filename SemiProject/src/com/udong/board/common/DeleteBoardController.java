@@ -68,9 +68,9 @@ public class DeleteBoardController extends HttpServlet {
 //			else if() { // 같이 해요
 //				
 //			}
-//			else if() { // 같이 사요
-//				
-//			}
+			else if(before.contains("buy")) { // 같이 사요
+				response.sendRedirect(request.getContextPath() + "/buyList.bo?currentPage=1");
+			}
 //			else { // 공지사항
 //				
 //			}

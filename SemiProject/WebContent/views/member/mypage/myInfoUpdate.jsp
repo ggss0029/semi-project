@@ -401,8 +401,8 @@
 				                            <input type="text" id="sample6_address" name="sample6_address" value="" placeholder="주소" readonly><br>
 				                        </div>
 				                        <div class="div3">
-				                            <input type="text" id="sample6_detailAddress" name="sample6_detailAddress" value="<%=loginUser.getAddress() %>" placeholder="상세주소">
-				                            <input type="text" id="sample6_extraAddress" name="sample6_extraAddress" placeholder="참고항목" readonly>
+				                            <input type="text" id="sample6_detailAddress" name="sample6_detailAddress" value="" placeholder="상세주소">
+				                            <input type="text" id="sample6_extraAddress" name="sample6_extraAddress" value=""  placeholder="참고항목" readonly>
 				                        </div>
 				                    </div>
                                 </td>
@@ -440,17 +440,44 @@
                 </form>
                 
                 <script>
+// 	                $(document).ready(function() {
+// 	                    $('#myInfoUpdate').submit(function(event) {
+// 	                      var textarea = $('textarea[name=introduction]');
+
+// 	                      if (textarea.val() === '') {
+// 	                        textarea.val('');
+// 	                      }
+// 	                    });
+// 	                  });
+
+					var checkNickname = 0;
+					
+					$("#nickname").keyup(function() {
+                        var $nickname = $(this).val();
+                        regExp = /^[a-zA-Z0-9가-힇]{2,}$/;
+
+                        if(!regExp.test($nickname)) {
+                            $(this).parents(".input_area").find("button").attr("disabled", true);
+                            $(this).siblings("sup").eq(0).text("올바른 형식이 아닙니다.");
+                            $(this).siblings("sup").eq(1).text("");
+                        }
+                        else {
+                            $(this).parents(".input_area").find("button").attr("disabled", false);
+                            $(this).siblings("sup").eq(1).text("닉네임 중복확인을 해주세요.");
+                            $(this).siblings("sup").eq(0).text("");
+                        }
+                    });
+                
                 	function myNickChk() {
+                		
                 		$.ajax({
                 			url : "<%=contextPath%>/checkNickname.me",
                 			data : { inputNickname : $("#nickName").val()},
                 			success : function(result) {
-                				if(result == "NNNNY") {
+                				if(result == "Y") {
                 					if(confirm("사용 가능한 닉네임 입니다! 사용하시겠습니까?")) {
                 						$("#nickName").attr("readonly",true); //닉넴 변경 불가
-                					}else {
-                						alert("이미 존재하거나 탈퇴한 유저의 아이디입니다.");
-                						$("#nickName").focus();
+                						checkNickname=1;
                 					}
                 				}else {
                 					alert("이미 사용중인 닉네임입니다.");
@@ -535,6 +562,7 @@
                 			alert('글자수는 133까지 입력 가능합니다.')
                 		}
                 	})
+                	
                 	
                 </script>
                 
