@@ -197,5 +197,38 @@ public class BoardCommonService {
 		
 		return result;
 	}
+	
+	public void deleteAttachment(int boardNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new BoardCommonDao().deleteAttachment(conn, boardNo);
+		
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}
+		else {
+			JDBCTemplate.rollback(conn);
+		}
+	}
+
+	public ArrayList<BoardCommon> foodPostList() {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<BoardCommon> list = new BoardCommonDao().foodPostList(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
+	}
+
+	public ArrayList<BoardCommon> selectMyLike(PageInfo pi, int userNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<BoardCommon> list = new BoardCommonDao().selectMyLike(conn, pi, userNo);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
+	}
 
 }

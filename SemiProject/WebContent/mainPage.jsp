@@ -24,6 +24,8 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css"/>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
     <style>
         #header{
             height: 400px;
@@ -365,6 +367,7 @@
         div[class*=swiper-button] {position: absolute; margin-top: -40px;}
         .swiper-button-prev { margin-left: 1px;}
         .swiper-button-next { margin-right: 1px; }
+/*         div[class*=foodPost] { width: 100%; height: 100%; margin: auto; box-sizing: border-box; } */
     </style>
 </head>
 <body>
@@ -517,13 +520,44 @@
 			});
 		}
 		
-		$(".c1_table>table").on("mouseenter", "tr", function() {
-			$(this).css("cursor", "pointer");
-			$(this).children().first().css("cursor", "default");
+		function showFoodPost() {
+			$.ajax({
+				url: "foodPost.bo",
+				method: "post",
+				success: function(list) {
+					for(var i=0;i<list.length;i++) {
+						var str = "<div style='height:90%'><a href=''><img alt='음식사진' src='" + "<%=contextPath%>" + list[i].img + "' style='width:100%; height:100%''></a></div>"
+								+ "<div style='height:10%' align='center'><p style='font-weight:550;''>" + list[i].boardTitle + "</p></div>";
+						$("div[class*=foodPost" + (i+1) + "]").html(str);
+					}
+				},
+				error: function() {
+					console.log("통신 실패");
+				}
+			})
+		}
+		
+		$(".c1_table>table").on("mouseenter", "td", function() {
+			if($(this).prev().text() != "") {
+				$(this).css("cursor", "pointer");
+			}
+			else {
+				$(this).css("cursor", "default");
+			}
+		});
+		
+		$(".c1_table>table").on("click", "td", function() {
+			if($(this).prev().text() != "") {
+				location.href = "https://www.naver.com"; // 해당 게시판>게시글 상세보기
+			}
 		});
 		
 		$(".c2_table>table").on("mouseenter", "tr", function() {
 			$(this).css("cursor", "pointer");
+		});
+		
+		$(".c1_table>table").on("click", "td", function() {
+			location.href = "https://www.naver.com"; // 해당 게시판>게시글 상세보기
 		});
 		
 		callback();
@@ -531,6 +565,7 @@
 		setTimeout(callback2, renewTime); // 정각마다 검색어 순위 top10 가져옴
 		showBestPost();
 		showLastestPost();
+		showFoodPost();
 	});
 </script>
     <div id="header">
@@ -773,21 +808,21 @@
             <div class="content_2">
                 <div class="c3">
                 	<p style="padding:0; margin:16px; font-size: 40px; font-weight: 500;">동네 맛집</p>
-                	<button style="margin-top:25px; margin-left:1150px;" class="btn">더보기 ></button>
+                	<button style="margin-top:25px; margin-left:1150px;" class="btn" onclick="foodPost();">더보기 ></button>
                 </div>
                 <div class="main_swiper1">
                     <div class="swiper-container swiper1">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide slide01"></div>
-                            <div class="swiper-slide slide02"></div>
-                            <div class="swiper-slide slide03"></div>
-                            <div class="swiper-slide slide04"></div>
+                            <div class="swiper-slide slide01 foodPost1"></div>
+                            <div class="swiper-slide slide02 foodPost2"></div>
+                            <div class="swiper-slide slide03 foodPost3"></div>
+                            <div class="swiper-slide slide04 foodPost4"></div>
                             <!-- <div class="swiper-slide slide05"></div> -->
-                            <div class="swiper-slide slide06"></div>
-                            <div class="swiper-slide slide07"></div>
-                            <div class="swiper-slide slide08"></div>
+                            <div class="swiper-slide slide06 foodPost5"></div>
+                            <div class="swiper-slide slide07 foodPost6"></div>
+                            <div class="swiper-slide slide08 foodPost7"></div>
                             <!-- <div class="swiper-slide slide09"></div> -->
-                            <div class="swiper-slide slide10"></div>
+                            <div class="swiper-slide slide10 foodPost8"></div>
                         </div>
                     </div>
                     <div class="swiper-button-prev sb1_1"></div>
@@ -841,6 +876,10 @@
     	function bestPost() {
     		location.href = "<%=contextPath%>/bestPost.bo";
     	}
+    	
+    	function foodPost() {
+    		location.href = "<%=contextPath%>/foodList.bo?currentPage=1";
+    	}
     
     	let swiper = new Swiper('.swiper', {
             direction: 'vertical',
@@ -848,7 +887,7 @@
             spaceBetween: 30,
             slidesPerView: 1,
             autoplay: {
-                delay: 2000,
+                delay: 1500,
                 disableOnInteraction: false,
             },
             effect: 'slide',
@@ -861,7 +900,7 @@
             spaceBetween: 30,
             slidesPerView: 4,
             autoplay: {
-                delay: 1000,
+                delay: 1500,
                 disableOnInteraction: false,
             },
             pagination: {

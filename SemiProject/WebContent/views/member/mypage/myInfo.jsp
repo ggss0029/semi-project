@@ -435,7 +435,11 @@
                                             <span style="margin-left: 10px;">자기소개</span>
                                         </th>
                                         <td colspan="3">
+                                        	<%if (loginUser.getIntroduction() != null) {%>
                                             	<%=loginUser.getIntroduction() %>
+                                            <%} else { %>
+                                            	작성된 소개글이 없습니다.
+                                            <%} %>
                                         </td>
                                     </tr>
                                 </table>

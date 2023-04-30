@@ -69,9 +69,7 @@ public class EnrollController extends HttpServlet {
 			userId = request.getParameter("userId");
 			userPwd = request.getParameter("userPwd");
 		}
-		System.out.println(userId + " " + userPwd);
 		Member m = new Member(userId, userPwd, userName, nickname, birthday, gender, email, address, loginType);
-		System.out.println(m);
 		int result = new MemberService().enrollMember(m);
 		
 		if(result > 0) {

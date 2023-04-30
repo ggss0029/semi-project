@@ -139,7 +139,7 @@
 				<div id="line_3"></div>
 				<a href="<%=contextPath %>/myPost.me?cPage=1" id="write_board">작성한 게시글</a>
 				<div id="line_4"></div>
-				<a href="<%=request.getContextPath() %>/views/member/mypage/myLike.jsp" id="like_board">좋아요한 게시글</a>
+				<a href="<%=contextPath %>/likeList.me?currentPage=1" id="like_board">좋아요한 게시글</a>
 				<div id="line_5"></div>
 				<a href="" id="out">회원 탈퇴</a>
 				<div id="line_6"></div>
@@ -213,12 +213,38 @@
 			</div>
 			
 			<script>
+				$(function() {
+					var checkCount = 0;
+					
+					$("input[class=check]").change(function() {
+						if($(this).is(":checked")) {
+							checkCount++;
+							console.log(checkCount);
+						}
+						else {
+							checkCount--;
+							console.log(checkCount);
+						}
+						
+						if(checkCount == $("input[class=check]").length) {
+							$("#checkAll").prop("checked", true);
+						}
+						else {
+							$("#checkAll").prop("checked", false);
+						}
+					});
+					
+					$("#list-area>tbody>tr").click(function() {
+						
+					});
+				})
+			
 				function checkall() {
 					if($("#checkAll").prop("checked")) {
 						$("input[class=check]").prop("checked", true);
 					}
 					else {
-						$("input[type=checkbox]").prop("checked", false);
+						$("input[class=check]").prop("checked", false);
 					}
 				}
 				
@@ -228,8 +254,13 @@
 						str += "bno=" + $(this).val() + "&";
 					})
 					
-					if(confirm("정말 삭제하시겠습니까?")) {
-						location.href = "<%=contextPath%>/deletePost.bo?" + str;
+					if(str == "") {
+						alert("선택된 게시글이 없습니다.");
+					}
+					else {
+						if(confirm("정말 삭제하시겠습니까?")) {
+							location.href = "<%=contextPath%>/deletePost.bo?" + str;
+						}
 					}
 				}
 			</script>

@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.udong.board.buy.model.vo.BuyBoard"%>
+<%@page import="com.udong.common.model.vo.PageInfo"%>
+<%
+	ArrayList<BuyBoard> blist = (ArrayList<BuyBoard>) request.getAttribute("blist");
+	PageInfo pi = (PageInfo) request.getAttribute("pi");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -191,6 +196,11 @@
             margin: 410px 0 0 80px;
             font-size: 17px;
         }
+        
+        .list-area>tbody>tr:hover {
+			background-color: #C8EDC9;
+			cursor: pointer;
+		}
 
         /* 글쓰기 버튼 */
         #write_btn{
@@ -246,17 +256,13 @@
 <body>
 	<%@ include file = "../../common/menubar.jsp" %>
     <div class="wrap">
-        <div id="header">
-            <div id="header_1"></div>
-            <div id="menubar"></div>
-        </div>
         <div id="content">
             <div id="content_1">
                 <p>함께 해요</p>
                 <div id="line_1"></div>
-                <a href="" id="buy">같이 사요</a>
+                <a href="<%=contextPath%>/buyList.bo?currentPage=1" id="buy" id="together">같이 사요</a>
                 <div id="line_2"></div>
-                <a href="" id="together">같이 해요</a>
+                <a href="">같이 해요</a>
                 <div id="line_3"></div>
             </div>
 
@@ -267,7 +273,8 @@
 
                     <div id="box">
                         <p id="b2">카테고리</p>
-                        
+                        <form action="" method="post" name="form">
+                        	<input type="hidden" name="currentPage" value="<%=pi.getCurrentPage()%>">
                         <div id="category">
                             <input type="checkbox" id="fashion" > <label for="fashion" >의류/잡화</label>
                             <input type="checkbox" id="beauty" > <label for="beauty">뷰티</label>
@@ -298,216 +305,132 @@
                             <button type="reset" class="btn btn-light">초기화</button>
                             <button class="btn btn-primary" >검색</button>
                         </div>
+                 	  </form>
                     </div>
                     <div id="line_6"></div>
 
                     <table class="list-area" border="0" align="center">
                         <thead style="height: 50px; border-top:3px solid black; border-bottom:3px solid black;">
-                            <th width="70">No.</th>
-                            <th width="440">제목</th>
-                            <th width="150">작성자</th>
-                            <th width="150">작성일</th>
-                            <th width="65">조회</th>
-                            <th width="65">좋아요</th>
+                            <tr>
+	                            <th width="70">No.</th>
+	                            <th width="440">제목</th>
+	                            <th width="150">작성자</th>
+	                            <th width="150">작성일</th>
+	                            <th width="65">조회</th>
+	                            <th width="65">좋아요</th>
+	                        </tr>
                         </thead>
-                        <tbody>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px; border-bottom:1px solid black;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
+                        	<%
+								if (blist.isEmpty()) {
+							%>
+							<!-- 만약 리스트가 비어있다면 -->
+							<tr>
+								<td colspan="6">글이 존재하지 않습니다</td>
+							</tr>
+							<%
+								} else {
+							%>
+							<!-- 목록이 있으면 (반복문으로 전부 출력해주기) -->
+							<%
+								for (BuyBoard buyb : blist) {
+							%>
+							<!-- 순차적으로 전부 접근할 것이기 때문에 향상된 for문 사용 -->
+							<tr style="height: 40px; border-bottom: 1px solid black;">
+								<td><%=buyb.getBoardNo()%></td>
+								<!-- No. -->
+								<td class="goDetail1"><%=buyb.getBoardTitle()%></td>
+								<!-- 제목 -->
+								<td><a data-toggle="modal" data-target="#profile"
+									onclick="profile();"><%=buyb.getBoardWriter()%></a></td>
+								<!-- 작성자  닉네임 -->
+								<td><%=buyb.getCreateDate()%></td>
+								<!-- 작성한 날짜 -->
+								<td><%=buyb.getCount()%></td>
+								<!-- 조회수 -->
+								<td><%=buyb.getLikeCount()%></td>
+								<!-- 좋아요한 수 -->
+							</tr>
+							<%
+								}
+							%>
+							<%
+								}
+							%>
+<!--                         <tbody> -->
+<!--                             <tr style="height: 40px; border-bottom:1px solid black;"> -->
+<!--                                 <td>1</td> -->
+<!--                                 <td>첫 게시물</td> -->
+<!--                                 <td>수지</td> -->
+<!--                                 <td>2023-04-14</td> -->
+<!--                                 <td>100</td> -->
+<!--                                 <td>1004</td> -->
+<!--                             </tr> -->
+                           
                         </tbody>
                         </table>
                         <br>
+                        <%if (loginUser != null) {%>
                         <div align="right" id="write_btn">
-                            <button class="btn btn-light">글쓰기</button>
+                            <a href="<%=request.getContextPath()%>/views/board/writeBoard.jsp" class="btn btn-light">글쓰기</a>
                         </div>
+                        <%} %>
                         <br><br>
 
-                        <div align="center" class="paging-area">
-                            <button>&lt;</button>
-                            <button>12345678910</button>
-                            <button>&gt;</button>
+						<div align="center" class="paging-area">
+    
+                        	<%if(pi.getCurrentPage() != 1) {%>
+                            	<button onclick="location.href='<%=contextPath %>/buyList.bo?currentPage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
+                            <%} %>
+                            
+                            <%for(int i = pi.getStartPage(); i <= pi.getEndPage(); i++) { %>
+                            	<%if(i != pi.getCurrentPage()) {%>
+                            	<button onclick="location.href='<%=contextPath %>/buyList.bo?currentPage=<%=i%>';"><%=i %></button>
+                            	<%} else {%>
+                            		<button disabled><%=i %></button>
+                            	<%} %>
+                            <%} %>
+                            
+                            <%if(pi.getCurrentPage() != pi.getMaxPage()) { %>
+	                            <button onclick="location.href='<%=contextPath %>/buyList.bo?currentPage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
+                            <%} %>
                         </div>
 
-                        <div id="search">
-                            <form action="search.do" id="search_form">
-                                <div id="search_select">
-                                    <select name="" id="" style="height: 38px;">
-                                        <option value="">제목+내용</option>
-                                    </select>
+<!--                         <div id="search"> -->
+<!--                             <form action="search.do" id="search_form"> -->
+<!--                                 <div id="search_select"> -->
+<!--                                     <select name="" id="" style="height: 38px;"> -->
+<!--                                         <option value="">제목+내용</option> -->
+<!--                                     </select> -->
 
-                                </div>
-                                <div id="search_text">
-                                    <input type="search" name="keyword">
-                                </div>
+<!--                                 </div> -->
+<!--                                 <div id="search_text"> -->
+<!--                                     <input type="search" name="keyword"> -->
+<!--                                 </div> -->
                     
-                                <div id="search_btn">
-                                    <input type="button" value="검색" class="btn btn-secondary">
-                                </div>
-                            </form>
+<!--                                 <div id="search_btn"> -->
+<!--                                     <input type="button" value="검색" class="btn btn-secondary"> -->
+<!--                                 </div> -->
+<!--                             </form> -->
                     
                         </div>
                 </div>
             </div>
         </div>
+        <script>
+    
+		    $(function(){
+		    	//.list-area클래스 자손tbody 자손tr 클릭됐을때
+			    $(".goDetail1").click(function(){
+			        
+			        var bno = $(this).parent().children().first().text();
+			        
+			       	location.href = '<%=contextPath %>/buyDetail.bo?bno='+bno;
+			    });
+		    	
+		    });
         
-    </div>
+   
+   </script>
     <%@ include file = "../../common/footer.jsp" %>
 </body>
 </html>
