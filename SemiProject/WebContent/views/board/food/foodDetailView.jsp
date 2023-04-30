@@ -199,14 +199,6 @@ tbody>#tr2 {
 					}
 				%>
 				<div id="tabs-1">
-				<!--  
-					<div class="list-group">
-						<div class="list-group-item">
-							<h5 class="list-group-item-heading">작성자이름, 날짜, 버튼</h5>
-      						<p class="list-group-item-text">내용부분</p>
-						</div>
-					</div>
--->
 				</div>
 				<br><br><br>
 			</div>
