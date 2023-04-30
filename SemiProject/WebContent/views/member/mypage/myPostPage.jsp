@@ -139,7 +139,7 @@
 				<div id="line_3"></div>
 				<a href="<%=contextPath %>/myPost.me?cPage=1" id="write_board">작성한 게시글</a>
 				<div id="line_4"></div>
-				<a href="<%=request.getContextPath() %>/views/member/mypage/myLike.jsp" id="like_board">좋아요한 게시글</a>
+				<a href="<%=contextPath %>/likeList.me?currentPage=1" id="like_board">좋아요한 게시글</a>
 				<div id="line_5"></div>
 				<a href="" id="out">회원 탈퇴</a>
 				<div id="line_6"></div>

@@ -198,4 +198,14 @@ public class BoardCommonService {
 		return result;
 	}
 
+	public ArrayList<BoardCommon> selectMyLike(PageInfo pi, int userNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<BoardCommon> list = new BoardCommonDao().selectMyLike(conn, pi, userNo);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
+	}
+
 }

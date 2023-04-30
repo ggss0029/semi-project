@@ -621,4 +621,40 @@ public class BoardCommonDao {
 		return result;
 	}
 
+	public ArrayList<BoardCommon> selectMyLike(Connection conn, PageInfo pi, int userNo) {
+		ArrayList<BoardCommon> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMyLike");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
+			int endRow = (startRow + pi.getBoardLimit()) -1;
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				BoardCommon bc = new BoardCommon();
+				bc.setBoardNo(rset.getInt("BOARD_NO"));
+				bc.setBoardTitle(rset.getString("BOARD_TITLE"));
+				bc.setBoardName(rset.getString("BOARD_NAME"));
+				bc.setCount(rset.getInt("COUNT"));
+				bc.setCreateDate(rset.getDate("CREATE_DATE"));
+				
+				list.add(bc);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return list;
+	}
+
 }

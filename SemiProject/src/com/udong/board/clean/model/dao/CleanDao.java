@@ -13,8 +13,8 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import com.udong.board.clean.model.vo.CleanBoard;
+import com.udong.board.clean.model.vo.CleanReply;
 import com.udong.board.news.model.dao.NewsBoardDao;
-import com.udong.board.news.model.vo.NewsBoard;
 import com.udong.board.news.model.vo.NewsReply;
 import com.udong.common.JDBCTemplate;
 import com.udong.common.model.vo.PageInfo;
@@ -23,7 +23,7 @@ public class CleanDao {
 private Properties prop = new Properties();
 	
 	public CleanDao() {
-		String filePath = NewsBoardDao.class.getResource("/sql/board/board-mapper.xml").getPath();
+		String filePath = CleanDao.class.getResource("/sql/board/board-mapper.xml").getPath();
 		
 		try {
 			prop.loadFromXML(new FileInputStream(filePath));
@@ -141,9 +141,111 @@ private Properties prop = new Properties();
 	}
 
 	//댓글 작성
-	public int cleanInsertReply(Connection conn, NewsReply r) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int cleanInsertReply(Connection conn, CleanReply r) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("cleanInsertReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, r.getReplyContent());
+			pstmt.setInt(2, r.getRefBno());
+			pstmt.setInt(3, Integer.parseInt(r.getReplyWriter()));
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+	//댓글 목록
+	public ArrayList<CleanReply> cleanSelectReply(Connection conn, int cleanBoardNo) {
+		ArrayList<CleanReply> rlist = new ArrayList<>();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("cleanSelectReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, cleanBoardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				rlist.add(new CleanReply(rset.getInt("REPLY_NO")
+										,rset.getInt("REF_BNO")
+										,rset.getString("NICKNAME")
+										,rset.getDate("CREATE_DATE")
+										,rset.getString("REPLY_CONTENT")));
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return rlist;
+	}
+
+	//댓글 삭제
+	public int cleanDeleteReply(Connection conn, int cleanReplyNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("cleanDeleteReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, cleanReplyNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+	//댓글 수정
+	public int cleanUpdateReply(Connection conn, int cleanBoardNo, String content) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("cleanUpdateReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, content);
+			pstmt.setInt(2, cleanBoardNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
 	}
 		
 }

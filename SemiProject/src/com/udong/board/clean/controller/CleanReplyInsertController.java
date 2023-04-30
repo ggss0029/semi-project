@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.udong.board.clean.model.service.CleanService;
-import com.udong.board.news.model.vo.NewsReply;
+import com.udong.board.clean.model.vo.CleanReply;
 import com.udong.member.model.vo.Member;
 
 /**
@@ -45,7 +45,7 @@ public class CleanReplyInsertController extends HttpServlet {
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		int userNo = loginUser.getUserNo();
 		
-		NewsReply r = new NewsReply();
+		CleanReply r = new CleanReply();
 		r.setReplyContent(content);
 		r.setRefBno(cleanBoardNo);
 		r.setReplyWriter(String.valueOf(userNo));

@@ -499,13 +499,13 @@
                 <a style="cursor: default;">함께 해요</a>
                 <ul>
                     <li><a href="">같이 해요</a></li>
-                    <li><a href="">같이 사요</a></li>
+                    <li><a href="<%=contextPath %>/buyList.bo?currentPage=1">같이 사요</a></li>
                 </ul>
             </li><li><a href="">자유게시판</a></li><li style="margin-right:2%">
                 <a style="cursor: default;">소식</a>
                 <ul>
                     <li><a href="">공지사항</a></li>
-                    <li><a href="">자주 묻는 질문</a></li>
+                    <li><a href="<%=contextPath %>/faqList.bo?currentPage=1">자주 묻는 질문</a></li>
                 </ul>
             </li>
         </ul>

@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 import com.udong.board.clean.model.dao.CleanDao;
 import com.udong.board.clean.model.vo.CleanBoard;
+import com.udong.board.clean.model.vo.CleanReply;
 import com.udong.board.news.model.dao.NewsBoardDao;
-import com.udong.board.news.model.vo.NewsReply;
 import com.udong.common.JDBCTemplate;
 import com.udong.common.model.vo.PageInfo;
 
@@ -47,8 +47,8 @@ public class CleanService {
 	}
 
 	//댓글 작성
-	public int cleanInsertReply(NewsReply r) {
-Connection conn = JDBCTemplate.getConnection();
+	public int cleanInsertReply(CleanReply r) {
+		Connection conn = JDBCTemplate.getConnection();
 		
 		int result = new CleanDao().cleanInsertReply(conn, r);
 		
@@ -63,5 +63,47 @@ Connection conn = JDBCTemplate.getConnection();
 		return result;
 	}
 
+	//댓글 목록
+	public ArrayList<CleanReply> cleanSelectReply(int cleanBoardNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<CleanReply> rlist = new CleanDao().cleanSelectReply(conn, cleanBoardNo);
+		
+		JDBCTemplate.close(conn);
+		
+		return rlist;
+	}
 
+	//댓글 삭제
+	public int cleanDeleteReply(int cleanReplyNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new CleanDao().cleanDeleteReply(conn, cleanReplyNo);
+		
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		return result;
+
+	}
+
+	public int cleanUpdateReply(int cleanBoardNo, String content) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new CleanDao().cleanUpdateReply(conn, cleanBoardNo, content);
+		
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
 }

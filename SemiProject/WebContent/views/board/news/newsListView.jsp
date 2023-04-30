@@ -489,16 +489,12 @@
     $(function(){
     	//.list-area클래스 자손tbody 자손tr 클릭됐을때
 	    $(".goDetail1").click(function(){
-	        //목록에 글을 클릭했을때 해당 글번호가 있어야
-	        //그 글에 대해서 상세조회를 할 수 있으니 글번호를 추출하여 서버에 넘기기
-	        // console.log($(this).children().eq(0).text());
+	        
 	        var bno = $(this).parent().children().first().text();
-	        var nno = $(this).siblings().eq(0).text();
-	        console.log(nno);
-	        //요쳥할 url?키=벨류&키=벨류 .....
-	        //물음표 뒤에 내용들을 쿼리 스트링이라고한다. - 직접 기술하여 넘기기
-	        // '/jsp/detail.no?nno='+nno
-<%-- 	       	location.href = '<%=contextPath %>/newsDetail.bo?bno='+bno; --%>
+// 	        var nno = $(this).siblings().eq(0).text();
+// 	        console.log(nno);
+	        
+	       	location.href = '<%=contextPath %>/newsDetail.bo?bno='+bno;
 	    });
     	
     });
