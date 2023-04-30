@@ -750,7 +750,7 @@
 		                	<a href="<%=contextPath%>/sendLetterList.le?writerNo=<%=loginUser.getUserNo()%>&currentPage=1" id="letter"><img alt="쪽지아이콘" src="<%=contextPath %>/views/common/icons/쪽지함.png" id="letterIcon" style="width: 70px; height:70px;"><br>쪽지함</a>
 		                </div>
 		                <div id="likeBoard">
-		                	<a href="https://www.daum.net" id="likeBoard"><img alt="좋아요게시글 아이콘" src="<%=contextPath %>/views/common/icons/관심.png" id="likeBoardIcon" style="width: 70px; height:70px;"><br>관심</a>
+		                	<a href="<%=contextPath %>/likeList.me?currentPage=1" id="likeBoard"><img alt="좋아요게시글 아이콘" src="<%=contextPath %>/views/common/icons/관심.png" id="likeBoardIcon" style="width: 70px; height:70px;"><br>관심</a>
 		                </div>
 	                </div>
             	</div>

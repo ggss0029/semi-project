@@ -260,9 +260,9 @@
             <div id="content_1">
                 <p>함께 해요</p>
                 <div id="line_1"></div>
-                <a href="<%=contextPath%>/buyList.bo?currentPage=1" id="buy" id="together">같이 사요</a>
+                <a href="<%=contextPath%>/buyList.bo?currentPage=1" id="buy">같이 사요</a>
                 <div id="line_2"></div>
-                <a href="">같이 해요</a>
+                <a href="<%=contextPath%>/togetherList.bo?cPage=1" id="together">같이 해요</a>
                 <div id="line_3"></div>
             </div>
 
