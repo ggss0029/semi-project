@@ -456,6 +456,7 @@
 						}
 						str += "<td style='width: 25%;'><div class='boardNameTag bgc" + j + "'>" + list[i].boardName + "</div></td>"
 							 + "<td style='font-size: 20px;'>" + list[i].boardTitle + "</td>"
+							 + "<td><input type='hidden' name='bno' value='" + list[i].boardNo + "'></td>"
 							 + "</tr>";
 					}
 					
@@ -509,6 +510,7 @@
 						str += "<tr>"
 						 	 + "<td style='width: 25%;'><div class='boardNameTag bgc" + j +"'>" + list[i].boardName + "</div></td>"
 						 	 + "<td style='font-size: 20px;'>" + list[i].boardTitle + "</td>"
+						 	 + "<td><input type='hidden' name='bno' value='" + list[i].boardNo + "'></td>"
 						 	 + "</tr>";
 					}
 					
@@ -526,7 +528,7 @@
 				method: "post",
 				success: function(list) {
 					for(var i=0;i<list.length;i++) {
-						var str = "<div style='height:90%'><a href=''><img alt='음식사진' src='" + "<%=contextPath%>" + list[i].img + "' style='width:100%; height:100%''></a></div>"
+						var str = "<div style='height:90%'><a><input type='hidden' name='bno' value='" + list[i].boardNo + "'><img alt='음식사진' src='" + "<%=contextPath%>" + list[i].img + "' style='width:100%; height:100%'></a></div>"
 								+ "<div style='height:10%' align='center'><p style='font-weight:550;''>" + list[i].boardTitle + "</p></div>";
 						$("div[class*=foodPost" + (i+1) + "]").html(str);
 					}
@@ -548,7 +550,9 @@
 		
 		$(".c1_table>table").on("click", "td", function() {
 			if($(this).prev().text() != "") {
-				location.href = "https://www.naver.com"; // 해당 게시판>게시글 상세보기
+				var bno = $(this).parent().find("input").val();
+				var bname = $(this).parent().children().eq(1).text();
+				location.href = "<%=contextPath%>/searchBoard.bo?bno=" + bno + "&bname=" + bname;
 			}
 		});
 		
@@ -556,9 +560,21 @@
 			$(this).css("cursor", "pointer");
 		});
 		
-		$(".c1_table>table").on("click", "td", function() {
-			location.href = "https://www.naver.com"; // 해당 게시판>게시글 상세보기
+		$(".c2_table>table").on("click", "td", function() {
+			var bno = $(this).parent().find("input").val();
+			var bname = $(this).parent().children().eq(0).text();
+			location.href = "<%=contextPath%>/searchBoard.bo?bno=" + bno + "&bname=" + bname;
 		});
+		
+		$("div[class*=foodPost").on("mouseenter", "a", function() {
+			$(this).css("cursor", "pointer");
+		});
+		
+		$("div[class*=foodPost").on("click", "a", function() {
+			var bno = $(this).children("input").val();
+			var bname = "동네 맛집";
+			location.href = "<%=contextPath%>/searchBoard.bo?bno=" + bno + "&bname=" + bname;
+		})
 		
 		callback();
 		setTimeout(callback, renewTime); // 시간 계산 후 정각에 가져옴

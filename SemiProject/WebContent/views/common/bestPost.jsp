@@ -166,8 +166,9 @@
                 
                 $(".goDetail").click(function(){
                 	var bno = $(this).parent().children().first().children("input").val();
-                		location.href="<%=contextPath%>/bestDetail.bo?bno="+bno;
-                	});
+                	var bname = $(this).prev().text();
+                	location.href="<%=contextPath%>/searchBoard.bo?bno=" + bno + "&bname=" + bname;
+                });
                 </script>
             </div>
         </div>
