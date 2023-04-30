@@ -139,6 +139,17 @@
 </head>
 <body>
 	<%@include file="./../common/menubar.jsp"%>
+<script>
+	$(function() {
+		<%if(request.getSession().getAttribute("goBefore") != null) {%>
+			<%System.out.println(request.getSession().getAttribute("goBefore"));%>
+// 			location.href="mainPage.jsp";
+			history.back();
+			<%request.getSession().removeAttribute("goBefore");%>
+			<%System.out.println(request.getSession().getAttribute("goBefore"));%>
+		<%}%>
+	})
+</script>
     <div class="wrap">
         <div id="content" align="center">
             <div id="content_1">
@@ -272,7 +283,7 @@
                         <input type="text" name="title" placeholder="제목을 입력하세요." style="width: 1348px; height: 60px; font-size: 18px;" required>
                     </div>
                      <div id="restaurantDiv" style="display:none; float:left;">
-                    	<input type="text" name="restaurantName" class="restaurantName" style="width: 445px; height: 46px; font-size: 18px;" placeholder="맛집 이름" required>
+                    	<input type="text" name="restaurantName" class="restaurantName" style="width: 445px; height: 46px; font-size: 18px;" placeholder="맛집 이름">
                     	<input type="text" name="restaurantAddress" class="restaurantAddress" style="width: 800px; height: 46px; font-size: 18px;" placeholder="맛집 주소" readonly> 
                     	<button type="button" onclick="openMap();" id="openMapBtn" class="btn btn-warning" style="font-size:15px; height:46px; width:86px; margin-bottom:10px; padding: 0px;">지도 보기</button>
                     <br>

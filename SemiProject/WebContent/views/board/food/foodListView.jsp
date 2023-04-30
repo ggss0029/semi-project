@@ -371,7 +371,7 @@
                         </div>
                         <%if (loginUser != null) {%>
                         	<div align="right" id="write_btn">
-                            	<a href="<%=contextPath %>/views/board/writeBoard.jsp" class="btn btn-light">글쓰기</a>
+                            	<a href="<%=contextPath %>/insert.bo" class="btn btn-light">글쓰기</a>
                         	</div>
                         <%} %>
                         </div>
@@ -387,10 +387,12 @@
     	var country = $("#countryCategory").val();
     
 		var str = "";
-			str += "city=" + city + "&country=" + country + "&"
 		$("input[class=check]:checked").each(function() {
 			str += "FC=" + $(this).val() + "&";
 		});
+			str += "city=" + city + "&country=" + country
+					
+			
     };
     
     window.onpageshow = function(event) {
