@@ -48,7 +48,7 @@ public class NoticeUpdateController extends HttpServlet {
 		int noticeNo = Integer.parseInt(request.getParameter("bno"));
 		String noticeTitle = request.getParameter("title");
 		String noticeContent = request.getParameter("content");
-		System.out.println(noticeNo);
+		//System.out.println(noticeNo);
 		
 		Notice n = new Notice();
 		n.setNoticeNo(noticeNo);
