@@ -248,9 +248,9 @@ tbody>#tr2 {
 								data : {
 									newsBoardNo : <%=fb.getBoardNo()%>
 										},
-								success : function(rlist) {
+								success : function(flist) {
 									var result = "";
-									if(rlist.length < 1){
+									if(flist.length < 1){
 										result = "등록한 댓글이 없습니다.";
 									}else {
 										for ( var i in flist) {
