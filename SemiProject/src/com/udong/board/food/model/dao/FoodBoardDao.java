@@ -55,7 +55,6 @@ public class FoodBoardDao {
 
 	public ArrayList<FoodBoard> selectFoodList(Connection conn, PageInfo pi) {
 		
-		int listCount = 0;
 		ArrayList<FoodBoard> list = new ArrayList<>();
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
@@ -91,4 +90,135 @@ public class FoodBoardDao {
 		return list;
 	}
 
+	public FoodBoard foodAllCategoryList(Connection conn, String category) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("foodAllCategoryList");
+		FoodBoard fb = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, category);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				fb = new FoodBoard(rset.getInt("BOARD_NO")
+						,rset.getString("NICKNAME")
+						,rset.getString("BOARD_TITLE")
+						,rset.getString("CATEGORY")
+						,rset.getString("REGION")
+						,rset.getInt("COUNT")
+						,rset.getDate("CREATE_DATE")
+						,rset.getInt("BOARD_REPORT")
+						,rset.getInt("LIKECOUNT")
+						,rset.getString("TITLEIMG"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return fb;
+}
+
+	public FoodBoard foodRegionCategoryList(Connection conn, String category, String region) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("foodRegionCategoryList");
+		FoodBoard fb = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, category);
+			pstmt.setString(2, region);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				fb =  new FoodBoard(rset.getInt("BOARD_NO")
+						,rset.getString("NICKNAME")
+						,rset.getString("BOARD_TITLE")
+						,rset.getString("CATEGORY")
+						,rset.getString("REGION")
+						,rset.getInt("COUNT")
+						,rset.getDate("CREATE_DATE")
+						,rset.getInt("BOARD_REPORT")
+						,rset.getInt("LIKECOUNT")
+						,rset.getString("TITLEIMG"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return fb;
+	}
+
+	public ArrayList<FoodBoard> selectNoCTFoodList(Connection conn) {
+		
+		ArrayList<FoodBoard> list = new ArrayList<>();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectNoCTFoodList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				FoodBoard fb = new FoodBoard(rset.getInt("BOARD_NO")
+											,rset.getString("NICKNAME")
+											,rset.getString("BOARD_TITLE")
+											,rset.getString("CATEGORY")
+											,rset.getString("REGION")
+											,rset.getInt("COUNT")
+											,rset.getDate("CREATE_DATE")
+											,rset.getInt("BOARD_REPORT")
+											,rset.getInt("LIKECOUNT")
+											,rset.getString("TITLEIMG"));
+				list.add(fb);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
+
+	public ArrayList<FoodBoard> selectRegionFoodList(Connection conn, String region) {
+		
+		ArrayList<FoodBoard> list = new ArrayList<>();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectRegionFoodList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, region);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				FoodBoard fb = new FoodBoard(rset.getInt("BOARD_NO")
+											,rset.getString("NICKNAME")
+											,rset.getString("BOARD_TITLE")
+											,rset.getString("CATEGORY")
+											,rset.getString("REGION")
+											,rset.getInt("COUNT")
+											,rset.getDate("CREATE_DATE")
+											,rset.getInt("BOARD_REPORT")
+											,rset.getInt("LIKECOUNT")
+											,rset.getString("TITLEIMG"));
+				list.add(fb);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
 }

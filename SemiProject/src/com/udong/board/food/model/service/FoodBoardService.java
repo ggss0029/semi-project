@@ -26,4 +26,36 @@ public class FoodBoardService {
 		return list;
 	}
 
+	public FoodBoard foodAllCategoryList(String category) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		FoodBoard fb = new FoodBoardDao().foodAllCategoryList(conn,category);
+		JDBCTemplate.close(conn);
+		return fb;
+	}
+
+	public FoodBoard foodRegionCategoryList(String category, String region) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		FoodBoard fb = new FoodBoardDao().foodRegionCategoryList(conn,category,region);
+		JDBCTemplate.close(conn);
+		return fb;
+	}
+
+	public ArrayList<FoodBoard> selectNoCTFoodList() {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<FoodBoard> list = new FoodBoardDao().selectNoCTFoodList(conn);
+		JDBCTemplate.close(conn);
+		return list;
+	}
+
+	public ArrayList<FoodBoard> selectRegionFoodList(String region) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<FoodBoard> list = new FoodBoardDao().selectRegionFoodList(conn,region);
+		JDBCTemplate.close(conn);
+		return list;
+	}
+
 }
