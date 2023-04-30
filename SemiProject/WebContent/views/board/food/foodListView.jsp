@@ -402,19 +402,76 @@
 				success : function(flist) {
 					$("#photoArea").children().remove();
 					$(".paging-area").children().remove();
-					console.log(flist);
+					console.log(flist.length);
 					if(flist[0] == null){
 						alert("검색된 게시물이 없습니다.");
 					}else {
 						var str = "";
-						for(var i in flist){
-	                    str += "<div class='thumbnail'><input type='hidden' name='bno' value="+flist[i].boardNo+">"
-					        +"<img src='/udong/"+flist[i].titleImg+"' width='230px' height='200px'>"
-	                        +"<p>&lt;"+flist[i].boardTitle+"&gt;<br>"
-	                            	+"작성자 :"+flist[i].boardWriter+"   조회수 : "+flist[i].count
-	                        +"</p></div>"
-						}
+						var str2 = "";
+						var str3 = "";
+						if(flist.length>8){
+							for(var i=0; i<flist.length; i++){
+								if(i<9){
+			                    str += "<div class='thumbnail'><input type='hidden' name='bno' value="+flist[i].boardNo+">"
+							        +"<img src='/udong/"+flist[i].titleImg+"' width='230px' height='200px'>"
+			                        +"<p>&lt;"+flist[i].boardTitle+"&gt;<br>"
+			                            	+"작성자 :"+flist[i].boardWriter+"   조회수 : "+flist[i].count
+			                        +"</p></div>"
+								}
+			                    if(i>8 && i<18){
+			                    	str2 += "<div class='thumbnail'><input type='hidden' name='bno' value="+flist[i].boardNo+">"
+							        +"<img src='/udong/"+flist[i].titleImg+"' width='230px' height='200px'>"
+			                        +"<p>&lt;"+flist[i].boardTitle+"&gt;<br>"
+			                            	+"작성자 :"+flist[i].boardWriter+"   조회수 : "+flist[i].count
+			                        +"</p></div>"
+			                    }
+			                    if(i>17){
+			                    	str3 += "<div class='thumbnail'><input type='hidden' name='bno' value="+flist[i].boardNo+">"
+							        +"<img src='/udong/"+flist[i].titleImg+"' width='230px' height='200px'>"
+			                        +"<p>&lt;"+flist[i].boardTitle+"&gt;<br>"
+			                            	+"작성자 :"+flist[i].boardWriter+"   조회수 : "+flist[i].count
+			                        +"</p></div>"
+			                    }
+							}
+							$(".paging-area").append("<button type='button' id='pagingBtn1' disabled>1</button>");
+							$("#photoArea").append(str);
+							if(flist.length<17){
+								$(".paging-area").append("<button type='button' id='pagingBtn2'>2</button>");
+							}
+							if(flist.length<26){
+								$(".paging-area").append("<button type='button' id='pagingBtn2'>2</button>");
+								$(".paging-area").append("<button type='button' id='pagingBtn3'>3</button>");
+							}
+							$(".paging-area").on("click","button",function(){
+								if($(this).prop("disabled")==false && $(this).text()==1){
+									$("#photoArea").children().remove();
+									$("#photoArea").append(str);
+									$(this).parent().children("button").attr("disabled",false);
+									$(this).attr("disabled",true);
+								}
+								if($(this).prop("disabled")==false && $(this).text()==2){
+									$("#photoArea").children().remove();
+									$("#photoArea").append(str2);
+									$(this).parent().children("button").attr("disabled",false);
+									$(this).attr("disabled",true);
+								}
+								if($(this).prop("disabled")==false && $(this).text()==3){
+									$("#photoArea").children().remove();
+									$("#photoArea").append(str3);
+									$(this).parent().children("button").attr("disabled",false);
+									$(this).attr("disabled",true);
+								}
+							});
+						}else{
+							for(var i in flist){
+								 str += "<div class='thumbnail'><input type='hidden' name='bno' value="+flist[i].boardNo+">"
+							        +"<img src='/udong/"+flist[i].titleImg+"' width='230px' height='200px'>"
+			                        +"<p>&lt;"+flist[i].boardTitle+"&gt;<br>"
+			                            	+"작성자 :"+flist[i].boardWriter+"   조회수 : "+flist[i].count
+			                        +"</p></div>"	
+							}
 						$("#photoArea").append(str);
+						}
 					}	
 				},
 				error : function() {
