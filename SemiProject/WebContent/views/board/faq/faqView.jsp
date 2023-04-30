@@ -95,7 +95,7 @@
             left: 30px;
         }
 
-        #clean { /*살림 꿀팁 글씨, 위치*/
+        #faq { /*살림 꿀팁 글씨, 위치*/
             position: absolute;
             font-size: 35px;
             text-decoration: none;
@@ -209,7 +209,7 @@
             <div id="content_1">
                 <p>소식</p>
                 <div id="line_1"></div>
-                <a href="<%=contextPath %>/newsList.bo?currentPage=1" id="news">공지 사항</a>
+                <a href="<%=contextPath%>/noticeList.bo?currentPage=1" id="news">공지 사항</a>
                 <div id="line_2"></div>
                 <a href="<%=contextPath %>/faqList.bo?currentPage=1" id="faq">자주 묻는 질문</a>
                 <div id="line_3"></div>

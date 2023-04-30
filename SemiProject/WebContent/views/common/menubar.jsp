@@ -504,7 +504,7 @@
             </li><li><a href="">자유게시판</a></li><li style="margin-right:2%">
                 <a style="cursor: default;">소식</a>
                 <ul>
-                    <li><a href="">공지사항</a></li>
+                    <li><a href="<%=contextPath%>/noticeList.bo?currentPage=1">공지사항</a></li>
                     <li><a href="<%=contextPath %>/faqList.bo?currentPage=1">자주 묻는 질문</a></li>
                 </ul>
             </li>
