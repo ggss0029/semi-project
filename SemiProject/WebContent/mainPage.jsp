@@ -537,13 +537,27 @@
 			})
 		}
 		
-		$(".c1_table>table").on("mouseenter", "tr", function() {
-			$(this).css("cursor", "pointer");
-			$(this).children().first().css("cursor", "default");
+		$(".c1_table>table").on("mouseenter", "td", function() {
+			if($(this).prev().text() != "") {
+				$(this).css("cursor", "pointer");
+			}
+			else {
+				$(this).css("cursor", "default");
+			}
+		});
+		
+		$(".c1_table>table").on("click", "td", function() {
+			if($(this).prev().text() != "") {
+				location.href = "https://www.naver.com"; // 해당 게시판>게시글 상세보기
+			}
 		});
 		
 		$(".c2_table>table").on("mouseenter", "tr", function() {
 			$(this).css("cursor", "pointer");
+		});
+		
+		$(".c1_table>table").on("click", "td", function() {
+			location.href = "https://www.naver.com"; // 해당 게시판>게시글 상세보기
 		});
 		
 		callback();

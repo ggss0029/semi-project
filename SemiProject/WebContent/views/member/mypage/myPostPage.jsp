@@ -217,11 +217,13 @@
 					var checkCount = 0;
 					
 					$("input[class=check]").change(function() {
-						if($("input[class=check]").is(":checked")) {
+						if($(this).is(":checked")) {
 							checkCount++;
+							console.log(checkCount);
 						}
 						else {
 							checkCount--;
+							console.log(checkCount);
 						}
 						
 						if(checkCount == $("input[class=check]").length) {
@@ -230,7 +232,11 @@
 						else {
 							$("#checkAll").prop("checked", false);
 						}
-					})
+					});
+					
+					$("#list-area>tbody>tr").click(function() {
+						
+					});
 				})
 			
 				function checkall() {
