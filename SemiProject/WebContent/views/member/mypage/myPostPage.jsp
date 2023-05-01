@@ -164,7 +164,7 @@
 						<tbody>
 							<%if(list.isEmpty()) {%>
 								<tr height="40">
-									<td colspan="5">조회된 게시글이 없습니다.</td>
+									<td colspan="6">조회된 게시글이 없습니다.</td>
 								</tr>
 							<%} else {%>
 								<%for(BoardCommon bc : list) {%>

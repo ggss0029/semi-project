@@ -498,7 +498,7 @@
             </li><li>
                 <a style="cursor: default;">함께 해요</a>
                 <ul>
-                    <li><a href="">같이 해요</a></li>
+                    <li><a href="<%=contextPath%>/togetherList.bo?cPage=1">같이 해요</a></li>
                     <li><a href="<%=contextPath %>/buyList.bo?currentPage=1">같이 사요</a></li>
                 </ul>
             </li><li><a href="">자유게시판</a></li><li style="margin-right:2%">

@@ -67,7 +67,7 @@
             left: 30px;
         }
 
-        #buy{ /*동네 소식 글씨, 위치*/
+        #together { /*살림 꿀팁 글씨, 위치*/
             position: absolute;
             font-size: 35px;
             text-decoration: none;
@@ -85,7 +85,7 @@
             left: 30px;
         }
 
-        #together { /*살림 꿀팁 글씨, 위치*/
+        #buy{ /*동네 소식 글씨, 위치*/
             position: absolute;
             font-size: 35px;
             text-decoration: none;
@@ -252,9 +252,9 @@
             <div id="content_1">
                 <p>함께 해요</p>
                 <div id="line_1"></div>
-                <a href="<%=contextPath%>/buyList.bo?currentPage=1" id="buy">같이 사요</a>
+                <a href="<%=contextPath%>/togetherList.bo" id="together">같이 해요</a>
                 <div id="line_2"></div>
-                <a href="<%=contextPath%>/togetherList.bo?cPage=1" id="together">같이 해요</a>
+                <a href="<%=contextPath%>/buyList.bo?currentPage=1" id="buy">같이 사요</a>
                 <div id="line_3"></div>
             </div>
 
