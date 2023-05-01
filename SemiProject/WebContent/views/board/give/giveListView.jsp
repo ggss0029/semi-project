@@ -1,16 +1,16 @@
-<%@page import="com.udong.board.food.model.vo.FoodBoard"%>
+<%@page import="com.udong.board.give.model.vo.GiveBoard"%>
 <%@page import="com.udong.common.model.vo.PageInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, com.udong.board.news.model.vo.NewsBoard"%>
 <%
-	ArrayList<FoodBoard> list = (ArrayList<FoodBoard>)request.getAttribute("fblist");
-	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	ArrayList<GiveBoard> list = (ArrayList<GiveBoard>)request.getAttribute("gblist");
+ 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>동네 맛집</title>
+<title>나눔 할게요</title>
 <style>
 	div{
             /* border: 1px solid black; */
@@ -280,12 +280,12 @@
         </div>
         <div id="content">
             <div id="content_1">
-                <p>동네 맛집</p>
+                <p>나눔 할게요</p>
                 <div id="line_1"></div>
             </div>
             <div id="content_2">
                 <div id="content_2_1">
-                    <p>동네 맛집</p>
+                    <p>나눔 할게요</p>
                     <div id="line_5"></div>
 
                     <div id="box">
@@ -321,23 +321,26 @@
 	                        </div>
 	                        <br>
 	                        <p id="b2">카테고리</p>
-	                        <div id="foodCategory">
-                                    <input type="checkbox" class="check" id="forOne" value="1인분"> <label for="forOne">1인분</label>
-                                    <input type="checkbox" class="check" id="JB" value="족발/보쌈"> <label for="JB">족발/보쌈</label>
-                                    <input type="checkbox" class="check" id="japan" value="돈까스/회/일식"> <label for="japan">돈까스/회/일식</label>
-                                    <input type="checkbox" class="check" id="meat" value="고기/구이"> <label for="meat">고기/구이</label>
-                                    <input type="checkbox" class="check" id="pizza" value="피자"> <label for="pizza">피자</label>
-                                    <input type="checkbox" class="check" id="chicken" value="치킨"> <label for="chicken">치킨</label>
-                                    <input type="checkbox" class="check" id="soup" value="찜/탕/찌개"> <label for="soup">찜/탕/찌개</label> <br>
-                                    <input type="checkbox" class="check" id="america" value="양식"> <label for="america">양식</label>
-                                    <input type="checkbox" class="check" id="china" value="중식"> <label for="china">중식</label>
-                                    <input type="checkbox" class="check" id="asian" value="아시안"> <label for="asian">아시안</label>
-                                    <input type="checkbox" class="check" id="burger" value="버거"> <label for="burger">버거</label>
-                                    <input type="checkbox" class="check" id="noodle" value="백반/죽/국수"> <label for="noodle">백반/죽/국수</label>
-                                    <input type="checkbox" class="check" id="snack" value="분식"> <label for="snack">분식</label>
-                                    <input type="checkbox" class="check" id="cafe" value="카페/디저트"> <label for="cafe">카페/디저트</label>
-                                    <input type="checkbox" class="check" id="etc" value="기타"> <label for="etc">기타</label>
-	                        </div>
+	                            <div id="giveCategory">
+							        <input type="checkbox" class="check" id="cloth" value="의류/잡화"> <label for="cloth">의류/잡화</label>
+							        <input type="checkbox" class="check" id="beauty" value="뷰티"> <label for="beauty">뷰티</label>
+							        <input type="checkbox" class="check" id="baby" value="출산"> <label for="baby">출산</label>
+							        <input type="checkbox" class="check" id="kids" value="아동"> <label for="kids">아동</label>
+							        <input type="checkbox" class="check" id="kitchen" value="주방용품"> <label for="kitchen">주방용품</label>
+							        <input type="checkbox" class="check" id="routine" value="생활용품"> <label for="routine">생활용품</label>
+							        <input type="checkbox" class="check" id="interior" value="인테리어"> <label for="interior">인테리어</label>
+							        <input type="checkbox" class="check" id="mechanic" value="가전/디지털"> <label for="mechanic">가전/디지털</label>
+							        <input type="checkbox" class="check" id="sports" value="스포츠/레저"> <label for="sports">스포츠/레저</label>
+							        <input type="checkbox" class="check" id="car" value="자동차용품"> <label for="car">자동차용품</label>
+							        <input type="checkbox" class="check" id="book" value="도서"> <label for="book">도서</label>
+							        <input type="checkbox" class="check" id="music" value="음반"> <label for="music">음반</label>
+							        <input type="checkbox" class="check" id="dvd" value="DVD"> <label for="dvd">DVD</label>
+							        <input type="checkbox" class="check" id="wangu" value="완구"> <label for="wangu">완구</label>
+							        <input type="checkbox" class="check" id="fancy" value="문구"> <label for="fancy">문구</label>
+							        <input type="checkbox" class="check" id="pet" value="반려동물용품"> <label for="pet">반려동물용품</label>
+							        <input type="checkbox" class="check" id="health" value="헬스/건강식품"> <label for="health">헬스/건강식품</label>
+							        <input type="checkbox" class="check" id="etc" value="기타"> <label for="etc">기타</label>
+							    </div>
 	                        <br>
 	                        <div align="center">
 	                        	<br>
@@ -349,13 +352,13 @@
                     <div id="line_6"></div>
                         <br><br>
 					<div id="photoArea" align="center">
-						<%for(FoodBoard fb : list) {%> 
+						<%for(GiveBoard gb : list) {%> 
 	                        <div class="thumbnail">
-	                            <input type="hidden" name="bno" value="<%=fb.getBoardNo()%>">
-						        <img src="<%=contextPath + fb.getTitleImg()%>" width="230px" height="200px">
-	                            <p>&lt; <%=fb.getBoardTitle()%> &gt;
+	                            <input type="hidden" name="bno" value="<%=gb.getBoardNo()%>">
+						        <img src="<%=contextPath + gb.getTitleImg()%>" width="230px" height="200px">
+	                            <p>&lt; <%=gb.getBoardTitle()%> &gt;
 	                                	 <br>
-	                                	작성자 : <%=fb.getBoardWriter()%>   조회수 : <%=fb.getCount()%>
+	                                	작성자 : <%=gb.getBoardWriter()%>   조회수 : <%=gb.getCount()%>
 	                            </p>
 	                        </div>
                         <%} %>
@@ -363,7 +366,7 @@
                         <div align="center" class="paging-area">
                         	<%for(int i=pi.getStartPage(); i<=pi.getEndPage(); i++ ){ %>
 								<%if(i != pi.getCurrentPage()){ %>
-									<button onclick="location.href='<%=contextPath%>/foodList.bo?currentPage=<%=i%>';"><%=i %></button>
+									<button onclick="location.href='<%=contextPath%>/giveList.bo?currentPage=<%=i%>';"><%=i %></button>
 								<%}else{ %>
 									<button disabled><%=i %></button>
 								<%} %>
@@ -382,7 +385,7 @@
     <script language='javascript'>
     $("#photoArea").on("click","div",function(){
     	var bno = $(this).children("input").val();
-    	location.href="<%=contextPath%>/foodDetail.bo?bno="+bno;
+    	location.href="<%=contextPath%>/giveDetail.bo?bno="+bno;
     });
     
     function categorySearch(){
@@ -392,55 +395,55 @@
     
 		var str = "";
 		$("input[class=check]:checked").each(function() {
-			str += "FC=" + $(this).val() + "&";
+			str += "GC=" + $(this).val() + "&";
 		});
 			str += "city=" + city + "&country=" + country
 			$.ajax({
-				url : "foodCategoryList.bo?"+str,
+				url : "giveCategoryList.bo?"+str,
 				data : {
 						city : city,
 						country : country,
 		},
 				type : "post",
-				success : function(flist) {
+				success : function(glist) {
 					$("#photoArea").children().remove();
 					$(".paging-area").children().remove();
-						if(flist[0] == null){
+						if(glist[0] == null){
 						alert("검색된 게시물이 없습니다.");
 					}else {
 						var str = "";
 						var str2 = "";
 						var str3 = "";
-						if(flist.length>8){
-							for(var i=0; i<flist.length; i++){
+						if(glist.length>8){
+							for(var i=0; i<glist.length; i++){
 								if(i<9){
-			                    str += "<div class='thumbnail'><input type='hidden' name='bno' value="+flist[i].boardNo+">"
-							        +"<img src='/udong/"+flist[i].titleImg+"' width='230px' height='200px'>"
-			                        +"<p>&lt;"+flist[i].boardTitle+"&gt;<br>"
-			                            	+"작성자 :"+flist[i].boardWriter+"   조회수 : "+flist[i].count
+			                    str += "<div class='thumbnail'><input type='hidden' name='bno' value="+glist[i].boardNo+">"
+							        +"<img src='/udong/"+glist[i].titleImg+"' width='230px' height='200px'>"
+			                        +"<p>&lt;"+glist[i].boardTitle+"&gt;<br>"
+			                            	+"작성자 :"+glist[i].boardWriter+"   조회수 : "+glist[i].count
 			                        +"</p></div>"
 								}
 			                    if(i>8 && i<18){
-			                    	str2 += "<div class='thumbnail'><input type='hidden' name='bno' value="+flist[i].boardNo+">"
-							        +"<img src='/udong/"+flist[i].titleImg+"' width='230px' height='200px'>"
-			                        +"<p>&lt;"+flist[i].boardTitle+"&gt;<br>"
-			                            	+"작성자 :"+flist[i].boardWriter+"   조회수 : "+flist[i].count
+			                    	str2 += "<div class='thumbnail'><input type='hidden' name='bno' value="+glist[i].boardNo+">"
+							        +"<img src='/udong/"+glist[i].titleImg+"' width='230px' height='200px'>"
+			                        +"<p>&lt;"+glist[i].boardTitle+"&gt;<br>"
+			                            	+"작성자 :"+glist[i].boardWriter+"   조회수 : "+glist[i].count
 			                        +"</p></div>"
 			                    }
 			                    if(i>17){
-			                    	str3 += "<div class='thumbnail'><input type='hidden' name='bno' value="+flist[i].boardNo+">"
-							        +"<img src='/udong/"+flist[i].titleImg+"' width='230px' height='200px'>"
-			                        +"<p>&lt;"+flist[i].boardTitle+"&gt;<br>"
-			                            	+"작성자 :"+flist[i].boardWriter+"   조회수 : "+flist[i].count
+			                    	str3 += "<div class='thumbnail'><input type='hidden' name='bno' value="+glist[i].boardNo+">"
+							        +"<img src='/udong/"+glist[i].titleImg+"' width='230px' height='200px'>"
+			                        +"<p>&lt;"+glist[i].boardTitle+"&gt;<br>"
+			                            	+"작성자 :"+glist[i].boardWriter+"   조회수 : "+glist[i].count
 			                        +"</p></div>"
 			                    }
 							}
 							$(".paging-area").append("<button type='button' id='pagingBtn1' disabled>1</button>");
 							$("#photoArea").append(str);
-							if(flist.length<17){
+							if(glist.length<17){
 								$(".paging-area").append("<button type='button' id='pagingBtn2'>2</button>");
 							}
-							if(flist.length<26){
+							if(glist.length<26){
 								$(".paging-area").append("<button type='button' id='pagingBtn2'>2</button>");
 								$(".paging-area").append("<button type='button' id='pagingBtn3'>3</button>");
 							}
@@ -465,11 +468,11 @@
 								}
 							});
 						}else{
-							for(var i in flist){
-								 str += "<div class='thumbnail'><input type='hidden' name='bno' value="+flist[i].boardNo+">"
-							        +"<img src='/udong/"+flist[i].titleImg+"' width='230px' height='200px'>"
-			                        +"<p>&lt;"+flist[i].boardTitle+"&gt;<br>"
-			                            	+"작성자 :"+flist[i].boardWriter+"   조회수 : "+flist[i].count
+							for(var i in glist){
+								 str += "<div class='thumbnail'><input type='hidden' name='bno' value="+glist[i].boardNo+">"
+							        +"<img src='/udong/"+glist[i].titleImg+"' width='230px' height='200px'>"
+			                        +"<p>&lt;"+glist[i].boardTitle+"&gt;<br>"
+			                            	+"작성자 :"+glist[i].boardWriter+"   조회수 : "+glist[i].count
 			                        +"</p></div>"	
 							}
 						$("#photoArea").append(str);

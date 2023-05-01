@@ -1,4 +1,4 @@
-package com.udong.board.food.model.dao;
+package com.udong.board.give.model.dao;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -11,19 +11,18 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.udong.board.common.model.vo.Attachment;
-import com.udong.board.food.model.vo.FoodBoard;
-import com.udong.board.food.model.vo.FoodReply;
-import com.udong.board.news.model.vo.NewsReply;
+import com.udong.board.give.model.vo.GiveBoard;
+import com.udong.board.give.model.vo.GiveReply;
 import com.udong.common.JDBCTemplate;
 import com.udong.common.model.vo.PageInfo;
 
 
-public class FoodBoardDao {
+public class GiveBoardDao {
 	
 	Properties prop = new Properties();
 	
-	public FoodBoardDao() {
-		String filePath = FoodBoardDao.class.getResource("/sql/board/board-mapper.xml").getPath();
+	public GiveBoardDao() {
+		String filePath = GiveBoardDao.class.getResource("/sql/board/board-mapper.xml").getPath();
 		
 		try {
 			prop.loadFromXML(new FileInputStream(filePath));
@@ -32,13 +31,13 @@ public class FoodBoardDao {
 		}
 	}
 
-	public int foodSelectListCount(Connection conn) {
+	public int giveSelectListCount(Connection conn) {
 
 		int listCount = 0;
 		ResultSet rset = null;
 		Statement stmt = null;
 		
-		String sql = prop.getProperty("foodSelectListCount");
+		String sql = prop.getProperty("giveSelectListCount");
 		
 		try {
 			stmt = conn.createStatement();
@@ -56,14 +55,14 @@ public class FoodBoardDao {
 		return listCount;
 	}
 
-	public ArrayList<FoodBoard> selectFoodList(Connection conn, PageInfo pi) {
+	public ArrayList<GiveBoard> selectGiveList(Connection conn, PageInfo pi) {
 		
-		ArrayList<FoodBoard> list = new ArrayList<>();
+		ArrayList<GiveBoard> list = new ArrayList<>();
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
 		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit()+1;
 		int endRow = (startRow+pi.getBoardLimit()) - 1;
-		String sql = prop.getProperty("selectFoodList");
+		String sql = prop.getProperty("selectGiveList");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -72,7 +71,7 @@ public class FoodBoardDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				FoodBoard fb = new FoodBoard(rset.getInt("BOARD_NO")
+				GiveBoard gb = new GiveBoard(rset.getInt("BOARD_NO")
 											,rset.getString("NICKNAME")
 											,rset.getString("BOARD_TITLE")
 											,rset.getString("CATEGORY")
@@ -82,7 +81,7 @@ public class FoodBoardDao {
 											,rset.getInt("BOARD_REPORT")
 											,rset.getInt("LIKECOUNT")
 											,rset.getString("TITLEIMG"));
-				list.add(fb);
+				list.add(gb);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -93,19 +92,19 @@ public class FoodBoardDao {
 		return list;
 	}
 
-	public FoodBoard foodAllCategoryList(Connection conn, String category) {
+	public GiveBoard giveAllCategoryList(Connection conn, String category) {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("foodAllCategoryList");
-		FoodBoard fb = null;
+		String sql = prop.getProperty("giveAllCategoryList");
+		GiveBoard gb = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, category);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				fb = new FoodBoard(rset.getInt("BOARD_NO")
+				gb = new GiveBoard(rset.getInt("BOARD_NO")
 						,rset.getString("NICKNAME")
 						,rset.getString("BOARD_TITLE")
 						,rset.getString("CATEGORY")
@@ -122,15 +121,15 @@ public class FoodBoardDao {
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(pstmt);
 		}
-		return fb;
+		return gb;
 }
 
-	public FoodBoard foodRegionCategoryList(Connection conn, String category, String region) {
+	public GiveBoard giveRegionCategoryList(Connection conn, String category, String region) {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("foodRegionCategoryList");
-		FoodBoard fb = null;
+		String sql = prop.getProperty("giveRegionCategoryList");
+		GiveBoard gb = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, category);
@@ -138,7 +137,7 @@ public class FoodBoardDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				fb =  new FoodBoard(rset.getInt("BOARD_NO")
+				gb =  new GiveBoard(rset.getInt("BOARD_NO")
 						,rset.getString("NICKNAME")
 						,rset.getString("BOARD_TITLE")
 						,rset.getString("CATEGORY")
@@ -155,22 +154,22 @@ public class FoodBoardDao {
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(pstmt);
 		}
-		return fb;
+		return gb;
 	}
 
-	public ArrayList<FoodBoard> selectNoCTFoodList(Connection conn) {
+	public ArrayList<GiveBoard> selectNoCTGiveList(Connection conn) {
 		
-		ArrayList<FoodBoard> list = new ArrayList<>();
+		ArrayList<GiveBoard> list = new ArrayList<>();
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("selectNoCTFoodList");
+		String sql = prop.getProperty("selectNoCTGiveList");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				FoodBoard fb = new FoodBoard(rset.getInt("BOARD_NO")
+				GiveBoard gb = new GiveBoard(rset.getInt("BOARD_NO")
 											,rset.getString("NICKNAME")
 											,rset.getString("BOARD_TITLE")
 											,rset.getString("CATEGORY")
@@ -180,7 +179,7 @@ public class FoodBoardDao {
 											,rset.getInt("BOARD_REPORT")
 											,rset.getInt("LIKECOUNT")
 											,rset.getString("TITLEIMG"));
-				list.add(fb);
+				list.add(gb);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -191,12 +190,12 @@ public class FoodBoardDao {
 		return list;
 	}
 
-	public ArrayList<FoodBoard> selectRegionFoodList(Connection conn, String region) {
+	public ArrayList<GiveBoard> selectRegionGiveList(Connection conn, String region) {
 		
-		ArrayList<FoodBoard> list = new ArrayList<>();
+		ArrayList<GiveBoard> list = new ArrayList<>();
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("selectRegionFoodList");
+		String sql = prop.getProperty("selectRegionGiveList");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -204,7 +203,7 @@ public class FoodBoardDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				FoodBoard fb = new FoodBoard(rset.getInt("BOARD_NO")
+				GiveBoard gb = new GiveBoard(rset.getInt("BOARD_NO")
 											,rset.getString("NICKNAME")
 											,rset.getString("BOARD_TITLE")
 											,rset.getString("CATEGORY")
@@ -214,7 +213,7 @@ public class FoodBoardDao {
 											,rset.getInt("BOARD_REPORT")
 											,rset.getInt("LIKECOUNT")
 											,rset.getString("TITLEIMG"));
-				list.add(fb);
+				list.add(gb);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -225,19 +224,19 @@ public class FoodBoardDao {
 		return list;
 	}
 
-	public FoodBoard selectFoodBoardDetail(Connection conn, int boardNo) {
+	public GiveBoard selectGiveBoardDetail(Connection conn, int boardNo) {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectFoodBoardDetail");
-		FoodBoard fb = null;
+		String sql = prop.getProperty("selectGiveBoardDetail");
+		GiveBoard fb = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1,boardNo);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				fb =  new FoodBoard(rset.getInt("BOARD_NO")
+				fb =  new GiveBoard(rset.getInt("BOARD_NO")
 						,rset.getString("NICKNAME")
 						,rset.getString("BOARD_TITLE")
 						,rset.getString("BOARD_CONTENT")
@@ -287,15 +286,15 @@ public class FoodBoardDao {
 		return alist;
 	}
 
-	public int foodInsertReply(Connection conn, FoodReply fr, int userNo) {
+	public int giveInsertReply(Connection conn, GiveReply gr, int userNo) {
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("foodInsertReply");
+		String sql = prop.getProperty("giveInsertReply");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, fr.getReplyContent());
-			pstmt.setInt(2, fr.getRefBno());
+			pstmt.setString(1, gr.getReplyContent());
+			pstmt.setInt(2, gr.getRefBno());
 			pstmt.setInt(3, userNo);
 			
 			result = pstmt.executeUpdate();
@@ -308,19 +307,19 @@ public class FoodBoardDao {
 		return result;
 	}
 
-	public ArrayList<FoodReply> foodSelectReply(Connection conn, int boardNo) {
+	public ArrayList<GiveReply> giveSelectReply(Connection conn, int boardNo) {
 		
-		ArrayList<FoodReply> rlist = new ArrayList<>();
+		ArrayList<GiveReply> rlist = new ArrayList<>();
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("foodSelectReply");
+		String sql = prop.getProperty("giveSelectReply");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, boardNo);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
-				rlist.add(new FoodReply(rset.getInt("REPLY_NO")
+				rlist.add(new GiveReply(rset.getInt("REPLY_NO")
 										,rset.getString("NICKNAME")
 										,rset.getString("REPLY_CONTENT")
 										,rset.getDate("CREATE_DATE")
@@ -335,11 +334,11 @@ public class FoodBoardDao {
 		return rlist;
 	}
 
-	public int foodDeleteReply(Connection conn, int replyNo) {
+	public int giveDeleteReply(Connection conn, int replyNo) {
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("foodDeleteReply");
+		String sql = prop.getProperty("giveDeleteReply");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -353,11 +352,11 @@ public class FoodBoardDao {
 		return result;
 	}
 
-	public int foodUpdateReply(Connection conn, int replyNo, String content) {
+	public int giveUpdateReply(Connection conn, int replyNo, String content) {
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("foodUpdateReply");
+		String sql = prop.getProperty("giveUpdateReply");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);

@@ -1,9 +1,9 @@
-package com.udong.board.food.model.vo;
+package com.udong.board.give.model.vo;
 
 import java.sql.Date;
 
-public class FoodBoard {
-
+public class GiveBoard {
+	
 	private int boardNo;
 	private String boardWriter;
 	private String boardTitle;
@@ -19,13 +19,13 @@ public class FoodBoard {
 	private int likeCount;
 	private String titleImg;
 	
-	public FoodBoard() {
+	public GiveBoard() {
 		super();
 	}
-	
-	
 
-	public FoodBoard(int boardNo, String boardWriter, String boardTitle, String category, String region, int count,
+	
+	
+	public GiveBoard(int boardNo, String boardWriter, String boardTitle, String category, String region, int count,
 			Date createDate, int boardReport, int likeCount, String titleImg) {
 		super();
 		this.boardNo = boardNo;
@@ -40,9 +40,9 @@ public class FoodBoard {
 		this.titleImg = titleImg;
 	}
 
-	
 
-	public FoodBoard(int boardNo, String boardWriter, String boardTitle, String boardContent, String category,
+
+	public GiveBoard(int boardNo, String boardWriter, String boardTitle, String boardContent, String category,
 			String region, int count, Date createDate, int boardReport, int likeCount, String titleImg) {
 		super();
 		this.boardNo = boardNo;
@@ -60,27 +60,9 @@ public class FoodBoard {
 
 
 
-	public FoodBoard(int boardNo, String boardWriter, String boardTitle, String boardContent, String boardName,
-			String category, String region, int count, Date createDate, int boardReport, int likeCount) {
-		super();
-		this.boardNo = boardNo;
-		this.boardWriter = boardWriter;
-		this.boardTitle = boardTitle;
-		this.boardContent = boardContent;
-		this.boardName = boardName;
-		this.category = category;
-		this.region = region;
-		this.count = count;
-		this.createDate = createDate;
-		this.boardReport = boardReport;
-		this.likeCount = likeCount;
-	}
-
-
-
-	public FoodBoard(int boardNo, String boardWriter, String boardTitle, String boardContent, String boardName,
+	public GiveBoard(int boardNo, String boardWriter, String boardTitle, String boardContent, String boardName,
 			String category, String region, int count, Date createDate, String status, int boardReport, int boardLikeNo,
-			int likeCount) {
+			int likeCount, String titleImg) {
 		super();
 		this.boardNo = boardNo;
 		this.boardWriter = boardWriter;
@@ -95,6 +77,7 @@ public class FoodBoard {
 		this.boardReport = boardReport;
 		this.boardLikeNo = boardLikeNo;
 		this.likeCount = likeCount;
+		this.titleImg = titleImg;
 	}
 
 	public int getBoardNo() {
@@ -204,20 +187,20 @@ public class FoodBoard {
 	public String getTitleImg() {
 		return titleImg;
 	}
-	
+
 	public void setTitleImg(String titleImg) {
 		this.titleImg = titleImg;
 	}
 
-
-
 	@Override
 	public String toString() {
-		return "FoodBoard [boardNo=" + boardNo + ", boardWriter=" + boardWriter + ", boardTitle=" + boardTitle
+		return "GiveBoard [boardNo=" + boardNo + ", boardWriter=" + boardWriter + ", boardTitle=" + boardTitle
 				+ ", boardContent=" + boardContent + ", boardName=" + boardName + ", category=" + category + ", region="
 				+ region + ", count=" + count + ", createDate=" + createDate + ", status=" + status + ", boardReport="
-				+ boardReport + ", boardLikeNo=" + boardLikeNo + ", likeCount=" + likeCount + "]";
+				+ boardReport + ", boardLikeNo=" + boardLikeNo + ", likeCount=" + likeCount + ", titleImg=" + titleImg
+				+ "]";
 	}
 	
 	
+
 }

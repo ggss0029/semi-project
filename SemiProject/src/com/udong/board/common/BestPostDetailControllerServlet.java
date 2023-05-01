@@ -49,13 +49,18 @@ public class BestPostDetailControllerServlet extends HttpServlet {
 			
 			if(bestPost.getBoardName().equals("동네 소식")) {
 				request.setAttribute("bestPost", bestPost);
+				System.out.println("동네소식"+bestPost);
 				request.getRequestDispatcher("views/board/news/newsDetailView.jsp").forward(request, response);
 			}else if(bestPost.getBoardName().equals("살림 꿀팁")) {
 				request.getRequestDispatcher("views/board/boardDetailView.jsp").forward(request, response);
 			}else if(bestPost.getBoardName().equals("자취 레시피")) {
 				request.getRequestDispatcher("views/board/boardDetailView.jsp").forward(request, response);
 			}else if(bestPost.getBoardName().equals("동네 맛집")) {
-				request.getRequestDispatcher("views/board/boardDetailView.jsp").forward(request, response);
+				request.setAttribute("bestPost", bestPost);
+				request.setAttribute("alist", alist);
+				System.out.println(bestPost);
+				System.out.println(alist);
+				request.getRequestDispatcher("views/board/food/foodDetailView.jsp").forward(request, response);
 			}else if(bestPost.getBoardName().equals("나눔 할게요")) {
 				request.getRequestDispatcher("views/board/boardDetailView.jsp").forward(request, response);
 			}else if(bestPost.getBoardName().equals("이거 필요해요")) {
