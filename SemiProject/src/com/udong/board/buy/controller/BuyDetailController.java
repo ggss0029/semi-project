@@ -40,7 +40,7 @@ public class BuyDetailController extends HttpServlet {
 			request.setAttribute("buyBoard", buyb);
 			request.getRequestDispatcher("views/board/buy/buyDetailView.jsp").forward(request, response);
 		} else {
-			request.setAttribute("errorMsg", "살림꿀팁 게시글 조회 실패");
+			request.setAttribute("errorMsg", "같이 사요 게시글 조회 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 
 		}

@@ -30,7 +30,7 @@
 
         #content{
             width: 100%;
-            height: 76.5%;
+            height: 100%;
             position: relative;
         }
 
@@ -41,7 +41,7 @@
 
         #content_1{
             width: 25%;
-            background-color: yellow;
+            background-color: #C8EDC9;
         }
 
         #content_2{
@@ -67,7 +67,7 @@
             left: 30px;
         }
 
-        #buy{ /*동네 소식 글씨, 위치*/
+        #together { /*살림 꿀팁 글씨, 위치*/
             position: absolute;
             font-size: 35px;
             text-decoration: none;
@@ -85,7 +85,7 @@
             left: 30px;
         }
 
-        #together { /*살림 꿀팁 글씨, 위치*/
+        #buy{ /*동네 소식 글씨, 위치*/
             position: absolute;
             font-size: 35px;
             text-decoration: none;
@@ -190,7 +190,7 @@
         }
         
         .list-area>tbody>tr:hover {
-			background-color: #C8EDC9;
+			background-color: #DEF5DE;
 			cursor: pointer;
 		}
 
@@ -252,9 +252,9 @@
             <div id="content_1">
                 <p>함께 해요</p>
                 <div id="line_1"></div>
-                <a href="<%=contextPath%>/buyList.bo?currentPage=1" id="buy" id="together">같이 사요</a>
+                <a href="<%=contextPath%>/togetherList.bo?cPage=1" id="together">같이 해요</a>
                 <div id="line_2"></div>
-                <a href="">같이 해요</a>
+                <a href="<%=contextPath%>/buyList.bo?currentPage=1" id="buy">같이 사요</a>
                 <div id="line_3"></div>
             </div>
 
@@ -359,7 +359,7 @@
 								<!-- No. -->
 								<td class="goDetail1"><%=buyb.getBoardTitle()%></td>
 								<!-- 제목 -->
-								<td><a data-toggle="modal" data-target="#profile"
+								<td><a id="nicknameHover"
 									onclick="profile();"><%=buyb.getBoardWriter()%></a></td>
 								<!-- 작성자  닉네임 -->
 								<td><%=buyb.getCreateDate()%></td>

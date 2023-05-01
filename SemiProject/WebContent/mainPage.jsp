@@ -192,8 +192,8 @@
             width: 1500px;
             height: 1400px;
             margin: auto;
-            border-left: 1px solid black;
-            border-right: 1px solid black;
+/*             border-left: 1px solid black; */
+/*             border-right: 1px solid black; */
             border-bottom: 1px solid black;
         }
 
@@ -750,7 +750,7 @@
 		                	<a href="<%=contextPath%>/sendLetterList.le?writerNo=<%=loginUser.getUserNo()%>&currentPage=1" id="letter"><img alt="쪽지아이콘" src="<%=contextPath %>/views/common/icons/쪽지함.png" id="letterIcon" style="width: 70px; height:70px;"><br>쪽지함</a>
 		                </div>
 		                <div id="likeBoard">
-		                	<a href="https://www.daum.net" id="likeBoard"><img alt="좋아요게시글 아이콘" src="<%=contextPath %>/views/common/icons/관심.png" id="likeBoardIcon" style="width: 70px; height:70px;"><br>관심</a>
+		                	<a href="<%=contextPath %>/likeList.me?currentPage=1" id="likeBoard"><img alt="좋아요게시글 아이콘" src="<%=contextPath %>/views/common/icons/관심.png" id="likeBoardIcon" style="width: 70px; height:70px;"><br>관심</a>
 		                </div>
 	                </div>
             	</div>
@@ -792,8 +792,8 @@
         <div class="header_2">
             <div style="margin-left:3%"><a align="center" href="<%=contextPath %>/newsList.bo?currentPage=1"><img src="views/common/icons/정보공유.png" alt="정보공유">정보 공유</a></div>
             <div style="margin-left:2%"><a align="center" href="<%=contextPath %>/foodList.bo?currentPage=1"><img src="views/common/icons/동네맛집.png" alt="동네맛집">동네 맛집</a></div>
-            <div style="margin-left:2%"><a align="center" href=""><img src="views/common/icons/나눔.png" alt="나눔">나눔</a></div>
-            <div style="margin-left:2%"><a align="center" href=""><img src="views/common/icons/함께해요.png" alt="함께해요">함께 해요 </a></div>
+            <div style="margin-left:2%"><a align="center" href="<%=contextPath %>/giveList.bo?currentPage=1"><img src="views/common/icons/나눔.png" alt="나눔">나눔</a></div>
+            <div style="margin-left:2%"><a align="center" href="<%=contextPath%>/togetherList.bo?cPage=1"><img src="views/common/icons/함께해요.png" alt="함께해요">함께 해요 </a></div>
             <div style="margin-left:2%"><a align="center" href="<%=contextPath %>/FreeBoardList.bo?currentPage=1"><img src="views/common/icons/자유게시판.png" alt="자유게시판">자유게시판</a></div>
             <div style="margin-left:2%; margin-right:3%"><a align="center" href="<%=contextPath%>/noticeList.bo?currentPage=1"><img src="views/common/icons/소식.png" alt="소식">소식</a></div>
         </div>

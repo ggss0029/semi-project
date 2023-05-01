@@ -194,7 +194,8 @@
         }
 
         #menu a:hover {
-            color: #C8EDC9;
+            color: #8EEC91;
+/*             color: #C8EDC9; */
             font-weight: 600;
         }
 
@@ -490,7 +491,7 @@
                     <li><a href="">자취 레시피</a></li>
                 </ul>
             </li><li><a href="<%=contextPath %>/foodList.bo?currentPage=1">동네 맛집</a></li><li>
-                <a style="cursor: default;">나눔</a>
+                <a href="<%=contextPath %>/giveList.bo?currentPage=1" style="cursor: default;">나눔</a>
                 <ul>
                     <li><a href="">나눔할게요</a></li>
                     <li><a href="">이거 필요해요</a></li>
@@ -498,7 +499,7 @@
             </li><li>
                 <a style="cursor: default;">함께 해요</a>
                 <ul>
-                    <li><a href="">같이 해요</a></li>
+                    <li><a href="<%=contextPath%>/togetherList.bo?cPage=1">같이 해요</a></li>
                     <li><a href="<%=contextPath %>/buyList.bo?currentPage=1">같이 사요</a></li>
                 </ul>
             </li><li><a href="">자유게시판</a></li><li style="margin-right:2%">

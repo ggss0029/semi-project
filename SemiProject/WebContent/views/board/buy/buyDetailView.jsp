@@ -50,7 +50,7 @@ div {
 
 #report_btn {
 	float: left;
-	margin: 60px 0 0 1170px;
+	margin: 40px 0 0 1170px;
 }
 
 #line_1 {
@@ -109,7 +109,7 @@ tbody>#tr2 {
 <!-- 			<div id="menubar"></div> -->
 <!-- 		</div> -->
 		<div id="content">
-			<p id="p1">살림 꿀팁</p>
+			<p id="p1">같이 사요</p>
 			<button id="report_btn" class="btn btn-basic">신고하기</button>
 
 			<div id="line_1"></div>
@@ -121,7 +121,7 @@ tbody>#tr2 {
 				</tr>
 				<tr style="border-bottom: 1px solid black; height:80px;">
 					<td style="height: 50px; font-size: 20px; font-weight: 600; ">
-						<a data-toggle="modal" data-target="#profile"><%=buyb.getBoardWriter()%></a>
+						<a id="nicknameHover" onclick="whoareyou();"><%=buyb.getBoardWriter()%></a>
 					</td>
 					
 					<td style="height: 50px; font-size: 20px; font-weight: 600;"

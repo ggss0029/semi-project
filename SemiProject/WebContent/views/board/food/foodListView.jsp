@@ -28,7 +28,7 @@
         }
         #content{
             width: 100%;
-            height: 99%;
+            height: 100%;
             position: relative;
         }
         #content>div{
@@ -38,7 +38,7 @@
         #content_1{
             width: 25%;
             height:100%;
-            background-color: yellow;
+            background-color: #C8EDC9;
         }
         #content_2{
             width: 75%;
@@ -204,7 +204,7 @@
             font-size: 17px;
         }
         .list-area>tbody>tr:hover{
-        background-color: #C8EDC9;
+        background-color: #DEF5DE;
         cursor: pointer;
     	}
         /* 글쓰기 버튼 */
@@ -380,6 +380,10 @@
         </div>
 	
     <script language='javascript'>
+    $("#photoArea").on("click","div",function(){
+    	var bno = $(this).children("input").val();
+    	location.href="<%=contextPath%>/foodDetail.bo?bno="+bno;
+    });
     
     function categorySearch(){
     	
@@ -391,7 +395,6 @@
 			str += "FC=" + $(this).val() + "&";
 		});
 			str += "city=" + city + "&country=" + country
-		
 			$.ajax({
 				url : "foodCategoryList.bo?"+str,
 				data : {
@@ -402,8 +405,7 @@
 				success : function(flist) {
 					$("#photoArea").children().remove();
 					$(".paging-area").children().remove();
-					console.log(flist.length);
-					if(flist[0] == null){
+						if(flist[0] == null){
 						alert("검색된 게시물이 없습니다.");
 					}else {
 						var str = "";
