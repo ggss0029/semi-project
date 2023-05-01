@@ -816,4 +816,30 @@
 		WHERE REPLY_NO = ?
 		AND STATUS = 'Y'
 	</entry>
+	
+	<entry key="selectTogetherListCount">
+		SELECT COUNT(*) AS COUNT
+		FROM BOARD
+		WHERE BOARD_NAME = '같이 해요' AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectTogetherList">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+        		FROM (SELECT BOARD_NO, BOARD_TITLE, NICKNAME, CREATE_DATE, COUNT, COUNT(BOARDLIKE_NO) LIKE_COUNT
+		        		FROM BOARD B
+		        		JOIN MEMBER M ON (BOARD_WRITER = USER_NO)
+		        		LEFT JOIN BOARD_LIKE ON (BOARDLIKE_NO = BOARD_NO)
+		        		WHERE BOARD_NAME = '같이 해요' AND B.STATUS ='Y'
+		        		GROUP BY BOARD_NO, BOARD_TITLE, NICKNAME, CREATE_DATE, COUNT
+		        		ORDER BY BOARD_NO DESC) A )
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectTogether">
+		SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT, NICKNAME, CREATE_DATE
+		FROM BOARD B
+		JOIN MEMBER M ON (BOARD_WRITER = USER_NO)
+		WHERE BOARD_NO = ? AND BOARD_NAME = '같이 해요' AND B.STATUS = 'Y'
+	</entry>
 </properties>

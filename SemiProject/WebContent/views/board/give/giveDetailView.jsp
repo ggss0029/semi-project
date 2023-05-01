@@ -53,7 +53,7 @@ div {
 
 #report_btn {
 	float: left;
-	margin: 60px 0 0 1170px;
+	margin: 40px 0 0 1170px;
 }
 
 #line_1 {
