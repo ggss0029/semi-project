@@ -1,21 +1,21 @@
 <%@page import="com.udong.board.common.model.vo.Attachment"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.udong.board.common.model.vo.BoardCommon"%>
-<%@page import="com.udong.board.food.model.vo.FoodBoard"%>
+<%@page import="com.udong.board.give.model.vo.GiveBoard"%>
 <%@page import="com.udong.board.news.model.vo.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
 <%
-	FoodBoard fb = new FoodBoard();
+	GiveBoard gb = new GiveBoard();
 	if(request.getAttribute("bestPost")!=null){
 		BoardCommon b = (BoardCommon)request.getAttribute("bestPost");
-		fb.setBoardTitle(b.getBoardTitle());
-		fb.setBoardWriter(b.getBoardWriter());
-		fb.setCreateDate(b.getCreateDate());
-		fb.setBoardContent(b.getBoardContent());
-	}else if(request.getAttribute("fb")!=null){
-		fb = (FoodBoard)request.getAttribute("fb");
+		gb.setBoardTitle(b.getBoardTitle());
+		gb.setBoardWriter(b.getBoardWriter());
+		gb.setCreateDate(b.getCreateDate());
+		gb.setBoardContent(b.getBoardContent());
+	}else if(request.getAttribute("gb")!=null){
+		gb = (GiveBoard)request.getAttribute("gb");
 	}
 	ArrayList<Attachment> alist = (ArrayList<Attachment>)request.getAttribute("alist");
 %>
@@ -23,7 +23,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>동네 맛집</title>
+<title>나눔 할게요</title>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
@@ -111,26 +111,21 @@ tbody>#tr2 {
 
 	<div class="wrap">
 		<div id="content">
-			<p id="p1">동네 맛집</p>
-			<button id="report_btn" class="btn btn-basic">신고하기</button>
+			<p id="p1">나눔 할게요</p><button id="report_btn" class="btn btn-basic">신고하기</button>
 
 			<div id="line_1"></div>
 
-			<table border="0" align="center" id="detail-area">
+			<table border="1" align="center" id="detail-area">
 				<tr style="height:80px;">
 					<td colspan="4"
-						style="height: 50px; font-size: 30px; font-weight: 600; border-bottom: 1px solid black;"><%=fb.getBoardTitle()%></td>
+						style="height: 50px; font-size: 30px; font-weight: 600; border-bottom: 1px solid black;"><%=gb.getBoardTitle()%></td>
 				</tr>
 				<tr style="border-bottom: 1px solid black; height:80px;">
 					<td style="height: 50px; font-size: 20px; font-weight: 600;" id="foodWriter" colspan="3">
-						작성자 <a data-toggle="modal" data-target="#profile"><%=fb.getBoardWriter()%></a>
+						작성자 <a data-toggle="modal" data-target="#profile"><%=gb.getBoardWriter()%></a>
 					</td>
 					<td style="height: 50px; font-size: 20px; font-weight: 600;"
-						align="right">조회수 <%=fb.getCount()%> &nbsp;&nbsp;  작성일 <%=fb.getCreateDate()%></td>
-				</tr>
-				<tr>
-					<td style="height: 50px; font-size: 30px; font-weight: 600; border-bottom: 1px solid black;">식당 이름 : <%=fb.getRegion().substring(0,fb.getRegion().indexOf("$")) %></td>
-					<td colspan="3" style="height: 50px; font-size: 30px; font-weight: 600; border-bottom: 1px solid black;">식당 주소 : <%=fb.getRegion().substring(fb.getRegion().indexOf("$")+1,fb.getRegion().length())%></td>
+						align="right">조회수 <%=gb.getCount()%> &nbsp;&nbsp;  작성일 <%=gb.getCreateDate()%></td>
 				</tr>
 				<tr>
 					<%if(alist.size()>4){ %>
@@ -167,44 +162,10 @@ tbody>#tr2 {
 				<%} %>
 				</tr>		
 				<tr style="height: auto">
-					<td colspan="4" style="height: auto; vertical-align : top "><br><%=fb.getBoardContent()%></td>
+					<td colspan="4" style="height: auto; vertical-align : top "><br><%=gb.getBoardContent()%></td>
 				</tr>
 			</table>
 			<br><br>
-<div id="map" style="width:100%;height:350px;"></div>
-			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7122a55dfee4ed591b995856dce3e752&libraries=services"></script>
-<script>
-var mapContainer = document.getElementById('map'), 
-    mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), 
-        level: 3 
-    };  
-
-var map = new kakao.maps.Map(mapContainer, mapOption); 
-
-var geocoder = new kakao.maps.services.Geocoder();
-
-geocoder.addressSearch("<%=fb.getRegion().substring(fb.getRegion().indexOf("$")+1,fb.getRegion().length())%>", function(result, status) {
-
-     if (status === kakao.maps.services.Status.OK) {
-
-        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-        var marker = new kakao.maps.Marker({
-            map: map,
-            position: coords
-        });
-
-        var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;"><%=fb.getRegion().substring(0,fb.getRegion().indexOf("$")) %></div>'
-        });
-        infowindow.open(map, marker);
-
-        map.setCenter(coords);
-    } 
-});    
-</script>
-
 			<div class="like-area">
 					<div class="like" style="float: left;">
 						<% if (loginUser != null) %>
@@ -217,14 +178,14 @@ geocoder.addressSearch("<%=fb.getRegion().substring(fb.getRegion().indexOf("$")+
 					</div>
 					
 				<%
-					if (loginUser != null && loginUser.getNickname().equals(fb.getBoardWriter())) {
+					if (loginUser != null && loginUser.getNickname().equals(gb.getBoardWriter())) {
 				%>
 				<div class="board_btn" style="float: right; margin-right: 70px">
 					<button
-						onclick="location.href = '<%=contextPath%>/newsUpdate.bo?bno=<%=fb.getBoardNo()%>'"
+						onclick="location.href = '<%=contextPath%>/newsUpdate.bo?bno=<%=gb.getBoardNo()%>'"
 						class="btn btn-secondary">수정</button>
 					<button
-						onclick="location.href = '<%=contextPath%>/deletePost.bo?bno=<%=fb.getBoardNo()%>'"
+						onclick="location.href = '<%=contextPath%>/deletePost.bo?bno=<%=gb.getBoardNo()%>'"
 						class="btn btn-dark">삭제</button>
 				</div>
 				<%
@@ -275,20 +236,17 @@ geocoder.addressSearch("<%=fb.getRegion().substring(fb.getRegion().indexOf("$")+
 				<br><br><br>
 			</div>
 			<script>
-// 				$(function() {
-// 					$("#tabs").tabs();
-// 				});
 
 				$(function() {
-					foodSelectReplyList();
+					giveSelectReplyList();
 				});
 
 				function insertReply() {
 					$.ajax({
-						url : "foodInsertReply.bo",
+						url : "giveInsertReply.bo",
 						data : {
 							content : $("#replyContent").val(),
-							foodBoardNo : <%=fb.getBoardNo()%>,
+							giveBoardNo : <%=gb.getBoardNo()%>,
 							<%if(loginUser != null){%>
 								userNo : <%=loginUser.getUserNo()%>
 							<%}%>
@@ -297,7 +255,7 @@ geocoder.addressSearch("<%=fb.getRegion().substring(fb.getRegion().indexOf("$")+
 						success : function(result) {
 							if (result > 0) {
 								alert("댓글 작성 완료!");
-								foodSelectReplyList();
+								giveSelectReplyList();
 								$("#replyContent").val("");
 							}
 						},
@@ -308,12 +266,12 @@ geocoder.addressSearch("<%=fb.getRegion().substring(fb.getRegion().indexOf("$")+
 				}
 
 				//댓글 목록 죄회
-				function foodSelectReplyList() {
+				function giveSelectReplyList() {
 					
 					$.ajax({
-								url : "foodSelectReplyList.bo",
+								url : "giveSelectReplyList.bo",
 								data : {
-									boardNo : <%=fb.getBoardNo()%>
+									boardNo : <%=gb.getBoardNo()%>
 										},
 								success : function(flist) {
 									var result = "";
@@ -330,8 +288,8 @@ geocoder.addressSearch("<%=fb.getRegion().substring(fb.getRegion().indexOf("$")+
 													+ "</span>"
 													+ "<span style='font-size: 15px;'>"
 													+ flist[i].createDate
-													+ "<button id='delete_reply' class='btn btn-dark btn-sm' onclick='foodDeleteReply(" + flist[i].replyNo+")' style='float:right'>삭제하기</button>"
-													+ "<button id='update_reply' class='btn btn-secondary btn-sm' onclick='foodUpdateReplyForm("+ flist[i].replyNo + ",\"" + flist[i].replyWriter + "\"" + ",\"" + flist[i].createDate + "\"" +",\""+ flist[i].replyContent+"\");' style='float:right'>수정하기</button>"
+													+ "<button id='delete_reply' class='btn btn-dark btn-sm' onclick='giveDeleteReply(" + flist[i].replyNo+")' style='float:right'>삭제하기</button>"
+													+ "<button id='update_reply' class='btn btn-secondary btn-sm' onclick='giveUpdateReplyForm("+ flist[i].replyNo + ",\"" + flist[i].replyWriter + "\"" + ",\"" + flist[i].createDate + "\"" +",\""+ flist[i].replyContent+"\");' style='float:right'>수정하기</button>"
 													+ "</span><br>"
 													+ "<p class='list-group-item-text'>"
 													+ flist[i].replyContent
@@ -349,30 +307,29 @@ geocoder.addressSearch("<%=fb.getRegion().substring(fb.getRegion().indexOf("$")+
 							});
 					};
 					
-					function foodDeleteReply(replyNo) {
+					function giveDeleteReply(replyNo) {
 						
-						if(confirm("진짜 삭제하시겠습니까?")){
+					if(confirm("진짜 삭제하시겠습니까?")){	
 						$.ajax({
-							url : "foodDeleteReply.bo",
+							url : "giveDeleteReply.bo",
 							data : { replyNo : replyNo }, 
 							type : "get",
 							success : function(result) {
 								if (result > 0) {
 									alert("댓글 삭제 완료!");
-									foodSelectReplyList(); //댓글 리스트 갱신
+									giveSelectReplyList(); //댓글 리스트 갱신
 								}
 							},
 							error : function() {
 								alert("댓글 삭제 실패");
 							}
 					});
-						}else{
-							alert("댓글 삭제가 취소되었습니다.");
-						}
-						
+					}else{
+						alert("댓글 삭제가 취소되었습니다.");
+					}
 					}
 					
-					function foodUpdateReplyForm(replyNo, replyWriter, createDate, replyContent) {
+					function giveUpdateReplyForm(replyNo, replyWriter, createDate, replyContent) {
 								var result = "";
 									result += "<div id='tabs-1'>"
 											+ "<div class='list-group'>"
@@ -381,8 +338,8 @@ geocoder.addressSearch("<%=fb.getRegion().substring(fb.getRegion().indexOf("$")+
 											+ replyWriter
 											+ "&nbsp;&nbsp;&nbsp;&nbsp;"
 											+ createDate
-											+ "<button id='cancel_reply' class='btn btn-dark btn-sm' onclick='foodSelectReplyList()' style='float:right'>취소</button> "
-											+ "<button id='update_reply' class='btn btn-secondary btn-sm' onclick='foodUpdateReply("+replyNo+")' style='float:right'>수정하기</button>"
+											+ "<button id='cancel_reply' class='btn btn-dark btn-sm' onclick='giveSelectReplyList()' style='float:right'>취소</button> "
+											+ "<button id='update_reply' class='btn btn-secondary btn-sm' onclick='giveUpdateReply("+replyNo+")' style='float:right'>수정하기</button>"
 											+ "</span>"
 											+ "<p class='list-group-item-text'>"
 											+ "<textarea id='changeContent' rows='3' class='form-control' style='resize: none;'>"+replyContent+"</textarea>"
@@ -395,11 +352,11 @@ geocoder.addressSearch("<%=fb.getRegion().substring(fb.getRegion().indexOf("$")+
 					}
 					
 					
-					function foodUpdateReply(replyNo, newContent) {
+					function giveUpdateReply(replyNo, newContent) {
 						
 						var newContent = $("#changeContent").val();
 						$.ajax({
-							url:"foodUpdateReply.bo",
+							url:"giveUpdateReply.bo",
 							type:"post",
 							data: {
 								replyNo : replyNo,
@@ -407,7 +364,7 @@ geocoder.addressSearch("<%=fb.getRegion().substring(fb.getRegion().indexOf("$")+
 							},
 							success : function(result) {
 								alert("댓글이 수정되었습니다.");
-								foodSelectReplyList();
+								giveSelectReplyList();
 							},
 							error : function() {
 								alert("댓글 수정 실패...");
