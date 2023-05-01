@@ -345,14 +345,14 @@
 	                        <p id="b2">카테고리</p>
 	                        
 	                        <div id="category" name="category">
-	                            <input type="checkbox" id="real_time"> <label for="real_time">실시간 우동</label> 
-	                            <input type="checkbox" id="event"><label for="event">행사</label> 
-	                            <input type="checkbox" id="festival" > <label for="festival">축제</label> 
-	                            <input type="checkbox" id="open"> <label for="open">신장 개업</label>
-	                            <input type="checkbox" id="danger"> <label for="danger">사건/사고</label>
-	                            <input type="checkbox" id="lost"> <label for="lost">분실</label>
-	                           	<input type="checkbox" id="none"> <label for="none">실종</label>
-	                           	<input type="checkbox" id="others"> <label for="others">기타</label>
+	                            <input type="checkbox" class="check" id="real_time" value="실시간 우동"> <label for="real_time">실시간 우동</label> 
+	                            <input type="checkbox" class="check" id="event" value="행사"><label for="event">행사</label> 
+	                            <input type="checkbox" class="check" id="festival"  value="축제"> <label for="festival">축제</label> 
+	                            <input type="checkbox" class="check" id="open"  value="신장 개업"> <label for="open">신장 개업</label>
+	                            <input type="checkbox" class="check" id="danger"  value="사건/사고"> <label for="danger">사건/사고</label>
+	                            <input type="checkbox" class="check" id="lost"  value="분실"> <label for="lost">분실</label>
+	                           	<input type="checkbox" class="check" id="none"  value="실종"> <label for="none">실종</label>
+	                           	<input type="checkbox" class="check" id="others"  value="기타"> <label for="others">기타</label>
 	                           	
 	                        </div>
 	                        <br><br><br>
@@ -360,12 +360,12 @@
 	
 	                        <div align="center">
 	                            <button type="reset" class="btn btn-light">초기화</button>
-	                            <button type="submit" class="btn btn-primary">검색</button>
+	                            <button type="button" class="btn btn-primary" onclick="newsSearch();">검색</button>
 	                        </div>
 	                        </form>
                     </div>
                     <div id="line_6"></div>
-					<div id="newsList"></div>
+					
                     <table class="list-area" border="0" align="center">
                         <thead style="height: 50px; border-top:3px solid black; border-bottom:3px solid black;">
                         <tr>
@@ -498,6 +498,88 @@
 	    });
     	
     });
+    
+    function newsSearch() {
+    	var city = $("#city").val();
+    	var county = $("#county").val();
+    	
+    	var str = ""
+    	$("input[class=check]:checked").each(function() {
+    		str += "NC=" + $(this).val() + "&";
+    	});
+    		str += "city=" + city + "&county=" + county
+//     		console.log(str);
+    		$.ajax({
+    			url : "newsCategoryList.bo?"+str,
+    			data : {
+    				city : city,
+    				county : county
+    			},
+    			type : "post",
+    			success : function(nlist) {
+    				$(".list-area").children("tbody").children().remove();
+    				$(".paging-area").children().remove();
+    				if(nlist[0] == null){
+    					alert("검색된 게시물이 없습니다.");
+    				}else {
+    					var str = "";
+    					var str2 = "";
+    					var str3 = "";
+    					if(nlist.length > 9) {
+    						for(var i = 0; i < nlist.length; i++) {
+    							if(i < 10) {
+    								str += "<tr style='height: 40px; border-bottom:1px solid black;'>"
+    									+ "<td>"+ nlist[i].boardNo +"</td>"
+    									+ "<td class='goDetail1'>"+ nlist[i].boardTitle +"</td>"
+    									+ "<td><a id='nicknameHover' onclick='hoareyou();'>"+ nlist[i].boardWriter +"</a></td>"
+    									+ "<td>"+ nlist[i].createDate +"</td>"
+    									+ "<td>"+ nlist[i].count +"</td>"
+    									+ "<td>"+ nlist[i].likeCount +"</td>"
+    									+ "<tr>"
+    							}
+    							if(i>9 && i< 19) {
+    								str2 += "<tr style='height: 40px; border-bottom:1px solid black;'>"
+    									+ "<td>"+ nlist[i].boardNo +"</td>"
+    									+ "<td class='goDetail1'>"+ nlist[i].boardTitle +"</td>"
+    									+ "<td><a id='nicknameHover' onclick='hoareyou();'>"+ nlist[i].boardWriter +"</a></td>"
+    									+ "<td>"+ nlist[i].createDate +"</td>"
+    									+ "<td>"+ nlist[i].count +"</td>"
+    									+ "<td>"+ nlist[i].likeCount +"</td>"
+    									+ "<tr>"
+    							}
+    							if(i>18) {
+    								str3 += "<tr style='height: 40px; border-bottom:1px solid black;'>"
+    									+ "<td>"+ nlist[i].boardNo +"</td>"
+    									+ "<td class='goDetail1'>"+ nlist[i].boardTitle +"</td>"
+    									+ "<td><a id='nicknameHover' onclick='hoareyou();'>"+ nlist[i].boardWriter +"</a></td>"
+    									+ "<td>"+ nlist[i].createDate +"</td>"
+    									+ "<td>"+ nlist[i].count +"</td>"
+    									+ "<td>"+ nlist[i].likeCount +"</td>"
+    									+ "<tr>"
+    							}
+    						}
+    						
+    					}else {
+    						for(var i in nlist) {
+    							str += "<tr style='height: 40px; border-bottom:1px solid black;'>"
+									+ "<td>"+ nlist[i].boardNo +"</td>"
+									+ "<td class='goDetail1'>"+ nlist[i].boardTitle +"</td>"
+									+ "<td><a id='nicknameHover' onclick='hoareyou();'>"+ nlist[i].boardWriter +"</a></td>"
+									+ "<td>"+ nlist[i].createDate +"</td>"
+									+ "<td>"+ nlist[i].count +"</td>"
+									+ "<td>"+ nlist[i].likeCount +"</td>"
+									+ "<tr>"
+    						}
+    						$(".list-area").append(str);
+    					}
+    				}
+    			},
+    			error : function() {
+    				alert("카테고리 조회 실패");
+    			}
+    		});
+    		
+    }
         
     window.onpageshow = function(event) {
 	    if ( event.persisted || (window.performance && window.performance.navigation.type == 2)) {
@@ -541,51 +623,7 @@
 			$("#county").append("<option>"+cnt[add][i]+"</option>");
 		}
         }
-   
-//         function newsSearch() {
-//         	$.ajax({
-//         		url : "newsSearch.bo",
-//         		data : {
-//         				city : $("#city").val(),
-//         				county : $("#county").val(),
-//         				category : $("#category").val(),
-        				
-//         		},
-//         		success : function(nlist) {
-//         			var result = "";
-//         			if(rlist.length <1) {
-//         				result = "검색 결과가 없습니다."
-//         			}else {
-//         				$(".list-area").children("thead").children().remove();
-//         				$(".list-area thead").html("<tr>"
-//                         +"<th style='width:7%;'>글 번호</th>"
-//                         +"<th style='width:17%;'>게시판 이름</th>"
-//                         +"<th style='width:38%;'>제목</th>"
-//                         +"<th style='width:18%;'>작성자</th>"
-//                         +"<th style='width:9%;'>조회수</th>"
-//                         +"<th style='width:11%;'>좋아요 수</th>"
-//                     	+"</tr>");
-//         				for(var i = 0; i<nlist.length; i++){
-//         					result += "<tr>"
-// 										+ "<td>"+nlist[i].boardNo+ "</td>"
-// 										+ "<td>"+nlist[i].boardName + "</td>"
-// 										+ "<td>"+nlist[i].boardTitle + "</td>"
-// 										+ "<td>"+nlist[i].boardWriter + "</td>"
-// 										+ "<td>"+nlist[i].count + "</td>"
-// 										+ "<td>"+nlist[i].likeCount + "</td>"
-// 										+"</tr>";
-//         				}
-//         			}
-//         			$(".list-area").children("tbody").children().remove();
-//         			$(".list-area tbody").html(result);
-//         		}, 
-        	
-//         		error : function() {
-//         			alert.log("통신 실패!");
-//         		}
-        		
-//         	});
-//         };
+        
    </script>
    <%@ include file = "../../common/footer.jsp" %>
 </body>
