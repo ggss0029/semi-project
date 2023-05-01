@@ -69,6 +69,15 @@ div {
 </head>
 <body>
 	<%@include file="../../common/menubar.jsp"%>
+	<script>
+	$(function() {
+		<%if(request.getSession().getAttribute("goBefore") != null) {%>
+			<%request.getSession().setAttribute("alertMsg", "faq 작성 완료");%>
+			history.back();
+			<%request.getSession().removeAttribute("goBefore");%>
+		<%}%>
+	})
+	</script>
 	<div class="wrap">
 		<div id="content" align="center">
 			<div id="content_1">

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
+import com.udong.board.food.model.vo.FoodBoard;
 import com.udong.board.news.model.vo.NewsAttachment;
 import com.udong.board.news.model.vo.NewsBoard;
 import com.udong.board.news.model.vo.NewsReply;
@@ -345,6 +346,130 @@ public class NewsBoardDao {
 			JDBCTemplate.close(pstmt);
 		}
 		return result;
+	}
+
+	public NewsBoard newsAllCategoryList(Connection conn, String category) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("newsAllCategoryList");
+		NewsBoard nb = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, category);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				nb = new NewsBoard(rset.getInt("BOARD_NO")
+									,rset.getString("NICKNAME")
+									,rset.getString("BOARD_TITLE")
+									,rset.getString("CATEGORY")
+									,rset.getString("REGION")
+									,rset.getInt("COUNT")
+									,rset.getDate("CREATE_DATE")
+									,rset.getInt("LIKECOUNT"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return nb;
+	}
+
+	public ArrayList<NewsBoard> selectNoNewsList(Connection conn) {
+		ArrayList<NewsBoard> nlist = new ArrayList<>();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectNoNewsList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				NewsBoard nb = new NewsBoard(rset.getInt("BOARD_NO")
+											,rset.getString("NICKNAME")
+											,rset.getString("BOARD_TITLE")
+											,rset.getString("CATEGORY")
+											,rset.getString("REGION")
+											,rset.getInt("COUNT")
+											,rset.getDate("CREATE_DATE")
+											,rset.getInt("LIKECOUNT"));
+				nlist.add(nb);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return nlist;
+	}
+
+	public NewsBoard newsRegionCategoryList(Connection conn, String category, String region) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("newsRegionCategoryList");
+		NewsBoard nb = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, category);
+			pstmt.setString(2, region);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				nb =  new NewsBoard(rset.getInt("BOARD_NO")
+						,rset.getString("NICKNAME")
+						,rset.getString("BOARD_TITLE")
+						,rset.getString("CATEGORY")
+						,rset.getString("REGION")
+						,rset.getInt("COUNT")
+						,rset.getDate("CREATE_DATE")
+						,rset.getInt("LIKECOUNT"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return nb;
+	}
+
+	public ArrayList<NewsBoard> selectRegionNewsList(Connection conn, String region) {
+		ArrayList<NewsBoard> nlist = new ArrayList<>();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectRegionNewsList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, region);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				NewsBoard nb = new NewsBoard(rset.getInt("BOARD_NO")
+											,rset.getString("NICKNAME")
+											,rset.getString("BOARD_TITLE")
+											,rset.getString("CATEGORY")
+											,rset.getString("REGION")
+											,rset.getInt("COUNT")
+											,rset.getDate("CREATE_DATE")
+											,rset.getInt("LIKECOUNT"));
+				nlist.add(nb);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return nlist;
 	}
 	
 

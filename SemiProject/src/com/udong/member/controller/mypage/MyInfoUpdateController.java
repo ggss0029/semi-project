@@ -72,7 +72,7 @@ public class MyInfoUpdateController extends HttpServlet {
 //		}
 //		
 		Member m = new Member(userId, userName, nickName, birthday, gender, email, address, introduction);
-		System.out.println(m);
+		//System.out.println(m);
 		
 		Member updateMem = new MemberService().myInfoUpdate(m);
 		

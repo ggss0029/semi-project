@@ -53,7 +53,7 @@ public class NoticeInsertController extends HttpServlet {
 		int result = new NoticeService().noticeInsertBoard(n, userNo);
 		
 		if(result>0) {
-			request.getSession().setAttribute("alertMsg", "공지사항 작성 완료");
+			request.getSession().setAttribute("goBefore","뒤로 가 임마");
 			response.sendRedirect(request.getHeader("Referer"));
 		}else {
 			request.setAttribute("errorMsg", "게시글 작성 실패");

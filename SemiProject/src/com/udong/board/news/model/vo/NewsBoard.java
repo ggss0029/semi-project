@@ -28,6 +28,21 @@ public class NewsBoard {
 		this.likeCount = likeCount;
 	}
 
+	
+	public NewsBoard(int boardNo, String boardWriter, String boardTitle, String category, String region, int count, Date createDate,
+			  int likeCount) {
+		super();
+		this.boardNo = boardNo;
+		this.boardWriter = boardWriter;
+		this.boardTitle = boardTitle;
+		this.category = category;
+		this.count = count;
+		this.createDate = createDate;
+		this.region = region;
+		this.likeCount = likeCount;
+	}
+
+
 	public NewsBoard(int boardNo, String boardWriter, String boardTitle, String boardContent, String boardName,
 			String category, String region, int count, Date createDate, int boardReport, int likeCount) {
 		super();
