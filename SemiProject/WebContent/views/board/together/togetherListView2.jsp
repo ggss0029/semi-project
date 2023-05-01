@@ -9,7 +9,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
 <style>
 	.wrap {
 		position:relative;
@@ -151,6 +150,7 @@
 /* 		margin: 0 auto; */
 	}
 </style>
+</head>
 <body>
 	<%@ include file = "../../common/menubar.jsp" %>
 	<div class="wrap">
@@ -170,7 +170,7 @@
 					
 					<div id="box">
 						<p id="pp2">카테고리</p>
-						<form action="togetherList2.bo">
+						<form action="togetherList.bo" method="post">
 							<input type="hidden" name="cPage" value=1>
 							<div id="category">
 								<input type="checkbox" id="food" name="check" value="밥"> <label for="food">밥</label>
@@ -217,16 +217,14 @@
 								</tr>
 							<%} else { %>
 								<%for(TogetherBoard tb : list) {%>
-<%-- 									<%if(tb.getCategory().equals("게임")) {%> --%>
-										<tr style="height: 40px; border-bottom: 1px solid black;">
-											<td><%=tb.getBoardNo()%></td>
-											<td class="goDetail"><%=tb.getBoardTitle()%></td>
-											<td><a id="nicknameHover" onclick="profile();"><%=tb.getBoardWriter()%></a></td>
-											<td><%=tb.getCreateDate()%></td>
-											<td><%=tb.getCount()%></td>
-											<td><%=tb.getLikeCount()%></td>
-										</tr>
-<%-- 									<%}%> --%>
+									<tr style="height: 40px; border-bottom: 1px solid black;">
+										<td><%=tb.getBoardNo()%></td>
+										<td class="goDetail"><%=tb.getBoardTitle()%></td>
+										<td><a id="nicknameHover" onclick="profile();"><%=tb.getBoardWriter()%></a></td>
+										<td><%=tb.getCreateDate()%></td>
+										<td><%=tb.getCount()%></td>
+										<td><%=tb.getLikeCount()%></td>
+									</tr>
 								<%} %>
 							<%} %>
 						</tbody>
@@ -241,24 +239,24 @@
 					
 					<div align="center" id="paging-area">
 						<%if(pi.getStartPage() != 1) {%>
-							<button class="btn btn-outline-dark" onclick="location.href='<%=contextPath%>/togetherList.bo?cPage=<%=pi.getStartPage()-10 %>';">&lt;&lt;</button>
+							<button class="btn btn-outline-dark" onclick="location.href='<%=contextPath%>/togetherList2.bo?cPage=<%=pi.getStartPage()-10 %>';">&lt;&lt;</button>
 						<%} %>
 						<%if(pi.getCurrentPage() != 1) {%>
-							<button class="btn btn-outline-dark" onclick="location.href='<%=contextPath%>/togetherList.bo?cPage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
+							<button class="btn btn-outline-dark" onclick="location.href='<%=contextPath%>/togetherList2.bo?cPage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
 						<%} %>
 					    <%for(int i=pi.getStartPage();i<=pi.getEndPage();i++) {%>
 					    	<!-- 내가 보고있는 페이지 버튼은 비활성화 하기 -->
 					    	<%if(i != pi.getCurrentPage()) {%>
-					    		<button class="btn btn-outline-dark" onclick="location.href='<%=contextPath%>/togetherList.bo?cPage=<%=i%>';"><%=i %></button>
+					    		<button class="btn btn-outline-dark" onclick="location.href='<%=contextPath%>/togetherList2.bo?cPage=<%=i%>';"><%=i %></button>
 					    	<%} else { %> <!-- 내가 보고있는 페이지의 버튼을 누른다면 -->
 					    		<button class="btn btn-outline-dark"><%=i %></button>
 					    	<%} %>
 					    <%} %>
 					    <%if(pi.getCurrentPage() != pi.getMaxPage()) {%>
-					    	<button class="btn btn-outline-dark" onclick="location.href='<%=contextPath%>/togetherList.bo?cPage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
+					    	<button class="btn btn-outline-dark" onclick="location.href='<%=contextPath%>/togetherList2.bo?cPage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
 					    <%} %>
 					    <%if(pi.getEndPage() != pi.getMaxPage()) {%>
-							<button class="btn btn-outline-dark" onclick="location.href='<%=contextPath%>/togetherList.bo?cPage=<%=pi.getStartPage()+10 %>';">&gt;&gt;</button>
+							<button class="btn btn-outline-dark" onclick="location.href='<%=contextPath%>/togetherList2.bo?cPage=<%=pi.getStartPage()+10 %>';">&gt;&gt;</button>
 						<%} %>
 					</div>
 					
@@ -287,8 +285,6 @@
 								
 // 								$("#selectedCategory").val(check);
 								console.log(check);
-								
-								location.href = "<%=contextPath%>/togetherList.bo?cPage=1";
 							};
 				    	});
 						

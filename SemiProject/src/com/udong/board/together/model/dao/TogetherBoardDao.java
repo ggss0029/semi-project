@@ -80,6 +80,7 @@ public class TogetherBoardDao {
 				TogetherBoard tb = new TogetherBoard();
 				tb.setBoardNo(rset.getInt("BOARD_NO"));
 				tb.setBoardTitle(rset.getString("BOARD_TITLE"));
+				tb.setCategory(rset.getString("CATEGORY"));
 				tb.setBoardWriter(rset.getString("NICKNAME"));
 				tb.setCreateDate(rset.getDate("CREATE_DATE"));
 				tb.setCount(rset.getInt("COUNT"));
@@ -125,6 +126,70 @@ public class TogetherBoardDao {
 		}
 		
 		return tb;
+	}
+
+	public int selectTogetherListCount(Connection conn, String s) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		String sql = prop.getProperty("selectTogetherListCount2");
+		
+		try {;
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, s);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return listCount;
+	}
+
+	public ArrayList<TogetherBoard> selectTogetherList(Connection conn, PageInfo pi, String[] selectedCategory) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<TogetherBoard> list = new ArrayList<>();
+		String sql = prop.getProperty("selectTogetherList2");
+		
+		try {
+			String str = "'OR 1=1) AND (CATEGORY = '"+selectedCategory[0]+"' OR CATEGORY = '"+selectedCategory[1];
+			System.out.println(str);
+			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
+			int endRow = (startRow + pi.getBoardLimit()) -1;
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "게임' OR CATEGORY = '기타");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				TogetherBoard tb = new TogetherBoard();
+				tb.setBoardNo(rset.getInt("BOARD_NO"));
+				tb.setBoardTitle(rset.getString("BOARD_TITLE"));
+				tb.setCategory(rset.getString("CATEGORY"));
+				tb.setBoardWriter(rset.getString("NICKNAME"));
+				tb.setCreateDate(rset.getDate("CREATE_DATE"));
+				
+				list.add(tb);
+			}
+			System.out.println(list);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return list;
 	}
 
 }

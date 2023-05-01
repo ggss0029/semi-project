@@ -66,24 +66,24 @@ public class DeleteBoardController extends HttpServlet {
 //			else if() { // 자취 레시피
 //				
 //			}
-//			else if() { // 동네 맛집
-//				
-//			}
+			else if(before.contains("food")) { // 동네 맛집
+				response.sendRedirect(request.getContextPath() + "/foodList.bo?currentPage=1");
+			}
 //			else if() { // 나눔 할게요
 //				
 //			}
 //			else if() { // 이거 필요해요
 //				
 //			}
-//			else if() { // 같이 해요
-//				
-//			}
+			else if(before.contains("together")) { // 같이 해요
+				response.sendRedirect(request.getContextPath() + "/togetherList.bo?cPage=1");
+			}
 			else if(before.contains("buy")) { // 같이 사요
 				response.sendRedirect(request.getContextPath() + "/buyList.bo?currentPage=1");
 			}
-//			else { // 공지사항
-//				
-//			}
+			else { // 공지사항
+				response.sendRedirect(request.getContextPath() + "/noticeList.bo?currentPage=1");
+			}
 		}
 		else { // 삭제 실패
 			request.setAttribute("errorMsg", "게시판 삭제 실패");
