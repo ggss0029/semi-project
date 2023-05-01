@@ -9,9 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.udong.board.common.model.service.BoardCommonService;
-import com.udong.board.common.model.vo.BoardCommon;
 import com.udong.board.together.model.service.TogetherBoardService;
+import com.udong.board.together.model.vo.TogetherBoard;
 import com.udong.common.model.vo.PageInfo;
 
 /**
@@ -46,11 +45,11 @@ public class TogetherListController extends HttpServlet {
 		}
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-		ArrayList<BoardCommon> list = new TogetherBoardService().selectTogetherList(pi);
+		ArrayList<TogetherBoard> list = new TogetherBoardService().selectTogetherList(pi);
 		
-		request.setAttribute("myPostList", list);
+		request.setAttribute("togetherBoardList", list);
 		request.setAttribute("pageInfo", pi);
-		request.getRequestDispatcher("views/member/mypage/myPostPage.jsp").forward(request, response);
+		request.getRequestDispatcher("views/board/together/togetherListView.jsp").forward(request, response);
 	}
 
 	/**

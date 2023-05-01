@@ -40,7 +40,7 @@
 
         #content{
             width: 100%;
-            height: 76.5%;
+            height: 100%;
             position: relative;
         }
 
@@ -51,7 +51,7 @@
 
         #content_1{
             width: 25%;
-            background-color: yellow;
+            background-color: #C8EDC9;
         }
 
         #content_2{

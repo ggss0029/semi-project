@@ -51,7 +51,7 @@ div {
 
 #report_btn {
 	float: left;
-	margin: 60px 0 0 1170px;
+	margin: 40px 0 0 1170px;
 }
 
 #line_1 {
@@ -122,7 +122,7 @@ tbody>#tr2 {
 				</tr>
 				<tr style="border-bottom: 1px solid black; height:80px;">
 					<td style="height: 50px; font-size: 20px; font-weight: 600; ">
-						<a data-toggle="modal" data-target="#profile"><%=nb.getBoardWriter()%></a>
+						<a id="nicknameHover" onclick="whoareyou();"><%=nb.getBoardWriter()%></a>
 					</td>
 					
 					<td style="height: 50px; font-size: 20px; font-weight: 600;"

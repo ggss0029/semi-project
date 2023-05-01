@@ -43,7 +43,7 @@ div {
 
 #content {
 	width: 100%;
-	height: 76.5%;
+	height: 100%;
 	position: relative;
 }
 
@@ -54,7 +54,7 @@ div {
 
 #content_1 {
 	width: 25%;
-	background-color: yellow;
+	background-color: #C8EDC9;
 }
 
 #content_2 {
@@ -207,7 +207,7 @@ label {
 }
 
 .list-area>tbody>tr:hover {
-	background-color: #C8EDC9;
+	background-color: #DEF5DE;
 	cursor: pointer;
 }
 
@@ -334,7 +334,7 @@ label {
 								<!-- No. -->
 								<td class="goDetail1"><%=cb.getBoardTitle()%></td>
 								<!-- 제목 -->
-								<td><a data-toggle="modal" data-target="#profile"
+								<td><a id="nicknameHover"
 									onclick="profile();"><%=cb.getBoardWriter()%></a></td>
 								<!-- 작성자  닉네임 -->
 								<td><%=cb.getCreateDate()%></td>

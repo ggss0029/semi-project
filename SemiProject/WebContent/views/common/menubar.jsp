@@ -194,7 +194,8 @@
         }
 
         #menu a:hover {
-            color: #C8EDC9;
+            color: #8EEC91;
+/*             color: #C8EDC9; */
             font-weight: 600;
         }
 

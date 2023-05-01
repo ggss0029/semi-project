@@ -53,7 +53,7 @@ div {
 
 #report_btn {
 	float: left;
-	margin: 60px 0 0 1170px;
+	margin: 40px 0 0 1170px;
 }
 
 #line_1 {
@@ -123,7 +123,7 @@ tbody>#tr2 {
 				</tr>
 				<tr style="border-bottom: 1px solid black; height:80px;">
 					<td style="height: 50px; font-size: 20px; font-weight: 600;" id="foodWriter" colspan="3">
-						작성자 <a data-toggle="modal" data-target="#profile"><%=fb.getBoardWriter()%></a>
+						작성자 <a  id="nicknameHover" onclick="whoareyou();"><%=fb.getBoardWriter()%></a>
 					</td>
 					<td style="height: 50px; font-size: 20px; font-weight: 600;"
 						align="right">조회수 <%=fb.getCount()%> &nbsp;&nbsp;  작성일 <%=fb.getCreateDate()%></td>
