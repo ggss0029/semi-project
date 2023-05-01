@@ -3,6 +3,8 @@ package com.udong.board.news.model.service;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.udong.board.food.model.dao.FoodBoardDao;
+import com.udong.board.food.model.vo.FoodBoard;
 import com.udong.board.news.model.dao.NewsBoardDao;
 import com.udong.board.news.model.vo.NewsAttachment;
 import com.udong.board.news.model.vo.NewsBoard;
@@ -132,5 +134,45 @@ public class NewsBoardService {
 		
 		JDBCTemplate.close(conn);
 		return result;
+	}
+
+	public NewsBoard newsAllCategoryList(String category) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		NewsBoard nb = new NewsBoardDao().newsAllCategoryList(conn,category);
+		
+		JDBCTemplate.close(conn);
+		
+		return nb;
+	}
+
+	public ArrayList<NewsBoard> selectNoNewsList() {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<NewsBoard> nlist = new NewsBoardDao().selectNoNewsList(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return nlist;
+	}
+
+	public NewsBoard newsRegionCategoryList(String category, String region) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		NewsBoard nb = new NewsBoardDao().newsRegionCategoryList(conn,category,region);
+		
+		JDBCTemplate.close(conn);
+		
+		return nb;
+	}
+
+	public ArrayList<NewsBoard> selectRegionNewsList(String region) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<NewsBoard> nlist = new NewsBoardDao().selectRegionNewsList(conn,region);
+		
+		JDBCTemplate.close(conn);
+		
+		return nlist;
 	}
 }

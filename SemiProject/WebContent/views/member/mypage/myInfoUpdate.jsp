@@ -650,27 +650,35 @@
 								console.log(updatePwd);
 								console.log(chkPwd);
 								
-								
 								//비밀번호 검사
-								
-								
 								if(loginPwd == inputPwd) { //현재 비밀번호가 일치한다면
 									var regExp = /^[a-zA-Z0-9]{7,14}$/; //유효성 검사를 해준다.
 									var regExp2 = /[!@#$%^&*]/g;
-									if(!regExp.test(updatePwd)){ //변경할 비밀번호가 유효값이 아닐경우
-										alert("유효한 비밀번호 형식이 아닙니다.");
+									
+									if(updatePwd.length<8 || updatePwd.length>15) { //글자수의 길이가 틀리면
+										alert("비밀번호의 길이를 다시 확인해주세요!");
 										$("#updatePwd").focus();
-										//여기서 오류떠서 유효성 검사가 안된거임.(나는 updatePwd.focus()로 했는데 벨류값을 들고갔기 떄문에 실행이 안됨.)
 										return false;
-									}
-									else {
+									}else { //글자수의 길이가 맞으면
+										
+										if(!regExp.test(updatePwd)){ //변경할 비밀번호가 유효값이 아닐경우
+											
+										}else{ //regExp  유효값이 맞으면
+											
+											if(!regExp2.test(updatePwd)) { //regExp2 유효값이 아니면
+												alert("비밀번호는 영문자, 숫자, 특수문자로 총 8~15자로 입력하세요!");
+												$("#updatePwd").focus();
+												//여기서 오류떠서 유효성 검사가 안된거임.(나는 updatePwd.focus()로 했는데 벨류값을 들고갔기 떄문에 실행이 안됨.)
+												return false;
+											}
+										}
+									
 										if(updatePwd != chkPwd) { //바꾼비밀번호와 재확인이 일치 하지 않는다면
-											alert("변경할 비밀번호와 확인이 일치하지 않습니다.");
-											$("input[name=updatePwd]").select();
-											return false;
+											  alert("변경할 비밀번호와 확인이 일치하지 않습니다.");
+											  $("input[name=updatePwd]").select();
+											  return false
 										}
 									}
-
 								}else { //현재 비밀번호가 일치하지 않는다면
 									alert("현재 비밀번호가 일치하지 않습니다.");
 									$("input[name=userPwd]").focus();
