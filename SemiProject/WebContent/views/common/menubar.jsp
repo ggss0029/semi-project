@@ -490,7 +490,7 @@
                     <li><a href="">자취 레시피</a></li>
                 </ul>
             </li><li><a href="<%=contextPath %>/foodList.bo?currentPage=1">동네 맛집</a></li><li>
-                <a style="cursor: default;">나눔</a>
+                <a href="<%=contextPath %>/giveList.bo?currentPage=1" style="cursor: default;">나눔</a>
                 <ul>
                     <li><a href="">나눔할게요</a></li>
                     <li><a href="">이거 필요해요</a></li>
