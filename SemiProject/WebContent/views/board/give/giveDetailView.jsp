@@ -54,7 +54,7 @@ div {
 
 #report_btn {
 	float: left;
-	margin: 40px 0 0 1170px;
+	margin: 50px 0px 0px 1100px;
 }
 
 #line_1 {
@@ -116,7 +116,7 @@ tbody>#tr2 {
 
 			<div id="line_1"></div>
 
-			<table border="1" align="center" id="detail-area">
+			<table border="0" align="center" id="detail-area">
 				<tr style="height:80px;">
 					<td colspan="4"
 						style="height: 50px; font-size: 30px; font-weight: 600; border-bottom: 1px solid black;"><%=gb.getBoardTitle()%></td>
@@ -183,7 +183,7 @@ tbody>#tr2 {
 				%>
 				<div class="board_btn" style="float: right; margin-right: 70px">
 					<button
-						onclick="location.href = '<%=contextPath%>/newsUpdate.bo?bno=<%=gb.getBoardNo()%>'"
+						onclick="location.href = '<%=contextPath%>/updateBoard.bo?bno=<%=gb.getBoardNo()%>'"
 						class="btn btn-secondary">수정</button>
 					<button
 						onclick="location.href = '<%=contextPath%>/deletePost.bo?bno=<%=gb.getBoardNo()%>'"

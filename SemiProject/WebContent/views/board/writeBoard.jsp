@@ -167,7 +167,7 @@
                         <option value="같이 해요">같이 해요</option>
                         <option value="자유 게시판">자유 게시판</option>
                     </select>
-                    <select name="detailCategory" class=input  id="" style="width: 472px; height: 46px; font-size: 18px;">
+                    <select name="detailCategory" class=input  id="detailCategory" style="width: 472px; height: 46px; font-size: 18px;">
                         <option value="">세부 카테고리</option>
                     </select>
                     <script>
@@ -192,38 +192,8 @@
                           for (i=0; i < ctgr[add].length;i++){                     
                             sel1.options[i] = new Option(ctgr[add][i], ctgr[add][i]);
                             }
-                          if(add==4){
-                        	  $("#restaurantDiv").css("display","block");
-                        	  $("#cityCategory").css("display","none");
-                        	  $("#imgDiv").css("display","block");
-                        	  $("#titleImg").attr("required",true);
-                        	  $("#file0").attr("required",true);
-                          }else if(add==1 || add==7 || add==8){
-                        	  $("#cityCategory").css("display","block");
-                        	  $("#restaurantDiv").css("display","none");
-                          }else if(add == 5){
-                        	  console.log(5);
-                        	  $("#cityCategory").css("display","block");
-                        	  $("#restaurantDiv").css("display","none");
-                        	  $("#imgDiv").css("display","block");
-                        	  $("#titleImg").attr("required",true);
-                        	  $("#file0").attr("required",true);
-                          }else{
-                        	  $("#restaurantDiv").css("display","none");
-                        	  $("#cityCategory").css("display","none");
-                        	  $("#imgDiv").css("display","none");
-                          }
                         }
-                        
-                        <%if(request.getAttribute("boardName")!=null){%>
-	                		var boardName = "<%=request.getAttribute("boardName")%>";
-	                		$("#boardCategory").val(boardName).attr("selected",true);
-	                		var categoryIndex = document.getElementById("boardCategory").selectedIndex;
-	                		for(var i = 0; i<ctgr[categoryIndex].length; i++){
-	                			$("#detailCategory").append("<option value="+ctgr[categoryIndex][i]+">"+ctgr[categoryIndex][i]+"</option>");
-	            			}
-                		<%}%>
-                        </script>
+                    </script>
                 </div>
                     <br>
                     <div id="cityCategory" style="display:none;">
@@ -330,6 +300,37 @@
          </form>
          
          <script>
+         
+     	<%if(request.getAttribute("boardName")!=null){%>
+		var boardName = "<%=request.getAttribute("boardName")%>";
+		$("#boardCategory").val(boardName).attr("selected",true);
+		var categoryIndex = document.getElementById("boardCategory").selectedIndex;
+		for(var i = 0; i<ctgr[categoryIndex].length; i++){
+			$("#detailCategory").append("<option value="+ctgr[categoryIndex][i]+">"+ctgr[categoryIndex][i]+"</option>");
+		}
+        if(boardName == "동네 맛집"){
+      	  $("#restaurantDiv").css("display","block");
+      	  $("#cityCategory").css("display","none");
+      	  $("#imgDiv").css("display","block");
+      	  $("#titleImg").attr("required",true);
+      	  $("#file0").attr("required",true);
+        }else if(boardName == "동네 소식" || boardName == "같이 사요" || boardName == "같이 해요"){
+      	  $("#cityCategory").css("display","block");
+      	  $("#restaurantDiv").css("display","none");
+        }else if(boardName == "나눔 할게요"){
+      	  console.log(5);
+      	  $("#cityCategory").css("display","block");
+      	  $("#restaurantDiv").css("display","none");
+      	  $("#imgDiv").css("display","block");
+      	  $("#titleImg").attr("required",true);
+      	  $("#file0").attr("required",true);
+        }else{
+      	  $("#restaurantDiv").css("display","none");
+      	  $("#cityCategory").css("display","none");
+      	  $("#imgDiv").css("display","none");
+        }
+	<%}%>
+         
          	function checkFileLength(){
          		$("#fileLength").val($("#file-area").children().length);
          	}

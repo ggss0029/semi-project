@@ -378,7 +378,13 @@
                         </div>
                         <%if (loginUser != null) {%>
                         	<div align="right" id="write_btn">
-                            	<a href="<%=contextPath %>/insert.bo" class="btn btn-light">글쓰기</a>
+                            	<a onclick="goWrite();" class="btn btn-light">글쓰기</a>
+                            	<script>
+	                                function goWrite(){
+	                                	var boardName = $(document).find("title").eq(0).text();
+	                                	location.href="<%=contextPath %>/insert.bo?boardName="+boardName;
+	                                };
+                            	</script>
                         	</div>
                         <%} %>
                         </div>

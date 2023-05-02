@@ -703,4 +703,79 @@ public class BoardCommonDao {
 		return list;
 	}
 
+	public BoardCommon selectEachBoard(Connection conn, int bno) {
+		
+		BoardCommon b = null;
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectEachBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				b = new BoardCommon(rset.getString("BOARD_TITLE")
+									,rset.getString("BOARD_CONTENT")
+									,rset.getString("BOARD_NAME")
+									,rset.getString("CATEGORY")
+									,rset.getString("REGION"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return b;
+	}
+
+	public int updateEachBoard(Connection conn, BoardCommon b) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateEachBoard");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, b.getBoardTitle());
+			pstmt.setString(2, b.getBoardContent());
+			pstmt.setString(3, b.getCategory());
+			pstmt.setInt(4, b.getBoardNo());
+			pstmt.setString(5, b.getBoardName());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateEachAttachment(Connection conn, ArrayList<Attachment> list) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateEachAttachment");
+		try {
+			for(Attachment at : list) {
+				pstmt= conn.prepareStatement(sql);
+				pstmt.setString(1, at.getOriginName());
+				pstmt.setString(2, at.getChangeName());
+				pstmt.setString(3, at.getFilePath());
+				pstmt.setInt(4, at.getFileLevel());
+				pstmt.setInt(5, at.getRefBno());
+				
+				result *= pstmt.executeUpdate();
+			}
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
 }

@@ -231,4 +231,27 @@ public class BoardCommonService {
 		return list;
 	}
 
+	public BoardCommon selectEachBoard(int bno) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		BoardCommon b = new BoardCommonDao().selectEachBoard(conn,bno);
+		JDBCTemplate.close(conn);
+		return b;
+	}
+
+	public int updateEachBoard(BoardCommon b, ArrayList<Attachment> list) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new BoardCommonDao().updateEachBoard(conn,b);
+		int result2 = new BoardCommonDao().updateEachAttachment(conn,list);
+		
+		if(result>0 && result2>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		
+		return result*result2;
+	}
 }
