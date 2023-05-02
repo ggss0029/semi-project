@@ -132,41 +132,83 @@ tbody>#tr2 {
 					<td colspan="2" style="height: auto; vertical-align : top "><br><%=nb.getBoardContent()%></td>
 					
 				</tr>
-<!-- 				<tr style="height:60px;"> -->
-<!-- 					<td colspan="2" -->
-<!-- 						style="border-top: 1px solid black; border-bottom: 1px solid;"> -->
-<!-- 						첨부파일이 없는 경우 첨부파일이 없습니다. -->
-<%-- 				 	<%if (na == null) { %>  --%>
-<!-- 				 		첨부파일이 없습니다.  -->
-<%-- 				 	<%} else { %>  --%>
-<%-- 					 <a href="<%=contextPath + na.getFilePath() + "/" + na.getChangeName()%>" --%>
-<%-- 						download="<%=na.getOriginName()%>"><%=na.getOriginName()%></a>  --%>
-<%-- 					<% } %> --%>
-<!-- 					</td> -->
-<!-- 				</tr> -->
 			</table>
 
-			<div class="like-area">
-					<div class="like" style="float: left;">
-						<% if (loginUser != null) %>
-							<button type="button" id="like_btn">♡</button>
-								&nbsp; 
-							<span class="like_count"></span> <!-- 추천 수 보여주기 -->
-					</div>
+<!-- 			<div class="like-area"> -->
+<!-- 					<div class="like" style="float: left;"> -->
+<%-- <%-- 						<% if (loginUser != null) %> --%> --%>
+<!-- 							<button onclick="likeCheck()"> -->
+<!-- 								<img src="resources/빈하트.jpg" id="heart"> -->
+<!-- 							</button> -->
+<!-- 								&nbsp;  -->
+<!-- 					</div> -->
 					
-					<script>
-						$(document).ready(function() {
-							 $('#like_btn').click(function() {
-								 $.ajax({
-									 url : "likeOn",
-									 type : "post",
-									 data : {
-										 userNo : 
-									 }
-								 })
-							 }
-						})
-					</script>
+<!-- 			<script> -->
+// 					let alreadyLiked = false; // 이미 좋아요를 눌렀는지 여부를 저장하는 변수
+
+// 					function likeCheck() {
+// 					    if (alreadyLiked) {
+// 					        alert("이미 좋아요를 누른 게시글입니다");
+// 					        return;
+// 					    }
+// 					    $.ajax({
+// 					        url: "newsLikeUpdate.do",
+// 					        data: {
+<%-- 					            boardNo: <%=nb.getBoardNo()%>, --%>
+<%-- 					            userNo: <%=loginUser.getUserNo()%> --%>
+// 					        },
+// 					        type: "post",
+// 					        success: function(result) {
+// 					            console.log(result);
+// 					            if (result > 0) {
+// 					                $("#heart").attr("src", "resources/찬하트.jpg");
+// 					                $("#heart").attr("disabled",true);
+// 					                alreadyLiked = true;
+// 					            } else {
+// 					                $("#heart").attr("src", "resources/빈하트.jpg");
+// 					                location.reload();
+// 					            }
+// 					        },
+// 					        error: function() {
+// 					            alert("실패");
+// 					        }
+// 					    });
+// 					}
+					
+// 					function unlikeCheck() {
+// 						$.ajax({
+// 							url : "newsUnLike.do",
+// 							data : {
+<%-- 								 boardNo: <%=nb.getBoardNo()%>, --%>
+<%-- 						         userNo: <%=loginUser.getUserNo()%> --%>
+// 							},
+							
+// 						})
+// 					}
+// 					function likeCheck() {
+// 						$.ajax({
+// 							url : "newsLikeUpdate.do",
+// 							data : {
+<%-- 								boardNo : <%=nb.getBoardNo()%>, --%>
+<%-- 								userNo : <%=loginUser.getUserNo() %> --%>
+// 							},
+// 							type : "post",
+// 							success : function(result) {
+// 								console.log(result);
+// 								if(result > 0) {
+// 									$("#heart").attr("src", "resources/찬하트.jpg");
+// // 									$("#heart").off("click");
+// 									$("#heart").attr("disabled", true);
+// 								}else {
+// 									$("#heart").attr("src", "resources/빈하트.jpg");
+// 									location.reload();
+// 								}
+// 							},
+// 							error : function() {
+// 								alert("실패");
+// 							}
+// 						});
+// 					}
 					
 				<%
 					if (loginUser != null && loginUser.getNickname().equals(nb.getBoardWriter())) {
@@ -188,8 +230,8 @@ tbody>#tr2 {
 
 			<hr>
 			<div id="tabs">
-				<ul>
-					<li><a href="#tabs-1">댓글</a></li>
+				<ul style="list-style:none;">
+					<li><a href="#tabs-1" style="color : black; text-decoration:none; font-size:30px">댓글</a></li>
 				</ul>
 
 				<%
@@ -205,24 +247,16 @@ tbody>#tr2 {
 						</div>
 					</div>
 				</div>
-				<%
-					} else {
-				%>
+				<% } else { %>
 				<div>
 					<div class="input-group">
-						<textarea id="replyContent" rows="3" class="form-control"
-							style="resize: none;" disabled>로그인 후 이용 가능한 서비스 입니다.
-								
-							</textarea>
+						<textarea id="replyContent" rows="3" class="form-control" style="resize: none;" disabled>로그인 후 이용 가능한 서비스 입니다.</textarea>
 						<div class="input-group-btn">
-							<button onclick="insertReply();" class="btn btn-light"
-								type="submit" style="height: 110px" disabled>댓글 등록</button>
+							<button onclick="insertReply();" class="btn btn-light" type="submit" style="height: 110px" disabled>댓글 등록</button>
 						</div>
 					</div>
 				</div>
-				<%
-					}
-				%>
+				<% } %>
 				<div id="tabs-1">
 				<!--  
 					<div class="list-group">
@@ -237,9 +271,9 @@ tbody>#tr2 {
 			</div>
 			<script>
 				//부트 스트랩
-				$(function() {
-					$("#tabs").tabs();
-				});
+// 				$(function() {
+// 					$("#tabs").tabs();
+// 				});
 
 				$(function() {
 					newsSelectReplyList();
@@ -269,9 +303,10 @@ tbody>#tr2 {
 					});
 				}
 
-				//댓글 목록 죄회
+				
+				
+				//댓글 목록 조회
 				function newsSelectReplyList() {
-					
 					$.ajax({
 								url : "newsSelectReplyList.bo",
 								data : {
@@ -283,7 +318,7 @@ tbody>#tr2 {
 										result = "등록한 댓글이 없습니다.";
 									}else {
 										for ( var i in rlist) {
-											result += "<div id='tabs-1'>"
+											result  +=  "<div id='tabs-1'>"
 													+ "<div class='list-group'>"
 													+ "<div class='list-group-item'>"
 													+ "<span class='list-group-item-heading' style='font-size: 23px; font-weight:600'>"
@@ -295,7 +330,7 @@ tbody>#tr2 {
 													+ "<button id='delete_reply' class='btn btn-dark btn-sm' onclick='newsDeleteReply(" + rlist[i].replyNo+")' style='float:right'>삭제하기</button>"
 													+ "<button id='update_reply' class='btn btn-secondary btn-sm' onclick='newsUpdateReplyForm("+ rlist[i].replyNo + ",\"" + rlist[i].replyWriter + "\"" + ",\"" + rlist[i].createDate + "\"" +",\""+ rlist[i].replyContent+"\");' style='float:right'>수정하기</button>"
 													+ "</span><br>"
-													+ "<p class='list-group-item-text'>"
+													+ "<p class='list-group-item-text' style='white-space: pre-line;'>"
 													+ rlist[i].replyContent
 													+ "</p>" 
 													+ "</div>" 
@@ -304,6 +339,7 @@ tbody>#tr2 {
 										}
 									}
 									$("#tabs #tabs-1").html(result);
+									btnCheck();
 								},
 								error : function() {
 									alert("댓글 조회 실패!");
@@ -311,7 +347,42 @@ tbody>#tr2 {
 							});
 					};
 					
-				
+					//수정 삭제  버튼 조건 걸어놓는 함수
+					function btnCheck(){
+						var btn = $("#tabs-1 span button");
+						var text = $(".list-group-item-text");
+						var loginUser;
+						var loginNick;
+						var loginUserId;
+						<%if(loginUser != null){%>
+						loginUser ='<%=loginUser%>'; 
+						loginUserId = '<%=loginUser.getUserId()%>'; //로그인 아이디
+						loginNick = '<%=loginUser.getNickname()%>'; //로그인 닉네임
+						loginBoard = '<%=nb.getBoardWriter()%>'; //게시글 작성한 닉네임
+						<%}%>
+						if(loginUser==undefined){ // loginUser가 없으면 'null'로 쓰면 오류남
+							$(btn).hide(); // 버튼 숨긴다.
+// 							console.log(btn); //확인용
+							$(text).html("로그인 후 열람 가능합니다!");
+						}else{ //loginUser가 있으면 
+							$(".list-group-item-heading").each(function(){ //span 선택
+								var nick = $(this).text().trim(); //선택한거(댓글 작성자) 공백 지우기 후 nick에 넣기 /trim()-> 공백제거
+// 								console.log(nick);
+								if(loginUserId=='admin' || nick == loginNick || loginBoard == loginNick){ //아이디 = admin or 댓글작성자 = 닉네임 or 게시글작성자 = 닉네임
+									console.log(loginUserId);
+									$(this).next().find("button").show(); // 버튼 보여주기
+									
+								}else{
+									$(this).next().find("button").hide();  //아니면 숨기기
+								}
+								
+							})	
+						}
+						
+						
+					}
+					
+					
 					//댓글 삭제
 					function newsDeleteReply(replyNo) {
 						

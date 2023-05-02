@@ -137,4 +137,14 @@ public class BuyService {
 		return buyb;
 	}
 
+	public ArrayList<BuyBoard> selectRegionBuyList(String region) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<BuyBoard> blist = new BuyDao().selectRegionBuyList(conn,region);
+		
+		JDBCTemplate.close(conn);
+		
+		return blist;
+	}
+
 }

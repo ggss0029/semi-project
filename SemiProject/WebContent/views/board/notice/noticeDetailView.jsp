@@ -116,8 +116,13 @@ tbody>#tr2 {
 					<td style="height: 50px; font-size: 20px; font-weight: 600;"
 						align="right"><%=n.getCreatDate()%></td>
 				</tr>
-				<tr style="height: 700px">
-					<td colspan="2" style="height: auto; vertical-align : top "><br><%=n.getNoticeContent()%></td>
+				<tr style="height: 700px; border-bottom: 1px solid black;">
+					<td colspan="2" style="height: auto; vertical-align : top ">
+					<br>
+					<!-- 줄바꿈 처리 -->
+					<p style="white-space: pre-line;"><%=n.getNoticeContent() %></p>
+					
+					</td>
 					
 				</tr>
 			</table>
@@ -140,6 +145,7 @@ tbody>#tr2 {
 				<!--뭔가 넓어짐-->
 			</div>
 		</div>
+		<br><br>
 	<%@ include file = "../../common/footer.jsp" %>
 </body>
 </html>
