@@ -254,4 +254,14 @@ public class BoardCommonService {
 		
 		return result*result2;
 	}
+
+	public ArrayList<BoardCommon> givePostList() {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<BoardCommon> list = new BoardCommonDao().givePostList(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
+	}
 }

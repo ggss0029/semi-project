@@ -347,7 +347,7 @@
 								<td class="goDetail1"><%=buyb.getBoardTitle()%></td>
 								<!-- 제목 -->
 								<td><a id="nicknameHover"
-									onclick="profile();"><%=buyb.getBoardWriter()%></a></td>
+									onclick="whoareyou();"><%=buyb.getBoardWriter()%></a></td>
 								<!-- 작성자  닉네임 -->
 								<td><%=buyb.getCreateDate()%></td>
 								<!-- 작성한 날짜 -->

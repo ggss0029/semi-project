@@ -35,29 +35,20 @@ public class SearchBoardController extends HttpServlet {
 		else if(boardName.equals("살림 꿀팁")) {
 			response.sendRedirect(request.getContextPath() + "/cleanDetail.bo?bno=" + boardNo);
 		}
-		else if(boardName.equals("자취 레시피")) {
-			//response.sendRedirect(request.getContextPath() + "/buyDetail.bo?bno=" + boardNo);
-		}
 		else if(boardName.equals("동네 맛집")) {
 			response.sendRedirect(request.getContextPath() + "/foodDetail.bo?bno=" + boardNo);
 		}
 		else if(boardName.equals("나눔 할게요")) {
-			//response.sendRedirect(request.getContextPath() + "/buyDetail.bo?bno=" + boardNo);
-		}
-		else if(boardName.equals("이거 필요해요")) {
-			//response.sendRedirect(request.getContextPath() + "/buyDetail.bo?bno=" + boardNo);
+			response.sendRedirect(request.getContextPath() + "/giveDetail.bo?bno=" + boardNo);
 		}
 		else if(boardName.equals("같이 해요")) {
-			//response.sendRedirect(request.getContextPath() + "/buyDetail.bo?bno=" + boardNo);
+			response.sendRedirect(request.getContextPath() + "/togetherDetail.bo?bno=" + boardNo);
 		}
 		else if(boardName.equals("같이 사요")) {
 			response.sendRedirect(request.getContextPath() + "/buyDetail.bo?bno=" + boardNo);
 		}
 		else if(boardName.equals("자유 게시판")) {
-			//response.sendRedirect(request.getContextPath() + "/buyDetail.bo?bno=" + boardNo);
-		}
-		else if(boardName.equals("공지 사항")) {
-			//response.sendRedirect(request.getContextPath() + "/buyDetail.bo?bno=" + boardNo);
+			response.sendRedirect(request.getContextPath() + "/FreeDetail.bo?boardNo=" + boardNo);
 		}
 	}
 
