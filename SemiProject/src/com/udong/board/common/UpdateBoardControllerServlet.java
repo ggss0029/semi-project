@@ -19,16 +19,16 @@ import com.udong.board.common.model.vo.BoardCommon;
 import com.udong.common.MyFileRenamePolicy;
 
 /**
- * Servlet implementation class WriteBoardControllerServlet
+ * Servlet implementation class UpdateBoardControllerServlet
  */
-@WebServlet("/insert.bo")
-public class WriteBoardControllerServlet extends HttpServlet {
+@WebServlet("/updateBoard.bo")
+public class UpdateBoardControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WriteBoardControllerServlet() {
+    public UpdateBoardControllerServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,10 +38,18 @@ public class WriteBoardControllerServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-
-		String boardName = request.getParameter("boardName");
-		request.setAttribute("boardName", boardName);
-		request.getRequestDispatcher("views/board/writeBoard.jsp").forward(request, response);
+		int bno = Integer.parseInt(request.getParameter("bno"));
+		BoardCommonService service = new BoardCommonService();
+		BoardCommon b = service.selectEachBoard(bno);
+		ArrayList<Attachment> alist = service.selectAttachment(bno);
+		request.setAttribute("bno", bno);
+		if(alist.isEmpty()) {
+			request.setAttribute("b", b);
+		}else {
+			request.setAttribute("alist", alist);
+			request.setAttribute("b", b);
+		}
+		request.getRequestDispatcher("views/board/updateBoard.jsp").forward(request, response);
 	}
 
 	/**
@@ -56,11 +64,11 @@ public class WriteBoardControllerServlet extends HttpServlet {
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/");
 			
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath,maxSize,"UTF-8",new MyFileRenamePolicy());
-			String nickname = multiRequest.getParameter("userNickname");
-			String boardName = multiRequest.getParameter("boardCategory");
-			String boardTitle = multiRequest.getParameter("title");
-			String boardContent = multiRequest.getParameter("content");
-			String category = multiRequest.getParameter("detailCategory");
+			int boardNo = Integer.parseInt(multiRequest.getParameter("boardNo"));
+			String boardName = multiRequest.getParameter("boardCategoryHidden");
+			String updateTitle = multiRequest.getParameter("updateTitle");
+			String updateContent = multiRequest.getParameter("updateContent");
+			String detailCategory = multiRequest.getParameter("updateDetailCategory");
 			String region;
 			if(boardName.equals("동네 맛집")) {
 				region = multiRequest.getParameter("restaurantName") + "$" + multiRequest.getParameter("restaurantAddress");
@@ -70,24 +78,35 @@ public class WriteBoardControllerServlet extends HttpServlet {
 				region = null;
 			}
 			BoardCommon b = new BoardCommon();
-				b.setBoardWriter(nickname);
+				b.setBoardNo(boardNo);
 				b.setBoardName(boardName);
-				b.setBoardTitle(boardTitle);
-				b.setBoardContent(boardContent);
-				b.setCategory(category);
+				b.setBoardTitle(updateTitle);
+				b.setBoardContent(updateContent);
+				b.setCategory(detailCategory);
 				b.setRegion(region);
-				
 			Attachment at = null;
 			
 			ArrayList<Attachment> list = new ArrayList<>();
 			
-			for(int i=0; i<=Integer.parseInt(multiRequest.getParameter("fileLength")); i++) {
+			
+			if(multiRequest.getParameter("changedFileLength") != null && Integer.parseInt(multiRequest.getParameter("changedFileLength"))>0) {
+			String[] deleteFiles = new String[Integer.parseInt(multiRequest.getParameter("changedFileLength"))];
+			
+			if(multiRequest.getParameterValues("deleteFiles") != null) {
+				deleteFiles= multiRequest.getParameterValues("deleteFiles");
+			}
+			
+			for(int i=0;i<deleteFiles.length;i++) {
+				new File(savePath+deleteFiles[i]).delete();
+			}
+			for(int i=0; i<=Integer.parseInt(multiRequest.getParameter("changedFileLength")); i++) {
 				String key = "file"+i;
 				if(multiRequest.getOriginalFileName(key) != null) {
 					at = new Attachment();
 					at.setOriginName(multiRequest.getOriginalFileName(key));
 					at.setChangeName(multiRequest.getFilesystemName(key));
 					at.setFilePath("/resources/");
+					at.setRefBno(boardNo);
 					
 					if(i==0) {
 						at.setFileLevel(2);
@@ -97,11 +116,11 @@ public class WriteBoardControllerServlet extends HttpServlet {
 					list.add(at);
 				}
 			}
-			
-			int result = new BoardCommonService().insertEachBoard(b,list);
+			}
+			int result = new BoardCommonService().updateEachBoard(b,list);
 			
 			if(result>0) {
-				request.getSession().setAttribute("goBefore","뒤로 가 임마");
+				request.getSession().setAttribute("alertMsg","게시글 수정 성공");
 				response.sendRedirect(request.getHeader("Referer"));
 			}else {
 				if(!list.isEmpty()) {
@@ -109,9 +128,10 @@ public class WriteBoardControllerServlet extends HttpServlet {
 						new File(savePath+list.get(i).getChangeName()).delete();
 					}
 				}
-				request.setAttribute("errorMsg", "게시글 작성 실패");
+				request.setAttribute("errorMsg", "게시글 수정 실패");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}
 		}
 	}
+
 }

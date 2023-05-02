@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>같이 사요</title>
     <style>
          div{
             /* border: 1px solid black; */
@@ -363,7 +363,13 @@
                         <br>
                         <%if (loginUser != null) {%>
                         <div align="right" id="write_btn">
-                            <a href="<%=request.getContextPath()%>/views/board/writeBoard.jsp" class="btn btn-light">글쓰기</a>
+                            <a onclick="goWrite();" class="btn btn-light">글쓰기</a>
+                            	<script>
+	                                function goWrite(){
+	                                	var boardName = $(document).find("title").eq(0).text();
+	                                	location.href="<%=contextPath %>/insert.bo?boardName="+boardName;
+	                                };
+                            	</script>
                         </div>
                         <%} %>
                         <br><br>

@@ -429,7 +429,13 @@
                         <!-- 회원, 관리자만 글쓰기 가능 -->
                         <%if(loginUser != null) { %> 
 	                        <div align="right" id="write_btn">
-	                            <a href="<%=request.getContextPath() %>/views/board/writeBoard.jsp" class="btn btn-light">글쓰기</a>
+                            	<a onclick="goWrite();" class="btn btn-light">글쓰기</a>
+                            	<script>
+	                                function goWrite(){
+	                                	var boardName = $(document).find("title").eq(0).text();
+	                                	location.href="<%=contextPath %>/insert.bo?boardName="+boardName;
+	                                };
+                            	</script>
 	                        </div>
                         <%} %>
                         <br>

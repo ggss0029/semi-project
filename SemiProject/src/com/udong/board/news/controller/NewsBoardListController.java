@@ -72,7 +72,7 @@ public class NewsBoardListController extends HttpServlet {
 		//페이지 정보들을 하나의 공간에 담아보기 (VO이용)
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		System.out.println(pi);
+//		System.out.println(pi);
 		
 		//news(동네소식) 전체 리스트를 조회해와서 request에 담아 위임.
 		ArrayList<NewsBoard> nlist = new NewsBoardService().newsSelectList(pi);

@@ -118,19 +118,23 @@ tbody>#tr2 {
 
 			<table border="0" align="center" id="detail-area">
 				<tr style="height:80px;">
-					<td colspan="4"
-						style="height: 50px; font-size: 30px; font-weight: 600; border-bottom: 1px solid black;"><%=fb.getBoardTitle()%></td>
+					<td colspan="3"
+						style="height: 50px; font-size: 30px; font-weight: 600; border-bottom: 1px solid black;"><%=fb.getBoardTitle()%>
+					</td>
+					<td style="height: 50px; font-size: 20px; font-weight: 500; border-bottom: 1px solid black;" align="right">
+						<div style="background-color:beige; width:170px;" align="center"><%=fb.getCategory()%></div>
+					</td>
 				</tr>
 				<tr style="border-bottom: 1px solid black; height:80px;">
 					<td style="height: 50px; font-size: 20px; font-weight: 600;" id="foodWriter" colspan="3">
 						작성자 <a data-toggle="modal" data-target="#profile"><%=fb.getBoardWriter()%></a>
 					</td>
-					<td style="height: 50px; font-size: 20px; font-weight: 600;"
-						align="right">조회수 <%=fb.getCount()%> &nbsp;&nbsp;  작성일 <%=fb.getCreateDate()%></td>
+					<td style="height: 50px; font-size: 20px; font-weight: 600;"align="right">
+					조회수 <%=fb.getCount()%> &nbsp;&nbsp;  작성일 <%=fb.getCreateDate()%></td>
 				</tr>
 				<tr>
-					<td style="height: 50px; font-size: 30px; font-weight: 600; border-bottom: 1px solid black;">식당 이름 : <%=fb.getRegion().substring(0,fb.getRegion().indexOf("$")) %></td>
-					<td colspan="3" style="height: 50px; font-size: 30px; font-weight: 600; border-bottom: 1px solid black;">식당 주소 : <%=fb.getRegion().substring(fb.getRegion().indexOf("$")+1,fb.getRegion().length())%></td>
+					<td style="height: 70px; font-size: 23px; font-weight: 500; border-bottom: 1px solid black;">식당 이름 : <%=fb.getRegion().substring(0,fb.getRegion().indexOf("$")) %></td>
+					<td colspan="3" style="height: 50px; font-size: 23px; font-weight: 500; border-bottom: 1px solid black;">식당 주소 : <%=fb.getRegion().substring(fb.getRegion().indexOf("$")+1,fb.getRegion().length())%></td>
 				</tr>
 				<tr>
 					<%if(alist.size()>4){ %>
@@ -221,7 +225,7 @@ geocoder.addressSearch("<%=fb.getRegion().substring(fb.getRegion().indexOf("$")+
 				%>
 				<div class="board_btn" style="float: right; margin-right: 70px">
 					<button
-						onclick="location.href = '<%=contextPath%>/newsUpdate.bo?bno=<%=fb.getBoardNo()%>'"
+						onclick="location.href = '<%=contextPath%>/updateBoard.bo?bno=<%=fb.getBoardNo()%>'"
 						class="btn btn-secondary">수정</button>
 					<button
 						onclick="location.href = '<%=contextPath%>/deletePost.bo?bno=<%=fb.getBoardNo()%>'"

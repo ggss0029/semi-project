@@ -816,4 +816,19 @@
 		WHERE REPLY_NO = ?
 		AND STATUS = 'Y'
 	</entry>
+	
+	<entry key="selectEachBoard">
+	SELECT BOARD_NAME,CATEGORY,BOARD_TITLE,REGION,BOARD_CONTENT
+	FROM BOARD
+	JOIN MEMBER ON BOARD_WRITER = USER_NO
+	WHERE BOARD_NO = ?
+	</entry>
+	
+	<entry key="updateEachBoard">
+	UPDATE BOARD SET BOARD_TITLE=?,BOARD_CONTENT=?,CATEGORY=? WHERE BOARD_NO=? AND BOARD_NAME=?
+	</entry>
+	
+	<entry key="updateEachAttachment">
+	UPDATE ATTACHMENT SET ORIGIN_NAME = ?, CHANGE_NAME = ?, FILE_PATH = ?, FILE_LEVEL = ? WHERE REF_BNO =?
+	</entry>
 </properties>
