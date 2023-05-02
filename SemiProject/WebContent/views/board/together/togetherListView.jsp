@@ -1,14 +1,20 @@
+<%@page import="java.util.Arrays"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, com.udong.common.model.vo.PageInfo, com.udong.board.together.model.vo.TogetherBoard"%>
 <%
 	ArrayList<TogetherBoard> list = (ArrayList<TogetherBoard>)request.getAttribute("togetherBoardList");
 	PageInfo pi = (PageInfo)request.getAttribute("pageInfo");
+// 	String[] selectedCategory;
+// 	if(request.getAttribute("check") != null) {
+// 		selectedCategory = (String[])request.getAttribute("check");
+// 		System.out.println(Arrays.toString(selectedCategory));
+// 	}
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>같이 해요</title>
 </head>
 <style>
 	.wrap {
@@ -170,7 +176,7 @@
 					
 					<div id="box">
 						<p id="pp2">카테고리</p>
-						<form action="togetherList2.bo">
+						<form action="togetherList2.bo" onsubmit="filter(); return false;">
 							<input type="hidden" name="cPage" value=1>
 							<div id="category">
 								<input type="checkbox" id="food" name="check" value="밥"> <label for="food">밥</label>
@@ -192,8 +198,8 @@
 							<br><br><br><br><br>
 							
 							<div id="category_btn" align="center">
-								<button type="reset" class="btn btn-light" style="margin-right: 2%">초기화</button>
-                            	<button class="btn btn-primary" onclick="filter();">검색</button>
+								<button type="reset" class="btn btn-light" style="margin-right: 2%;" onclick="resetb();">초기화</button>
+                            	<button class="btn btn-primary">검색</button>
 							</div>
 						</form>
 					</div>
@@ -234,7 +240,14 @@
 					<br>
 					<%if(loginUser != null) {%>
 						<div id="write-btn" align="right">
-							<a href="<%=contextPath%>/views/board/writeBoard.jsp" class="btn btn-light">글쓰기</a>
+							    <a onclick="goWrite();" class="btn btn-light">글쓰기</a>
+                            	<script>
+	                                function goWrite(){
+	                                	
+	                                	var boardName = $(document).find("title").eq(0).text();
+	                                	location.href="<%=contextPath %>/insert.bo?boardName="+boardName;
+	                                };
+                            	</script>
 						</div>
 					<%} %>
 					<br><br>
@@ -266,6 +279,17 @@
 						$(function() {
 							var check = new Array();
 							
+							<%if(request.getAttribute("check") != null){%>
+								<%String[] selectedCategory = (String[])request.getAttribute("check");%>
+								<%for(int i=0; i<selectedCategory.length; i++){%>
+									$("input[name=check]").each(function() {
+										if($(this).val() == "<%=selectedCategory[i]%>") {
+											$(this).attr("checked", true);
+										}
+									})
+								<%}%>
+							<%}%>
+							
 				    		$(".goDetail").click(function(){
 						        var bno = $(this).parent().children().first().text();
 						       	location.href = '<%=contextPath %>/togetherDetail.bo?bno='+bno;
@@ -278,19 +302,33 @@
 				    		    }
 				    		};
 				    		
+							
+				    	});
 							function filter() {
 								$("input[type=checkbox]").each(function() {
 									if($(this).is(":checked")) {
 										check.push($(this).val());
 									}
-								})
+								});
+								console.log(check.length);
+								return false;
 								
-// 								$("#selectedCategory").val(check);
-								console.log(check);
-								
-								location.href = "<%=contextPath%>/togetherList.bo?cPage=1";
+// 								if(check.length == 0) {
+// 									alert("선택된 카테고리가 없습니다.");
+// 									return false;
+// 								}
+// 								else {
+// 									$("#selectedCategory").val(check);
+// 									return false;
+<%-- 									location.href = "<%=contextPath%>/togetherList2.bo?cPage=1"; --%>
+// 								}
 							};
-				    	});
+						
+						function resetb() {
+							$("input[type=checkbox]").each(function() {
+								$(this).attr("checked", false);
+							})
+						};
 						
 					</script>
 				</div>

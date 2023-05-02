@@ -37,7 +37,10 @@ public class WriteBoardControllerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
+		
+		String boardName = request.getParameter("boardName");
+		request.setAttribute("boardName", boardName);
 		request.getRequestDispatcher("views/board/writeBoard.jsp").forward(request, response);
 	}
 

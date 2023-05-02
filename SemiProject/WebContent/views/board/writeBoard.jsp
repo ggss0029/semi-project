@@ -214,6 +214,15 @@
                         	  $("#imgDiv").css("display","none");
                           }
                         }
+                        
+                        <%if(request.getAttribute("boardName")!=null){%>
+	                		var boardName = "<%=request.getAttribute("boardName")%>";
+	                		$("#boardCategory").val(boardName).attr("selected",true);
+	                		var categoryIndex = document.getElementById("boardCategory").selectedIndex;
+	                		for(var i = 0; i<ctgr[categoryIndex].length; i++){
+	                			$("#detailCategory").append("<option value="+ctgr[categoryIndex][i]+">"+ctgr[categoryIndex][i]+"</option>");
+	            			}
+                		<%}%>
                         </script>
                 </div>
                     <br>

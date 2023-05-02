@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
-import com.udong.board.buy.model.vo.BuyBoard;
 import com.udong.board.together.model.vo.TogetherBoard;
 import com.udong.common.JDBCTemplate;
 import com.udong.common.model.vo.PageInfo;
@@ -157,20 +156,35 @@ public class TogetherBoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<TogetherBoard> list = new ArrayList<>();
-		String sql = prop.getProperty("selectTogetherList2");
 		
 		try {
-			String str = "'OR 1=1) AND (CATEGORY = '"+selectedCategory[0]+"' OR CATEGORY = '"+selectedCategory[1];
-			System.out.println(str);
 			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
 			int endRow = (startRow + pi.getBoardLimit()) -1;
+			String sql = "SELECT * FROM (SELECT ROWNUM RNUM, A.*" + 
+					" FROM (SELECT BOARD_NO, BOARD_TITLE, NICKNAME, CATEGORY, CREATE_DATE, COUNT, COUNT(BOARDLIKE_NO) LIKE_COUNT" + 
+					" FROM BOARD B" + 
+					" JOIN MEMBER M ON (BOARD_WRITER = USER_NO)" + 
+					" LEFT JOIN BOARD_LIKE ON (BOARDLIKE_NO = BOARD_NO)" + 
+					" WHERE BOARD_NAME = '같이 해요' AND (CATEGORY = '";
+			
+			for(int i=0;i<selectedCategory.length;i++) {
+				if(i == selectedCategory.length-1) {
+					sql += selectedCategory[i];
+				}
+				else {
+					sql += selectedCategory[i] + "' OR CATEGORY = '";
+				}
+			}
+					
+			sql += "')  AND B.STATUS ='Y'" + 
+					" GROUP BY BOARD_NO, BOARD_TITLE, NICKNAME, CATEGORY, CREATE_DATE, COUNT" + 
+					" ORDER BY BOARD_NO DESC) A )" + 
+					" WHERE RNUM BETWEEN " + startRow + " AND " + endRow;
+			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "게임' OR CATEGORY = '기타");
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
 			rset = pstmt.executeQuery();
 			
-			if(rset.next()) {
+			while(rset.next()) {
 				TogetherBoard tb = new TogetherBoard();
 				tb.setBoardNo(rset.getInt("BOARD_NO"));
 				tb.setBoardTitle(rset.getString("BOARD_TITLE"));
@@ -180,7 +194,6 @@ public class TogetherBoardDao {
 				
 				list.add(tb);
 			}
-			System.out.println(list);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

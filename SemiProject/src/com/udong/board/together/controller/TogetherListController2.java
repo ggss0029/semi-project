@@ -53,13 +53,13 @@ public class TogetherListController2 extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		ArrayList<TogetherBoard> list = new TogetherBoardService().selectTogetherList(pi, selectedCategory);
-		System.out.println(list);
 		
 		//new TogetherBoardService().selectTogetherList(pi);
 		
+		request.setAttribute("check", selectedCategory);
 		request.setAttribute("togetherBoardList", list);
 		request.setAttribute("pageInfo", pi);
-		request.getRequestDispatcher("views/board/together/togetherListView2.jsp").forward(request, response);
+		request.getRequestDispatcher("views/board/together/togetherListView.jsp").forward(request, response);
 	}
 
 	/**
