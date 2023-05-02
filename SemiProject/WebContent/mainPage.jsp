@@ -27,6 +27,13 @@
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
     <style>
+    	@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+		
         #header{
             height: 400px;
         }
@@ -137,6 +144,7 @@
             width: 40%;
             height: 40px;
             margin: 70px 3% 70px 3%;
+            font-family: 'GmarketSansMedium';
         }
 
         #logout {
@@ -180,6 +188,7 @@
         	margin:15% auto;
         	font-size: 18px;
         	font-weight: 550;
+        	font-family: 'GmarketSansMedium';
         }
         
         .header_2>div>a>img {
@@ -790,12 +799,12 @@
         </script>
             
         <div class="header_2">
-            <div style="margin-left:3%"><a align="center" href="<%=contextPath %>/newsList.bo?currentPage=1"><img src="views/common/icons/정보공유.png" alt="정보공유">정보 공유</a></div>
-            <div style="margin-left:2%"><a align="center" href="<%=contextPath %>/foodList.bo?currentPage=1"><img src="views/common/icons/동네맛집.png" alt="동네맛집">동네 맛집</a></div>
-            <div style="margin-left:2%"><a align="center" href="<%=contextPath %>/giveList.bo?currentPage=1"><img src="views/common/icons/나눔.png" alt="나눔">나눔</a></div>
-            <div style="margin-left:2%"><a align="center" href="<%=contextPath%>/togetherList.bo?cPage=1"><img src="views/common/icons/함께해요.png" alt="함께해요">함께 해요 </a></div>
-            <div style="margin-left:2%"><a align="center" href="<%=contextPath %>/FreeBoardList.bo?currentPage=1"><img src="views/common/icons/자유게시판.png" alt="자유게시판">자유게시판</a></div>
-            <div style="margin-left:2%; margin-right:3%"><a align="center" href="<%=contextPath%>/noticeList.bo?currentPage=1"><img src="views/common/icons/소식.png" alt="소식">소식</a></div>
+            <div style="margin-left:3%"><a align="center" href="<%=contextPath %>/newsList.bo?currentPage=1"><img src="views/common/icons/정보공유1.png" alt="정보공유">정보 공유</a></div>
+            <div style="margin-left:2%"><a align="center" href="<%=contextPath %>/foodList.bo?currentPage=1"><img src="views/common/icons/동네맛집1.png" alt="동네맛집">동네 맛집</a></div>
+            <div style="margin-left:2%"><a align="center" href="<%=contextPath %>/giveList.bo?currentPage=1"><img src="views/common/icons/나눔1.png" alt="나눔">나눔</a></div>
+            <div style="margin-left:2%"><a align="center" href="<%=contextPath%>/togetherList.bo?cPage=1"><img src="views/common/icons/함께해요1.png" alt="함께해요">함께 해요 </a></div>
+            <div style="margin-left:2%"><a align="center" href="<%=contextPath %>/FreeBoardList.bo?currentPage=1"><img src="views/common/icons/자유게시판1.png" alt="자유게시판">자유게시판</a></div>
+            <div style="margin-left:2%; margin-right:3%"><a align="center" href="<%=contextPath%>/noticeList.bo?currentPage=1"><img src="views/common/icons/소식1.png" alt="소식">소식</a></div>
         </div>
     </div>
     <div class="outer">
@@ -803,8 +812,8 @@
             <div class="content_1">
                 <div class="c1">
                 	<div class="c1_title">
-                		<p style="padding:0; margin:20px; font-size: 40px">인기글</p>
-                		<button style="margin-left: 470px; margin-top: 30px;" class="btn" onclick="bestPost();">더보기 ></button>
+                		<p style="padding:0; margin:20px; font-size: 40px; font-family: 'GmarketSansMedium';">인기글</p>
+                		<button style="margin-left: 470px; margin-top: 30px; font-family: 'GmarketSansMedium';" class="btn" onclick="bestPost();">더보기 ></button>
                 	</div>
                 	<div style="background-color:black; height:1px"></div>
                 	<div class="c1_table">
@@ -813,7 +822,7 @@
                 </div>
                 <div class="c2">
                 	<div class="c2_title" style="height: 99px">
-                		<p style="padding:0; margin:20px; font-size: 40px">최신글</p>
+                		<p style="padding:0; margin:20px; font-size: 40px; font-family: 'GmarketSansMedium';">최신글</p>
                 	</div>
                 	<div style="background-color:black; height:1px"></div>
                 	<div class="c2_table" style="height: 390px">
@@ -823,8 +832,8 @@
             </div>
             <div class="content_2">
                 <div class="c3">
-                	<p style="padding:0; margin:16px; font-size: 40px; font-weight: 500;">동네 맛집</p>
-                	<button style="margin-top:25px; margin-left:1150px;" class="btn" onclick="foodPost();">더보기 ></button>
+                	<p style="padding:0; margin:16px; font-size: 40px; font-weight: 500; font-family: 'GmarketSansMedium';">동네 맛집</p>
+                	<button style="margin-top:25px; margin-left:1150px; font-family: 'GmarketSansMedium';" class="btn" onclick="foodPost();" >더보기 ></button>
                 </div>
                 <div class="main_swiper1">
                     <div class="swiper-container swiper1">
@@ -848,8 +857,8 @@
             </div>
             <div class="content_3" >
                 <div class="c4">
-                	<p style="padding:0; margin:16px; font-size: 40px; font-weight: 500;">나눔 할게요</p>
-                	<button style="margin-top:25px; margin-left:1150px;" class="btn">더보기 ></button>
+                	<p style="padding:0; margin:16px; font-size: 40px; font-weight: 500; font-family: 'GmarketSansMedium';">나눔 할게요</p>
+                	<button style="margin-top:25px; margin-left:1150px; font-family: 'GmarketSansMedium';" class="btn">더보기 ></button>
                 </div>
                 <div class="main_swiper2">
                     <div class="swiper-container swiper2">

@@ -9,8 +9,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>같이 사요</title>
     <style>
+    	@font-face {
+		    font-family: 'BMJUA';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+		    font-weight: normal;
+		    font-style: normal;
+		}
          div{
             /* border: 1px solid black; */
             box-sizing: border-box;
@@ -54,8 +60,9 @@
             position: absolute;
             top: 40px;
             left: 52px;
-            font-size: 45px;
-            font-weight: 700;
+            font-size: 50px;
+/*             font-weight: 700; */
+            font-family: 'BMJUA';
         }
 
         #line_1 {
@@ -74,6 +81,7 @@
             color: black;
             left: 52px;
             top: 130px;
+            font-family: 'BMJUA';
         }
 
         #line_2 {
@@ -92,6 +100,7 @@
             color: black;
             left: 52px;
             top: 205px;
+            font-family: 'BMJUA';
         }
 
         #line_3 {
@@ -103,19 +112,11 @@
             left: 30px;
         }
 
-        #line_4 {
-            position: absolute;
-            border: 1px solid black;
-            width: 300px;
-            height: 0px;
-            top: 345px;
-            left: 30px;
-        }
-
-        #content_2>div{ /*content2 안에 크기 지정*/
+        #content_2>#content_2_1{ /*content2 안에 크기 지정*/
             width: 1100px;
             height: 1500px;
-            border: 1px solid skyblue;
+            border: 4px solid #C8EDC9;
+            border-radius : 20px;
             position: absolute;
             top: 15px;
             left: 12px;
@@ -127,7 +128,8 @@
             top: 45px;
             left: 54px;
             font-size: 45px;
-            font-weight: 500;
+            font-weight: 500; 
+            font-family: 'BMJUA';
         }
 
         #line_5 {
@@ -143,30 +145,59 @@
             position: absolute;
             border: 1px solid black;
             width: 1010px;
-            height: 15%;
+            height: 20%;
             top: 135px;
             left: 45px;
             border-radius: 30px;
+        }
+        
+        /*지역선택 글씨, 위치*/
+        #b1{ 
+            float: left;
+            font-size: 25px;
+            font-weight: 600;
+            margin : 30px 0 0 50px;
         }
 
         #b2{ /*카테고리 글씨, 위치*/
             float: left;
             font-size: 25px;
             font-weight: 600;
-            margin: 30px 0 0 50px;
+            margin: 0 0 0 50px;
+        }
+        
+        /*지역선택 안에 있는 form을 감싸는 div*/
+        #location { 
+            font-size: 18px;
+            margin: 24px 0 0 165px;
+        }
+        
+        /*지역선택하는 select 태그들*/
+        .input, .select { 
+            width: 200px;
+            border: 1px solid #C4C4C4;
+            box-sizing: border-box;
+            border-radius: 10px;
+            padding: 11px 13px;
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 16px;
+            margin-right: 15px; 
         }
 
         #category{ /*checkbox들을 감싸고 있는 div*/
             float: left;
             font-size: 18px;
-            margin: 34px 0 0 30px;
+            margin: 0 0 0 30px;
             vertical-align: super;
             accent-color: darkgray; /*체크박스 색깔 바꾸기*/
         }
 
         label{
             /* margin-left: 5px; */
-            margin-right: 18px;
+            margin-right: 15px;
         }
         
         #category_btn{
@@ -177,7 +208,7 @@
             border: 1px solid black;
             width: 1010px;
             height: 0px;
-            top: 375px;
+            top: 448px;
             left: 45px;
         }
 
@@ -185,7 +216,7 @@
         .list-area{
             /*border: 1px solid black;*/
             text-align: center;
-            margin: 410px 0 0 80px;
+            margin: 470px 0 0 80px;
             font-size: 17px;
         }
         
@@ -198,50 +229,6 @@
         #write_btn{
             margin: 0 70px;
         }
-
-
-        /* 하단 검색창 */
-        #search{
-            width: 600px;
-            height: 150px;
-            position: relative; /*검색창을 가운데로 옮기기 위한 기준잡기*/
-        }
-
-        #search_form{
-            /* border: 2px solid blue; */
-            width: 80%;
-            height: 20%;
-            position: absolute;
-            right: 0px;
-            left: 310px;
-            top: 10px;
-            bottom: 0px;
-        }
-
-        #search_select{
-            float: left;
-            width: 20px;
-        }
-
-        #search_text{
-            float: left;
-            margin-left: 80px;
-            width: 100px;
-        }
-
-        #search_text>input{
-            width: 300px;
-            height: 38px;
-        }
-
-        #search_btn{
-            float: left;
-            margin-left: 200px;
-        }
-
-        
-
-
 
     </style>
 </head>
@@ -318,7 +305,7 @@
                             <input type="checkbox" class="check" id="health" value="헬스/건강식품"> <label for="health">헬스/건강식품</label>
                             <input type="checkbox" class="check" id="others" value="기타"> <label for="others">기타</label>    
                         </div>
-                        <br><br><br>
+                        <br><br><br><br>
                         
                         <div id="category_btn" align="center">
                             <button type="reset" class="btn btn-light">초기화</button>
@@ -390,9 +377,16 @@
                         <br>
                         <%if (loginUser != null) {%>
                         <div align="right" id="write_btn">
-                            <a href="<%=request.getContextPath()%>/views/board/writeBoard.jsp" class="btn btn-light">글쓰기</a>
+                            <a onclick="goWrite();" class="btn btn-light">글쓰기</a>
                         </div>
                         <%} %>
+                        <script>
+	                                function goWrite(){
+	                                	
+	                                	var boardName = $(document).find("title").eq(0).text();
+	                                	location.href="<%=contextPath %>/insert.bo?boardName="+boardName;
+	                                };
+                        </script>
                         <br><br>
 
 						<div align="center" class="paging-area">
@@ -413,27 +407,9 @@
 	                            <button onclick="location.href='<%=contextPath %>/buyList.bo?currentPage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
                             <%} %>
                         </div>
-
-<!--                         <div id="search"> -->
-<!--                             <form action="search.do" id="search_form"> -->
-<!--                                 <div id="search_select"> -->
-<!--                                     <select name="" id="" style="height: 38px;"> -->
-<!--                                         <option value="">제목+내용</option> -->
-<!--                                     </select> -->
-
-<!--                                 </div> -->
-<!--                                 <div id="search_text"> -->
-<!--                                     <input type="search" name="keyword"> -->
-<!--                                 </div> -->
-                    
-<!--                                 <div id="search_btn"> -->
-<!--                                     <input type="button" value="검색" class="btn btn-secondary"> -->
-<!--                                 </div> -->
-<!--                             </form> -->
-                    
-                        </div>
                 </div>
             </div>
+        </div>
         </div>
         <script>
     
@@ -463,7 +439,7 @@
 		    			data : {
 		    				city : city,
 		    				county : county
-		    			}
+		    			},
 		    			type : "post",
 		    			success : function(blist) {
 		    				$(".list-area").children("tbody").children().remove();
@@ -479,46 +455,46 @@
 		    						for(var i = 0; i < blist.length; i++) {
 		    							if(i < 10) {
 		    								str += "<tr style='height: 40px; border-bottom:1px solid black;'>"
-		    									+ "<td>"+ nlist[i].boardNo +"</td>"
-		    									+ "<td class='goDetail1'>"+ nlist[i].boardTitle +"</td>"
-		    									+ "<td><a id='nicknameHover' onclick='hoareyou();'>"+ nlist[i].boardWriter +"</a></td>"
-		    									+ "<td>"+ nlist[i].createDate +"</td>"
-		    									+ "<td>"+ nlist[i].count +"</td>"
-		    									+ "<td>"+ nlist[i].likeCount +"</td>"
+		    									+ "<td>"+ blist[i].boardNo +"</td>"
+		    									+ "<td class='goDetail1'>"+ blist[i].boardTitle +"</td>"
+		    									+ "<td><a id='nicknameHover' onclick='hoareyou();'>"+ blist[i].boardWriter +"</a></td>"
+		    									+ "<td>"+ blist[i].createDate +"</td>"
+		    									+ "<td>"+ blist[i].count +"</td>"
+		    									+ "<td>"+ blist[i].likeCount +"</td>"
 		    									+ "<tr>"
 		    							}
 		    							if(i>9 && i< 19) {
 		    								str2 += "<tr style='height: 40px; border-bottom:1px solid black;'>"
-		    									+ "<td>"+ nlist[i].boardNo +"</td>"
-		    									+ "<td class='goDetail1'>"+ nlist[i].boardTitle +"</td>"
-		    									+ "<td><a id='nicknameHover' onclick='hoareyou();'>"+ nlist[i].boardWriter +"</a></td>"
-		    									+ "<td>"+ nlist[i].createDate +"</td>"
-		    									+ "<td>"+ nlist[i].count +"</td>"
-		    									+ "<td>"+ nlist[i].likeCount +"</td>"
+		    									+ "<td>"+ blist[i].boardNo +"</td>"
+		    									+ "<td class='goDetail1'>"+ blist[i].boardTitle +"</td>"
+		    									+ "<td><a id='nicknameHover' onclick='hoareyou();'>"+ blist[i].boardWriter +"</a></td>"
+		    									+ "<td>"+ blist[i].createDate +"</td>"
+		    									+ "<td>"+ blist[i].count +"</td>"
+		    									+ "<td>"+ blist[i].likeCount +"</td>"
 		    									+ "<tr>"
 		    							}
 		    							if(i>18) {
 		    								str3 += "<tr style='height: 40px; border-bottom:1px solid black;'>"
-		    									+ "<td>"+ nlist[i].boardNo +"</td>"
-		    									+ "<td class='goDetail1'>"+ nlist[i].boardTitle +"</td>"
-		    									+ "<td><a id='nicknameHover' onclick='hoareyou();'>"+ nlist[i].boardWriter +"</a></td>"
-		    									+ "<td>"+ nlist[i].createDate +"</td>"
-		    									+ "<td>"+ nlist[i].count +"</td>"
-		    									+ "<td>"+ nlist[i].likeCount +"</td>"
+		    									+ "<td>"+ blist[i].boardNo +"</td>"
+		    									+ "<td class='goDetail1'>"+ blist[i].boardTitle +"</td>"
+		    									+ "<td><a id='nicknameHover' onclick='hoareyou();'>"+ blist[i].boardWriter +"</a></td>"
+		    									+ "<td>"+ blist[i].createDate +"</td>"
+		    									+ "<td>"+ blist[i].count +"</td>"
+		    									+ "<td>"+ blist[i].likeCount +"</td>"
 		    									+ "<tr>"
 		    							}
 		    						}
 		    						
 		    						
 		    					}else {
-		    						for(var i in nlist) {
+		    						for(var i in blist) {
 		    							str += "<tr style='height: 40px; border-bottom:1px solid black;'>"
-											+ "<td>"+ nlist[i].boardNo +"</td>"
-											+ "<td class='goDetail1'>"+ nlist[i].boardTitle +"</td>"
-											+ "<td><a id='nicknameHover' onclick='hoareyou();'>"+ nlist[i].boardWriter +"</a></td>"
-											+ "<td>"+ nlist[i].createDate +"</td>"
-											+ "<td>"+ nlist[i].count +"</td>"
-											+ "<td>"+ nlist[i].likeCount +"</td>"
+											+ "<td>"+ blist[i].boardNo +"</td>"
+											+ "<td class='goDetail1'>"+ blist[i].boardTitle +"</td>"
+											+ "<td><a id='nicknameHover' onclick='hoareyou();'>"+ blist[i].boardWriter +"</a></td>"
+											+ "<td>"+ blist[i].createDate +"</td>"
+											+ "<td>"+ blist[i].count +"</td>"
+											+ "<td>"+ blist[i].likeCount +"</td>"
 											+ "<tr>"
 		    						}
 		    						$(".list-area").append(str);

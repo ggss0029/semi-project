@@ -21,6 +21,22 @@ public class CleanBoard {
 	public CleanBoard() {
 		super();
 	}
+	
+	
+
+	public CleanBoard(int boardNo, String boardWriter, String boardTitle, String category, int count, Date createDate,
+			int likeCount) {
+		super();
+		this.boardNo = boardNo;
+		this.boardWriter = boardWriter;
+		this.boardTitle = boardTitle;
+		this.category = category;
+		this.count = count;
+		this.createDate = createDate;
+		this.likeCount = likeCount;
+	}
+
+
 
 	//게시글 하나 조회 멤버 변수
 	public CleanBoard(int boardNo, String boardTitle,  String boardWriter, String boardContent, Date createDate) {

@@ -11,6 +11,13 @@
 <meta charset="UTF-8">
 <title>동네 소식</title>
 <style>
+	@font-face {
+    font-family: 'BMJUA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+	
+	}
 	div{
             /* border: 1px solid black; */
             box-sizing: border-box;
@@ -56,8 +63,10 @@
             position: absolute;
             top: 40px;
             left: 52px;
-            font-size: 45px;
-            font-weight: 700;
+            font-size: 50px;
+/*             font-weight: 700; */
+            font-family: 'BMJUA';
+            
         }
 
         #line_1 {
@@ -76,6 +85,8 @@
             color: black;
             left: 52px;
             top: 130px;
+            font-family: 'BMJUA';
+            
         }
 
         #line_2 {
@@ -94,6 +105,7 @@
             color: black;
             left: 52px;
             top: 205px;
+            font-family: 'BMJUA';
         }
 
         #line_3 {
@@ -112,6 +124,7 @@
             color: black;
             left: 52px;
             top: 280px;
+            font-family: 'BMJUA';
         }
 
         #line_4 {
@@ -127,12 +140,11 @@
         #content_2>#content_2_1{ 
             width: 1100px;
             height: 1500px;
-            border: 1px solid skyblue;
+            border: 4px solid #C8EDC9;
+            border-radius : 20px;
             position: absolute;
             top: 15px;
             left: 12px;
-            
-            
         }
 
         /*contente2 안에 있는 동네소식 글씨 , 위치*/
@@ -142,6 +154,8 @@
             left: 54px;
             font-size: 45px;
             font-weight: 500;
+            font-family: 'BMJUA';
+            
         }
 
         #line_5 {
@@ -156,7 +170,7 @@
         /*지역선택, 카테고리 들어가는 박스*/
         #box{ 
             position: absolute;
-            border: 1px solid black;
+            border: 1px solid black; 
             width: 1010px;
             height: 18%;
             top: 135px;
@@ -241,56 +255,13 @@
         #write_btn{
             margin: 0 70px;
         }
-
-
-        /* 하단 검색창 */
-        #search{
-            width: 600px;
-            height: 150px;
-            position: relative; /*검색창을 가운데로 옮기기 위한 기준잡기*/
-        }
-
-        #search_form{
-            /* border: 2px solid blue; */
-            width: 80%;
-            height: 20%;
-            position: absolute;
-            right: 0px;
-            left: 310px;
-            top: 10px;
-            bottom: 0px;
-        }
-
-        #search_select{
-            float: left;
-            width: 20px;
-        }
-
-        #search_text{
-            float: left;
-            margin-left: 80px;
-            width: 100px;
-        }
-
-        #search_text>input{
-            width: 300px;
-            height: 38px;
-        }
-
-        #search_btn{
-            float: left;
-            margin-left: 200px;
-        }
+        
 </style>
 </head>
 <body>
 	<%@ include file = "../../common/menubar.jsp" %>
 	
 	<div class="wrap">
-        <div id="header">
-            <div id="header_1"></div>
-            <div id="menubar"></div>
-        </div>
         <div id="content">
             <div id="content_1">
                 <p>정보 공유</p>
@@ -437,53 +408,25 @@
                         <div align="center" class="paging-area">
     
                         	<%if(pi.getCurrentPage() != 1) {%>
-                            	<button onclick="location.href='<%=contextPath %>/newsList.bo?currentPage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
+                            	<button class="btn btn-outline-dark" onclick="location.href='<%=contextPath %>/newsList.bo?currentPage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
                             <%} %>
                             
                             <%for(int i = pi.getStartPage(); i <= pi.getEndPage(); i++) { %>
                             	<%if(i != pi.getCurrentPage()) {%>
-                            	<button onclick="location.href='<%=contextPath %>/newsList.bo?currentPage=<%=i%>';"><%=i %></button>
+                            	<button class="btn btn-outline-dark" onclick="location.href='<%=contextPath %>/newsList.bo?currentPage=<%=i%>';"><%=i %></button>
                             	<%} else {%>
                             		<button disabled><%=i %></button>
                             	<%} %>
                             <%} %>
                             
                             <%if(pi.getCurrentPage() != pi.getMaxPage()) { %>
-	                            <button onclick="location.href='<%=contextPath %>/newsList.bo?currentPage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
+	                            <button class="btn btn-outline-dark" onclick="location.href='<%=contextPath %>/newsList.bo?currentPage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
                             <%} %>
                         </div>
-<!--  
-                        <div id="search">
-                            <form action="search.do" id="search_form">
-                                <div id="search_select">
-                                    <select name="" id="" style="height: 38px;">
-                                        <option value="">제목+내용</option>
-                                    </select>
-
-                                </div>
-                                <div id="search_text">
-                                    <input type="search" name="keyword">
-                                </div>
-                    
-                                <div id="search_btn">
-                                    <input type="button" value="검색" class="btn btn-light">
-                                </div>
-                            </form>
-                    -->
-                        </div>
-
-                        
-                    
                 </div>
-
-                
-                
-
             </div>
         </div>
-<!--     </div> -->
-
-	
+        </div>
     <script>
     
     $(function(){
@@ -497,6 +440,10 @@
 	       	location.href = '<%=contextPath %>/newsDetail.bo?bno='+bno;
 	    });
     	
+    	$(".list-area>tbody").on("click","tr",function(){
+    		var bno = $(this).children().first().text();
+    		location.href = '<%=contextPath %>/newsDetail.bo?bno='+bno;
+    	});
     });
     
     function newsSearch() {

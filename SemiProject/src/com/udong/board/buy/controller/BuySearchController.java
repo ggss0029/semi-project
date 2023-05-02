@@ -12,13 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.udong.board.buy.model.service.BuyService;
 import com.udong.board.buy.model.vo.BuyBoard;
-import com.udong.board.news.model.service.NewsBoardService;
-import com.udong.board.news.model.vo.NewsBoard;
 
 /**
  * Servlet implementation class BuySearchController
  */
-@WebServlet("/BuySearchController")
+@WebServlet("/buyCategoryList.bo")
 public class BuySearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

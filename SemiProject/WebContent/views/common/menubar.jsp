@@ -24,6 +24,12 @@
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css"/>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <style>
+		@font-face {
+		    font-family: 'BMJUA';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+		    font-weight: normal;
+		    font-style: normal;
+		}
         .header {
             border-bottom: 1px solid black;
             height: 180px;
@@ -185,12 +191,13 @@
         #menu a {
             text-decoration: none;
             color: black;
-            font-size: 30px;
+            font-size: 40px;
             font-weight: 500;
             width: 100%;
             height: 100%;
             display: block;
             line-height: 90px;
+            font-family: 'BMJUA';
         }
 
         #menu a:hover {
@@ -207,7 +214,7 @@
         }
 
         #menu>li>ul a{
-            font-size: 20px;
+            font-size: 30px;
         }
         
         #menu>li>ul a:hover {

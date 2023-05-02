@@ -22,13 +22,14 @@ public class BuyBoard {
 	}
 	
 	
-	public BuyBoard(int boardNo, String boardWriter, String boardTitle, String category, int count, Date createDate,
+	public BuyBoard(int boardNo, String boardWriter, String boardTitle, String category, String region, int count, Date createDate,
 			int likeCount) {
 		super();
 		this.boardNo = boardNo;
 		this.boardWriter = boardWriter;
 		this.boardTitle = boardTitle;
 		this.category = category;
+		this.region = region;
 		this.count = count;
 		this.createDate = createDate;
 		this.likeCount = likeCount;

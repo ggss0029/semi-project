@@ -471,6 +471,30 @@ public class NewsBoardDao {
 		}
 		return nlist;
 	}
+
+	public int newsLike(Connection conn, int newsBoardNo, int userNo) {
+		int result =0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("newsLike");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, newsBoardNo);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
 	
 
 	
