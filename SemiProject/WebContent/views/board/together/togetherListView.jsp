@@ -236,7 +236,7 @@
 										<tr style="height: 40px; border-bottom: 1px solid black;">
 											<td><%=tb.getBoardNo()%></td>
 											<td class="goDetail"><%=tb.getBoardTitle()%></td>
-											<td><a id="nicknameHover" onclick="profile();"><%=tb.getBoardWriter()%></a></td>
+											<td><a id="nicknameHover" onclick="whoareyou();"><%=tb.getBoardWriter()%></a></td>
 											<td><%=tb.getCreateDate()%></td>
 											<td><%=tb.getCount()%></td>
 											<td><%=tb.getLikeCount()%></td>

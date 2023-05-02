@@ -399,7 +399,7 @@
 		FROM (SELECT B.BOARD_NO, B.BOARD_TITLE, A.FILE_PATH || A.CHANGE_NAME AS IMG, COUNT
         		FROM ATTACHMENT A
         		LEFT JOIN BOARD B ON A.REF_BNO = B.BOARD_NO
-        		WHERE B.STATUS = 'Y' AND A.FILE_NO IN (SELECT MIN(FILE_NO)
+        		WHERE BOARD_NAME = '동네 맛집' AND B.STATUS = 'Y' AND A.FILE_NO IN (SELECT MIN(FILE_NO)
                                                  		FROM ATTACHMENT
                                                 		GROUP BY REF_BNO)
         		GROUP BY B.BOARD_NO, B.BOARD_TITLE, A.FILE_PATH, A.CHANGE_NAME, COUNT
@@ -949,5 +949,46 @@
 		SELECT COUNT(*) AS COUNT
 		FROM BOARD
 		WHERE BOARD_NAME = '같이 해요' AND CATEGORY = ? AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="givePostList">
+		SELECT *
+		FROM (SELECT B.BOARD_NO, B.BOARD_TITLE, A.FILE_PATH || A.CHANGE_NAME AS IMG, COUNT
+        		FROM ATTACHMENT A
+        		LEFT JOIN BOARD B ON A.REF_BNO = B.BOARD_NO
+        		WHERE BOARD_NAME = '나눔 할게요' AND B.STATUS = 'Y' AND A.FILE_NO IN (SELECT MIN(FILE_NO)
+                                                 		FROM ATTACHMENT
+                                                		GROUP BY REF_BNO)
+        		GROUP BY B.BOARD_NO, B.BOARD_TITLE, A.FILE_PATH, A.CHANGE_NAME, COUNT
+        		ORDER BY COUNT DESC)
+		<![CDATA[WHERE ROWNUM <= 8]]>
+	</entry>
+	
+	<entry key="togetherInsertReply">
+		INSERT INTO REPLY(REPLY_NO, REPLY_CONTENT, REF_BNO, REPLY_WRITER) VALUES(SEQ_RNO.NEXTVAL,?,?,?)
+	</entry>
+	
+	<entry key="togetherSelectReply">
+		SELECT REPLY_NO, REPLY_CONTENT, REF_BNO, NICKNAME, TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') CREATE_DATE
+		FROM REPLY R
+		JOIN MEMBER M ON(REPLY_WRITER = USER_NO)
+		WHERE R.STATUS = 'Y'
+		AND REF_BNO = ?
+		ORDER BY CREATE_DATE DESC, REPLY_NO DESC
+	</entry>
+	
+	<entry key="togetherDeleteReply">
+		UPDATE REPLY
+		SET STATUS = 'N'
+		WHERE REPLY_NO = ?
+		AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="togetherUpdateReply">
+		UPDATE REPLY
+		SET REPLY_CONTENT = ?
+			,MODIFY_DATE = SYSDATE
+		WHERE REPLY_NO = ?
+		AND STATUS = 'Y'
 	</entry>
 </properties>

@@ -778,4 +778,32 @@ public class BoardCommonDao {
 		}
 		return result;
 	}
+
+	public ArrayList<BoardCommon> givePostList(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<BoardCommon> list = new ArrayList<>();
+		String sql = prop.getProperty("givePostList");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);
+			
+			while(rset.next()) {
+				BoardCommon bc = new BoardCommon();
+				bc.setBoardNo(rset.getInt("BOARD_NO"));
+				bc.setBoardTitle(rset.getString("BOARD_TITLE"));
+				bc.setImg(rset.getString("IMG"));
+				list.add(bc);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(stmt);
+		}
+		
+		return list;
+	}
 }

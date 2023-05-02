@@ -14,6 +14,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>보낸 쪽지함</title>
     <style>
+    	@font-face {
+		    font-family: 'BMJUA';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+		    font-weight: normal;
+		    font-style: normal;
+		}
     	div{
 /*     		border: 1px solid black; */
     	}
@@ -35,7 +41,7 @@
         }
         #content_1{
         	width:25%;
-        	background-color:yellow;
+        	background-color:#C8EDC9;
         }
         #content_1>div{
         	width:90%;
@@ -46,6 +52,7 @@
         	text-align:left;
         	padding:50px 0px 15px 30px;
         	border-bottom:2px solid black;
+        	font-family: 'BMJUA';
         }
         #content_1_2{
         	font-size:40px;
@@ -53,6 +60,7 @@
         	text-align:left;
         	padding:10px 0px 10px 30px;
         	border-bottom:2px solid black;
+        	font-family: 'BMJUA';
         }
         #content_1_3{
         	font-size:45px;
@@ -60,6 +68,7 @@
         	text-align:left;
         	padding:10px 0px 10px 30px;
         	border-bottom:2px solid black;
+        	font-family: 'BMJUA';
         }
         #content_1_4{
         	font-size:40px;
@@ -67,6 +76,7 @@
         	text-align:left;
         	padding:10px 0px 10px 30px;
         	border-bottom:2px solid black;
+        	font-family: 'BMJUA';
         }
         #content_1>div>a{
         	text-decoration:none;
