@@ -69,6 +69,15 @@ div {
 </head>
 <body>
 	<%@include file="../../common/menubar.jsp"%>
+	<script>
+	$(function() {
+		<%if(request.getSession().getAttribute("goBefore") != null) {%>
+			<%request.getSession().setAttribute("alertMsg", "faq 작성 완료");%>
+			history.back();
+			<%request.getSession().removeAttribute("goBefore");%>
+		<%}%>
+	})
+	</script>
 	<div class="wrap">
 		<div id="content" align="center">
 			<div id="content_1">
@@ -79,7 +88,9 @@ div {
 						<input type="text" name="title" placeholder="질문을 입력하세요."
 							style="width: 1348px; height: 60px; font-size: 18px;" required>
 					</div>
-
+					<script>
+// 						$("#boardContent").val().replace(/\n/g, "<br>");
+					</script>
 					<div id="contentArea">
 						<textarea name="content" id="boardContent" cols="30" rows="25"
 							style="resize: none; font-size: 20px;" placeholder="답변을 입력해주세요."></textarea>
@@ -97,5 +108,8 @@ div {
 			</div>
 		</div>
 	</div>
+	<script>
+;
+	</script>
 </body>
 </html>

@@ -45,7 +45,7 @@ public class ChangePwdController extends HttpServlet {
 		//session 담겨있는 loginUser에서 id값 꺼내기
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		String updatePwd = request.getParameter("updatePwd");
-		System.out.println(updatePwd);
+		//System.out.println(updatePwd);
 		
 		Member updateMem = new MemberService().updatePwd(userId, updatePwd);
 		

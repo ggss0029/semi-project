@@ -30,6 +30,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <style>
+
 div {
 	/* border: 1px solid black; */
 	box-sizing: border-box;
@@ -196,8 +197,8 @@ tbody>#tr2 {
 
 			<hr>
 			<div id="tabs">
-				<ul>
-					<li><a href="#tabs-1">댓글</a></li>
+				<ul style="list-style:none;">
+					<li><a href="#tabs-1" style="color : black; text-decoration:none; font-size:30px">댓글</a></li>
 				</ul>
 
 				<%
@@ -300,12 +301,44 @@ tbody>#tr2 {
 										}
 									}
 									$("#tabs #tabs-1").html(result);
+									btnCheck();
 								},
 								error : function() {
 									alert("댓글 조회 실패!");
 								}
 							});
 					};
+					
+					function btnCheck(){
+						var btn = $("#tabs-1 span button");
+						var loginUser;
+						var loginNick;
+						var loginUserId;
+						<%if(loginUser != null){%>
+						loginUser ='<%=loginUser%>'; 
+						loginUserId = '<%=loginUser.getUserId()%>'; 
+						loginNick = '<%=loginUser.getNickname()%>'; 
+						loginBoard = '<%=gb.getBoardWriter()%>';
+						<%}%>
+						if(loginUser==undefined){ 
+							$(btn).hide(); 
+						}else{
+							$(".list-group-item-heading").each(function(){ 
+								var nick = $(this).text().trim(); 
+								if(loginUserId=='admin' || nick == loginNick || loginBoard == loginNick){ 
+									console.log(loginUserId);
+									$(this).next().find("button").show();
+									
+								}else{
+									$(this).next().find("button").hide();
+								}
+								
+							})	
+						}
+						
+						
+					}
+					
 					
 					function giveDeleteReply(replyNo) {
 						

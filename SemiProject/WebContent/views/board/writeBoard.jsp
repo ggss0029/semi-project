@@ -214,7 +214,6 @@
                         	  $("#imgDiv").css("display","none");
                           }
                         }
-              
                     	<%if(request.getAttribute("boardName")!=null){%>
                     		var boardName = "<%=request.getAttribute("boardName")%>";
                     		$("#boardCategory").val(boardName).attr("selected",true);

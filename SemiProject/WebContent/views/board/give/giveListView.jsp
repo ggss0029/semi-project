@@ -12,6 +12,12 @@
 <meta charset="UTF-8">
 <title>나눔 할게요</title>
 <style>
+	@font-face {
+		    font-family: 'BMJUA';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+		    font-weight: normal;
+		    font-style: normal;
+		}
 	div{
             /* border: 1px solid black; */
             box-sizing: border-box;
@@ -28,7 +34,7 @@
         }
         #content{
             width: 100%;
-            height: 99%;
+            height: 100%;
             position: relative;
         }
         #content>div{
@@ -38,7 +44,7 @@
         #content_1{
             width: 25%;
             height:100%;
-            background-color: yellow;
+            background-color: #C8EDC9;
         }
         #content_2{
             width: 75%;
@@ -49,8 +55,9 @@
             position: absolute;
             top: 40px;
             left: 52px;
-            font-size: 45px;
-            font-weight: 700;
+            font-size: 50px;
+/*             font-weight: 700; */
+            font-family: 'BMJUA';
         }
         #line_1 {
             position: absolute;
@@ -67,6 +74,7 @@
             color: black;
             left: 52px;
             top: 130px;
+            font-family: 'BMJUA';
         }
         #line_2 {
             position: absolute;
@@ -83,6 +91,7 @@
             color: black;
             left: 52px;
             top: 205px;
+            font-family: 'BMJUA';
         }
         #line_3 {
             position: absolute;
@@ -92,14 +101,7 @@
             top: 265px;
             left: 30px;
         }
-        #recipe{ /*자취 레시피 글씨, 위치*/
-            position: absolute;
-            font-size: 35px;
-            text-decoration: none;
-            color: black;
-            left: 52px;
-            top: 280px;
-        }
+        
         #line_4 {
             position: absolute;
             border: 1px solid black;
@@ -112,7 +114,8 @@
         #content_2>#content_2_1{ 
             width: 1100px;
             height: 1500px;
-            border: 1px solid skyblue;
+            border: 4px solid #C8EDC9;
+            border-radius : 20px;
             position: absolute;
             top: 15px;
             left: 12px;
@@ -124,6 +127,7 @@
             left: 54px;
             font-size: 45px;
             font-weight: 500;
+            font-family: 'BMJUA';
         }
         #line_5 {
             position: absolute;
@@ -204,7 +208,7 @@
             font-size: 17px;
         }
         .list-area>tbody>tr:hover{
-        background-color: #C8EDC9;
+        background-color: #DEF5DE;
         cursor: pointer;
     	}
         /* 글쓰기 버튼 */

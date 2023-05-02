@@ -46,7 +46,7 @@
             position: relative;
         }
 
-        #content_1>p{ /*정보공유 글씨, 위치*/
+        #content_1>p{ /*마이페ㅣ지 글씨, 위치*/
             position: absolute;
             top: 40px;
             left: 52px;
@@ -63,7 +63,7 @@
             left: 30px;
         }
 
-        #my{ /*동네 소식 글씨, 위치*/
+        #my{ /*나의 정보 글씨, 위치*/
             position: absolute;
             font-size: 35px;
             text-decoration: none;
@@ -81,7 +81,7 @@
             left: 30px;
         }
 
-        #update { /*살림 꿀팁 글씨, 위치*/
+        #update { /*개인 정보 수정 글씨, 위치*/
             position: absolute;
             font-size: 35px;
             text-decoration: none;
@@ -99,7 +99,7 @@
             left: 30px;
         }
 
-        #write_board{ /*자취 레시피 글씨, 위치*/
+        #write_board{ /*작성한 게시글 글씨, 위치*/
             position: absolute;
             font-size: 35px;
             text-decoration: none;
@@ -117,7 +117,7 @@
             left: 30px;
         }
 
-        #like_board{ /*자취 레시피 글씨, 위치*/
+        #like_board{ /*좋아요한 게시글 글씨, 위치*/
             position: absolute;
             font-size: 35px;
             text-decoration: none;
@@ -135,8 +135,17 @@
             left: 30px;
         }
 
-        #out{ /*자취 레시피 글씨, 위치*/
+        #out{ /*회원 탈퇴 글씨, 위치*/
             position: absolute;
+            font-size: 35px;
+            text-decoration: none;
+            color: black;
+            left: 52px;
+            top: 440px;
+        }
+        
+        #user_con{ /*회운 관리 글씨, 위치*/
+        	position: absolute;
             font-size: 35px;
             text-decoration: none;
             color: black;
@@ -150,6 +159,24 @@
             width: 300px;
             height: 0px;
             top: 505px;
+            left: 30px;
+        }
+        
+        #blackList{ /*블랙리트스 글씨 위치*/
+        	position: absolute;
+            font-size: 35px;
+            text-decoration: none;
+            color: black;
+            left: 52px;
+            top: 520px;
+        }
+        
+        #line_8{
+         	position: absolute;
+            border: 1px solid black;
+            width: 300px;
+            height: 0px;
+            top: 585px;
             left: 30px;
         }
 
@@ -180,7 +207,7 @@
             left: 45px;
         }
 
-        #box{ /*지역선택, 카테고리 들어가는 박스*/
+        #box{ /*프로필 들어가는 박스*/
             position: absolute;
             border: 1px solid black;
             width: 1010px;
@@ -275,13 +302,9 @@
 		String gender = loginUser.getGender();
 		String email = loginUser.getEmail();
 		String address = loginUser.getAddress();
-		String introduction = (loginUser.getIntroduction() == null) ? "" : loginUser.getIntroduction();
+		String introduction = (loginUser.getIntroduction() == null) ? "" : loginUser.getIntroduction(); //null뜨는 것을 방지하기 위해 "" 넣어준다.
 	%>
 	 <div class="wrap">
-<!--         <div id="header"> -->
-<!--             <div id="header_1"></div> -->
-<!--             <div id="menubar"></div> -->
-<!--         </div> -->
         <div id="content">
             <div id="content_1">
                 <p>마이페이지</p>
@@ -299,8 +322,16 @@
                 <a href="<%=contextPath %>/likeList.me?currentPage=1" id="like_board">좋아요한 게시글</a>
                 <div id="line_5"></div>
 
-                <a href="" id="out">회원 탈퇴</a>
-                <div id="line_6"></div>
+				<%if(loginUser != null && loginUser.getUserId().equals("admin")) {%> <!-- 관리자로 로그인 할때 회원 관리, 블랙리스트 보이게 -->
+	                <a href="" id="user_con">회원 관리</a>
+	                <div id="linde_6"></div>
+	                
+	                <a href="" id="blackList">블랙 리스트</a>
+					<div id="line_8"></div>
+				<%}else { %>
+	                <a href="" id="out">회원 탈퇴</a>
+	                <div id="line_6"></div>
+                <%} %>
             </div>
             <div id="content_2">
                 <div id="content_2_1">
@@ -650,27 +681,35 @@
 								console.log(updatePwd);
 								console.log(chkPwd);
 								
-								
 								//비밀번호 검사
-								
-								
 								if(loginPwd == inputPwd) { //현재 비밀번호가 일치한다면
 									var regExp = /^[a-zA-Z0-9]{7,14}$/; //유효성 검사를 해준다.
 									var regExp2 = /[!@#$%^&*]/g;
-									if(!regExp.test(updatePwd)){ //변경할 비밀번호가 유효값이 아닐경우
-										alert("유효한 비밀번호 형식이 아닙니다.");
+									
+									if(updatePwd.length<8 || updatePwd.length>15) { //글자수의 길이가 틀리면
+										alert("비밀번호의 길이를 다시 확인해주세요!");
 										$("#updatePwd").focus();
-										//여기서 오류떠서 유효성 검사가 안된거임.(나는 updatePwd.focus()로 했는데 벨류값을 들고갔기 떄문에 실행이 안됨.)
 										return false;
-									}
-									else {
+									}else { //글자수의 길이가 맞으면
+										
+										if(!regExp.test(updatePwd)){ //변경할 비밀번호가 유효값이 아닐경우
+											
+										}else{ //regExp  유효값이 맞으면
+											
+											if(!regExp2.test(updatePwd)) { //regExp2 유효값이 아니면
+												alert("비밀번호는 영문자, 숫자, 특수문자로 총 8~15자로 입력하세요!");
+												$("#updatePwd").focus();
+												//여기서 오류떠서 유효성 검사가 안된거임.(나는 updatePwd.focus()로 했는데 벨류값을 들고갔기 떄문에 실행이 안됨.)
+												return false;
+											}
+										}
+									
 										if(updatePwd != chkPwd) { //바꾼비밀번호와 재확인이 일치 하지 않는다면
-											alert("변경할 비밀번호와 확인이 일치하지 않습니다.");
-											$("input[name=updatePwd]").select();
-											return false;
+											  alert("변경할 비밀번호와 확인이 일치하지 않습니다.");
+											  $("input[name=updatePwd]").select();
+											  return false
 										}
 									}
-
 								}else { //현재 비밀번호가 일치하지 않는다면
 									alert("현재 비밀번호가 일치하지 않습니다.");
 									$("input[name=userPwd]").focus();

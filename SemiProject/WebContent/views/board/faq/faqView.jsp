@@ -21,6 +21,12 @@
     
     
     <style>
+    	@font-face {
+		    font-family: 'BMJUA';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+		    font-weight: normal;
+		    font-style: normal;
+		}
          div{
             /* border: 1px solid black; */
             box-sizing: border-box;
@@ -40,7 +46,7 @@
 
         #content{
             width: 100%;
-            height: 76.5%;
+            height: 100%;
             position: relative;
         }
 
@@ -51,7 +57,7 @@
 
         #content_1{
             width: 25%;
-            background-color: yellow;
+            background-color: #C8EDC9;
         }
 
         #content_2{
@@ -64,8 +70,9 @@
             position: absolute;
             top: 40px;
             left: 52px;
-            font-size: 45px;
-            font-weight: 700;
+            font-size: 50px;
+/*             font-weight: 700; */
+            font-family: 'BMJUA';
         }
 
         #line_1 {
@@ -77,13 +84,14 @@
             left: 30px;
         }
 
-        #news{ /*동네 소식 글씨, 위치*/
+        #notice{ /*공지사항 글씨, 위치*/
             position: absolute;
             font-size: 35px;
             text-decoration: none;
             color: black;
             left: 52px;
             top: 130px;
+            font-family: 'BMJUA';
         }
 
         #line_2 {
@@ -102,6 +110,7 @@
             color: black;
             left: 52px;
             top: 205px;
+            font-family: 'BMJUA';
         }
 
         #line_3 {
@@ -131,10 +140,11 @@
             left: 30px;
         }
 
-        #content_2>div{ /*content2 안에 크기 지정*/
+        #content_2>#content_2_1{ /*content2 안에 크기 지정*/
             width: 1100px;
             height: 1500px;
-            border: 1px solid skyblue;
+            border: 4px solid #C8EDC9;
+            border-radius : 20px;
             position: absolute;
             top: 15px;
             left: 12px;
@@ -147,6 +157,7 @@
             left: 54px;
             font-size: 45px;
             font-weight: 500;
+            font-family: 'BMJUA';
         }
 
         #line_5 {
@@ -189,7 +200,7 @@
 
         .faq-box__answer {
             display:none;
-            background-color:#C8EDC9;
+            background-color:#DEF5DE;
             border-radius:10px;
             margin: 10px 0 0 0;
             padding:15px;
@@ -209,7 +220,7 @@
             <div id="content_1">
                 <p>소식</p>
                 <div id="line_1"></div>
-                <a href="<%=contextPath%>/noticeList.bo?currentPage=1" id="news">공지 사항</a>
+                <a href="<%=contextPath%>/noticeList.bo?currentPage=1" id="notice">공지 사항</a>
                 <div id="line_2"></div>
                 <a href="<%=contextPath %>/faqList.bo?currentPage=1" id="faq">자주 묻는 질문</a>
                 <div id="line_3"></div>
@@ -228,8 +239,9 @@
                           <li>
                             <div class="faq-box__question"><span class="goDetail1">Q. <%=fb.getFaqTitle() %></span></div>
                             <div class="faq-box__answer">
-                              	<div>
-                                <%=fb.getFaqContent() %>
+                            	
+                              	<div id="boardContent">
+									<p style="white-space: pre-line;"><%=fb.getFaqContent() %></p>
                                 </div>
                                 <%if(loginUser != null && loginUser.getUserId().equals("admin")) { %> 
                                 <button onclick="location.href = '<%=contextPath%>/faqUpdate.bo?bno=<%=fb.getFaqNo()%>'" class="btn btn-info">수정하기</button>

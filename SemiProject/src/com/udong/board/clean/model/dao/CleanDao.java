@@ -15,6 +15,7 @@ import java.util.Properties;
 import com.udong.board.clean.model.vo.CleanBoard;
 import com.udong.board.clean.model.vo.CleanReply;
 import com.udong.board.news.model.dao.NewsBoardDao;
+import com.udong.board.news.model.vo.NewsBoard;
 import com.udong.board.news.model.vo.NewsReply;
 import com.udong.common.JDBCTemplate;
 import com.udong.common.model.vo.PageInfo;
@@ -246,6 +247,67 @@ private Properties prop = new Properties();
 		}
 		
 		return result;
+	}
+
+	public CleanBoard cleanAllCategoryList(Connection conn, String category) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("cleanAllCategoryList");
+		CleanBoard cb = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, category);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				cb = new CleanBoard(rset.getInt("BOARD_NO")
+									,rset.getString("NICKNAME")
+									,rset.getString("BOARD_TITLE")
+									,rset.getString("CATEGORY")
+									,rset.getInt("COUNT")
+									,rset.getDate("CREATE_DATE")
+									,rset.getInt("LIKECOUNT"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return cb;
+	}
+
+	public ArrayList<CleanBoard> selectNocleanList(Connection conn) {
+		ArrayList<CleanBoard> clist = new ArrayList<>();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectNocleanList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				CleanBoard cb = new CleanBoard(rset.getInt("BOARD_NO")
+											,rset.getString("NICKNAME")
+											,rset.getString("BOARD_TITLE")
+											,rset.getString("CATEGORY")
+											,rset.getInt("COUNT")
+											,rset.getDate("CREATE_DATE")
+											,rset.getInt("LIKECOUNT"));
+				clist.add(cb);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return clist;
 	}
 		
 }

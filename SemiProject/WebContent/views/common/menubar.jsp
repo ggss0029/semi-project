@@ -24,6 +24,12 @@
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css"/>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <style>
+		@font-face {
+		    font-family: 'BMJUA';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+		    font-weight: normal;
+		    font-style: normal;
+		}
         .header {
             border-bottom: 1px solid black;
             height: 180px;
@@ -185,16 +191,18 @@
         #menu a {
             text-decoration: none;
             color: black;
-            font-size: 30px;
+            font-size: 40px;
             font-weight: 500;
             width: 100%;
             height: 100%;
             display: block;
             line-height: 90px;
+            font-family: 'BMJUA';
         }
 
         #menu a:hover {
-            color: #C8EDC9;
+            color: #8EEC91;
+/*             color: #C8EDC9; */
             font-weight: 600;
         }
 
@@ -206,7 +214,7 @@
         }
 
         #menu>li>ul a{
-            font-size: 20px;
+            font-size: 30px;
         }
         
         #menu>li>ul a:hover {
@@ -498,7 +506,7 @@
             </li><li>
                 <a style="cursor: default;">함께 해요</a>
                 <ul>
-                    <li><a href="">같이 해요</a></li>
+                    <li><a href="<%=contextPath%>/togetherList.bo?cPage=1">같이 해요</a></li>
                     <li><a href="<%=contextPath %>/buyList.bo?currentPage=1">같이 사요</a></li>
                 </ul>
             </li><li><a href="">자유게시판</a></li><li style="margin-right:2%">

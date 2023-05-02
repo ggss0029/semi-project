@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import com.udong.board.buy.model.dao.BuyDao;
 import com.udong.board.buy.model.vo.BuyBoard;
 import com.udong.board.buy.model.vo.BuyReply;
+import com.udong.board.news.model.dao.NewsBoardDao;
+import com.udong.board.news.model.vo.NewsBoard;
 import com.udong.common.JDBCTemplate;
 import com.udong.common.model.vo.PageInfo;
 
@@ -104,5 +106,45 @@ public class BuyService {
 			
 			return result;
 		}
+
+	public BuyBoard buyAllCategoryList(String category) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		BuyBoard buyb = new BuyDao().buyAllCategoryList(conn,category);
+		
+		JDBCTemplate.close(conn);
+		
+		return buyb;
+	}
+
+	public ArrayList<BuyBoard> selectNoBuyList() {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<BuyBoard> blist = new BuyDao().selectNoBuyList(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return blist;
+	}
+
+	public BuyBoard buyRegionCategoryList(String category, String region) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		BuyBoard buyb = new BuyDao().buyRegionCategoryList(conn,category,region);
+		
+		JDBCTemplate.close(conn);
+		
+		return buyb;
+	}
+
+	public ArrayList<BuyBoard> selectRegionBuyList(String region) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<BuyBoard> blist = new BuyDao().selectRegionBuyList(conn,region);
+		
+		JDBCTemplate.close(conn);
+		
+		return blist;
+	}
 
 }

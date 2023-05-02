@@ -110,14 +110,19 @@ tbody>#tr2 {
 				</tr>
 				<tr style="border-bottom: 1px solid black; height:80px;">
 					<td style="height: 50px; font-size: 20px; font-weight: 600; ">
-						<a data-toggle="modal" data-target="#profile"><%=n.getNoticeWriter()%></a>
+						<a id="nicknameHover" onclick="whoareyou();"><%=n.getNoticeWriter()%></a>
 					</td>
 					
 					<td style="height: 50px; font-size: 20px; font-weight: 600;"
 						align="right"><%=n.getCreatDate()%></td>
 				</tr>
-				<tr style="height: 700px">
-					<td colspan="2" style="height: auto; vertical-align : top "><br><%=n.getNoticeContent()%></td>
+				<tr style="height: 700px; border-bottom: 1px solid black;">
+					<td colspan="2" style="height: auto; vertical-align : top ">
+					<br>
+					<!-- 줄바꿈 처리 -->
+					<p style="white-space: pre-line;"><%=n.getNoticeContent() %></p>
+					
+					</td>
 					
 				</tr>
 			</table>
@@ -140,6 +145,7 @@ tbody>#tr2 {
 				<!--뭔가 넓어짐-->
 			</div>
 		</div>
+		<br><br>
 	<%@ include file = "../../common/footer.jsp" %>
 </body>
 </html>

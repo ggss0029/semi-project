@@ -7,6 +7,7 @@ import com.udong.board.clean.model.dao.CleanDao;
 import com.udong.board.clean.model.vo.CleanBoard;
 import com.udong.board.clean.model.vo.CleanReply;
 import com.udong.board.news.model.dao.NewsBoardDao;
+import com.udong.board.news.model.vo.NewsBoard;
 import com.udong.common.JDBCTemplate;
 import com.udong.common.model.vo.PageInfo;
 
@@ -106,4 +107,26 @@ public class CleanService {
 		
 		return result;
 	}
+
+	public CleanBoard cleanAllCategoryList(String category) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		CleanBoard cb = new CleanDao().cleanAllCategoryList(conn, category);
+		
+		JDBCTemplate.close(conn);
+		
+		return cb;
+	}
+
+	public ArrayList<CleanBoard> selectNocleanList() {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<CleanBoard> clist = new CleanDao().selectNocleanList(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return clist;
+	}
+	
+	
 }

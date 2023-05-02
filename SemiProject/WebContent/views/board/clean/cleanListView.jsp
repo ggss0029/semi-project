@@ -24,6 +24,12 @@ PageInfo pi = (PageInfo) request.getAttribute("pi");
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <style>
+@font-face {
+	font-family: 'BMJUA';
+	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
 div {
 	/* border: 1px solid black; */
 	box-sizing: border-box;
@@ -43,7 +49,7 @@ div {
 
 #content {
 	width: 100%;
-	height: 76.5%;
+	height: 100%;
 	position: relative;
 }
 
@@ -54,7 +60,7 @@ div {
 
 #content_1 {
 	width: 25%;
-	background-color: yellow;
+	background-color: #C8EDC9;
 }
 
 #content_2 {
@@ -67,8 +73,9 @@ div {
 	position: absolute;
 	top: 40px;
 	left: 52px;
-	font-size: 45px;
-	font-weight: 700;
+	font-size: 50px;
+/* 	font-weight: 700; */
+	font-family: 'BMJUA';
 }
 
 #line_1 {
@@ -87,6 +94,7 @@ div {
 	color: black;
 	left: 52px;
 	top: 130px;
+	font-family: 'BMJUA';
 }
 
 #line_2 {
@@ -105,6 +113,7 @@ div {
 	color: black;
 	left: 52px;
 	top: 205px;
+	font-family: 'BMJUA';
 }
 
 #line_3 {
@@ -123,6 +132,7 @@ div {
 	color: black;
 	left: 52px;
 	top: 280px;
+	font-family: 'BMJUA';
 }
 
 #line_4 {
@@ -134,10 +144,11 @@ div {
 	left: 30px;
 }
 
-#content_2>div { /*content2 안에 크기 지정*/
+#content_2>#content_2_1 { /*content2 안에 크기 지정*/
 	width: 1100px;
 	height: 1500px;
-	border: 1px solid skyblue;
+	border: 4px solid #C8EDC9;
+    border-radius : 20px;
 	position: absolute;
 	top: 15px;
 	left: 12px;
@@ -149,6 +160,7 @@ div {
 	left: 54px;
 	font-size: 45px;
 	font-weight: 500;
+	font-family: 'BMJUA';
 }
 
 #line_5 {
@@ -207,7 +219,7 @@ label {
 }
 
 .list-area>tbody>tr:hover {
-	background-color: #C8EDC9;
+	background-color: #DEF5DE;
 	cursor: pointer;
 }
 
@@ -280,12 +292,11 @@ label {
 							<input type="hidden" name="currentPage"
 								value="<%=pi.getCurrentPage()%>">
 							<div id="category">
-								<input type="checkbox" id="cleaning"> <label
-									for="cleaning">청소</label> <input type="checkbox" id="cook">
-								<label for="cook">요리</label> <input type="checkbox" id="mymoney">
-								<label for="mymoney">내돈내산</label> <input type="checkbox"
-									id="hotdeal"> <label for="hotdeal">핫딜 공유</label> <input
-									type="checkbox" id="other"> <label for="other">기타</label>
+								<input type="checkbox" class="check" id="cleaning" value="청소"> <label for="cleaning">청소</label>
+								<input type="checkbox" class="check" id="cook" value="요리"><label for="cook">요리</label>
+								<input type="checkbox" class="check" id="mymoney" value="내돈내산"><label for="mymoney">내돈내산</label> 
+								<input type="checkbox" class="check" id="hotdeal" value="핫딜 공유"> <label for="hotdeal">핫딜 공유</label>
+								<input type="checkbox" class="check" id="other" value="기타"> <label for="other">기타</label>
 							</div>
 							<br>
 							<br> <br>
@@ -294,7 +305,7 @@ label {
 
 							<div align="center">
 								<button type="reset" class="btn btn-light">초기화</button>
-								<button class="btn btn-primary">검색</button>
+								<button type="button" class="btn btn-primary" onclick="cleanSearch();">검색</button>
 							</div>
 						</form>
 					</div>
@@ -334,7 +345,7 @@ label {
 								<!-- No. -->
 								<td class="goDetail1"><%=cb.getBoardTitle()%></td>
 								<!-- 제목 -->
-								<td><a data-toggle="modal" data-target="#profile"
+								<td><a id="nicknameHover"
 									onclick="profile();"><%=cb.getBoardWriter()%></a></td>
 								<!-- 작성자  닉네임 -->
 								<td><%=cb.getCreateDate()%></td>
@@ -446,7 +457,78 @@ label {
 	    });
     	
     });
-        
+    
+    function cleanSearch() {
+    	var str = ""
+    	$("input[class=check]:checked").each(function() {
+    		str += "CC=" + $(this).val() + "&";
+    	});
+    	
+    		$.ajax({
+    			url : "cleanCategoryList.bo?"+str,
+    			type : "post",
+    			success : function(clist) {
+    				$(".list-area").children("tbody").children().remove();
+    				$(".paging-area").children().remove();
+    				if(clist[0] == null) {
+    					alert("검색된 게시글이 없습니다.");
+    				}else {
+    					var str = "";
+    					var str2 = "";
+    					var str3 = "";
+    					if(clist.length > 9) {
+    						for(var i = 0; i < clist.length; i++) {
+    							if(i < 10) {
+    								str += "<tr style='height: 40px; border-bottom:1px solid black;'>"
+    									+ "<td>"+ clist[i].boardNo +"</td>"
+    									+ "<td class='goDetail1'>"+ clist[i].boardTitle +"</td>"
+    									+ "<td><a id='nicknameHover' onclick='hoareyou();'>"+ clist[i].boardWriter +"</a></td>"
+    									+ "<td>"+ clist[i].createDate +"</td>"
+    									+ "<td>"+ clist[i].count +"</td>"
+    									+ "<td>"+ clist[i].likeCount +"</td>"
+    									+ "<tr>"
+    							}
+    							if(i>9 && i< 19) {
+    								str2 += "<tr style='height: 40px; border-bottom:1px solid black;'>"
+    									+ "<td>"+ clist[i].boardNo +"</td>"
+    									+ "<td class='goDetail1'>"+ clist[i].boardTitle +"</td>"
+    									+ "<td><a id='nicknameHover' onclick='hoareyou();'>"+ clist[i].boardWriter +"</a></td>"
+    									+ "<td>"+ clist[i].createDate +"</td>"
+    									+ "<td>"+ clist[i].count +"</td>"
+    									+ "<td>"+ clist[i].likeCount +"</td>"
+    									+ "<tr>"
+    							}
+    							if(i>18) {
+    								str3 += "<tr style='height: 40px; border-bottom:1px solid black;'>"
+    									+ "<td>"+ clist[i].boardNo +"</td>"
+    									+ "<td class='goDetail1'>"+ clist[i].boardTitle +"</td>"
+    									+ "<td><a id='nicknameHover' onclick='hoareyou();'>"+ clist[i].boardWriter +"</a></td>"
+    									+ "<td>"+ clist[i].createDate +"</td>"
+    									+ "<td>"+ clist[i].count +"</td>"
+    									+ "<td>"+ clist[i].likeCount +"</td>"
+    									+ "<tr>"
+    							}
+    						}
+    				}else {
+    					for(var i in clist) {
+    						str += "<tr style='height: 40px; border-bottom:1px solid black;'>"
+								+ "<td>"+ clist[i].boardNo +"</td>"
+								+ "<td class='goDetail1'>"+ clist[i].boardTitle +"</td>"
+								+ "<td><a id='nicknameHover' onclick='hoareyou();'>"+ clist[i].boardWriter +"</a></td>"
+								+ "<td>"+ clist[i].createDate +"</td>"
+								+ "<td>"+ clist[i].count +"</td>"
+								+ "<td>"+ clist[i].likeCount +"</td>"
+								+ "<tr>"
+    					}
+    					$(".list-area").append(str);
+    				}
+    				}
+    			},
+    			error : function() {
+    				alert("카테고리 조회 실패");
+    			}
+    		});
+    }
    
    </script>
 	<%@ include file="../../common/footer.jsp"%>

@@ -53,7 +53,7 @@ div {
 
 #report_btn {
 	float: left;
-	margin: 60px 0 0 1170px;
+	margin: 40px 0 0 1170px;
 }
 
 #line_1 {
@@ -127,7 +127,7 @@ tbody>#tr2 {
 				</tr>
 				<tr style="border-bottom: 1px solid black; height:80px;">
 					<td style="height: 50px; font-size: 20px; font-weight: 600;" id="foodWriter" colspan="3">
-						작성자 <a data-toggle="modal" data-target="#profile"><%=fb.getBoardWriter()%></a>
+						작성자 <a  id="nicknameHover" onclick="whoareyou();"><%=fb.getBoardWriter()%></a>
 					</td>
 					<td style="height: 50px; font-size: 20px; font-weight: 600;"align="right">
 					조회수 <%=fb.getCount()%> &nbsp;&nbsp;  작성일 <%=fb.getCreateDate()%></td>
@@ -239,8 +239,8 @@ geocoder.addressSearch("<%=fb.getRegion().substring(fb.getRegion().indexOf("$")+
 
 			<hr>
 			<div id="tabs">
-				<ul>
-					<li><a href="#tabs-1">댓글</a></li>
+				<ul style="list-style:none;">
+					<li><a href="#tabs-1" style="color : black; text-decoration:none; font-size:30px">댓글</a></li>
 				</ul>
 
 				<%
@@ -346,12 +346,43 @@ geocoder.addressSearch("<%=fb.getRegion().substring(fb.getRegion().indexOf("$")+
 										}
 									}
 									$("#tabs #tabs-1").html(result);
+									btnCheck();
 								},
 								error : function() {
 									alert("댓글 조회 실패!");
 								}
 							});
 					};
+					
+					function btnCheck(){
+						var btn = $("#tabs-1 span button");
+						var loginUser;
+						var loginNick;
+						var loginUserId;
+						<%if(loginUser != null){%>
+						loginUser ='<%=loginUser%>'; 
+						loginUserId = '<%=loginUser.getUserId()%>';
+						loginNick = '<%=loginUser.getNickname()%>';
+						loginBoard = '<%=fb.getBoardWriter()%>';
+						<%}%>
+						if(loginUser==undefined){ 
+							$(btn).hide(); 
+						}else{
+							$(".list-group-item-heading").each(function(){ 
+								var nick = $(this).text().trim(); 
+								if(loginUserId=='admin' || nick == loginNick || loginBoard == loginNick){ 
+									console.log(loginUserId);
+									$(this).next().find("button").show();
+									
+								}else{
+									$(this).next().find("button").hide();
+								}
+								
+							})	
+						}
+						
+						
+					}
 					
 					function foodDeleteReply(replyNo) {
 						

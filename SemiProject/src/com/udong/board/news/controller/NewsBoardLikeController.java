@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.udong.board.news.model.service.NewsBoardService;
+
 /**
  * Servlet implementation class NewsBoardLikeController
  */
@@ -35,8 +37,13 @@ public class NewsBoardLikeController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		int newBoardNo = Integer.parseInt(request.getParameter("newsBoardNo"));
+		int newsBoardNo = Integer.parseInt(request.getParameter("boardNo"));
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		
+		int result = new NewsBoardService().newsLike(newsBoardNo, userNo);
+		
+		response.getWriter().print(result);
+			
 	}
 
 }

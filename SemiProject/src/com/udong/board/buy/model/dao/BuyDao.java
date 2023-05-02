@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import com.udong.board.buy.model.vo.BuyBoard;
 import com.udong.board.buy.model.vo.BuyReply;
+import com.udong.board.news.model.vo.NewsBoard;
 import com.udong.common.JDBCTemplate;
 import com.udong.common.model.vo.PageInfo;
 
@@ -245,5 +246,129 @@ public class BuyDao {
 			
 			return result;
 		}
+
+	public BuyBoard buyAllCategoryList(Connection conn, String category) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("buyAllCategoryList");
+		BuyBoard buyb = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, category);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				buyb = new BuyBoard(rset.getInt("BOARD_NO")
+									,rset.getString("NICKNAME")
+									,rset.getString("BOARD_TITLE")
+									,rset.getString("CATEGORY")
+									,rset.getString("REGION")
+									,rset.getInt("COUNT")
+									,rset.getDate("CREATE_DATE")
+									,rset.getInt("LIKECOUNT"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return buyb;
+	}
+
+	public ArrayList<BuyBoard> selectNoBuyList(Connection conn) {
+		ArrayList<BuyBoard> blist = new ArrayList<>();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectNoBuyList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				BuyBoard buyb = new BuyBoard(rset.getInt("BOARD_NO")
+											,rset.getString("NICKNAME")
+											,rset.getString("BOARD_TITLE")
+											,rset.getString("CATEGORY")
+											,rset.getString("REGION")
+											,rset.getInt("COUNT")
+											,rset.getDate("CREATE_DATE")
+											,rset.getInt("LIKECOUNT"));
+				blist.add(buyb);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return blist;
+	}
+
+	public BuyBoard buyRegionCategoryList(Connection conn, String category, String region) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("buyRegionCategoryList");
+		BuyBoard buyb = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, category);
+			pstmt.setString(2, region);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				buyb =  new BuyBoard(rset.getInt("BOARD_NO")
+									,rset.getString("NICKNAME")
+									,rset.getString("BOARD_TITLE")
+									,rset.getString("CATEGORY")
+									,rset.getString("REGION")
+									,rset.getInt("COUNT")
+									,rset.getDate("CREATE_DATE")
+									,rset.getInt("LIKECOUNT"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return buyb;
+	}
+
+	public ArrayList<BuyBoard> selectRegionBuyList(Connection conn, String region) {
+		ArrayList<BuyBoard> blist = new ArrayList<>();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectRegionBuyList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, region);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				BuyBoard buyb = new BuyBoard(rset.getInt("BOARD_NO")
+											,rset.getString("NICKNAME")
+											,rset.getString("BOARD_TITLE")
+											,rset.getString("CATEGORY")
+											,rset.getString("REGION")
+											,rset.getInt("COUNT")
+											,rset.getDate("CREATE_DATE")
+											,rset.getInt("LIKECOUNT"));
+				blist.add(buyb);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return blist;
+	}
 
 }

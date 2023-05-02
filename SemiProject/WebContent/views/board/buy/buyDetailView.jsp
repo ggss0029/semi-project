@@ -20,7 +20,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>살림 꿀팁</title>
+<title>같이 사요</title>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
@@ -50,7 +50,7 @@ div {
 
 #report_btn {
 	float: left;
-	margin: 60px 0 0 1170px;
+	margin: 40px 0 0 1170px;
 }
 
 #line_1 {
@@ -104,12 +104,8 @@ tbody>#tr2 {
 	<%@ include file="../../common/menubar.jsp"%>
 
 	<div class="wrap">
-<!-- 		<div id="header"> -->
-<!-- 			<div id="header_1"></div> -->
-<!-- 			<div id="menubar"></div> -->
-<!-- 		</div> -->
 		<div id="content">
-			<p id="p1">살림 꿀팁</p>
+			<p id="p1">같이 사요</p>
 			<button id="report_btn" class="btn btn-basic">신고하기</button>
 
 			<div id="line_1"></div>
@@ -121,7 +117,7 @@ tbody>#tr2 {
 				</tr>
 				<tr style="border-bottom: 1px solid black; height:80px;">
 					<td style="height: 50px; font-size: 20px; font-weight: 600; ">
-						<a data-toggle="modal" data-target="#profile"><%=buyb.getBoardWriter()%></a>
+						<a id="nicknameHover" onclick="whoareyou();"><%=buyb.getBoardWriter()%></a>
 					</td>
 					
 					<td style="height: 50px; font-size: 20px; font-weight: 600;"
@@ -131,30 +127,7 @@ tbody>#tr2 {
 					<td colspan="2" style="height: auto; vertical-align : top "><br><%=buyb.getBoardContent()%></td>
 					
 				</tr>
-<!-- 				<tr style="height:60px;"> -->
-<!-- 					<td colspan="2" -->
-<!-- 						style="border-top: 1px solid black; border-bottom: 1px solid;"> -->
-<!-- 						첨부파일이 없는 경우 첨부파일이 없습니다. -->
-<%-- 				 	<%if (na == null) { %>  --%>
-<!-- 				 		첨부파일이 없습니다.  -->
-<%-- 				 	<%} else { %>  --%>
-<%-- 					 <a href="<%=contextPath + na.getFilePath() + "/" + na.getChangeName()%>" --%>
-<%-- 						download="<%=na.getOriginName()%>"><%=na.getOriginName()%></a>  --%>
-<%-- 					<% } %> --%>
-<!-- 					</td> -->
-<!-- 				</tr> -->
 			</table>
-
-			<div class="like-area">
-					<div class="like" style="float: left;">
-						<% if (loginUser != null) %>
-							<button type="button" id="like_btn">
-								<i class="fas fa-heart"></i>
-								
-								&nbsp; 
-								<span class="like_count"></span> <!-- 추천 수 보여주기 -->
-							</button>
-					</div>
 					
 				<%
 					if (loginUser != null && loginUser.getNickname().equals(buyb.getBoardWriter())) {
@@ -176,8 +149,8 @@ tbody>#tr2 {
 
 			<hr>
 			<div id="tabs">
-				<ul>
-					<li>댓글</li>
+				<ul style="list-style:none;">
+					<li><a href="#tabs-1" style="color : black; text-decoration:none; font-size:30px">댓글</a></li>
 				</ul>
 
 				<%
@@ -199,12 +172,9 @@ tbody>#tr2 {
 				<div>
 					<div class="input-group">
 						<textarea id="replyContent" rows="3" class="form-control"
-							style="resize: none;" disabled>로그인 후 이용 가능한 서비스 입니다.
-								
-							</textarea>
+							style="resize: none;" disabled>로그인 후 이용 가능한 서비스 입니다.</textarea>
 						<div class="input-group-btn">
-							<button onclick="insertReply();" class="btn btn-light"
-								type="submit" style="height: 110px" disabled>댓글 등록</button>
+							<button onclick="insertReply();" class="btn btn-light" type="submit" style="height: 110px" disabled>댓글 등록</button>
 						</div>
 					</div>
 				</div>
@@ -271,7 +241,7 @@ tbody>#tr2 {
 										result = "등록한 댓글이 없습니다.";
 									}else {
 										for ( var i in rlist) {
-											result += "<div id='tabs-1'>"
+											result 	+= "<div id='tabs-1'>"
 													+ "<div class='list-group'>"
 													+ "<div class='list-group-item'>"
 													+ "<span class='list-group-item-heading' style='font-size: 23px; font-weight:600'>"
@@ -283,7 +253,7 @@ tbody>#tr2 {
 													+ "<button id='delete_reply' class='btn btn-dark btn-sm' onclick='buyDeleteReply(" + rlist[i].replyNo+")' style='float:right'>삭제하기</button>"
 													+ "<button id='update_reply' class='btn btn-secondary btn-sm' onclick='buyUpdateReplyForm("+ rlist[i].replyNo + ",\"" + rlist[i].replyWriter + "\"" + ",\"" + rlist[i].createDate + "\"" +",\""+ rlist[i].replyContent+"\");' style='float:right'>수정하기</button>"
 													+ "</span><br>"
-													+ "<p class='list-group-item-text'>"
+													+ "<p class='list-group-item-text' style='white-space: pre-line;'>"
 													+ rlist[i].replyContent
 													+ "</p>" 
 													+ "</div>" 
@@ -292,12 +262,48 @@ tbody>#tr2 {
 										}
 									}
 									$("#tabs #tabs-1").html(result);
+									btnCheck();
 								},
 								error : function() {
 									alert("댓글 조회 실패!");
 								}
 							});
 					};
+					
+					//수정 삭제  버튼 조건 걸어놓는 함수
+					function btnCheck(){
+						var btn = $("#tabs-1 span button");
+						var text = $(".list-group-item-text");
+						var loginUser;
+						var loginNick;
+						var loginUserId;
+						<%if(loginUser != null){%>
+						loginUser ='<%=loginUser%>'; 
+						loginUserId = '<%=loginUser.getUserId()%>'; //로그인 아이디
+						loginNick = '<%=loginUser.getNickname()%>'; //로그인 닉네임
+						loginBoard = '<%=buyb.getBoardWriter()%>'; //게시글 작성한 닉네임
+						<%}%>
+						if(loginUser==undefined){ // loginUser가 없으면 'null'로 쓰면 오류남
+							$(btn).hide(); // 버튼 숨긴다.
+// 							console.log(btn); //확인용
+							$(text).html("로그인 후 열람 가능합니다!");
+						}else{ //loginUser가 있으면 
+							$(".list-group-item-heading").each(function(){ //span 선택
+								var nick = $(this).text().trim(); //선택한거(댓글 작성자) 공백 지우기 후 nick에 넣기 /trim()-> 공백제거
+// 								console.log(nick);
+								if(loginUserId=='admin' || nick == loginNick || loginBoard == loginNick){ //아이디 = admin or 댓글작성자 = 닉네임 or 게시글작성자 = 닉네임
+									console.log(loginUserId);
+									$(this).next().find("button").show(); // 버튼 보여주기
+									
+								}else{
+									$(this).next().find("button").hide();  //아니면 숨기기
+								}
+								
+							})	
+						}
+						
+						
+					}
 					
 				
 					//댓글 삭제
@@ -362,23 +368,8 @@ tbody>#tr2 {
 							}
 						});
 					}
-				
-				
-						
-					
-				
-				
-				
 			</script>
-
-		
-
-
-
-
-
 		</div>
-	</div>
 	<%@ include file = "../../common/footer.jsp" %>
 </body>
 </html>

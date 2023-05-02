@@ -22,6 +22,20 @@ public class BuyBoard {
 	}
 	
 	
+	public BuyBoard(int boardNo, String boardWriter, String boardTitle, String category, String region, int count, Date createDate,
+			int likeCount) {
+		super();
+		this.boardNo = boardNo;
+		this.boardWriter = boardWriter;
+		this.boardTitle = boardTitle;
+		this.category = category;
+		this.region = region;
+		this.count = count;
+		this.createDate = createDate;
+		this.likeCount = likeCount;
+	}
+
+
 	//게시글 하나 조회 멤버 변수
 	public BuyBoard(int boardNo, String boardTitle, String boardWriter, String boardContent, Date createDate) {
 		super();
