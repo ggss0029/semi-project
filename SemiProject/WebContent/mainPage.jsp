@@ -343,15 +343,15 @@
          	color:white;
         }
         
-        .bgc1 { background-color: #BE5EC2; }
-        .bgc2 { background-color: #F862A7; }
-        .bgc3 { background-color: #FF7B87; }
-        .bgc4 { background-color: #FFA26A; }
-        .bgc5 { background-color: #FFCE5E; }
-        .bgc6 { background-color: #F9F871; color:black; }
-        .bgc7 { background-color: #9BDE7E; }
-        .bgc8 { background-color: #4BBC8E; }
-        .bgc9 { background-color: #1C6E7D; }
+        .bgc1 { background-color: #BE5EC2; font-family: 'GmarketSansMedium'; padding-top:3px;}
+        .bgc2 { background-color: #F862A7; font-family: 'GmarketSansMedium'; padding-top:3px;}
+        .bgc3 { background-color: #FF7B87; font-family: 'GmarketSansMedium'; padding-top:3px;}
+        .bgc4 { background-color: #FFA26A; font-family: 'GmarketSansMedium'; padding-top:3px;}
+        .bgc5 { background-color: #FFCE5E; font-family: 'GmarketSansMedium'; padding-top:3px;}
+        .bgc6 { background-color: #F9F871; color:black; font-family: 'GmarketSansMedium'; padding-top:3px;}
+        .bgc7 { background-color: #9BDE7E; font-family: 'GmarketSansMedium'; padding-top:3px;}
+        .bgc8 { background-color: #4BBC8E; font-family: 'GmarketSansMedium'; padding-top:3px;}
+        .bgc9 { background-color: #1C6E7D; font-family: 'GmarketSansMedium'; padding-top:3px;}
 
         .main_swiper1 { position: relative; height: 80%; }
         .main_swiper2 { position: relative; height: 80%; }
