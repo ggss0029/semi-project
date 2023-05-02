@@ -22,7 +22,7 @@ public class BuyBoard {
 	}
 	
 	
-	public BuyBoard(int boardNo, String boardWriter, String boardTitle, String category, int count, Date createDate,
+	public BuyBoard(int boardNo, String boardWriter, String boardTitle, String category, String region, int count, Date createDate,
 			int likeCount) {
 		super();
 		this.boardNo = boardNo;
