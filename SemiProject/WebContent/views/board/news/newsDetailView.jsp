@@ -215,7 +215,7 @@ tbody>#tr2 {
 				%>
 				<div class="board_btn" style="float: right; margin-right: 70px">
 					<button
-						onclick="location.href = '<%=contextPath%>/newsUpdate.bo?bno=<%=nb.getBoardNo()%>'"
+						onclick="location.href = '<%=contextPath%>/updateBoard.bo?bno=<%=nb.getBoardNo()%>'"
 						class="btn btn-secondary">수정</button>
 					<button
 						onclick="location.href = '<%=contextPath%>/deletePost.bo?bno=<%=nb.getBoardNo()%>'"

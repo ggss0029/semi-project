@@ -1,13 +1,24 @@
+<%@page import="com.udong.board.common.model.vo.Attachment"%>
+<%@page import="com.udong.board.common.model.vo.BoardCommon"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.udong.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	BoardCommon b = (BoardCommon)request.getAttribute("b");
+	ArrayList<Attachment> alist = new ArrayList<>(); 
+	if(request.getAttribute("alist") != null){
+		alist = (ArrayList<Attachment>)request.getAttribute("alist");		
+	}
+	String boardName = b.getBoardName();
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게시글 작성</title>
+    <title>게시글 수정</title>
     <style>
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
@@ -100,7 +111,7 @@
             width: 90%;
             /* background-color: yellow; */
         }
-        #boardContent{
+        #updateContent{
         	width:100%;
         }
         #doWrite{
@@ -146,15 +157,18 @@
 			history.back();
 			<%request.getSession().removeAttribute("goBefore");%>
 		<%}%>
-	})
+	$("#boardCategory").val("<%=boardName%>").attr("selected",true).attr("disabled",true);
+	$("#boardCategoryHidden").val("<%=boardName%>");
+	});
 </script>
     <div class="wrap">
         <div id="content" align="center">
             <div id="content_1">
-                <div id="doWrite">게시글 등록</div> <br>
-        <form name="form" action="<%=request.getContextPath()%>/insert.bo" method="post" enctype="multipart/form-data" onsubmit="checkFileLength();">
-        	<input type="hidden" name="userNickname" value="<%=loginUser.getNickname()%>">
+                <div id="doWrite">게시글 수정</div> <br>
+        <form name="form" action="<%=request.getContextPath()%>/updateBoard.bo" method="post" enctype="multipart/form-data" onsubmit="checkFileLength();">
+        	<input type="hidden" name="boardNo" value="<%=request.getAttribute("bno")%>">
                 <div id="categoryBar" align="left">
+                	<input type="hidden" name="boardCategoryHidden" id="boardCategoryHidden"> 
                     <select name="boardCategory" onchange="change1(this.selectedIndex);" id="boardCategory" style="width: 870px; height: 46px; font-size: 18px;">
                         <option value="카테고리">카테고리</option>
                         <option value="동네 소식">동네 소식</option>
@@ -167,7 +181,7 @@
                         <option value="같이 해요">같이 해요</option>
                         <option value="자유 게시판">자유 게시판</option>
                     </select>
-                    <select name="detailCategory" class=input  id="detailCategory" style="width: 472px; height: 46px; font-size: 18px;">
+                    <select name="updateDetailCategory" class=input  id="detailCategory" style="width: 472px; height: 46px; font-size: 18px;">
                         <option value="">세부 카테고리</option>
                     </select>
                     <script>
@@ -182,22 +196,95 @@
                         ctgr[7] = new Array('전체','의류/잡화','뷰티','출산','아동','식품','주방용품','생활용품','인테리어','가전/디지털','스포츠/레저','자동차용품','도서','음반','DVD','완구','문구','반려동물 용품','헬스/건강식품','기타');
                         ctgr[8] = new Array('전체','밥','커피','술','게임','운동','산책','공예','요리','낚시','레저','노래','영화','봉사','기타');
                         ctgr[9] = new Array('자유 게시판');
-                        function change1(add) {
-                        sel1=document.form.detailCategory
-                          /* 옵션메뉴삭제 */
-                          for (i=sel1.length-1; i>=0; i--){
-                            sel1.options[i] = null
-                            }
-                          /* 옵션박스추가 */
-                          for (i=0; i < ctgr[add].length;i++){                     
-                            sel1.options[i] = new Option(ctgr[add][i], ctgr[add][i]);
-                            }
-                        }
-                    </script>
+                        
+                        $(function(){
+                        	if($("#boardCategory").val()=="동네 소식"){
+                        		for(var i = 0; i<ctgr[1].length; i++){
+                        			$("#detailCategory").append("<option value="+ctgr[1][i]+">"+ctgr[1][i]+"</option>");
+                    			}
+                        		$("#cityCategory").css("display","block");
+                        		<%if(b.getBoardName().equals("동네 소식")){%>
+                        		$("#city").val("<%=b.getRegion().substring(0,b.getRegion().indexOf(" "))%>").attr("selected",true);
+                        		var countryIndex = document.getElementById("city").selectedIndex;
+                        		for(var i = 0; i<cnt[countryIndex].length; i++){
+                        			$("#country").append("<option value="+cnt[countryIndex][i]+">"+cnt[countryIndex][i]+"</option>");
+                    			}
+                        		$("#country").val("<%=b.getRegion().substring(b.getRegion().indexOf(" ")+1,b.getRegion().length())%>").attr("selected",true);
+                        		<%}%>
+                        	}else if($("#boardCategory").val()=="살림 꿀팁"){
+                        		for(var i = 0; i<ctgr[2].length; i++){
+                        			$("#detailCategory").append("<option value="+ctgr[2][i]+">"+ctgr[2][i]+"</option>");
+                    			}
+                        	}else if($("#boardCategory").val()=="자취 레시피"){
+                        		for(var i = 0; i<ctgr[3].length; i++){
+                        			$("#detailCategory").append("<option value="+ctgr[3][i]+">"+ctgr[3][i]+"</option>");
+                    			}
+                        	}else if($("#boardCategory").val()=="동네 맛집"){
+                        		for(var i = 0; i<ctgr[4].length; i++){
+	                        		$("#detailCategory").append("<option value="+ctgr[4][i]+">"+ctgr[4][i]+"</option>");
+                        		}
+                        		$("#restaurantDiv").css("display","block");
+                        		$("#imgDiv").css("display","block");
+                        		<%if(b.getBoardName().equals("동네 맛집")){%>
+                        		$('input[name=restaurantName]').attr('value',"<%=b.getRegion().substring(0,b.getRegion().indexOf("$")) %>");
+                        		$('input[name=restaurantAddress]').attr('value',"<%=b.getRegion().substring(b.getRegion().indexOf("$")+1,b.getRegion().length())%>");
+                        		<%}%>
+                        	}else if($("#boardCategory").val()=="나눔 할게요"){
+                        		for(var i = 0; i<ctgr[5].length; i++){
+                        			$("#detailCategory").append("<option value="+ctgr[5][i]+">"+ctgr[5][i]+"</option>");
+                    			}
+                        		$("#cityCategory").css("display","block");
+                        		$("#imgDiv").css("display","block");
+                        		<%if(b.getBoardName().equals("나눔 할게요")){%>
+                        		$("#city").val("<%=b.getRegion().substring(0,b.getRegion().indexOf(" "))%>").attr("selected",true);
+                        		var countryIndex = document.getElementById("city").selectedIndex;
+                        		for(var i = 0; i<cnt[countryIndex].length; i++){
+                        			$("#country").append("<option value="+cnt[countryIndex][i]+">"+cnt[countryIndex][i]+"</option>");
+                    			}
+                        		$("#country").val("<%=b.getRegion().substring(b.getRegion().indexOf(" ")+1,b.getRegion().length())%>").attr("selected",true);
+                        		<%}%>
+                        	}else if($("#boardCategory").val()=="이거 필요해요"){
+                        		for(var i = 0; i<ctgr[6].length; i++){
+                        			$("#detailCategory").append("<option value="+ctgr[6][i]+">"+ctgr[6][i]+"</option>");
+                    			}
+                        	}else if($("#boardCategory").val()=="같이 사요"){
+                        		for(var i = 0; i<ctgr[7].length; i++){
+                        			$("#detailCategory").append("<option value="+ctgr[7][i]+">"+ctgr[7][i]+"</option>");
+                    			}
+                        		$("#cityCategory").css("display","block");
+                        		<%if(b.getBoardName().equals("같이 사요")){%>
+                        		$("#city").val("<%=b.getRegion().substring(0,b.getRegion().indexOf(" "))%>").attr("selected",true);
+                        		var countryIndex = document.getElementById("city").selectedIndex;
+                        		for(var i = 0; i<cnt[countryIndex].length; i++){
+                        			$("#country").append("<option value="+cnt[countryIndex][i]+">"+cnt[countryIndex][i]+"</option>");
+                    			}
+                        		$("#country").val("<%=b.getRegion().substring(b.getRegion().indexOf(" ")+1,b.getRegion().length())%>").attr("selected",true);
+                        		<%}%>
+                        	}else if($("#boardCategory").val()=="같이 해요"){
+                        		for(var i = 0; i<ctgr[8].length; i++){
+                        			$("#detailCategory").append("<option value="+ctgr[8][i]+">"+ctgr[8][i]+"</option>");
+                    			}
+                        		$("#cityCategory").css("display","block");
+                        		<%if(b.getBoardName().equals("같이 해요")){%>
+                        		$("#city").val("<%=b.getRegion().substring(0,b.getRegion().indexOf(" "))%>").attr("selected",true);
+                        		var countryIndex = document.getElementById("city").selectedIndex;
+                        		for(var i = 0; i<cnt[countryIndex].length; i++){
+                        			$("#country").append("<option value="+cnt[countryIndex][i]+">"+cnt[countryIndex][i]+"</option>");
+                    			}
+                        		$("#country").val("<%=b.getRegion().substring(b.getRegion().indexOf(" ")+1,b.getRegion().length())%>").attr("selected",true);
+                        		<%}%>
+                        	}else if($("#boardCategory").val()=="자유 게시판"){
+                        		for(var i = 0; i<ctgr[9].length; i++){
+                        			$("#detailCategory").append("<option value="+ctgr[9][i]+">"+ctgr[9][i]+"</option>");
+                    			}
+                        	}
+                        	$("#detailCategory").val("<%=b.getCategory()%>").attr("selected",true);
+                        });
+                        </script>
                 </div>
                     <br>
                     <div id="cityCategory" style="display:none;">
-                        <select name='city' onchange="change(this.selectedIndex);"  class=input style="width: 250px; height: 46px; font-size: 18px;">
+                        <select name='city' id="city" onchange="change(this.selectedIndex);"  class=input style="width: 250px; height: 46px; font-size: 18px;">
                             <option value="">시/도</option>
                             <option value='전체'>전체</option>
                             <option value='서울'>서울특별시</option>
@@ -217,7 +304,7 @@
                             <option value='경남'>경상남도</option>
                             <option value='제주'>제주도</option>
                         </select> 
-                        <select name='country'  class=select style="width: 250px; height: 46px; font-size: 18px;">
+                        <select name='country' id="country" class=select style="width: 250px; height: 46px; font-size: 18px;">
                             <option value=''>구/군</option>
                         </select>
                         <script language='javascript'>
@@ -257,7 +344,7 @@
                     
                 <br>
                     <div id="writeTitle">
-                        <input type="text" name="title" placeholder="제목을 입력하세요." style="width: 1348px; height: 60px; font-size: 18px;" required>
+                        <input type="text" name="updateTitle" id="updateTitle" style="width: 1348px; height: 60px; font-size: 18px;" value="<%=b.getBoardTitle()%>" required>
                     </div>
                      <div id="restaurantDiv" style="display:none; float:left;">
                     	<input type="text" name="restaurantName" class="restaurantName" style="width: 445px; height: 46px; font-size: 18px;" placeholder="맛집 이름">
@@ -267,14 +354,20 @@
                     </div>
 	                    <div id="imgDiv" style="display:none; height:100%;">
 	                    	<div id="imgListDiv" style="width:90%;">
-		                    	<div>
+	                    		<%if(!alist.isEmpty() && alist.get(0).getFileLevel()==2) {%>
+	                  			<div>
 		                    		&lt;대표 이미지&gt; <br>
-		                    		<img width="250" height="170" id="titleImg">
+		                    		<img width="250" height="170" id="titleImg" src="<%=contextPath+alist.get(0).getFilePath()+alist.get(0).getChangeName()%>">
 		                    	</div>
-		                    	<div>
-		                    		&lt;이미지 1&gt; <br>
-		                    		<img id="contentImg1" width="200" height="150">
-		                    	</div>
+	                    		<%} %>
+								<%if(!alist.isEmpty()) {%>
+									<%for(int i=1; i<alist.size(); i++){ %>
+				                    	<div>
+				                    		&lt;이미지 <%=i%>&gt; <br>
+				                    		<img id="contentImg<%=i%>" width="200" height="150" src="<%=contextPath+alist.get(i).getFilePath()+alist.get(i).getChangeName()%>">
+				                    	</div>
+		                    		<%} %>
+		                    	<%} %>
 	                    	</div>
 	                    	<div id="imgBtns" style="width:10%;">
 		                    	<button type="button" class="btn btn-info" id="addBtn" onclick="addImg();" style="width:120px; height:50px; font-size:15px;">이미지 추가</button><br>
@@ -284,58 +377,42 @@
                     
                     
                     <div id="contentArea">
-                        <textarea name="content" id="boardContent" cols="30" rows="25" style="resize: none; font-size: 20px;" placeholder="내용을 입력해주세요."></textarea>
+                        <textarea name="updateContent" id="updateContent" cols="30" rows="25" style="resize: none; font-size: 20px;" placeholder="내용을 입력해주세요."><%=b.getBoardContent()%></textarea>
                     </div><br>
                     <div id="file-area" align="center" align="left">
-						<input type="file" id="file0" name="file0" onchange="loadImg(this,0);">
-						<input type="file" id="file1" name="file1" onchange="loadImg(this,1);">
+                    	<%if(!alist.isEmpty()) {%>
+                    		<%for(int i=0; i<alist.size(); i++){ %>
+                    			<input type="file" id="file<%=i%>" name="file<%=i%>" onchange="loadImg(this,<%=i%>);checkChange();">		
+                    		<%} %>
+                    	<%} %>
 					</div>
                     
                     <br>
-                    <input type="hidden" name="fileLength" id="fileLength">
+                    <input type="hidden" name="changedFileLength" id="changedFileLength" value="0">
+                    <input type="hidden" name="deleteFiles" id="deleteFiles">
                     <div id="btns" align="center">
-                        <button type="submit" id="submitBtn" class="btn btn-outline-secondary">등록</button>
+                        <button type="submit" id="submitBtn" class="btn btn-outline-secondary">수정</button>
                         <button onclick="goMain();" class="btn btn-outline-secondary">취소</button>
                     </div>
          </form>
          
          <script>
          
-     	<%if(request.getAttribute("boardName")!=null){%>
-		var boardName = "<%=request.getAttribute("boardName")%>";
-		$("#boardCategory").val(boardName).attr("selected",true);
-		var categoryIndex = document.getElementById("boardCategory").selectedIndex;
-		for(var i = 0; i<ctgr[categoryIndex].length; i++){
-			$("#detailCategory").append("<option value="+ctgr[categoryIndex][i]+">"+ctgr[categoryIndex][i]+"</option>");
-		}
-        if(boardName == "동네 맛집"){
-      	  $("#restaurantDiv").css("display","block");
-      	  $("#cityCategory").css("display","none");
-      	  $("#imgDiv").css("display","block");
-      	  $("#titleImg").attr("required",true);
-      	  $("#file0").attr("required",true);
-        }else if(boardName == "동네 소식" || boardName == "같이 사요" || boardName == "같이 해요"){
-      	  $("#cityCategory").css("display","block");
-      	  $("#restaurantDiv").css("display","none");
-        }else if(boardName == "나눔 할게요"){
-      	  console.log(5);
-      	  $("#cityCategory").css("display","block");
-      	  $("#restaurantDiv").css("display","none");
-      	  $("#imgDiv").css("display","block");
-      	  $("#titleImg").attr("required",true);
-      	  $("#file0").attr("required",true);
-        }else{
-      	  $("#restaurantDiv").css("display","none");
-      	  $("#cityCategory").css("display","none");
-      	  $("#imgDiv").css("display","none");
-        }
-	<%}%>
-         
-         	function checkFileLength(){
-         		$("#fileLength").val($("#file-area").children().length);
-         	}
-         	
+			$(function(){
+				$("#file-area").hide();
+				if($("#imgListDiv").children().length>5){
+					$("#updateContent").css("height","600px");
+				}
+			});       
+//          	function checkFileLength(){
+//          		$("#fileLength").val($("#file-area").children().length);
+//          	}
+         				
                     		var count = 2;
+                    		
+                    		<%if(!alist.isEmpty()){%>
+                    			count=<%=alist.size()%>;
+                    		<%}%>
                     	function addImg(){
                     		$("#imgListDiv").append("<div>&lt;이미지 "+count+"&gt;<br> <img onclick='putImg();' id='contentImg"+count+"' width='200' height='150'><div>");
                     		$("#file-area").append("<input type='file' id='file"+count+"' name='file"+count+"' onchange='loadImg(this,"+count+");'>");
@@ -362,23 +439,44 @@
 							}
                     	};
                     	
-        				$(function(){
-        					$("#file-area").hide();
-        					$("#titleImg").click(function(){
+                    	$("#imgListDiv>div").on("click","img",function(){
+                    		if($(this).prop("id")=="titleImg"){
         						$("#file0").click();
-        					});
-        					$("#contentImg1").click(function(){
-        						$("#file1").click();
-        					});
-        				});
-        				
-        				function putImg(){
-        					var fileNum = $(event.target).prop("id").charAt(10);
-        					var fileId = "file"+fileNum
-        					var inputFile = document.getElementById(fileId);
+                    		}else{
+	        					var fileNum = $(event.target).prop("id").charAt(10);
+	        					var fileId = "file"+fileNum
+	        					var inputFile = document.getElementById(fileId);
         						inputFile.click();
-        				}
-        				
+                    		};
+                    	});
+                    	
+                    	var checkCount = 0;
+                    	var deleteFile = new Array();
+                    	
+                    	function checkChange(){
+                    		
+                    		<%if(!alist.isEmpty()){%>
+                    			var alist = new Array();
+                    			<%for(int i=0; i<alist.size() ; i++){%>
+									alist.push("<%=alist.get(i).getChangeName()%>");                    			
+	                    		<%}%>
+                    		<%}%>
+                    		
+                    		
+                    		if(event.target.value.length==0){
+                    			checkCount--;
+                    		}else{
+                    			checkCount++;	
+                    			var changedFileNum = $(event.target).prop("id").charAt(4);
+                    			alist[changedFileNum];
+                    			deleteFile.push(alist[changedFileNum]);
+                    		};
+                    		console.log(checkCount);
+							$("#changedFileLength").val(checkCount);
+							console.log($("#changedFileLength").val());
+							$("#deleteFiles").val(deleteFile);
+                    	}
+                    	
         				function loadImg(inputFile,num){
 							if(inputFile.files.length == 1){
 								var reader = new FileReader();

@@ -10,7 +10,7 @@ PageInfo pi = (PageInfo) request.getAttribute("pi");
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>살림 꿀팁</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -378,9 +378,13 @@ label {
 						if (loginUser != null) {
 					%>
 					<div align="right" id="write_btn">
-						<a
-							href="<%=request.getContextPath()%>/views/board/writeBoard.jsp"
-							class="btn btn-light">글쓰기</a>
+                            	<a onclick="goWrite();" class="btn btn-light">글쓰기</a>
+                            	<script>
+	                                function goWrite(){
+	                                	var boardName = $(document).find("title").eq(0).text();
+	                                	location.href="<%=contextPath %>/insert.bo?boardName="+boardName;
+	                                };
+                            	</script>
 					</div>
 					<%} %>
 					<br>

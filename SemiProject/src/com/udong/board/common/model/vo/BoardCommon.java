@@ -24,6 +24,19 @@ public class BoardCommon {
 		super();
 	}
 
+	
+	
+	public BoardCommon(String boardTitle, String boardContent, String boardName, String category, String region) {
+		super();
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.boardName = boardName;
+		this.category = category;
+		this.region = region;
+	}
+
+
+
 	public BoardCommon(String boardWriter, String boardTitle, String boardContent, String boardName, String category, String region) {
 		super();
 		this.boardWriter = boardWriter;
