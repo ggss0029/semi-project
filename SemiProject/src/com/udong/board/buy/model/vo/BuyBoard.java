@@ -29,6 +29,7 @@ public class BuyBoard {
 		this.boardWriter = boardWriter;
 		this.boardTitle = boardTitle;
 		this.category = category;
+		this.region = region;
 		this.count = count;
 		this.createDate = createDate;
 		this.likeCount = likeCount;

@@ -11,19 +11,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<!-- jQuery library -->
-<script
-	src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
-<!-- Popper JS -->
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <style>
+@font-face {
+		    font-family: 'BMJUA';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+		    font-weight: normal;
+		    font-style: normal;
+		}
 div {
 	/* border: 1px solid black; */
 	box-sizing: border-box;
@@ -67,8 +61,9 @@ div {
 	position: absolute;
 	top: 40px;
 	left: 52px;
-	font-size: 45px;
-	font-weight: 700;
+	font-size: 50px;
+/* 	font-weight: 700; */
+	font-family: 'BMJUA';
 }
 
 #line_1 {
@@ -80,13 +75,14 @@ div {
 	left: 30px;
 }
 
-#news { /*동네 소식 글씨, 위치*/
+#notice { /*동네 소식 글씨, 위치*/
 	position: absolute;
 	font-size: 35px;
 	text-decoration: none;
 	color: black;
 	left: 52px;
 	top: 130px;
+	font-family: 'BMJUA';
 }
 
 #line_2 {
@@ -105,6 +101,7 @@ div {
 	color: black;
 	left: 52px;
 	top: 205px;
+	font-family: 'BMJUA';
 }
 
 #line_3 {
@@ -116,28 +113,11 @@ div {
 	left: 30px;
 }
 
-#recipe { /*자취 레시피 글씨, 위치*/
-	position: absolute;
-	font-size: 35px;
-	text-decoration: none;
-	color: black;
-	left: 52px;
-	top: 280px;
-}
-
-#line_4 {
-	position: absolute;
-	border: 1px solid black;
-	width: 300px;
-	height: 0px;
-	top: 345px;
-	left: 30px;
-}
-
-#content_2>div { /*content2 안에 크기 지정*/
+#content_2>#content_2_1 { /*content2 안에 크기 지정*/
 	width: 1100px;
 	height: 1500px;
-	border: 1px solid skyblue;
+	border: 4px solid #C8EDC9;
+	border-radius : 20px;
 	position: absolute;
 	top: 15px;
 	left: 12px;
@@ -149,6 +129,7 @@ div {
 	left: 54px;
 	font-size: 45px;
 	font-weight: 500;
+	font-family: 'BMJUA';
 }
 
 #line_5 {
@@ -157,44 +138,6 @@ div {
 	width: 1010px;
 	height: 0px;
 	top: 120px;
-	left: 45px;
-}
-
-#box { /*지역선택, 카테고리 들어가는 박스*/
-	position: absolute;
-	border: 1px solid black;
-	width: 1010px;
-	height: 13%;
-	top: 135px;
-	left: 45px;
-	border-radius: 30px;
-}
-
-#b2 { /*카테고리 글씨, 위치*/
-	float: left;
-	font-size: 25px;
-	font-weight: 600;
-	margin: 30px 0 0 50px;
-}
-
-#category { /*checkbox들을 감싸고 있는 div*/
-	float: left;
-	font-size: 18px;
-	margin: 34px 0 0 16px;
-	vertical-align: super;
-	accent-color: darkgray; /*체크박스 색깔 바꾸기*/
-}
-
-label {
-	margin-right: 15px;
-}
-
-#line_6 {
-	position: absolute;
-	border: 1px solid black;
-	width: 1010px;
-	height: 0px;
-	top: 350px;
 	left: 45px;
 }
 
@@ -226,7 +169,7 @@ label {
 			<div id="content_1">
 				<p>소식</p>
 				<div id="line_1"></div>
-				<a href="<%=contextPath%>/noticeList.bo?currentPage=1" id="news">공지 사항</a>
+				<a href="<%=contextPath%>/noticeList.bo?currentPage=1" id="notice">공지 사항</a>
 				<div id="line_2"></div>
 				<a href="<%=contextPath%>/faqList.bo?currentPage=1" id="faq">자주 묻는 질문</a>
 				<div id="line_3"></div>
@@ -240,11 +183,11 @@ label {
 						<thead
 							style="height: 50px; border-top: 3px solid black; border-bottom: 3px solid black;">
 							<tr>
-								<th width="70">No.</th>
-								<th width="440">제목</th>
-								<th width="150">작성자</th>
-								<th width="150">작성일</th>
-								<th width="65">조회</th>
+								<th width="80">No.</th>
+								<th width="465">제목</th>
+								<th width="160">작성자</th>
+								<th width="160">작성일</th>
+								<th width="75">조회</th>
 							</tr>
 						</thead>
 						<tbody>

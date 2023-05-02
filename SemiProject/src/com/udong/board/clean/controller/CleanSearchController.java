@@ -1,25 +1,29 @@
-package com.udong.board.news.controller;
+package com.udong.board.clean.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.udong.board.news.model.service.NewsBoardService;
+import com.google.gson.Gson;
+import com.udong.board.clean.model.service.CleanService;
+import com.udong.board.clean.model.vo.CleanBoard;
 
 /**
- * Servlet implementation class NewsBoardLikeController
+ * Servlet implementation class CleanSearchController
  */
-@WebServlet("/newsLikeUpdate.do")
-public class NewsBoardLikeController extends HttpServlet {
+@WebServlet("/cleanCategoryList.bo")
+public class CleanSearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NewsBoardLikeController() {
+    public CleanSearchController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,13 +41,21 @@ public class NewsBoardLikeController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		int newsBoardNo = Integer.parseInt(request.getParameter("boardNo"));
-		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		String[] CCArray = request.getParameterValues("CC");
 		
-		int result = new NewsBoardService().newsLike(newsBoardNo, userNo);
+		ArrayList<CleanBoard> clist = new ArrayList<>();
 		
-		response.getWriter().print(result);
-			
+		
+			if(request.getParameterValues("CC") != null && CCArray.length > 0) {
+				for(int i = 0; i < CCArray.length; i++) {
+					clist.add(new CleanService().cleanAllCategoryList(CCArray[i]));
+				}
+			}else {
+				clist = new CleanService().selectNocleanList();
+			}
+		
+		response.setContentType("json/application; charset=UTF-8");
+		new Gson().toJson(clist, response.getWriter());
 	}
 
 }

@@ -176,8 +176,8 @@ tbody>#tr2 {
 
 			<hr>
 			<div id="tabs">
-				<ul>
-					<li>댓글</li>
+				<ul style="list-style:none;">
+					<li><a href="#tabs-1" style="color : black; text-decoration:none; font-size:30px">댓글</a></li>
 				</ul>
 
 				<%
@@ -271,7 +271,7 @@ tbody>#tr2 {
 										result = "등록한 댓글이 없습니다.";
 									}else {
 										for ( var i in rlist) {
-											result += "<div id='tabs-1'>"
+											result 	+= "<div id='tabs-1'>"
 													+ "<div class='list-group'>"
 													+ "<div class='list-group-item'>"
 													+ "<span class='list-group-item-heading' style='font-size: 23px; font-weight:600'>"
@@ -283,7 +283,7 @@ tbody>#tr2 {
 													+ "<button id='delete_reply' class='btn btn-dark btn-sm' onclick='cleanDeleteReply(" + rlist[i].replyNo+")' style='float:right'>삭제하기</button>"
 													+ "<button id='update_reply' class='btn btn-secondary btn-sm' onclick='cleanUpdateReplyForm("+ rlist[i].replyNo + ",\"" + rlist[i].replyWriter + "\"" + ",\"" + rlist[i].createDate + "\"" +",\""+ rlist[i].replyContent+"\");' style='float:right'>수정하기</button>"
 													+ "</span><br>"
-													+ "<p class='list-group-item-text'>"
+													+ "<p class='list-group-item-text' style='white-space: pre-line;'>"
 													+ rlist[i].replyContent
 													+ "</p>" 
 													+ "</div>" 
@@ -292,6 +292,7 @@ tbody>#tr2 {
 										}
 									}
 									$("#tabs #tabs-1").html(result);
+									btnCheck();
 								},
 								error : function() {
 									alert("댓글 조회 실패!");
@@ -299,6 +300,40 @@ tbody>#tr2 {
 							});
 					};
 					
+					//수정 삭제  버튼 조건 걸어놓는 함수
+					function btnCheck(){
+						var btn = $("#tabs-1 span button");
+						var text = $(".list-group-item-text");
+						var loginUser;
+						var loginNick;
+						var loginUserId;
+						<%if(loginUser != null){%>
+						loginUser ='<%=loginUser%>'; 
+						loginUserId = '<%=loginUser.getUserId()%>'; //로그인 아이디
+						loginNick = '<%=loginUser.getNickname()%>'; //로그인 닉네임
+						loginBoard = '<%=cb.getBoardWriter()%>'; //게시글 작성한 닉네임
+						<%}%>
+						if(loginUser==undefined){ // loginUser가 없으면 'null'로 쓰면 오류남
+							$(btn).hide(); // 버튼 숨긴다.
+// 							console.log(btn); //확인용
+							$(text).html("로그인 후 열람 가능합니다!");
+						}else{ //loginUser가 있으면 
+							$(".list-group-item-heading").each(function(){ //span 선택
+								var nick = $(this).text().trim(); //선택한거(댓글 작성자) 공백 지우기 후 nick에 넣기 /trim()-> 공백제거
+// 								console.log(nick);
+								if(loginUserId=='admin' || nick == loginNick || loginBoard == loginNick){ //아이디 = admin or 댓글작성자 = 닉네임 or 게시글작성자 = 닉네임
+									console.log(loginUserId);
+									$(this).next().find("button").show(); // 버튼 보여주기
+									
+								}else{
+									$(this).next().find("button").hide();  //아니면 숨기기
+								}
+								
+							})	
+						}
+						
+						
+					}
 				
 					//댓글 삭제
 					function cleanDeleteReply(replyNo) {

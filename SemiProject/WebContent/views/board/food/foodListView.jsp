@@ -11,7 +11,14 @@
 <head>
 <meta charset="UTF-8">
 <title>동네 맛집</title>
-<style>
+<style>	
+	@font-face {
+		    font-family: 'BMJUA';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+		    font-weight: normal;
+		    font-style: normal;
+			}
+		
 	div{
             /* border: 1px solid black; */
             box-sizing: border-box;
@@ -49,8 +56,9 @@
             position: absolute;
             top: 40px;
             left: 52px;
-            font-size: 45px;
-            font-weight: 700;
+            font-size: 50px;
+/*             font-weight: 700; */
+            font-family: 'BMJUA';
         }
         #line_1 {
             position: absolute;
@@ -67,6 +75,7 @@
             color: black;
             left: 52px;
             top: 130px;
+            font-family: 'BMJUA';
         }
         #line_2 {
             position: absolute;
@@ -83,6 +92,7 @@
             color: black;
             left: 52px;
             top: 205px;
+            font-family: 'BMJUA';
         }
         #line_3 {
             position: absolute;
@@ -112,7 +122,8 @@
         #content_2>#content_2_1{ 
             width: 1100px;
             height: 1500px;
-            border: 1px solid skyblue;
+            border: 4px solid #C8EDC9;
+            border-radius : 20px;
             position: absolute;
             top: 15px;
             left: 12px;
@@ -124,6 +135,7 @@
             left: 54px;
             font-size: 45px;
             font-weight: 500;
+            font-family: 'BMJUA';
         }
         #line_5 {
             position: absolute;

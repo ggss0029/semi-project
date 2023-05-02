@@ -17,6 +17,12 @@
 <title>같이 해요</title>
 </head>
 <style>
+	@font-face {
+		    font-family: 'BMJUA';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+		    font-weight: normal;
+		    font-style: normal;
+	}
 	.wrap {
 		position:relative;
 		z-index:1;
@@ -55,8 +61,9 @@
 		position: absolute;
 		top: 40px;
 		left: 52px;
-		font-size: 45px;
-		font-weight: 700;
+		font-size: 50px;
+/* 		font-weight: 700; */
+		font-family: 'BMJUA';
 	}
 	
 	#line_1, #line_2, #line_3, #line_4, #line_5, #line_6 {
@@ -75,6 +82,7 @@
 		color: black;
 		left: 52px;
 		top: 130px;
+		font-family: 'BMJUA';
 	}
 	
 	#line_2 { top: 190px; }
@@ -100,6 +108,7 @@
 		left: 54px;
 		font-size: 45px;
 		font-weight: 500;
+		font-family: 'BMJUA';
 	}
 	
 	#box{ /*지역선택, 카테고리 들어가는 박스*/

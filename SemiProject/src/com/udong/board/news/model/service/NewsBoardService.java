@@ -175,4 +175,20 @@ public class NewsBoardService {
 		
 		return nlist;
 	}
+
+	public int newsLike(int newsBoardNo, int userNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new NewsBoardDao().newsLike(conn, newsBoardNo, userNo);
+		
+		if(result >0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
 }
