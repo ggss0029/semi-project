@@ -35,7 +35,7 @@
 
     #content_1{
         width: 25%;
-        background-color: yellow;
+        background-color: #C8EDC9;
     }
 
     #content_2{

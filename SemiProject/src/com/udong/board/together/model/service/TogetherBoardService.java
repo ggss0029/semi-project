@@ -42,4 +42,24 @@ public class TogetherBoardService {
 		return tb;
 	}
 
+	public int selectTogetherListCount(String s) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int listCount = new TogetherBoardDao().selectTogetherListCount(conn, s);
+		
+		JDBCTemplate.close(conn);
+		
+		return listCount;
+	}
+
+	public ArrayList<TogetherBoard> selectTogetherList(PageInfo pi, String[] selectedCategory) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<TogetherBoard> list = new TogetherBoardDao().selectTogetherList(conn, pi, selectedCategory);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
+	}
+
 }

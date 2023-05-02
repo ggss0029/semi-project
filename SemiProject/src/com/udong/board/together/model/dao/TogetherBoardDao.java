@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
-import com.udong.board.buy.model.vo.BuyBoard;
 import com.udong.board.together.model.vo.TogetherBoard;
 import com.udong.common.JDBCTemplate;
 import com.udong.common.model.vo.PageInfo;
@@ -80,6 +79,7 @@ public class TogetherBoardDao {
 				TogetherBoard tb = new TogetherBoard();
 				tb.setBoardNo(rset.getInt("BOARD_NO"));
 				tb.setBoardTitle(rset.getString("BOARD_TITLE"));
+				tb.setCategory(rset.getString("CATEGORY"));
 				tb.setBoardWriter(rset.getString("NICKNAME"));
 				tb.setCreateDate(rset.getDate("CREATE_DATE"));
 				tb.setCount(rset.getInt("COUNT"));
@@ -125,6 +125,84 @@ public class TogetherBoardDao {
 		}
 		
 		return tb;
+	}
+
+	public int selectTogetherListCount(Connection conn, String s) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		String sql = prop.getProperty("selectTogetherListCount2");
+		
+		try {;
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, s);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return listCount;
+	}
+
+	public ArrayList<TogetherBoard> selectTogetherList(Connection conn, PageInfo pi, String[] selectedCategory) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<TogetherBoard> list = new ArrayList<>();
+		
+		try {
+			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
+			int endRow = (startRow + pi.getBoardLimit()) -1;
+			String sql = "SELECT * FROM (SELECT ROWNUM RNUM, A.*" + 
+					" FROM (SELECT BOARD_NO, BOARD_TITLE, NICKNAME, CATEGORY, CREATE_DATE, COUNT, COUNT(BOARDLIKE_NO) LIKE_COUNT" + 
+					" FROM BOARD B" + 
+					" JOIN MEMBER M ON (BOARD_WRITER = USER_NO)" + 
+					" LEFT JOIN BOARD_LIKE ON (BOARDLIKE_NO = BOARD_NO)" + 
+					" WHERE BOARD_NAME = '같이 해요' AND (CATEGORY = '";
+			
+			for(int i=0;i<selectedCategory.length;i++) {
+				if(i == selectedCategory.length-1) {
+					sql += selectedCategory[i];
+				}
+				else {
+					sql += selectedCategory[i] + "' OR CATEGORY = '";
+				}
+			}
+					
+			sql += "')  AND B.STATUS ='Y'" + 
+					" GROUP BY BOARD_NO, BOARD_TITLE, NICKNAME, CATEGORY, CREATE_DATE, COUNT" + 
+					" ORDER BY BOARD_NO DESC) A )" + 
+					" WHERE RNUM BETWEEN " + startRow + " AND " + endRow;
+			
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				TogetherBoard tb = new TogetherBoard();
+				tb.setBoardNo(rset.getInt("BOARD_NO"));
+				tb.setBoardTitle(rset.getString("BOARD_TITLE"));
+				tb.setCategory(rset.getString("CATEGORY"));
+				tb.setBoardWriter(rset.getString("NICKNAME"));
+				tb.setCreateDate(rset.getDate("CREATE_DATE"));
+				
+				list.add(tb);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return list;
 	}
 
 }

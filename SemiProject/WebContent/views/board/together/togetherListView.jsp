@@ -1,14 +1,20 @@
+<%@page import="java.util.Arrays"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, com.udong.common.model.vo.PageInfo, com.udong.board.together.model.vo.TogetherBoard"%>
 <%
 	ArrayList<TogetherBoard> list = (ArrayList<TogetherBoard>)request.getAttribute("togetherBoardList");
 	PageInfo pi = (PageInfo)request.getAttribute("pageInfo");
+// 	String[] selectedCategory;
+// 	if(request.getAttribute("check") != null) {
+// 		selectedCategory = (String[])request.getAttribute("check");
+// 		System.out.println(Arrays.toString(selectedCategory));
+// 	}
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>같이 해요</title>
 </head>
 <style>
 	@font-face {
@@ -179,29 +185,30 @@
 					
 					<div id="box">
 						<p id="pp2">카테고리</p>
-						<form action="">
+						<form action="togetherList2.bo" onsubmit="filter(); return false;">
+							<input type="hidden" name="cPage" value=1>
 							<div id="category">
-								<input type="checkbox" id="food" > <label for="food">밥</label>
-								<input type="checkbox" id="coffee" > <label for="coffee">커피</label>
-								<input type="checkbox" id="alcohol" > <label for="alcohol">술</label>
-								<input type="checkbox" id="game" > <label for="game">게임</label>
-								<input type="checkbox" id="exercise" > <label for="exercise">운동</label>
-								<input type="checkbox" id="walk" > <label for="walk">산책</label>
-								<input type="checkbox" id="handicraft" > <label for="handicraft">공예</label>
+								<input type="checkbox" id="food" name="check" value="밥"> <label for="food">밥</label>
+								<input type="checkbox" id="coffee" name="check" value="커피"> <label for="coffee">커피</label>
+								<input type="checkbox" id="alcohol" name="check" value="술"> <label for="alcohol">술</label>
+								<input type="checkbox" id="game" name="check" value="게임"> <label for="game">게임</label>
+								<input type="checkbox" id="exercise" name="check" value="운동"> <label for="exercise">운동</label>
+								<input type="checkbox" id="walk" name="check" value="산책"> <label for="walk">산책</label>
+								<input type="checkbox" id="handicraft" name="check" value="공예"> <label for="handicraft">공예</label>
 								<br>
-								<input type="checkbox" id="cook" > <label for="cook">요리</label>
-								<input type="checkbox" id="fishing" > <label for="fishing">낚시</label>
-								<input type="checkbox" id="leisure" > <label for="leisure">레저</label>
-								<input type="checkbox" id="sing" > <label for="sing">노래</label>
-								<input type="checkbox" id="movie" > <label for="movie">영화</label>
-								<input type="checkbox" id="service" > <label for="service">봉사</label>
-								<input type="checkbox" id="etc" > <label for="etc">기타</label>
+								<input type="checkbox" id="cook" name="check" value="요리"> <label for="cook">요리</label>
+								<input type="checkbox" id="fishing" name="check" value="낚시"> <label for="fishing">낚시</label>
+								<input type="checkbox" id="leisure" name="check" value="레저"> <label for="leisure">레저</label>
+								<input type="checkbox" id="sing" name="check" value="노래"> <label for="sing">노래</label>
+								<input type="checkbox" id="movie" name="check" value="영화"> <label for="movie">영화</label>
+								<input type="checkbox" id="service" name="check" value="봉사"> <label for="service">봉사</label>
+								<input type="checkbox" id="etc" name="check" value="기타"> <label for="etc">기타</label>
 							</div>
 							<br><br><br><br><br>
 							
 							<div id="category_btn" align="center">
-								<button type="reset" class="btn btn-light" style="margin-right: 2%">초기화</button>
-                            	<button class="btn btn-primary" >검색</button>
+								<button type="reset" class="btn btn-light" style="margin-right: 2%;" onclick="resetb();">초기화</button>
+                            	<button class="btn btn-primary">검색</button>
 							</div>
 						</form>
 					</div>
@@ -225,14 +232,16 @@
 								</tr>
 							<%} else { %>
 								<%for(TogetherBoard tb : list) {%>
-									<tr style="height: 40px; border-bottom: 1px solid black;">
-										<td><%=tb.getBoardNo()%></td>
-										<td class="goDetail"><%=tb.getBoardTitle()%></td>
-										<td><a id="nicknameHover" onclick="profile();"><%=tb.getBoardWriter()%></a></td>
-										<td><%=tb.getCreateDate()%></td>
-										<td><%=tb.getCount()%></td>
-										<td><%=tb.getLikeCount()%></td>
-									</tr>
+<%-- 									<%if(tb.getCategory().equals("게임")) {%> --%>
+										<tr style="height: 40px; border-bottom: 1px solid black;">
+											<td><%=tb.getBoardNo()%></td>
+											<td class="goDetail"><%=tb.getBoardTitle()%></td>
+											<td><a id="nicknameHover" onclick="profile();"><%=tb.getBoardWriter()%></a></td>
+											<td><%=tb.getCreateDate()%></td>
+											<td><%=tb.getCount()%></td>
+											<td><%=tb.getLikeCount()%></td>
+										</tr>
+<%-- 									<%}%> --%>
 								<%} %>
 							<%} %>
 						</tbody>
@@ -240,7 +249,14 @@
 					<br>
 					<%if(loginUser != null) {%>
 						<div id="write-btn" align="right">
-							<a href="<%=contextPath%>/views/board/writeBoard.jsp" class="btn btn-light">글쓰기</a>
+							    <a onclick="goWrite();" class="btn btn-light">글쓰기</a>
+                            	<script>
+	                                function goWrite(){
+	                                	
+	                                	var boardName = $(document).find("title").eq(0).text();
+	                                	location.href="<%=contextPath %>/insert.bo?boardName="+boardName;
+	                                };
+                            	</script>
 						</div>
 					<%} %>
 					<br><br>
@@ -270,6 +286,19 @@
 					
 					<script>
 						$(function() {
+							var check = new Array();
+							
+							<%if(request.getAttribute("check") != null){%>
+								<%String[] selectedCategory = (String[])request.getAttribute("check");%>
+								<%for(int i=0; i<selectedCategory.length; i++){%>
+									$("input[name=check]").each(function() {
+										if($(this).val() == "<%=selectedCategory[i]%>") {
+											$(this).attr("checked", true);
+										}
+									})
+								<%}%>
+							<%}%>
+							
 				    		$(".goDetail").click(function(){
 						        var bno = $(this).parent().children().first().text();
 						       	location.href = '<%=contextPath %>/togetherDetail.bo?bno='+bno;
@@ -280,8 +309,36 @@
 				    		        // Back Forward Cache로 브라우저가 로딩될 경우 혹은 브라우저 뒤로가기 했을 경우
 				    		        location.reload();
 				    		    }
-				    		}
+				    		};
+				    		
+							
 				    	});
+							function filter() {
+								$("input[type=checkbox]").each(function() {
+									if($(this).is(":checked")) {
+										check.push($(this).val());
+									}
+								});
+								console.log(check.length);
+								return false;
+								
+// 								if(check.length == 0) {
+// 									alert("선택된 카테고리가 없습니다.");
+// 									return false;
+// 								}
+// 								else {
+// 									$("#selectedCategory").val(check);
+// 									return false;
+<%-- 									location.href = "<%=contextPath%>/togetherList2.bo?cPage=1"; --%>
+// 								}
+							};
+						
+						function resetb() {
+							$("input[type=checkbox]").each(function() {
+								$(this).attr("checked", false);
+							})
+						};
+						
 					</script>
 				</div>
 			</div>

@@ -26,7 +26,7 @@
 
         #content{
             width: 100%;
-            height: 76.5%;
+            height: 100%;
             position: relative;
         }
 
@@ -37,7 +37,7 @@
 
         #content_1{
             width: 25%;
-            background-color: yellow;
+            background-color: #C8EDC9;
         }
 
         #content_2{
@@ -412,10 +412,10 @@
                                     <span style="color: red;"> *</span>
                                 </th>
                                 <td colspan="3">
-                                    <input type="email" name="email" value="<%=loginUser.getEmail()%>" required>
+                                    <input type="email" id="email" value="<%=loginUser.getEmail()%>" required>
                                     <button onclick="" disabled>인증번호 전송</button> 
                                     &nbsp;&nbsp;&nbsp;
-                                    <input type="text" name="email-num">
+                                    <input type="text" id="email-num">
                                     <button disabled>인증번호 입력</button>
                                 </td>
                             </tr>
@@ -487,6 +487,8 @@
 // 	                      }
 // 	                    });
 // 	                  });
+
+					$("#email")
 
 					var checkNickname = 0;
 					
