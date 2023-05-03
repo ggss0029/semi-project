@@ -16,7 +16,7 @@ import com.udong.board.free.model.service.FreeBoardService;
 /**
  * Servlet implementation class FreeBoardReplyListController
  */
-@WebServlet("/FreeBoardReplyList")
+@WebServlet("/freeReplyList.bo")
 public class FreeBoardReplyList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -33,10 +33,9 @@ public class FreeBoardReplyList extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		int bno = Integer.parseInt(request.getParameter("bno"));
-		
-		ArrayList<FreeReply> list = new FreeBoardService().selectReply(bno);
-		
+		int freeBoardNo = Integer.parseInt(request.getParameter("freeBoardNo"));
+		ArrayList<FreeReply> list = new FreeBoardService().selectReply(freeBoardNo);
+		System.out.println(list);
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(list,response.getWriter());
 

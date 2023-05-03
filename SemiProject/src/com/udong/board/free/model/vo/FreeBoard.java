@@ -41,7 +41,7 @@ public class FreeBoard {
 	}
 	
 //	NO.	제목	작성자	작성일	조회	추천수
-	public FreeBoard(int boardNo, String boardTitle, String boardWriter, Date createDate ,int count , int likeCnt) {
+	public FreeBoard(int boardNo, String boardTitle, String boardWriter, Date createDate ,int count , int likeCntㄴ) {
 		super();
 		this.boardNo = boardNo;
 		this.boardTitle = boardTitle;

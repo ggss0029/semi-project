@@ -7,7 +7,19 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-    
+    	@font-face {
+		    font-family: 'BMJUA';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+		    font-weight: normal;
+		    font-style: normal;
+		}
+		
+		@font-face {
+		    font-family: 'GmarketSansMedium';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+		    font-weight: normal;
+		    font-style: normal;
+		}
          div{
             /* border: 1px solid black; */
             box-sizing: border-box;
@@ -53,8 +65,8 @@
             position: absolute;
             top: 40px;
             left: 52px;
-            font-size: 45px;
-            font-weight: 700;
+            font-size: 50px;
+            font-family: 'BMJUA';
         }
 
         #line_1 {
@@ -73,6 +85,7 @@
             color: black;
             left: 52px;
             top: 130px;
+            font-family: 'BMJUA';
         }
 
         #line_2 {
@@ -91,6 +104,7 @@
             color: black;
             left: 52px;
             top: 205px;
+            font-family: 'BMJUA';
         }
 
         #line_3 {
@@ -109,6 +123,7 @@
             color: black;
             left: 52px;
             top: 280px;
+            font-family: 'BMJUA';
         }
 
         #line_4 {
@@ -127,6 +142,7 @@
             color: black;
             left: 52px;
             top: 360px;
+            font-family: 'BMJUA';
         }
 
         #line_5 {
@@ -139,21 +155,23 @@
         }
 
         #out{ /*회원탈퇴 글씨, 위치*/
-            position: absolute;
+             position: absolute;
             font-size: 35px;
             text-decoration: none;
             color: black;
             left: 52px;
-            top: 440px;
+            top: 360px;
+            font-family: 'BMJUA';
         }
         
         #user_con{ /*회운 관리 글씨, 위치*/
-        	position: absolute;
+        	 position: absolute;
             font-size: 35px;
             text-decoration: none;
             color: black;
             left: 52px;
-            top: 440px;
+            top: 360px;
+            font-family: 'BMJUA';
         }
 
         #line_6 {
@@ -171,7 +189,8 @@
             text-decoration: none;
             color: black;
             left: 52px;
-            top: 520px;
+            top: 440px;
+            font-family: 'BMJUA';
         }
         
         #line_8{
@@ -186,10 +205,12 @@
         #content_2>#content_2_1{ /*content2 안에 크기 지정*/
             width: 1100px;
             height: 1500px;
-            border: 1px solid skyblue;
+            border: 4px solid #C8EDC9;
+            border-radius : 20px;
             position: absolute;
             top: 15px;
             left: 12px;
+            font-family: 'BMJUA';
             
         }
         
@@ -215,7 +236,7 @@
             top: 150px;
             left: 70px;
             font-size:35px;
-            font-weight: 600; 
+/*             font-weight: 600;  */
         }
 
         #box{ /*지역선택, 카테고리 들어가는 박스*/
@@ -252,12 +273,12 @@
             margin: 120px 33px;
         }
 
-        #b2{ /*카테고리 글씨, 위치*/
-            float: left;
-            font-size: 25px;
-            font-weight: 600;
-            margin: 30px 0 0 50px;
-        }
+/*         #b2{ /*카테고리 글씨, 위치*/ */
+/*             float: left; */
+/*             font-size: 25px; */
+/* /*             font-weight: 600; */ */
+/*             margin: 30px 0 0 50px; */
+/*         } */
 
         #category{ /*checkbox들을 감싸고 있는 div*/
             float: left;
@@ -279,14 +300,14 @@
             /* border-left: 1px solid black; */
             /* text-align: center; */
             /* margin: 0 0 0 350px; */
-            font-size: 17px;
-            width: 700px;
+            font-size: 20px;
+            width: 650px;
             margin: 50px 0 0 10px;
         }
 
         .list-area th {
 
-            width: 110px;
+            width: 100px;
             height: 50px;
             /* background-color: #C8EDC9; */
         }
@@ -294,9 +315,6 @@
         .list-area td {
             padding: 0 0 0 10px;
         }
-
-
-        
 
         /* 생년월일 select */
         #year, #month, #day { 
@@ -368,18 +386,18 @@
                 <a href="<%=contextPath %>/myPost.me?cPage=1" id="write_board">작성한 게시글</a>
                 <div id="line_4"></div>
 
-                <a href="<%=contextPath %>/likeList.me?currentPage=1" id="like_board">좋아요한 게시글</a>
+<%--                 <a href="<%=contextPath %>/likeList.me?currentPage=1" id="like_board">좋아요한 게시글</a> --%>
                 <div id="line_5"></div>
                 
                 <%if(loginUser != null && loginUser.getUserId().equals("admin") )  {%>
-	                <a href="" id="user_con">회원 관리</a>
-					<div id="line_6"></div>
+	                <a href="<%=contextPath %>/MemberList.me?" id="user_con">회원 관리</a>
+					<div id="line_5"></div>
 					
-					<a href="" id="blackList">블랙리스트</a>
-					<div id="line_8"></div>
+					<a href="<%=contextPath %>/BlackList.me?" id="blackList">블랙리스트</a>
+					<div id="line_6"></div>
                 <%}else {%>
-                	<a href="" id="out">회원 탈퇴</a>
-                	<div id="line_6"></div>
+                	<a href="<%=contextPath %>/UserDelete.me?userNo=" id="out">회원 탈퇴</a>
+                	<div id="line_5"></div>
                 <%} %>
                 
             </div>
@@ -392,7 +410,7 @@
 
                             <div id="box1">
                                 
-                                    <img id="photo" src="" alt="" >
+                                    <img id="photo" src="<%=contextPath %>/views/member/icons/기본프로필.png" alt="" >
                                 
                             </div>
                             
@@ -401,7 +419,6 @@
                                     <tr>
                                         <th>
                                             <span style="margin-left: 10px;">회원 ID</span>
-                                            <span style="color: red;"> *</span>
                                         </th>
                                         <td colspan="3"><%=loginUser.getUserId() %></td>
                                     </tr>
@@ -409,7 +426,6 @@
                                     <tr>
                                         <th>
                                             <span style="margin-left: 10px;">이름</span>
-                                            <span style="color: red;"> *</span>
                                         </th>
                                         <td colspan="3"><%=loginUser.getUserName() %></td>
                                     </tr>
@@ -417,7 +433,6 @@
                                     <tr>
                                         <th>
                                             <span style="margin-left: 10px;">닉네임</span>
-                                            <span style="color: red;"> *</span>
                                         </th>
                                         <td colspan="3"><%=loginUser.getNickname() %></td>
                                     </tr>
@@ -425,7 +440,6 @@
                                     <tr>
                                         <th>
                                             <span style="margin-left: 10px;">생년월일</span>
-                                            <span style="color: red;"> *</span>
                                         </th>
                                         <td style="width: 430px;">
                                             <%=loginUser.getBirthday() %>
@@ -435,7 +449,6 @@
                                     <tr>
                                         <th style="width: 100px">
                                             <span style="margin-left: 10px;">성별</span>
-                                            <span style="color: red;"> *</span>
                                         </th>
                                         <td>
                                            	 <%=loginUser.getGender() %>
@@ -445,7 +458,6 @@
                                     <tr>
                                         <th>
                                             <span style="margin-left: 10px;">이메일</span>
-                                            <span style="color: red;"> *</span>
                                         </th>
                                         <td colspan="3">
                                             <%=loginUser.getEmail() %>
@@ -455,7 +467,6 @@
                                     <tr>
                                         <th>
                                             <span style="margin-left: 10px;">주소</span>
-                                            <span style="color: red;"> *</span>
                                         </th>
                                         <td colspan="3">
                                             <div class="input_area3">

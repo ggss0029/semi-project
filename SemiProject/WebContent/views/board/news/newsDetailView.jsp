@@ -128,7 +128,8 @@ tbody>#tr2 {
 						align="right"><%=nb.getCreateDate()%></td>
 				</tr>
 				<tr style="height: 700px">
-					<td colspan="2" style="height: auto; vertical-align : top "><br><%=nb.getBoardContent()%></td>
+					<td colspan="2" style="height: auto; vertical-align : top "><br>
+					<p style="white-space: pre-line;"><%=nb.getBoardContent()%></p></td>
 					
 				</tr>
 			</table>
@@ -182,7 +183,7 @@ tbody>#tr2 {
 				<%
 					if (loginUser != null && loginUser.getNickname().equals(nb.getBoardWriter())) {
 				%>
-				<div class="board_btn" style="float: right; margin-right: 70px">
+				<div class="board_btn" style="float: right; margin-right: 20px">
 					<button
 						onclick="location.href = '<%=contextPath%>/updateBoard.bo?bno=<%=nb.getBoardNo()%>'"
 						class="btn btn-secondary">수정</button>
@@ -298,7 +299,8 @@ tbody>#tr2 {
 													+ "<span style='font-size: 15px;'>"
 													+ rlist[i].createDate
 													+ "<button id='delete_reply' class='btn btn-dark btn-sm' onclick='newsDeleteReply(" + rlist[i].replyNo+")' style='float:right'>삭제하기</button>"
-													+ "<button id='update_reply' class='btn btn-secondary btn-sm' onclick='newsUpdateReplyForm("+ rlist[i].replyNo + ",\"" + rlist[i].replyWriter + "\"" + ",\"" + rlist[i].createDate + "\"" +",\""+ rlist[i].replyContent+"\");' style='float:right'>수정하기</button>"
+													+ "<button id='update_reply' class='btn btn-secondary btn-sm' onclick='newsUpdateReplyForm("
+															+ rlist[i].replyNo + ",\"" + rlist[i].replyWriter + "\"" + ",\"" + rlist[i].createDate + "\"" +",\""+ rlist[i].replyContent+"\");' style='float:right'>수정하기</button>"
 													+ "</span><br>"
 													+ "<p class='list-group-item-text' style='white-space: pre-line;'>"
 													+ rlist[i].replyContent

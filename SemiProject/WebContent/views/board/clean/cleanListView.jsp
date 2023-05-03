@@ -346,7 +346,7 @@ label {
 								<td class="goDetail1"><%=cb.getBoardTitle()%></td>
 								<!-- 제목 -->
 								<td><a id="nicknameHover"
-									onclick="profile();"><%=cb.getBoardWriter()%></a></td>
+									onclick="whoareyou();;"><%=cb.getBoardWriter()%></a></td>
 								<!-- 작성자  닉네임 -->
 								<td><%=cb.getCreateDate()%></td>
 								<!-- 작성한 날짜 -->
@@ -449,12 +449,17 @@ label {
     
     $(function(){
     	//.list-area클래스 자손tbody 자손tr 클릭됐을때
-	    $(".goDetail1").click(function(){
+// 	    $(".goDetail1").click(function(){
 	        
-	        var bno = $(this).parent().children().first().text();
+// 	        var bno = $(this).parent().children().first().text();
 	        
-	       	location.href = '<%=contextPath %>/cleanDetail.bo?bno='+bno;
-	    });
+<%-- 	       	location.href = '<%=contextPath %>/cleanDetail.bo?bno='+bno; --%>
+// 	    });
+    	
+		$(".list-area>tbody").on("click","tr",function(){
+			var bno = $(this).children().first().text();
+			location.href = '<%=contextPath %>/cleanDetail.bo?bno='+bno;
+		});
     	
     });
     

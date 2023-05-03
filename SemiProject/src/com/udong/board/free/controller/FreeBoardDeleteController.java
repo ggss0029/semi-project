@@ -14,7 +14,7 @@ import com.udong.board.free.model.service.FreeBoardService;
 /**
  * Servlet implementation class FredBoardDeleteController
  */
-@WebServlet("/FredDelete")
+@WebServlet("/FreeDelete.bo")
 public class FreeBoardDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -31,9 +31,17 @@ public class FreeBoardDeleteController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		int bno = Integer.parseInt(request.getParameter("bno"));
 		
-		int result = new FreeBoardService().deleteBoard(boardNo);
+		int result = new FreeBoardService().deleteBoard(bno);
+		
+		if(result > 0) {
+			request.getSession().setAttribute("alertMsg", "寃뚯떆湲� �궘�젣 �셿猷�");
+			response.sendRedirect(request.getContextPath()+"/FreeBoardList.bo?currentPage=1");
+		}else {
+			request.setAttribute("errorMsg", "寃뚯떆湲� �궘�젣 �떎�뙣");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 		
 	}
 

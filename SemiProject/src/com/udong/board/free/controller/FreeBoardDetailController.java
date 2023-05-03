@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.udong.board.common.model.service.BoardCommonService;
 import com.udong.board.free.model.service.FreeBoardService;
+import com.udong.board.free.model.vo.FreeBoard;
 
 /**
  * Servlet implementation class FreeBoardDetailController
@@ -29,20 +31,23 @@ public class FreeBoardDetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		int bno = Integer.parseInt(request.getParameter("bno"));
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 		
-		// 조회수증가 게시글 조회 첨부파일 조회
+		//寃뚯떆湲� 議고쉶�떆 議고쉶�닔 利앷� �떆�궎�뒗 硫붿냼�뱶 �옉�꽦
+		int result = new BoardCommonService().increaseCount(boardNo);
 		
-		FreeBoardService freeService =  new FreeBoardService();
-		
-		int result = freeService.increaseCount(bno);
-		
+		//議고쉶�닔媛� 利앷��릺�뿀�떎硫� 寃뚯떆湲� �젙蹂댁“�쉶 �븯湲�
 		if(result>0) {
+ 			FreeBoard fb = new FreeBoardService().selectFree(boardNo);
 			
+			request.setAttribute("freeBoard", fb);
+			
+			request.getRequestDispatcher("views/board/free/freeDetailView.jsp").forward(request, response);
+		//議고쉶�닔媛� 利앷�媛� �븞�릺�뿀�쓣�떆 �뿉�윭�럹�씠吏�濡� 蹂대궡踰꾨━湲�
+		}else {
+			request.setAttribute("errorMsg", "寃뚯떆湲� 議고쉶 �떎�뙣�븯���뒿�땲�떎..");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
-			
-		
-	
 	}
 
 	/**

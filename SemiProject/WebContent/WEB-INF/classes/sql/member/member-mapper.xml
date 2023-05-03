@@ -66,7 +66,7 @@
 	</entry>
 	<entry key="getMemberListCount">
 		SELECT COUNT(USER_NO) AS COUNT FROM MEMBER
-		WHERE B.STATUS != 'N'
+		WHERE STATUS != 'N'
 	</entry>
 	<entry key="enrollMember">
 		INSERT INTO MEMBER(USER_NO, USER_ID, USER_PWD, USER_NAME, NICKNAME, BIRTHDAY, GENDER, EMAIL, ADDRESS,LOGIN_TYPE)
@@ -85,7 +85,7 @@
 			B.*
 		FROM (SELECT A.* , ROWNUM AS ROWN
 			FROM 
-				(SELECT * FROM MEMBER WHERE USER_REPORT >= 5) A
+				(SELECT * FROM MEMBER WHERE STATUS = 'B') A
 		) B
 		WHERE B.ROWN BETWEEN ? AND ?
 	</entry>
@@ -103,7 +103,8 @@
 	</entry>
 	<entry key="blackUpdate">
 		UPDATE MEMBER A
-		   SET A.USER_REPORT = '0'
+		   SET A.USER_REPORT = '0' 
+		   ,A.STATUS = 'Y'
 		 WHERE A.USER_NO = ?
 	</entry>
 	<entry key="MemberListDelete">
@@ -139,7 +140,6 @@
 	<entry key="myInfoUpdate">
 		UPDATE MEMBER 
 		SET NICKNAME = ?
-			,EMAIL = ?
 			,ADDRESS = ?
 			,INTRODUCTION = ?
 		WHERE USER_ID = ?

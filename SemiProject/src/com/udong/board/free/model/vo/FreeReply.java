@@ -14,6 +14,20 @@ public class FreeReply {
 	public FreeReply() {
 		super();
 	}
+	
+	
+	
+	public FreeReply(int replyNo, int refBno, String replyWriter, String replyContent, Date createDate) {
+		super();
+		this.replyNo = replyNo;
+		this.refBno = refBno;
+		this.replyWriter = replyWriter;
+		this.replyContent = replyContent;
+		this.createDate = createDate;
+	}
+
+
+
 	public FreeReply(int replyNo, int refBno, String replyWriter, String replyContent, Date createDate, Date modifyDate,
 			String status) {
 		super();

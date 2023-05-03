@@ -34,10 +34,8 @@ public class BlackListController extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 		String page = request.getParameter("page");
-		String userNo = request.getParameter("userId");
-		String email = request.getParameter("email");
-		ArrayList<Member> list = new MemberService().getBlackList(page , userNo , email);
-		Integer count = userNo == null && email == null ? new MemberService().getBlackListCount() : 0;
+		ArrayList<Member> list = new MemberService().getBlackList(page);
+		Integer count = new MemberService().getBlackListCount();
 		int totalPage = count % 10 == 0 ? count / 10 : (count / 10) + 1;
 		int currentPage = page == null ? 1 : Integer.parseInt(page);
 		int minPage = (int) Math.floor((double)currentPage / 10) * 10 + 1;

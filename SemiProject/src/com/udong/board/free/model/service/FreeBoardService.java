@@ -11,29 +11,31 @@ import com.udong.common.JDBCTemplate;
 import com.udong.member.model.dao.MemberDao;
 
 public class FreeBoardService {
-
-	public ArrayList<FreeBoard> getBoardList(String page, String searchContent) {
+	//자유게시판 페이지리스트 
+	public ArrayList<FreeBoard> getBoardList(String page, String searchContent ,String boardTitle, String boardContent) {
 		Connection conn =JDBCTemplate.getConnection();
-		ArrayList<FreeBoard> list = new FreeBoardDao().getBoardList(conn,page,searchContent);
+		ArrayList<FreeBoard> list = new FreeBoardDao().getBoardList(conn,page,boardTitle,boardContent);
 		JDBCTemplate.close(conn);
 		
 		return list;
 	}
 
-
-	public int getboardListCount(String searchContent) {
+	//자유게시판 총 갯수
+	public int getboardListCount(String boardTitle, String boardContent) {
 		Connection	conn =JDBCTemplate.getConnection();
-		Integer count = new FreeBoardDao().getBoardListCount(conn , searchContent);
+		
+		Integer count = new FreeBoardDao().getBoardListCount(conn,boardTitle,boardContent);
+		
 		JDBCTemplate.close(conn);
 		
 		return count;
 	}
 
-
-	public int deleteBoard(int boardNo) {
+	//자유게시판 게시글삭제
+	public int deleteBoard(int bno) {
 		Connection conn=JDBCTemplate.getConnection();
 		
-		int result = new FreeBoardDao().deleteBoard(conn , boardNo);
+		int result = new FreeBoardDao().deleteBoard(conn , bno);
 		
 		if(result>0) {
 			JDBCTemplate.commit(conn);
@@ -46,18 +48,13 @@ public class FreeBoardService {
 	}
 
 	//게시글 추가하기
-	public int insertFreeBoard(FreeBoard nb, FreeAttachment at) {
+	public int insertFreeBoard(FreeBoard fnb) {
 		Connection conn = JDBCTemplate.getConnection();
 		 
-		int result = new FreeBoardDao().insertBoard(conn,nb);
+		int result = new FreeBoardDao().insertBoard(conn,fnb);
 		//첨부파일이 없어도 게시글은 작성해야하니 조건 부합하게 1로	초기화해놓기
-		int result2 = 1;
 	
-		if(at!=null) {
-			result2 = new FreeBoardDao().insertAttachment(conn,at);		
-		}
-		
-		if(result>0 && result2>0) {
+		if(result>0) {
 			JDBCTemplate.commit(conn);
 		}else {
 			JDBCTemplate.rollback(conn);
@@ -65,7 +62,7 @@ public class FreeBoardService {
 		
 		JDBCTemplate.close(conn);
 		
-		return result*result2;//둘중 하나라도 0이 나오면 0을 반환하게 작성하기 
+		return result;//둘중 하나라도 0이 나오면 0을 반환하게 작성하기 
 	}
 
 	//댓글 작성 기능
@@ -85,57 +82,59 @@ public class FreeBoardService {
 		return result;
 	}
 
-
-	public ArrayList<FreeReply> selectReply(int bno) {
+	//자유게시판 댓글리스트
+	public ArrayList<FreeReply> selectReply(int freeBoardNo) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		ArrayList<FreeReply> list = new FreeBoardDao().selectReply(conn,bno);
+		ArrayList<FreeReply> list = new FreeBoardDao().selectReply(conn,freeBoardNo);
 		
 		JDBCTemplate.close(conn);
 		
-		return null;
+		return list;
 	}
-
-
-	public FreeBoard selectFreeBoard(int bno) {
+	//게시글 정보조회
+	public FreeBoard selectFree(int boardNo) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		FreeBoard fb = new FreeBoardDao().selectBoard(conn,bno);
+		FreeBoard fb = new FreeBoardDao().selectFree(conn, boardNo);
 		
 		JDBCTemplate.close(conn);
 		
 		return fb;
 	}
-
-
-	public FreeAttachment selectFreeAttachment(int bno) {
+	//댓글수정 
+	public int freeUpdateReply(int freeReplyNo, String content) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		FreeAttachment fat = new FreeBoardDao().selectAttachment(conn,bno);
-		
-		JDBCTemplate.close(conn);
-		
-		return fat;
-	}
-
-
-	public int increaseCount(int bno) {
-		
-		Connection conn = JDBCTemplate.getConnection();
-		
-		int result = new FreeBoardDao().increaseCount(conn,bno);
+		int result = new FreeBoardDao().freeUpdateReply(conn,freeReplyNo,content);
 		
 		if(result>0) {
 			JDBCTemplate.commit(conn);
 		}else {
-			JDBCTemplate.close(conn);
+			JDBCTemplate.rollback(conn);
 		}
 		
 		JDBCTemplate.close(conn);
 		
 		return result;
 	}
-
+	
+	//댓글 삭제
+	public int freeDeleteReply(int freeReplyNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new FreeBoardDao().freeDeleteReply(conn, freeReplyNo);
+		
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
 
 
 }
