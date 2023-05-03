@@ -109,7 +109,7 @@
         		<div id="content_1_4"><a href="<%=contextPath%>/writeLetter.le">쪽지 보내기</a></div>
         	</div>
         	<div id="content_2" align="center">
-        		<div id="content_2_1">보낸 쪽지함</div>
+        		<div id="content_2_1" style="font-family: 'BMJUA';">보낸 쪽지함</div>
         		<br><br>
         		<div id="content_2_2">
         			<table id="sendLetterListTable" border="1" style="text-align:center;">

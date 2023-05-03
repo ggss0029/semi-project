@@ -50,13 +50,17 @@
 	#detail-area {
 		width: 1400px;
 	}
+	
+	#contentLine {
+		white-space: pre-wrap;
+	}
 </style>
 <body>
 	<%@ include file = "../../common/menubar.jsp" %>
 	<div class="wrap">
 		<div id="content">
 			<p id="p1">같이 해요</p>
-			<button id="report-btn" class="btn btn-basic">신고하기</button>
+<%-- 			<button id="report-btn" class="btn btn-basic" onclick="reportBoard(<%=tb.getBoardNo()%>);">신고하기</button> --%>
 			<div id="line_1"></div>
 			
 			<table align="center" id="detail-area">
@@ -70,7 +74,7 @@
 					<td style="height: 50px; font-size: 20px; font-weight: 600;" align="right"><%=tb.getCreateDate()%></td>
 				</tr>
 				<tr style="height: 700px">
-					<td colspan="2" style="height: auto; vertical-align : top;"><br><%=tb.getBoardContent()%></td>
+					<td colspan="2" style="height: auto; vertical-align : top;"><br><p id="contentLine"><%=tb.getBoardContent()%></p></td>
 				</tr>
 			</table>
 			

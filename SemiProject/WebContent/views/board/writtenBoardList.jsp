@@ -9,8 +9,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>쓴글보기</title>
 <style>
+	@font-face {
+		    font-family: 'BMJUA';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+		    font-weight: normal;
+		    font-style: normal;
+	}
+
 	.wrap {
 		position:relative;
 		z-index:1;
@@ -36,6 +43,7 @@
 		left: 54px;
 		font-size: 45px;
 		font-weight: 500;
+		font-family: 'BMJUA';
 	}
 	
 	#line_1 {
@@ -56,7 +64,7 @@
 	}
 	
 	#list-area>tbody>tr:hover {
-		background-color: #F5F5F5;
+		background-color: #DEF5DE;
         cursor: pointer;
 	}
 	

@@ -15,12 +15,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<!--     <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script> -->
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+	<!-- jQuery library -->
+	<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+	<!-- Popper JS -->
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         div{
             box-sizing: border-box;
-            /* border: 1px solid black; */
+/*             border: 1px solid black; */
+        }
+        
+        label {
+        	margin: 0;
         }
 
         .wrap{
@@ -128,6 +140,11 @@
             height: 100%;
             margin-right: 10px;
         }
+        
+        button, input[type=button] {
+        	font-size: 13px !important;
+			line-height: 15px !important;
+        }
     </style>
 </head>
 <body>
@@ -151,7 +168,7 @@
                             <input type="text" name="userId" id="userId" placeholder="영문자, 숫자를 포함하여 총 3~12자로 입력하세요." required>
                         </div>
                         <div id="d2">
-                            <button type="button" onclick="checkId();" disabled>중복 확인</button>
+                            <button type="button" class="btn btn-outline-dark" onclick="checkId();" disabled>중복 확인</button>
                         </div>
                         <sup style="font-size: 5px; color: red;"></sup>
                         <sup style="font-size: 5px; color: green;"></sup>
@@ -185,7 +202,7 @@
                         	<sup style="font-size: 5px; color: green;"></sup>
                         </div>
                         <div id="d2">
-                            <button type="button" onclick="checkNick();" disabled>중복 확인</button>
+                            <button type="button" class="btn btn-outline-dark" onclick="checkNick();" disabled>중복 확인</button>
                         </div>
                     </div>
                     <br>
@@ -194,17 +211,16 @@
                         <select name="year" id="year"><option value="none">&nbsp; 선택 &nbsp;</option></select>년
                         <select name="month" id="month" onchange="selectMonth(this);"><option value="none"> 선택 </option></select>월
                         <select name="day" id="day"><option value="none"> 선택 </option></select>일
-                        <input type="radio" name="gender" id="male" value="남"> <label for="male">남</label>
+                        <input type="radio" name="gender" id="male" value="남" style="margin-left: 10px;"> <label for="male">남</label>
                         <input type="radio" name="gender" id="female" value="여"> <label for="female">여</label>
                     </div>
-                    <br>
                     <label for="email">이메일 (필수)</label> <sup style="font-size: 5px; color: red;"></sup><br>
                     <div class="input_area">
                         <div id="d1">
                             <input type="text" name="email" id="email" required>
                         </div>
                         <div id="d2">
-                            <button type="button" onclick="sendNum();" disabled >인증번호 전송</button>
+                            <button type="button" class="btn btn-outline-dark" onclick="sendNum();" disabled >인증번호 전송</button>
                         </div>
                     </div>
                     <label for="num">인증번호 입력</label>
@@ -213,7 +229,7 @@
                             <input type="text" name="num" id="num" required>
                         </div>
                         <div id="d2">
-                            <button type="button" onclick="checkEmail();" disabled>인증번호 확인</button>
+                            <button type="button" class="btn btn-outline-dark" onclick="checkEmail();" disabled>인증번호 확인</button>
                         </div>
                     </div>
                     <br>
@@ -221,7 +237,7 @@
                     <div class="input_area3">
                         <div class="div1">
                             <input type="text" id="sample6_postcode" name="sample6_postcode" placeholder="우편번호" readonly>
-                            <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" id="address"><br>
+                            <input type="button" class="btn btn-outline-dark" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" id="address"><br>
                         </div>
                         <div class="div2">
                             <input type="text" id="sample6_address" name="sample6_address" placeholder="주소" readonly><br>
@@ -251,8 +267,8 @@
                     <div class="check_area" align="right" style="width: 30; height: 10;">
                         <input type="radio" name="checkAgree" id="agree" value="agree"><label for="agree" style="margin-right: 5px;">동의</label> <input type="radio" name="checkAgree" id="disagree" value="disagree"><label for="disagree" checked>동의하지 않음</label>
                     </div>
-                    <br><br>
-                    <button type="submit" style="width: 500px; height: 50px; margin: 0 20px;">가입하기</button>
+<!--                     <br><br> -->
+                    <button type="submit" class="btn btn-outline-dark" style="width: 500px; height: 50px; margin: 20px; font-size: 16px !important">가입하기</button>
                     <br><br>
                 </div>
              </form>
