@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>나의 정보</title>
 <style>
     	@font-face {
 		    font-family: 'BMJUA';

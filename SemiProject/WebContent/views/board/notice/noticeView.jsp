@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>공지 사항</title>
 <style>
 @font-face {
 		    font-family: 'BMJUA';
