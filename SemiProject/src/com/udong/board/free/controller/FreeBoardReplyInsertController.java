@@ -14,7 +14,7 @@ import com.udong.member.model.vo.Member;
 /**
  * Servlet implementation class FreeBoardReplyListController
  */
-@WebServlet("/FreeBoardReplyInsert.me")
+@WebServlet("/freeReplyInsert.bo")
 public class FreeBoardReplyInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -40,14 +40,14 @@ public class FreeBoardReplyInsertController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String content = request.getParameter("content");
-		int FreeBoardNo = Integer.parseInt(request.getParameter("bno"));
+		int freeBoardNo = Integer.parseInt(request.getParameter("freeBoardNo"));
 		
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		int userNo = loginUser.getUserNo();
 		
 		FreeReply r = new FreeReply();
 		r.setReplyContent(content);
-		r.setRefBno(FreeBoardNo);
+		r.setRefBno(freeBoardNo);
 		r.setReplyWriter(String.valueOf(userNo));
 		
 		int result = new FreeBoardService().FreeInsertReply(r);

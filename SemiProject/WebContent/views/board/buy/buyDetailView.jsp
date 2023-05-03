@@ -124,7 +124,8 @@ tbody>#tr2 {
 						align="right"><%=buyb.getCreateDate()%></td>
 				</tr>
 				<tr style="height: 700px">
-					<td colspan="2" style="height: auto; vertical-align : top "><br><%=buyb.getBoardContent()%></td>
+					<td colspan="2" style="height: auto; vertical-align : top "><br>
+					<p style="white-space: pre-line;"><%=buyb.getBoardContent()%></p></td>
 					
 				</tr>
 			</table>
@@ -132,7 +133,7 @@ tbody>#tr2 {
 				<%
 					if (loginUser != null && loginUser.getNickname().equals(buyb.getBoardWriter())) {
 				%>
-				<div class="board_btn" style="float: right; margin-right: 70px">
+				<div class="board_btn" style="float: right; margin-right: 20px">
 					<button
 						onclick="location.href = '<%=contextPath%>/updateBoard.bo?bno=<%=buyb.getBoardNo()%>'"
 						class="btn btn-secondary">수정</button>

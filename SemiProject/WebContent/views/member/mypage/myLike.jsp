@@ -20,6 +20,13 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <style>
+    	@font-face {
+		    font-family: 'BMJUA';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+		    font-weight: normal;
+		    font-style: normal;
+		}
+    
          div{
             /* border: 1px solid black; */
             box-sizing: border-box;
@@ -63,8 +70,9 @@
             position: absolute;
             top: 40px;
             left: 52px;
-            font-size: 45px;
-            font-weight: 700;
+            font-size: 50px;
+/*             font-weight: 700; */
+            font-family: 'BMJUA';
         }
 
         #line_1 {
@@ -83,6 +91,7 @@
             color: black;
             left: 52px;
             top: 130px;
+            font-family: 'BMJUA';
         }
 
         #line_2 {
@@ -101,6 +110,7 @@
             color: black;
             left: 52px;
             top: 205px;
+            font-family: 'BMJUA';
         }
 
         #line_3 {
@@ -119,6 +129,7 @@
             color: black;
             left: 52px;
             top: 280px;
+            font-family: 'BMJUA';
         }
 
         #line_4 {
@@ -137,6 +148,7 @@
             color: black;
             left: 52px;
             top: 360px;
+            font-family: 'BMJUA';
         }
 
         #line_5 {
@@ -155,6 +167,7 @@
             color: black;
             left: 52px;
             top: 440px;
+            font-family: 'BMJUA';
         }
 
         #line_6 {
@@ -163,6 +176,34 @@
             width: 300px;
             height: 0px;
             top: 505px;
+            left: 30px;
+        }
+        #user_con{ /*회운 관리 글씨, 위치*/
+        	 position: absolute;
+            font-size: 35px;
+            text-decoration: none;
+            color: black;
+            left: 52px;
+            top: 440px;
+            font-family: 'BMJUA';
+        }
+        
+        #blackList{ /*블랙리트스 글씨 위치*/
+        	position: absolute;
+            font-size: 35px;
+            text-decoration: none;
+            color: black;
+            left: 52px;
+            top: 520px;
+            font-family: 'BMJUA';
+        }
+        
+         #line_8 {
+            position: absolute;
+            border: 1px solid black;
+            width: 300px;
+            height: 0px;
+            top: 585px;
             left: 30px;
         }
 
@@ -182,6 +223,7 @@
             left: 54px;
             font-size: 45px;
             font-weight: 500;
+            font-family: 'BMJUA';
         }
 
         #line_7 {
@@ -230,8 +272,16 @@
                 <a href="<%=contextPath %>/likeList.me?currentPage=1" id="like_board">좋아요한 게시글</a>
                 <div id="line_5"></div>
 
-                <a href="" id="out">회원 탈퇴</a>
-                <div id="line_6"></div>
+                <%if(loginUser != null && loginUser.getUserId().equals("admin") )  {%>
+	                <a href="<%=contextPath %>/MemberList.me?" id="user_con">회원 관리</a>
+					<div id="line_6"></div>
+					
+					<a href="<%=contextPath %>/BlackList.me?" id="blackList">블랙리스트</a>
+					<div id="line_8"></div>
+                <%}else {%>
+                	<a href="<%=contextPath %>/UserDelete.me?userNo=" id="out">회원 탈퇴</a>
+                	<div id="line_6"></div>
+                <%} %>
             </div>
             <div id="content_2">
                 <div id="content_2_1">

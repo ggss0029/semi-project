@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+	<entry key="sendLetter">
+		INSERT INTO LETTER VALUES(SEQ_LNO.NEXTVAL,?,?,?,SYSDATE)
+	</entry>
+	<entry key="selectsendLetterListCount">
+		SELECT COUNT(*) COUNT
+		FROM LETTER
+		WHERE LETTER_WRITER=?
+	</entry>
+	<entry key="sendLetterList">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM,A.*
+		  FROM  (SELECT LETTER_NO,NICKNAME,LETTER_CONTENT,WRITE_DATE
+				 FROM LETTER
+				 JOIN MEMBER ON LETTER_RECEIVER=USER_NO
+				 WHERE LETTER_WRITER=?
+		         ORDER BY WRITE_DATE DESC, LETTER_NO DESC) A)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	<entry key="selectreceiveLetterListCount">
+		SELECT COUNT(*) COUNT
+		FROM LETTER
+		WHERE LETTER_RECEIVER=?
+	</entry>
+	<entry key="receiveLetterList">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM,A.*
+		  FROM  (SELECT LETTER_NO,NICKNAME,LETTER_CONTENT,WRITE_DATE
+				 FROM LETTER
+				 JOIN MEMBER ON LETTER_WRITER=USER_NO
+				 WHERE LETTER_RECEIVER=?
+		         ORDER BY WRITE_DATE DESC, LETTER_NO DESC) A)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+</properties>

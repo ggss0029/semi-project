@@ -128,7 +128,8 @@ tbody>#tr2 {
 						align="right"><%=cb.getCreateDate()%></td>
 				</tr>
 				<tr style="height: 700px">
-					<td colspan="2" style="height: auto; vertical-align : top "><br><%=cb.getBoardContent()%></td>
+					<td colspan="2" style="height: auto; vertical-align : top "><br>
+					<p style="white-space: pre-line;"><%=cb.getBoardContent()%></p></td>
 					
 				</tr>
 <!-- 				<tr style="height:60px;"> -->
@@ -145,21 +146,21 @@ tbody>#tr2 {
 <!-- 				</tr> -->
 			</table>
 
-			<div class="like-area">
-					<div class="like" style="float: left;">
-						<% if (loginUser != null) %>
-							<button type="button" id="like_btn">
-								<i class="fas fa-heart"></i>
+<!-- 			<div class="like-area"> -->
+<!-- 					<div class="like" style="float: left;"> -->
+<%-- 						<% if (loginUser != null) %> --%>
+<!-- 							<button type="button" id="like_btn"> -->
+<!-- 								<i class="fas fa-heart"></i> -->
 								
-								&nbsp; 
-								<span class="like_count"></span> <!-- 추천 수 보여주기 -->
-							</button>
-					</div>
+<!-- 								&nbsp;  -->
+<!-- 								<span class="like_count"></span> 추천 수 보여주기 -->
+<!-- 							</button> -->
+<!-- 					</div> -->
 					
 				<%
 					if (loginUser != null && loginUser.getNickname().equals(cb.getBoardWriter())) {
 				%>
-				<div class="board_btn" style="float: right; margin-right: 70px">
+				<div class="board_btn" style="float: right; margin-right: 20px">
 					<button
 						onclick="location.href = '<%=contextPath%>/updateBoard.bo?bno=<%=cb.getBoardNo()%>'"
 						class="btn btn-secondary">수정</button>

@@ -7,10 +7,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.udong.board.free.model.service.FreeBoardService;
+
 /**
  * Servlet implementation class FreeBoardReplyUpdateController
  */
-@WebServlet("/ReplyUpdate.bo")
+@WebServlet("/freeUpdateReply.bo")
 public class FreeBoardReplyUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,8 +36,20 @@ public class FreeBoardReplyUpdateController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+	//�뙎湲� 踰덊샇 議고쉶 �븯�뿬 �닔�젙�븯湲�
+	int freeReplyNo = Integer.parseInt(request.getParameter("replyNo"));
+	String content = request.getParameter("content");
+	
+	int result = new FreeBoardService().freeUpdateReply(freeReplyNo,content);
+	System.out.println("寃곌낵:"+result);
+	
+	response.setContentType("json/application; charset=UTF-8");
+	response.getWriter().print(result);
+	
+	
+	
+	
 	}
 
 }

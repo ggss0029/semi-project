@@ -117,9 +117,9 @@ public class MemberService {
 		
 		return list;
 	}
-	public ArrayList<Member> getBlackList(String page, String userId, String email) {
+	public ArrayList<Member> getBlackList(String page) {
 		Connection conn = JDBCTemplate.getConnection();
-		ArrayList<Member> list = new MemberDao().getBlackList(conn , page , userId , email);
+		ArrayList<Member> list = new MemberDao().getBlackList(conn , page);
 		JDBCTemplate.close(conn);
 		
 		return list;

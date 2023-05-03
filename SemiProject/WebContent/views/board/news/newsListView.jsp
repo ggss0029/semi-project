@@ -367,33 +367,6 @@
                         		<%} %> 
                         	<%} %>
                         
-                        <!-- 
-                            <tr style="height: 40px;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                            <tr style="height: 40px;">
-                                <td>1</td>
-                                <td>첫 게시물</td>
-                                <td>수지</td>
-                                <td>2023-04-14</td>
-                                <td>100</td>
-                                <td>1004</td>
-                            </tr>
-                             -->
-                            
                         </tbody>
                         </table>
                         <br>
@@ -437,16 +410,16 @@
     
     $(function(){
     	//.list-area클래스 자손tbody 자손tr 클릭됐을때
-	    $(".goDetail1").click(function(){
+// 	    $(".goDetail1").click(function(){
 	        
-	        var bno = $(this).parent().children().first().text();
-// 	        var nno = $(this).siblings().eq(0).text();
-// 	        console.log(nno);
+// 	        var bno = $(this).parent().children().first().text();
+// // 	        var nno = $(this).siblings().eq(0).text();
+// // 	        console.log(nno);
 	        
-	       	location.href = '<%=contextPath %>/newsDetail.bo?bno='+bno;
-	    });
+<%-- 	       	location.href = '<%=contextPath %>/newsDetail.bo?bno='+bno; --%>
+// 	    });
     	
-    	$(".list-area>tbody").on("click","tr",function(){
+    	 $(".list-area>tbody").on("click","tr",function(){
     		var bno = $(this).children().first().text();
     		location.href = '<%=contextPath %>/newsDetail.bo?bno='+bno;
     	});

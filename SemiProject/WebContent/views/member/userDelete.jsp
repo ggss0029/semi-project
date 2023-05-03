@@ -10,59 +10,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>유저탈퇴</title>
     <style>
-        * {
+    	@font-face {
+		    font-family: 'BMJUA';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+		    font-weight: normal;
+		    font-style: normal;
+		}
+        div {
             box-sizing: border-box;
             /* box-sizing:content-box; */
         }
 
-        body {
-            margin: 0;
-            padding: 0;
-        }
         .wrap{
         	position:relative;
 			z-index:1;
             width: 1500px;
             height: 1530px;
-            border: 1px solid black;
             margin: auto;
         }
 
         .wrap>div{
-            height: 100%;
             width: 100%;
-        }
-
-        #header{
-            height: 13.5%;
-        }
-
-        #header>div{
-            width: 100%;
-        }
-
-        .header_1{
-            background-color: red;
-            height: 180px;
-        }
-
-        .header_2{ /*메뉴바*/
-            background-color: orange;
-            height: 90px;
         }
 
         #content {
             width: 100%;
-            height: 76.5%;
+            height: 100%;
+            position: relative;
         }
 
         #content>div {
             float: left;
             height: 100%;
+            font-family: 'BMJUA';
         }
 
         .content_1 {
-            background-color: yellow;
+            background-color: #C8EDC9;
             width: 25%;
         }
 
@@ -72,11 +56,12 @@
         }
 
         .page-area{
-            border: 1.5px solid darkgrey;
-            background-color: white;
             width: 1100px;
             height: 1500px;
-            margin: 12.5px;
+            border: 4px solid #C8EDC9;
+            position: absolute;
+            top: 15px;
+            left: 12px;
         }
 
         #p1 {
@@ -103,11 +88,11 @@
             border-collapse: collapse;
         }
         #deldtetable>tr{
-            border: 1px solid darkgrey; 
+            border: 1px solid black; 
         }
 
         #deldtetable>tr>td {
-            border: 1px solid darkgrey; 
+            border: 1px solid black; 
             height: 50px;
             /*width: 25%;*/
             padding: 5px 10px;
@@ -211,18 +196,20 @@
             <div class="content_1">
                 <div class="category">
                     <p id="p1">
-                       	 자주 묻는 질문
+                       	 마이 페이지
                     </p>
                     <hr>
-                    <a href="">나의 정보</a> <br>
+                    <a href="<%=request.getContextPath() %>/views/member/mypage/myInfo.jsp">나의 정보</a> <br>
                     <hr>
-                    <a href="">개인정보 수정</a> <br>
+                    <a href="<%=request.getContextPath() %>/views/member/mypage/myInfoUpdate.jsp">개인정보 수정</a> <br>
                     <hr>
-                    <a href="">작성한 게시글</a> <br>
+                    <a href="<%=contextPath %>/myPost.me?cPage=1" id="write_board">작성한 게시글</a> <br>
                     <hr>
-                    <a href="">좋아요한 게시글</a> <br>
+<%--                     <a href="<%=contextPath %>/likeList.me?currentPage=1" id="like_board">좋아요한 게시글</a> --%>
+                    <a href="<%=contextPath %>/UserDelete.me?userNo=" id="out">회원 탈퇴</a> 
                     <hr>
-                    <a href="">회원 탈퇴</a> <br>
+                    <br>
+                    
                 </div>
             </div>
             <div class="content_2">
@@ -241,7 +228,7 @@
                                 </p>
 
                                 <hr>
-                                <p style="font-size: 15px">
+                                <p style="font-size: 25px">
 					                                    탈퇴한 아이디는 본인과 타인 모두 재사용 및 복구가 불가하오니 신중하게 선택하시기 바랍니다.<br>
 					                <br>
 					                                    각종 게시판에 올린 게시글 및 댓글은 탈퇴 시 자동 삭제되지 않고 그대로 남아 있습니다.<br>

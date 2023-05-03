@@ -11,12 +11,10 @@ import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
-import com.udong.board.free.model.vo.FreeAttachment;
 import com.udong.board.free.model.vo.FreeBoard;
 import com.udong.board.free.model.vo.FreeReply;
 import com.udong.common.JDBCTemplate;
 import com.udong.member.model.dao.MemberDao;
-import com.udong.member.model.vo.Member;
 
 public class FreeBoardDao {
 	
@@ -38,48 +36,58 @@ private Properties prop = new Properties();
 		}
 	}
 	
-
-	public ArrayList<FreeBoard> getBoardList(Connection conn, String page , String searchContent) {
+	//게시글 리스트
+	public ArrayList<FreeBoard> getBoardList(Connection conn, String page , String boardTitle , String boardContent) {
 
 		ArrayList<FreeBoard> list = new ArrayList<FreeBoard>();
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
 		Integer offset = 0;
-		Integer Limit = 11;
+		Integer Limit = 10;
 		String sql = prop.getProperty("getBoardFreeList");
 		
-		if(searchContent != null) {
+		if(boardContent != null && boardTitle != null) {
 			sql = prop.getProperty("BoardFreeWithSearch");
 		}
-	
+		
 		
 		if(page != null && !page.equals("1")) {
-			offset = (Integer.parseInt(page)-1) * 11 + 1;
-			Limit = (Integer.parseInt(page)*11);
+			offset = (Integer.parseInt(page)-1) * 10 + 1;
+			Limit = (Integer.parseInt(page)*10);
 		}
 //		NO.	제목	작성자	작성일	조회	추천수
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			if(searchContent != null) {
-				pstmt.setInt(1, offset);
-				pstmt.setInt(2, Limit);
-				pstmt.setString(3, searchContent);
-				pstmt.setString(4, searchContent);
+			if(boardContent != null && boardTitle != null) {
+				pstmt.setString(1, boardTitle);
+				pstmt.setString(2, boardContent);
+				pstmt.setInt(3, offset);
+				pstmt.setInt(4, Limit);
 			}else {
 				pstmt.setInt(1, offset);
 				pstmt.setInt(2, Limit);
 			}
-			
 			rset= pstmt.executeQuery();
-		
+			
 			while(rset.next()) {
-				list.add(new FreeBoard(rset.getInt("BOARD_NO")
-										,rset.getString("BOARD_TITLE")
-										,rset.getString("NICKNAME")
-										,rset.getDate("CREATE_DATE")
-										,rset.getInt("COUNT")
-										,rset.getInt("LIKE_CNT")));
+				FreeBoard fb = new FreeBoard();
+				fb.setBoardNo(rset.getInt("BOARD_NO"));
+				fb.setBoardTitle(rset.getString("BOARD_TITLE"));
+				fb.setBoardWriter(rset.getString("NICKNAME"));
+				fb.setCreateDate(rset.getDate("CREATE_DATE"));
+				fb.setCount(rset.getInt("COUNT"));
+				fb.setLikeCnt(rset.getInt("LIKE_CNT"));
+				
+				list.add(fb);
+				
+//				list.add(new FreeBoard(rset.getInt("BOARD_NO")
+//										,rset.getString("BOARD_TITLE")
+//										,rset.getString("NICKNAME")
+//										,rset.getDate("CREATE_DATE")
+//										,rset.getInt("COUNT")
+//										,rset.getInt("LIKE_CNT")));
+				
 			}
 			
 		} catch (SQLException e) {
@@ -92,8 +100,9 @@ private Properties prop = new Properties();
 		
 		return list;
 	}
-
-	public Integer getBoardListCount(Connection conn , String searchContent) {
+	
+	//총페이지 
+	public Integer getBoardListCount(Connection conn, String boardTitle, String boardContent) {
 		
 		Integer count = 0;
 		PreparedStatement pstmt = null;
@@ -101,9 +110,6 @@ private Properties prop = new Properties();
 		
 		String sql = prop.getProperty("getBoardFreeListCount");
 		
-//		if(searchContent) {
-//			
-//		}
 			try {
 				pstmt=conn.prepareStatement(sql);
 				rset =pstmt.executeQuery();
@@ -122,7 +128,7 @@ private Properties prop = new Properties();
 		return count;
 	}
 
-
+	//게시글 삭제
 	public int deleteBoard(Connection conn, int boardNo) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -146,7 +152,7 @@ private Properties prop = new Properties();
 		return result;
 	}
 
-
+	//게시글 작성
 	public int insertBoard(Connection conn, FreeBoard nb) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -172,32 +178,7 @@ private Properties prop = new Properties();
 		return result;
 		
 	}
-
-
-	public int insertAttachment(Connection conn, FreeAttachment at) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("insertFreeAttachment");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, at.getOriginName());
-			pstmt.setString(2, at.getChangeName());
-			pstmt.setString(3, at.getFilePath());
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(pstmt);
-		}
-		
-		return result;
-	}
-
-
+	//댓글 작성
 	public int FreeInsertReply(Connection conn, FreeReply r) {
 		
 		int result = 0;
@@ -224,7 +205,7 @@ private Properties prop = new Properties();
 	}
 
 	//댓글 조회
-	public ArrayList<FreeReply> selectReply(Connection conn, int bno) {
+	public ArrayList<FreeReply> selectReply(Connection conn, int freeBoardNo) {
 		
 		ArrayList<FreeReply> list = new ArrayList<>();
 		ResultSet rset = null;
@@ -235,16 +216,16 @@ private Properties prop = new Properties();
 		try {
 			pstmt = conn.prepareStatement(sql);
 
-			pstmt.setInt(1, bno);
+			pstmt.setInt(1, freeBoardNo);
 			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				list.add(new FreeReply(rset.getInt("REPLY_NO")
-								   ,rset.getString("REPLY_CONTENT")
-								   ,rset.getInt("REF_BNO")
-								   ,rset.getString("REPLY_WRITER")
-								   ,rset.getDate("CREATE_DATE")));
+										,rset.getInt("REF_BNO")
+										,rset.getString("NICKNAME")
+										,rset.getString("REPLY_CONTENT")
+										,rset.getDate("CREATE_DATE")));
 			}
 		
 		} catch (SQLException e) {
@@ -258,8 +239,9 @@ private Properties prop = new Properties();
 		return list;
 	}
 
+
 	//게시글 정보조회
-	public FreeBoard selectBoard(Connection conn, int bno) {
+	public FreeBoard selectFree(Connection conn, int boardNo) {
 		
 		FreeBoard fb = null;
 		ResultSet rset = null;
@@ -270,17 +252,17 @@ private Properties prop = new Properties();
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, bno);
+			pstmt.setInt(1, boardNo);
 			
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				fb = new FreeBoard(rset.getInt("BOARD_NO")
-									,rset.getString("BOARD_TITLE")
-									,rset.getString("NICKNAME")
-									,rset.getDate("CREATE_DATE")
-									,rset.getInt("COUNT")
-									,rset.getInt("LIKE_CNT"));
+				fb = new FreeBoard();
+				fb.setBoardNo(rset.getInt("BOARD_NO"));
+				fb.setBoardTitle(rset.getString("BOARD_TITLE"));
+				fb.setBoardWriter(rset.getString("NICKNAME"));
+				fb.setCreateDate(rset.getDate("CREATE_DATE"));
+				fb.setBoardContent(rset.getString("BOARD_CONTENT"));
 			}
 			
 		} catch (SQLException e) {
@@ -288,53 +270,66 @@ private Properties prop = new Properties();
 			e.printStackTrace();
 		}finally {
 			JDBCTemplate.close(rset);
-			JDBCTemplate.close(pstmt);
+			 JDBCTemplate.close(pstmt);
 		}
 		return fb;
 		
 	}
-
-	//첨부파일 조회
-	public FreeAttachment selectAttachment(Connection conn, int bno) {
+	//댓글 수정
+	public int freeUpdateReply(Connection conn, int freeReplyNo, String content) {
+		int result = 0;
 		
-		FreeAttachment fat = null;
-		ResultSet rset = null;
 		PreparedStatement pstmt = null;
 		
-		String sql = prop.getProperty("selectFreeAttachment");
+		String sql = prop.getProperty("freeUpdateReply");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1,  bno);
+			pstmt.setString(1, content);
+			pstmt.setInt(2, freeReplyNo);
 			
-			rset = pstmt.executeQuery();
+			result = pstmt.executeUpdate();
 			
-			if(rset.next()) {
-				fat = new FreeAttachment(rset.getInt("FILE_NO")
-						   ,rset.getString("ORIGIN_NAME")
-						   ,rset.getString("CHANGE_NAME")
-						   ,rset.getString("FILE_PATH"));	
-			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			JDBCTemplate.close(rset);
 			JDBCTemplate.close(pstmt);
 		}
-		return fat;
 		
+		return result;
 		
+	}
+	
+	//댓글 삭제
+	public int freeDeleteReply(Connection conn, int freeReplyNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
 		
-		return null;
+		String sql = prop.getProperty("freeDeleteReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, freeReplyNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+		
 	}
 
+		
+	
 
-	public int increaseCount(Connection conn, int bno) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
 	
 
 }

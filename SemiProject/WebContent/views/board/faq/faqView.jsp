@@ -244,8 +244,8 @@
 									<p style="white-space: pre-line;"><%=fb.getFaqContent() %></p>
                                 </div>
                                 <%if(loginUser != null && loginUser.getUserId().equals("admin")) { %> 
-                                <button onclick="location.href = '<%=contextPath%>/faqUpdate.bo?bno=<%=fb.getFaqNo()%>'" class="btn btn-info">수정하기</button>
-                                <button onclick="location.href = '<%=contextPath%>/faqDelete.bo?bno=<%=fb.getFaqNo()%>'" class="btn btn-danger">삭제하기</button>
+                                <button onclick="location.href = '<%=contextPath%>/faqUpdate.bo?bno=<%=fb.getFaqNo()%>'" class="btn btn-secondary">수정하기</button>
+                                <button onclick="location.href = '<%=contextPath%>/faqDelete.bo?bno=<%=fb.getFaqNo()%>'" class="btn btn-dark">삭제하기</button>
                                 <%} %>
                             </div>
                           </li>
