@@ -193,6 +193,7 @@ public class TogetherBoardDao {
 				tb.setCategory(rset.getString("CATEGORY"));
 				tb.setBoardWriter(rset.getString("NICKNAME"));
 				tb.setCreateDate(rset.getDate("CREATE_DATE"));
+				tb.setCount(rset.getInt("COUNT"));
 				
 				list.add(tb);
 			}

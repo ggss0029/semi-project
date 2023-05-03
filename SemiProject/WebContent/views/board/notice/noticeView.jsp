@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>공지 사항</title>
 <style>
 @font-face {
 		    font-family: 'BMJUA';
@@ -252,7 +252,7 @@ div {
 						<%
 							if (pi.getCurrentPage() != 1) {
 						%>
-						<button
+						<button class="btn btn-outline-dark"
 							onclick="location.href='<%=contextPath%>/noticeList.bo?currentPage=<%=pi.getCurrentPage() - 1%>';">&lt;</button>
 						<%
 							}
@@ -264,12 +264,12 @@ div {
 						<%
 							if (i != pi.getCurrentPage()) {
 						%>
-						<button
+						<button class="btn btn-outline-dark"
 							onclick="location.href='<%=contextPath%>/noticeList.bo?currentPage=<%=i%>';"><%=i%></button>
 						<%
 							} else {
 						%>
-						<button disabled><%=i%></button>
+						<button class="btn btn-outline-dark" disabled><%=i%></button>
 						<%
 							}
 						%>
@@ -280,7 +280,7 @@ div {
 						<%
 							if (pi.getCurrentPage() != pi.getMaxPage()) {
 						%>
-						<button
+						<button class="btn btn-outline-dark" 
 							onclick="location.href='<%=contextPath%>/noticeList.bo?currentPage=<%=pi.getCurrentPage() + 1%>';">&gt;</button>
 						<%
 							}

@@ -340,12 +340,12 @@
                     <table class="list-area" border="0" align="center">
                         <thead style="height: 50px; border-top:3px solid black; border-bottom:3px solid black;">
                         <tr>
-                            <th width="70">No.</th>
-                            <th width="440">제목</th>
-                            <th width="150">작성자</th>
-                            <th width="150">작성일</th>
-                            <th width="65">조회</th>
-                            <th width="65">좋아요</th>
+                            <th width="80">No.</th>
+                            <th width="465">제목</th>
+                            <th width="160">작성자</th>
+                            <th width="160">작성일</th>
+                            <th width="75">조회</th>
+<!--                             <th width="65">좋아요</th> -->
                         </tr>
                         </thead>
                         <tbody>
@@ -362,7 +362,7 @@
 		                                <td><a id="nicknameHover" onclick="whoareyou();"><%=nb.getBoardWriter() %></a> </td> <!-- 작성자  닉네임 -->
 		                                <td><%=nb.getCreateDate() %></td> <!-- 작성한 날짜 -->
 		                                <td><%=nb.getCount() %></td> <!-- 조회수 -->
-		                                <td><%=nb.getLikeCount() %></td> <!-- 좋아요한 수 -->
+<%-- 		                                <td><%=nb.getLikeCount() %></td> <!-- 좋아요한 수 --> --%>
 		                            </tr>
                         		<%} %> 
                         	<%} %>
@@ -394,7 +394,7 @@
                             	<%if(i != pi.getCurrentPage()) {%>
                             	<button class="btn btn-outline-dark" onclick="location.href='<%=contextPath %>/newsList.bo?currentPage=<%=i%>';"><%=i %></button>
                             	<%} else {%>
-                            		<button disabled><%=i %></button>
+                            		<button class="btn btn-outline-dark" disabled><%=i %></button>
                             	<%} %>
                             <%} %>
                             

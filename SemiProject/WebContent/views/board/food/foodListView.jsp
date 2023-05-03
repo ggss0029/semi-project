@@ -293,7 +293,7 @@
         <div id="content">
             <div id="content_1">
                 <p>동네 맛집</p>
-                <div id="line_1"></div>
+<!--                 <div id="line_1"></div> -->
             </div>
             <div id="content_2">
                 <div id="content_2_1">
@@ -375,9 +375,9 @@
                         <div align="center" class="paging-area">
                         	<%for(int i=pi.getStartPage(); i<=pi.getEndPage(); i++ ){ %>
 								<%if(i != pi.getCurrentPage()){ %>
-									<button onclick="location.href='<%=contextPath%>/foodList.bo?currentPage=<%=i%>';"><%=i %></button>
+									<button class="btn btn-outline-dark" onclick="location.href='<%=contextPath%>/foodList.bo?currentPage=<%=i%>';"><%=i %></button>
 								<%}else{ %>
-									<button disabled><%=i %></button>
+									<button class="btn btn-outline-dark" disabled><%=i %></button>
 								<%} %>
 							<%} %>
                         </div>

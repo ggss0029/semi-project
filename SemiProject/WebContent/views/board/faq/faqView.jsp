@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>자주 묻는 질문</title>
 <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <!-- jQuery library -->
@@ -262,19 +262,19 @@
 						<div align="center" class="paging-area">
     
                         	<%if(pi.getCurrentPage() != 1) {%>
-                            	<button onclick="location.href='<%=contextPath %>/faqList.bo?currentPage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
+                            	<button class="btn btn-outline-dark" onclick="location.href='<%=contextPath %>/faqList.bo?currentPage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
                             <%} %>
                             
                             <%for(int i = pi.getStartPage(); i <= pi.getEndPage(); i++) { %>
                             	<%if(i != pi.getCurrentPage()) {%>
-                            	<button onclick="location.href='<%=contextPath %>/faqList.bo?currentPage=<%=i%>';"><%=i %></button>
+                            	<button class="btn btn-outline-dark" onclick="location.href='<%=contextPath %>/faqList.bo?currentPage=<%=i%>';"><%=i %></button>
                             	<%} else {%>
-                            		<button disabled><%=i %></button>
+                            		<button class="btn btn-outline-dark"disabled><%=i %></button>
                             	<%} %>
                             <%} %>
                             
                             <%if(pi.getCurrentPage() != pi.getMaxPage()) { %>
-	                            <button onclick="location.href='<%=contextPath %>/faqList.bo?currentPage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
+	                            <button class="btn btn-outline-dark" onclick="location.href='<%=contextPath %>/faqList.bo?currentPage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
                             <%} %>
                         </div>
                         

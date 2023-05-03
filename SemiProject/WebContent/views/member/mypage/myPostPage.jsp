@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>작성한 게시글</title>
 <style>
 	@font-face {
 		font-family: 'BMJUA';
@@ -235,8 +235,9 @@
 			</div>
 			
 			<script>
+				var checkCount = 0;
+				
 				$(function() {
-					var checkCount = 0;
 					
 					$("input[class=check]").change(function() {
 						if($(this).is(":checked")) {
@@ -269,9 +270,11 @@
 				function checkall() {
 					if($("#checkAll").prop("checked")) {
 						$("input[class=check]").prop("checked", true);
+						checkCount=10;
 					}
 					else {
 						$("input[class=check]").prop("checked", false);
+						checkCount=0;
 					}
 				}
 				

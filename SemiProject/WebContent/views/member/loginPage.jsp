@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>로그인 페이지</title>
+    <title>로그인</title>
     <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
@@ -23,8 +23,8 @@
         }
         .wrap{
             margin: auto;
-            margin-top: 50px;
-            margin-bottom: 50px;
+/*             margin-top: 50px; */
+/*             margin-bottom: 50px; */
             width: 1500px;
             height: 1000px;
         }
@@ -162,6 +162,11 @@
         #right{
  			background-color:lightblue;
         }
+        
+        #right>img {
+        	width: 100%;
+        	height: 100%;
+        }
     </style>
 </head>
 <body>
@@ -228,7 +233,9 @@
                 <div id="c3"></div>
             <div id="footer"></div>
             </div>
-        <div id="right"></div>
+        <div id="right">
+        	<img alt="로그인이미지" src="<%=contextPath%>/views/member/icons/로그인.jpg">
+        </div>
        </div>
         
      <script>

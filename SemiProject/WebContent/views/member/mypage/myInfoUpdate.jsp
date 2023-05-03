@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>개인정보수정</title>
  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <style>
 		@font-face {
@@ -452,13 +452,23 @@
 				                            <input type="text" id="sample6_postcode" name="sample6_postcode" value="<%=loginUser.getAddress().substring(loginUser.getAddress().length()-7, loginUser.getAddress().length())%>" placeholder="우편번호" readonly>
 				                            <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" id="address"><br>
 				                        </div>
-				                        <div class="div2">
-				                            <input type="text" id="sample6_address" name="sample6_address" value="<%=loginUser.getAddress().substring(0, loginUser.getAddress().indexOf('(')-1) %>" placeholder="주소" readonly><br>
-				                        </div>
-				                        <div class="div3">
-				                            <input type="text" id="sample6_detailAddress" name="sample6_detailAddress" value="<%=loginUser.getAddress().substring(loginUser.getAddress().indexOf(')')+2, loginUser.getAddress().indexOf('-')) %>" placeholder="상세주소">
-				                            <input type="text" id="sample6_extraAddress" name="sample6_extraAddress" value="<%=loginUser.getAddress().substring(loginUser.getAddress().indexOf('('), loginUser.getAddress().indexOf(')')+1) %>" placeholder="참고항목" readonly>
-				                        </div>
+				                        <%if(loginUser.getAddress().indexOf('(') != -1)  {%>
+					                        <div class="div2">
+					                            <input type="text" id="sample6_address" name="sample6_address" value="<%=loginUser.getAddress().substring(0, loginUser.getAddress().indexOf('(')-1) %>" placeholder="주소" readonly><br>
+					                        </div>
+					                        <div class="div3">
+					                            <input type="text" id="sample6_detailAddress" name="sample6_detailAddress" value="<%=loginUser.getAddress().substring(loginUser.getAddress().indexOf(')')+2, loginUser.getAddress().indexOf('/')) %>" placeholder="상세주소">
+					                            <input type="text" id="sample6_extraAddress" name="sample6_extraAddress" value="<%=loginUser.getAddress().substring(loginUser.getAddress().indexOf('('), loginUser.getAddress().indexOf(')')+1) %>" placeholder="참고항목" readonly>
+					                        </div>
+				                        <%} else { %>
+				                        	<div class="div2">
+					                            <input type="text" id="sample6_address" name="sample6_address" value="<%=loginUser.getAddress().substring(0, loginUser.getAddress().indexOf(' ', loginUser.getAddress().indexOf('-'))) %>" placeholder="주소" readonly><br>
+					                        </div>
+					                        <div class="div3">
+					                            <input type="text" id="sample6_detailAddress" name="sample6_detailAddress" value="<%=loginUser.getAddress().substring(loginUser.getAddress().indexOf(' ', loginUser.getAddress().indexOf('-'))+1, loginUser.getAddress().indexOf('/')) %>" placeholder="상세주소">
+					                            <input type="text" id="sample6_extraAddress" name="sample6_extraAddress" value="" placeholder="참고항목" readonly>
+					                        </div>
+				                        <%} %>
 				                    </div>
                                 </td>
                             </tr>

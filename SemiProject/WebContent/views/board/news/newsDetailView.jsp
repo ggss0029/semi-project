@@ -6,16 +6,7 @@
 	pageEncoding="UTF-8"%>
 
 <%
-	NewsBoard nb = new NewsBoard();
-	if(request.getAttribute("bestPost")!=null){
-		BoardCommon b = (BoardCommon)request.getAttribute("bestPost");
-		nb.setBoardTitle(b.getBoardTitle());
-		nb.setBoardWriter(b.getBoardWriter());
-		nb.setCreateDate(b.getCreateDate());
-		nb.setBoardContent(b.getBoardContent());
-	}else if(request.getAttribute("newsBoard")!=null){
-		nb = (NewsBoard)request.getAttribute("newsBoard");
-	}
+	NewsBoard nb = (NewsBoard)request.getAttribute("newsBoard");
 %>
 <!DOCTYPE html>
 <html>
@@ -24,7 +15,7 @@
 <title>동네 소식</title>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
+<link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <style>
@@ -88,12 +79,20 @@ table {
 	margin: 10px 0 0 50px;
 }
 
-.like-area .like {
+.like {
+	width: 80px;
+	height: 60px;
 	cursor: pointer;
 	display: flex;
 	margin-top: 5px;
 	font-size: 19px;
 	font-weight: 500;
+}
+
+.like * {
+	background-color: white;
+	width: 100%;
+	height: 100%;
 }
 
 tbody>#tr2 {
@@ -111,7 +110,7 @@ tbody>#tr2 {
 <!-- 		</div> -->
 		<div id="content">
 			<p id="p1">동네 소식</p>
-			<button id="report_btn" class="btn btn-basic">신고하기</button>
+<!-- 			<button id="report_btn" class="btn btn-basic">신고하기</button> -->
 
 			<div id="line_1"></div>
 
@@ -137,79 +136,51 @@ tbody>#tr2 {
 
 <!-- 			<div class="like-area"> -->
 <!-- 					<div class="like" style="float: left;"> -->
-<%-- 						<% if (loginUser != null) %> --%>
-<!-- 							<button onclick="likeCheck()"> -->
-<!-- 								<img src="resources/빈하트.jpg" id="heart"> -->
+<%-- 						<% if (loginUser != null) {%> --%>
+<!-- 							<button onclick="likeUpdate();" style="border: 0;"> -->
+<!-- 								<img src="" id="heart"> -->
 <!-- 							</button> -->
-<!-- 								&nbsp;  -->
+<!-- 								&nbsp; -->
+<%-- 						<%} %> --%>
 <!-- 					</div> -->
+<!-- 				</div> -->
 					
-<!-- 			<script> -->
-<!-- // 					let alreadyLiked = false; // 이미 좋아요를 눌렀는지 여부를 저장하는 변수 -->
 
-<!-- // 					function likeCheck() { -->
-<!-- // 					    if (alreadyLiked) { -->
-<!-- // 					        alert("이미 좋아요를 누른 게시글입니다"); -->
-<!-- // 					        return; -->
-<!-- // 					    } -->
-<!-- // 					    $.ajax({ -->
-<!-- // 					        url: "newsLikeUpdate.do", -->
-<!-- // 					        data: { -->
-<%-- 					            boardNo: <%=nb.getBoardNo()%>, --%>
-<%-- 					            userNo: <%=loginUser.getUserNo()%> --%>
-<!-- // 					        }, -->
-<!-- // 					        type: "post", -->
-<!-- // 					        success: function(result) { -->
-<!-- // 					            console.log(result); -->
-<!-- // 					            if (result > 0) { -->
-<!-- // 					                $("#heart").attr("src", "resources/찬하트.jpg"); -->
-<!-- // 					                $("#heart").attr("disabled",true); -->
-<!-- // 					                alreadyLiked = true; -->
-<!-- // 					            } else { -->
-<!-- // 					                $("#heart").attr("src", "resources/빈하트.jpg"); -->
-<!-- // 					                location.reload(); -->
-<!-- // 					            } -->
-<!-- // 					        }, -->
-<!-- // 					        error: function() { -->
-<!-- // 					            alert("실패"); -->
-<!-- // 					        } -->
-<!-- // 					    }); -->
-<!-- // 					} -->
+			<script>
+// 					$(function() {
+<%-- 						<%if(checkLike == 1) {%> --%>
+<%-- 							$("#heart").attr("src", "<%=contextPath%>/views/common/icons/찬하트.jpg"); --%>
+<%-- 						<%} else {%> --%>
+<%-- 							$("#heart").attr("src", "<%=contextPath%>/views/common/icons/빈하트.jpg"); --%>
+<%-- 						<%}%> --%>
+// 					})
 					
-<!-- // 					function unlikeCheck() { -->
-<!-- // 						$.ajax({ -->
-<!-- // 							url : "newsUnLike.do", -->
-<!-- // 							data : { -->
-<%-- 								 boardNo: <%=nb.getBoardNo()%>, --%>
-<%-- 						         userNo: <%=loginUser.getUserNo()%> --%>
-<!-- // 							}, -->
-							
-<!-- // 						}) -->
-<!-- // 					} -->
-<!-- // 					function likeCheck() { -->
-<!-- // 						$.ajax({ -->
-<!-- // 							url : "newsLikeUpdate.do", -->
-<!-- // 							data : { -->
+// 					function likeUpdate() {
+// 						$.ajax({
+// 							url : "likeUpdate.do",
+// 							type : "post",
+// 							data : {
+<%-- 								checkList: <%=checkLike%>, --%>
 <%-- 								boardNo : <%=nb.getBoardNo()%>, --%>
 <%-- 								userNo : <%=loginUser.getUserNo() %> --%>
-<!-- // 							}, -->
-<!-- // 							type : "post", -->
-<!-- // 							success : function(result) { -->
-<!-- // 								console.log(result); -->
-<!-- // 								if(result > 0) { -->
-<!-- // 									$("#heart").attr("src", "resources/찬하트.jpg"); -->
-<!-- // // 									$("#heart").off("click"); -->
-<!-- // 									$("#heart").attr("disabled", true); -->
-<!-- // 								}else { -->
-<!-- // 									$("#heart").attr("src", "resources/빈하트.jpg"); -->
-<!-- // 									location.reload(); -->
-<!-- // 								} -->
-<!-- // 							}, -->
-<!-- // 							error : function() { -->
-<!-- // 								alert("실패"); -->
-<!-- // 							} -->
-<!-- // 						}); -->
-<!-- // 					} -->
+// 							},
+// 							success : function(result) {
+// 								console.log(result);
+// 								if(result > 0) { // 좋아요 누름
+<%-- 									$("#heart").attr("src", "<%=contextPath%>/views/common/icons/찬하트.jpg"); --%>
+// // 									$("#heart").off("click");
+// // 									$("#heart").attr("disabled", true);
+// 								}else {
+<%-- 									$("#heart").attr("src", "<%=contextPath%>/views/common/icons/빈하트.jpg"); --%>
+// // 									location.reload();
+// 								}
+// 							},
+// 							error : function() {
+// 								alert("통신 실패");
+// 							}
+// 						});
+// 					}
+			</script>
 					
 				<%
 					if (loginUser != null && loginUser.getNickname().equals(nb.getBoardWriter())) {
@@ -226,8 +197,8 @@ tbody>#tr2 {
 					}
 				%>
 				<br clear="both">
-				<!--뭔가 넓어짐-->
-			</div>
+				<!-- 뭔가 넓어짐 -->
+			
 
 			<hr>
 			<div id="tabs">
@@ -235,9 +206,8 @@ tbody>#tr2 {
 					<li><a href="#tabs-1" style="color : black; text-decoration:none; font-size:30px">댓글</a></li>
 				</ul>
 
-				<%
-					if (loginUser != null) {
-				%>
+				
+					<%if (loginUser != null) { %>
 				<div>
 					<div class="input-group">
 						<textarea id="replyContent" rows="3" class="form-control"
@@ -248,16 +218,18 @@ tbody>#tr2 {
 						</div>
 					</div>
 				</div>
-				<% } else { %>
+				<%} else { %>
 				<div>
 					<div class="input-group">
-						<textarea id="replyContent" rows="3" class="form-control" style="resize: none;" disabled>로그인 후 이용 가능한 서비스 입니다.</textarea>
+						<textarea id="replyContent" rows="3" class="form-control"
+							style="resize: none;" disabled>로그인 후 이용 가능한 서비스 입니다.</textarea>
 						<div class="input-group-btn">
 							<button onclick="insertReply();" class="btn btn-light" type="submit" style="height: 110px" disabled>댓글 등록</button>
 						</div>
 					</div>
 				</div>
-				<% } %>
+				<%} %>
+				
 				<div id="tabs-1">
 				<!--  
 					<div class="list-group">
