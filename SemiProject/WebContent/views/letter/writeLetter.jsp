@@ -110,7 +110,7 @@
         		<div id="content_1_4">쪽지 보내기</div>
         	</div>
         	<div id="content_2" align="center">
-        		<div id="content_2_1">쪽지 보내기</div>
+        		<div id="content_2_1" style="font-family: 'BMJUA';">쪽지 보내기</div>
 	        	<div id="content_2_2">
     	    		<form action="<%=contextPath%>/writeLetter.le" method="post">
 						발신자 : <input type="text" name="sender" value="<%=loginUser.getNickname()%>" readonly>
@@ -119,7 +119,7 @@
 						<br><br>
 						<textarea required maxlength="300" name="letterContent" placeholder="최대 300자까지 작성 가능합니다." rows="10" cols="30" style="width:1000px; height:400px; font-size:20px; resize:none;"></textarea>
 						<br><br>
-						<button type="submit" class="btn btn-warning" style="margin-right:10px;">쪽지 보내기</button>
+						<button type="submit" class="btn btn-warning" style="margin-right:10px; ">쪽지 보내기</button>
 						<button type="reset" class="btn btn-danger">취소하기</button>
         			</form>
         			

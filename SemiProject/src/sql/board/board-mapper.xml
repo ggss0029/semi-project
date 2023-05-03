@@ -1043,4 +1043,14 @@
 		WHERE REPLY_NO = ?
 		AND STATUS = 'Y'
 	</entry>
+	
+	<entry key="increaseSearch">
+		UPDATE MOST_SEARCH
+		SET COUNT = COUNT + 1
+		WHERE SEARCH_TITLE = ?
+	</entry>
+	
+	<entry key="insertSearch">
+		INSERT INTO MOST_SEARCH(SEARCH_TITLE) VALUES(?)
+	</entry>
 </properties>

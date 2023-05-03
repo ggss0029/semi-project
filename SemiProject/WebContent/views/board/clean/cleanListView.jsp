@@ -394,7 +394,7 @@ label {
 						<%
 							if (pi.getCurrentPage() != 1) {
 						%>
-						<button
+						<button class="btn btn-outline-dark"
 							onclick="location.href='<%=contextPath%>/cleanList.bo?currentPage=<%=pi.getCurrentPage() - 1%>';">&lt;</button>
 						<%
 							}
@@ -406,12 +406,12 @@ label {
 						<%
 							if (i != pi.getCurrentPage()) {
 						%>
-						<button
+						<button class="btn btn-outline-dark"
 							onclick="location.href='<%=contextPath%>/cleanList.bo?currentPage=<%=i%>';"><%=i%></button>
 						<%
 							} else {
 						%>
-						<button disabled><%=i%></button>
+						<button class="btn btn-outline-dark" disabled><%=i%></button>
 						<%
 							}
 						%>
@@ -422,7 +422,7 @@ label {
 						<%
 							if (pi.getCurrentPage() != pi.getMaxPage()) {
 						%>
-						<button
+						<button class="btn btn-outline-dark"
 							onclick="location.href='<%=contextPath%>/cleanList.bo?currentPage=<%=pi.getCurrentPage() + 1%>';">&gt;</button>
 						<%
 							}

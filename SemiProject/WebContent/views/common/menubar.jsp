@@ -66,11 +66,20 @@
         #most_search_list {
         	width: 18%;
             margin: 3px 28.5%;
-            border: 5px solid lightgray;
+            border: 5px solid #C8EDC9;
             background-color: white;
         	position: fixed;
         	display: none;
         	z-index: 3;
+        }
+        
+        #most_search_list * {
+        	font-family: 'GmarketSansMedium';
+        }
+        
+        #most_search * {
+        	font-family: 'GmarketSansMedium';
+        	padding-top: 1px;
         }
         
         #viewTable {
@@ -85,7 +94,7 @@
             width: 15%;
             height: 63px;
             margin: 58.5px 3% 58.5px 3%;
-            border: 5px solid lightgray;
+            border: 5px solid #C8EDC9;
             z-index: 1;
         }
         
@@ -263,6 +272,7 @@
 	}
 	
 	$(function() {
+		
 		var now = new Date();
 		var hour = now.getHours();
 		var min = now.getMinutes();
@@ -288,10 +298,18 @@
 		function callback2() {
 			setInterval(callback, 1000*60*60);
 		}
+		
 		callback();
 		setTimeout(callback, renewTime); // 시간 계산 후 정각에 가져옴
 		setTimeout(callback2, renewTime); // 정각마다 검색어 순위 top10 가져옴
 	});
+	
+	function reportBoard(bno) {
+		<%if(loginUser != null) {%>
+			alert("신고가 완료되었습니다.");
+			location.href = "<%=contextPath%>/reportBoard.bo?bno=" + bno;
+		<%}%>
+	};
 </script>
     <div class="header">
         <div id="icon" onclick="mainPage();">
@@ -430,32 +448,32 @@
             	</div>
             </div>
             <div style="width:15%;">
-            	<p style="font-weight: 700; font-size: 30px" onclick="showList();" id="viewTable">∨</p>
+            	<p style="font-weight: 700; font-size: 25px !important; padding-top: 8px;" onclick="showList();" id="viewTable">∨</p>
         	</div>
         </div>
         <div id="totalSearch">
         	<form action="totalSearch.do" id="totalSearch_form">
         		<input type="hidden" name="currentPage" value="1">
-        		<div id="totalSearch_text"><input type="search" name="inputKeyword"></div>
+        		<div id="totalSearch_text"><input type="search" id="inputKeyword" name="inputKeyword"></div>
         		<div id="totalSearch_btn"><button><img alt="돋보기" src="<%=contextPath %>/views/common/icons/돋보기.png"></button></div>
         	</form>
         </div>
         <%if(loginUser==null) {%>
         	<div id="login_area">
-            	<button id="login" class="btn btn-outline-dark" onclick="login();">로그인</button>
-            	<button id="enroll" class="btn btn-outline-dark" onclick="enroll();">회원가입</button>
+            	<button id="login" class="btn btn-outline-dark" style="font-family: 'GmarketSansMedium';" onclick="login();">로그인</button>
+            	<button id="enroll" class="btn btn-outline-dark" style="font-family: 'GmarketSansMedium';" onclick="enroll();">회원가입</button>
             </div>
     	<%} else { %>
         	<div id="member_area" align="center">
 				<div id="logout">
-                	<b><%=loginUser.getNickname() %> 님</b> <a href="<%=contextPath%>/logout.me">로그아웃</a> <br>
+                	<b style="font-family: 'GmarketSansMedium'; font-weight:650 !important;"><%=loginUser.getNickname() %> 님</b> <a href="<%=contextPath%>/logout.me" style="font-family: 'GmarketSansMedium';">로그아웃</a> <br>
 	            </div>
 	            <div id="user_info" align="center">
 	                <div id="myPage">
-	                    <a href="<%=contextPath %>/views/member/mypage/myInfo.jsp"><img alt="마이페이지 아이콘" src="<%=contextPath %>/views/common/icons/마이페이지.png" style="width: 70px; height:70px;"><br>마이페이지</a>
+	                    <a href="<%=contextPath %>/views/member/mypage/myInfo.jsp" style="font-family: 'GmarketSansMedium';"><img alt="마이페이지 아이콘" src="<%=contextPath %>/views/common/icons/마이페이지.png" style="width: 70px; height:70px; margin-bottom: 7px;"><br>마이페이지</a>
 	                </div>
 	                <div>
-	                	<a href="<%=contextPath%>/sendLetterList.le?writerNo=<%=loginUser.getUserNo()%>&currentPage=1"><img alt="쪽지아이콘" src="<%=contextPath %>/views/common/icons/쪽지함.png" style="width: 70px; height:70px;"><br>쪽지함</a>
+	                	<a href="<%=contextPath%>/sendLetterList.le?writerNo=<%=loginUser.getUserNo()%>&currentPage=1" style="font-family: 'GmarketSansMedium';"><img alt="쪽지아이콘" src="<%=contextPath %>/views/common/icons/쪽지함.png" style="width: 70px; height:70px; margin-bottom: 7px;"><br>쪽지함</a>
 	                </div>
 	            </div>
         	</div>
@@ -503,7 +521,7 @@
                     <li><a href="<%=contextPath %>/cleanList.bo?currentPage=1">살림 꿀팁</a></li>
                 </ul>
             </li><li><a href="<%=contextPath %>/foodList.bo?currentPage=1">동네 맛집</a></li><li>
-                <a href="<%=contextPath %>/giveList.bo?currentPage=1" style="cursor: default;">나눔할게요</a></li><li>
+                <a href="<%=contextPath %>/giveList.bo?currentPage=1">나눔 할게요</a></li><li>
                 <a style="cursor: default;">함께 해요</a>
                 <ul>
                     <li><a href="<%=contextPath%>/togetherList.bo?cPage=1">같이 해요</a></li>

@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.udong.board.common.model.service.BoardCommonService;
 import com.udong.board.news.model.service.NewsBoardService;
-import com.udong.board.news.model.vo.NewsAttachment;
 import com.udong.board.news.model.vo.NewsBoard;
+import com.udong.member.model.vo.Member;
 
 /**
  * Servlet implementation class NewsBoardDetailController
@@ -46,7 +46,6 @@ public class NewsBoardDetailController extends HttpServlet {
 			NewsBoard nb = new NewsBoardService().selectNews(boardNo);
 //			System.out.println(nb); //null나오는데 맞는건가?
 			request.setAttribute("newsBoard", nb);
-			
 			request.getRequestDispatcher("views/board/news/newsDetailView.jsp").forward(request, response);
 		}else { //조회수 증가 실패했다면 에러페이지로 보내버리기!
 			request.setAttribute("errorMsg", "동네소식 게시글 조회 실패");

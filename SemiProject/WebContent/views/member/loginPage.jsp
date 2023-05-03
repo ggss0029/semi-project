@@ -23,8 +23,8 @@
         }
         .wrap{
             margin: auto;
-            margin-top: 50px;
-            margin-bottom: 50px;
+/*             margin-top: 50px; */
+/*             margin-bottom: 50px; */
             width: 1500px;
             height: 1000px;
         }
@@ -162,6 +162,11 @@
         #right{
  			background-color:lightblue;
         }
+        
+        #right>img {
+        	width: 100%;
+        	height: 100%;
+        }
     </style>
 </head>
 <body>
@@ -228,7 +233,9 @@
                 <div id="c3"></div>
             <div id="footer"></div>
             </div>
-        <div id="right"></div>
+        <div id="right">
+        	<img alt="로그인이미지" src="<%=contextPath%>/views/member/icons/로그인.jpg">
+        </div>
        </div>
         
      <script>

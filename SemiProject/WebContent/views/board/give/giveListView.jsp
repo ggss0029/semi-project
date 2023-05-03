@@ -370,9 +370,9 @@
                         <div align="center" class="paging-area">
                         	<%for(int i=pi.getStartPage(); i<=pi.getEndPage(); i++ ){ %>
 								<%if(i != pi.getCurrentPage()){ %>
-									<button onclick="location.href='<%=contextPath%>/giveList.bo?currentPage=<%=i%>';"><%=i %></button>
+									<button class="btn btn-outline-dark" onclick="location.href='<%=contextPath%>/giveList.bo?currentPage=<%=i%>';"><%=i %></button>
 								<%}else{ %>
-									<button disabled><%=i %></button>
+									<button class="btn btn-outline-dark" disabled><%=i %></button>
 								<%} %>
 							<%} %>
                         </div>

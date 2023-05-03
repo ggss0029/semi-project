@@ -392,19 +392,19 @@
 						<div align="center" class="paging-area">
     
                         	<%if(pi.getCurrentPage() != 1) {%>
-                            	<button onclick="location.href='<%=contextPath %>/buyList.bo?currentPage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
+                            	<button class="btn btn-outline-dark" onclick="location.href='<%=contextPath %>/buyList.bo?currentPage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
                             <%} %>
                             
                             <%for(int i = pi.getStartPage(); i <= pi.getEndPage(); i++) { %>
                             	<%if(i != pi.getCurrentPage()) {%>
-                            	<button onclick="location.href='<%=contextPath %>/buyList.bo?currentPage=<%=i%>';"><%=i %></button>
+                            	<button class="btn btn-outline-dark" onclick="location.href='<%=contextPath %>/buyList.bo?currentPage=<%=i%>';"><%=i %></button>
                             	<%} else {%>
-                            		<button disabled><%=i %></button>
+                            		<button class="btn btn-outline-dark" disabled><%=i %></button>
                             	<%} %>
                             <%} %>
                             
                             <%if(pi.getCurrentPage() != pi.getMaxPage()) { %>
-	                            <button onclick="location.href='<%=contextPath %>/buyList.bo?currentPage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
+	                            <button class="btn btn-outline-dark" onclick="location.href='<%=contextPath %>/buyList.bo?currentPage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
                             <%} %>
                         </div>
                 </div>

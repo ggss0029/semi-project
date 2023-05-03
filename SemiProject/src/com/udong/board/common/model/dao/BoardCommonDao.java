@@ -806,4 +806,42 @@ public class BoardCommonDao {
 		
 		return list;
 	}
+
+	public int increaseSearch(Connection conn, String inputKeyword) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("increaseSearch");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, inputKeyword);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertSearch(Connection conn, String keyword) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("insertSearch");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, keyword);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
 }

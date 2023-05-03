@@ -264,4 +264,38 @@ public class BoardCommonService {
 		
 		return list;
 	}
+
+	public int increaseSearch(String inputKeyword) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new BoardCommonDao().increaseSearch(conn ,inputKeyword);
+		
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}
+		else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+
+	public int insertSearch(String keyword) {
+Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new BoardCommonDao().insertSearch(conn ,keyword);
+		
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}
+		else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
 }

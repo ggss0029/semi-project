@@ -394,7 +394,7 @@
                             	<%if(i != pi.getCurrentPage()) {%>
                             	<button class="btn btn-outline-dark" onclick="location.href='<%=contextPath %>/newsList.bo?currentPage=<%=i%>';"><%=i %></button>
                             	<%} else {%>
-                            		<button disabled><%=i %></button>
+                            		<button class="btn btn-outline-dark" disabled><%=i %></button>
                             	<%} %>
                             <%} %>
                             

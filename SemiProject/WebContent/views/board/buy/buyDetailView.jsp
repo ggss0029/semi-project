@@ -106,7 +106,7 @@ tbody>#tr2 {
 	<div class="wrap">
 		<div id="content">
 			<p id="p1">같이 사요</p>
-			<button id="report_btn" class="btn btn-basic">신고하기</button>
+<!-- 			<button id="report_btn" class="btn btn-basic">신고하기</button> -->
 
 			<div id="line_1"></div>
 
