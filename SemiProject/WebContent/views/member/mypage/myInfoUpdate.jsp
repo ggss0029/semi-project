@@ -449,7 +449,7 @@
                                 <td colspan="3">
                                     <div class="input_area3">
 				                        <div class="div1">
-				                            <input type="text" id="sample6_postcode" name="sample6_postcode" value="<%=loginUser.getAddress().substring(loginUser.getAddress().length()-5, loginUser.getAddress().length())%>" placeholder="우편번호" readonly>
+				                            <input type="text" id="sample6_postcode" name="sample6_postcode" value="<%=loginUser.getAddress().substring(loginUser.getAddress().length()-7, loginUser.getAddress().length())%>" placeholder="우편번호" readonly>
 				                            <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" id="address"><br>
 				                        </div>
 				                        <div class="div2">

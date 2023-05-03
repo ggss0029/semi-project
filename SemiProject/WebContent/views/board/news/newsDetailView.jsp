@@ -24,7 +24,7 @@
 <title>동네 소식</title>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
+<!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <style>
@@ -137,7 +137,7 @@ tbody>#tr2 {
 
 <!-- 			<div class="like-area"> -->
 <!-- 					<div class="like" style="float: left;"> -->
-<%-- <%-- 						<% if (loginUser != null) %> --%> --%>
+<%-- 						<% if (loginUser != null) %> --%>
 <!-- 							<button onclick="likeCheck()"> -->
 <!-- 								<img src="resources/빈하트.jpg" id="heart"> -->
 <!-- 							</button> -->
@@ -145,71 +145,71 @@ tbody>#tr2 {
 <!-- 					</div> -->
 					
 <!-- 			<script> -->
-// 					let alreadyLiked = false; // 이미 좋아요를 눌렀는지 여부를 저장하는 변수
+<!-- // 					let alreadyLiked = false; // 이미 좋아요를 눌렀는지 여부를 저장하는 변수 -->
 
-// 					function likeCheck() {
-// 					    if (alreadyLiked) {
-// 					        alert("이미 좋아요를 누른 게시글입니다");
-// 					        return;
-// 					    }
-// 					    $.ajax({
-// 					        url: "newsLikeUpdate.do",
-// 					        data: {
+<!-- // 					function likeCheck() { -->
+<!-- // 					    if (alreadyLiked) { -->
+<!-- // 					        alert("이미 좋아요를 누른 게시글입니다"); -->
+<!-- // 					        return; -->
+<!-- // 					    } -->
+<!-- // 					    $.ajax({ -->
+<!-- // 					        url: "newsLikeUpdate.do", -->
+<!-- // 					        data: { -->
 <%-- 					            boardNo: <%=nb.getBoardNo()%>, --%>
 <%-- 					            userNo: <%=loginUser.getUserNo()%> --%>
-// 					        },
-// 					        type: "post",
-// 					        success: function(result) {
-// 					            console.log(result);
-// 					            if (result > 0) {
-// 					                $("#heart").attr("src", "resources/찬하트.jpg");
-// 					                $("#heart").attr("disabled",true);
-// 					                alreadyLiked = true;
-// 					            } else {
-// 					                $("#heart").attr("src", "resources/빈하트.jpg");
-// 					                location.reload();
-// 					            }
-// 					        },
-// 					        error: function() {
-// 					            alert("실패");
-// 					        }
-// 					    });
-// 					}
+<!-- // 					        }, -->
+<!-- // 					        type: "post", -->
+<!-- // 					        success: function(result) { -->
+<!-- // 					            console.log(result); -->
+<!-- // 					            if (result > 0) { -->
+<!-- // 					                $("#heart").attr("src", "resources/찬하트.jpg"); -->
+<!-- // 					                $("#heart").attr("disabled",true); -->
+<!-- // 					                alreadyLiked = true; -->
+<!-- // 					            } else { -->
+<!-- // 					                $("#heart").attr("src", "resources/빈하트.jpg"); -->
+<!-- // 					                location.reload(); -->
+<!-- // 					            } -->
+<!-- // 					        }, -->
+<!-- // 					        error: function() { -->
+<!-- // 					            alert("실패"); -->
+<!-- // 					        } -->
+<!-- // 					    }); -->
+<!-- // 					} -->
 					
-// 					function unlikeCheck() {
-// 						$.ajax({
-// 							url : "newsUnLike.do",
-// 							data : {
+<!-- // 					function unlikeCheck() { -->
+<!-- // 						$.ajax({ -->
+<!-- // 							url : "newsUnLike.do", -->
+<!-- // 							data : { -->
 <%-- 								 boardNo: <%=nb.getBoardNo()%>, --%>
 <%-- 						         userNo: <%=loginUser.getUserNo()%> --%>
-// 							},
+<!-- // 							}, -->
 							
-// 						})
-// 					}
-// 					function likeCheck() {
-// 						$.ajax({
-// 							url : "newsLikeUpdate.do",
-// 							data : {
+<!-- // 						}) -->
+<!-- // 					} -->
+<!-- // 					function likeCheck() { -->
+<!-- // 						$.ajax({ -->
+<!-- // 							url : "newsLikeUpdate.do", -->
+<!-- // 							data : { -->
 <%-- 								boardNo : <%=nb.getBoardNo()%>, --%>
 <%-- 								userNo : <%=loginUser.getUserNo() %> --%>
-// 							},
-// 							type : "post",
-// 							success : function(result) {
-// 								console.log(result);
-// 								if(result > 0) {
-// 									$("#heart").attr("src", "resources/찬하트.jpg");
-// // 									$("#heart").off("click");
-// 									$("#heart").attr("disabled", true);
-// 								}else {
-// 									$("#heart").attr("src", "resources/빈하트.jpg");
-// 									location.reload();
-// 								}
-// 							},
-// 							error : function() {
-// 								alert("실패");
-// 							}
-// 						});
-// 					}
+<!-- // 							}, -->
+<!-- // 							type : "post", -->
+<!-- // 							success : function(result) { -->
+<!-- // 								console.log(result); -->
+<!-- // 								if(result > 0) { -->
+<!-- // 									$("#heart").attr("src", "resources/찬하트.jpg"); -->
+<!-- // // 									$("#heart").off("click"); -->
+<!-- // 									$("#heart").attr("disabled", true); -->
+<!-- // 								}else { -->
+<!-- // 									$("#heart").attr("src", "resources/빈하트.jpg"); -->
+<!-- // 									location.reload(); -->
+<!-- // 								} -->
+<!-- // 							}, -->
+<!-- // 							error : function() { -->
+<!-- // 								alert("실패"); -->
+<!-- // 							} -->
+<!-- // 						}); -->
+<!-- // 					} -->
 					
 				<%
 					if (loginUser != null && loginUser.getNickname().equals(nb.getBoardWriter())) {
