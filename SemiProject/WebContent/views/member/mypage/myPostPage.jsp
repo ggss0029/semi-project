@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>작성한 게시글</title>
 <style>
 	@font-face {
 		font-family: 'BMJUA';

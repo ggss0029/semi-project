@@ -286,7 +286,7 @@
             </div>
             <div id="content_2">
                 
-                <p id="content_title">회원관리</p>
+                <p id="content_title">회원 관리</p>
                 <hr style="border: solid 1px gray;">
                 <table id="userlist" border="1" text-align="center">
                     <select id="search_type" name="search_type" class="userchk" >
