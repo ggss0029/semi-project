@@ -47,6 +47,10 @@ public class TotalSearchController extends HttpServlet {
 		int startPage; //페이지 하단에 보여질 페이징바의 시작수
 		int endPage; //페이지 하단에 보여질 페이징바의 끝 수 
 		
+		int result = new BoardCommonService().increaseSearch(keyword);
+		if(result == 0) {
+			int result2 = new BoardCommonService().insertSearch(keyword);
+		}
 		listCount = new BoardCommonService().selectKeywordCount(keyword);
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		pageLimit = 10;

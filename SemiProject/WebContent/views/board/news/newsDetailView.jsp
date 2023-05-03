@@ -134,7 +134,7 @@ tbody>#tr2 {
 				</tr>
 			</table>
 
-			<div class="like-area">
+<!-- 			<div class="like-area"> -->
 <!-- 					<div class="like" style="float: left;"> -->
 <%-- 						<% if (loginUser != null) {%> --%>
 <!-- 							<button onclick="likeUpdate();" style="border: 0;"> -->
@@ -143,6 +143,7 @@ tbody>#tr2 {
 <!-- 								&nbsp; -->
 <%-- 						<%} %> --%>
 <!-- 					</div> -->
+<!-- 				</div> -->
 					
 			<script>
 // 					$(function() {
@@ -196,7 +197,7 @@ tbody>#tr2 {
 				%>
 				<br clear="both">
 				<!-- 뭔가 넓어짐 -->
-			</div>
+			
 
 			<hr>
 			<div id="tabs">
@@ -242,9 +243,9 @@ tbody>#tr2 {
 			</div>
 			<script>
 				//부트 스트랩
-				$(function() {
-					$("#tabs").tabs();
-				});
+// 				$(function() {
+// 					$("#tabs").tabs();
+// 				});
 
 				$(function() {
 					newsSelectReplyList();

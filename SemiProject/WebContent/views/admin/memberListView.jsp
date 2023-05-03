@@ -76,7 +76,7 @@
 
         #my{ /*나의 정보 글씨, 위치*/
             position: absolute;
-            font-size: 35px;
+            font-size: 35px !important;
             text-decoration: none;
             color: black;
             left: 52px;
@@ -95,7 +95,7 @@
 
         #update { /*개인 정보 수정 글씨, 위치*/
             position: absolute;
-            font-size: 35px;
+            font-size: 35px !important;
             text-decoration: none;
             color: black;
             left: 52px;
@@ -114,7 +114,7 @@
 
         #write_board{ /*작성한 게시글 글씨, 위치*/
             position: absolute;
-            font-size: 35px;
+            font-size: 35px !important;
             text-decoration: none;
             color: black;
             left: 52px;
@@ -133,7 +133,7 @@
 
         #like_board{ /*좋아요한 게시글 글씨, 위치*/
             position: absolute;
-            font-size: 35px;
+            font-size: 35px !important;
             text-decoration: none;
             color: black;
             left: 52px;
@@ -152,7 +152,7 @@
 
         #out{ /*회원탈퇴 글씨, 위치*/
             position: absolute;
-            font-size: 35px;
+            font-size: 35px !important;
             text-decoration: none;
             color: black;
             left: 52px;
@@ -172,7 +172,7 @@
         
         #BlackList{ /*블랙리스트 글씨, 위치*/
             position: absolute;
-            font-size: 35px;
+            font-size: 35px !important;
             text-decoration: none;
             color: black;
             left: 52px;
@@ -191,7 +191,7 @@
         
         #UserOut{ /*회원관리 글씨, 위치*/
             position: absolute;
-            font-size: 35px;
+            font-size: 35px !important;
             text-decoration: none;
             color: black;
             left: 52px;
@@ -302,7 +302,7 @@
                             height: 50px;
                             top: 13%;
                             position: absolute;
-                            transform: translate(-50%, 0%);">검색</button> 
+                            transform: translate(-50%, -95%);">검색</button> 
                         </label>
 	                </select>
                    </table>
@@ -336,17 +336,17 @@
            <br><br>
        	 <div align="center" class="paging-area">
 	         	<%if(currentPage>10) {%> <!-- 이전 버튼  10번 페이지 이전에는 뒤로갈게 없어서 나오지않는 비노출-->
-	         		<button onclick='location.href="<%= request.getContextPath()%>/MemberList.me?page=<%=currentPage-10%>";'>&lt;</button>
+	         		<button class="btn btn-outline-dark" onclick='location.href="<%= request.getContextPath()%>/MemberList.me?page=<%=currentPage-10%>";'>&lt;</button>
 	         	<%} %>
 	         	<%for(int i=minPage; i<=maxPage; i++) {%>
 		         	<%if (currentPage == i){ %>
-		         		<button style="cursor:default"><%=i %></button>
+		         		<button class="btn btn-outline-dark" style="cursor:default"><%=i %></button>
 		         	<%}else{ %>
-		      			<button onclick='location.href="<%= request.getContextPath()%>/MemberList.me?page=<%=i%>";'><%= i%></button>
+		      			<button class="btn btn-outline-dark" onclick='location.href="<%= request.getContextPath()%>/MemberList.me?page=<%=i%>";'><%= i%></button>
 		         	<%} %>
 	         	<%} %>
 	         	<%if(totalPage!=maxPage){ %>
-	         	<button onclick='location.href="<%= request.getContextPath()%>/MemberList.me?page=<%=maxPage+1%>";'>&gt;</button>
+	         	<button class="btn btn-outline-dark" onclick='location.href="<%= request.getContextPath()%>/MemberList.me?page=<%=maxPage+1%>";'>&gt;</button>
 	         	<%} %>
          	</div>
             </div>

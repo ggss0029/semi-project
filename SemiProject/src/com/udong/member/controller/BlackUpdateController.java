@@ -43,7 +43,7 @@ public class BlackUpdateController extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		if(result > 0) {
-			response.sendRedirect(request.getContextPath()+"/BlackList.me");
+			response.sendRedirect(request.getContextPath()+"/BlackList.me?");
 		}
 	
 	}

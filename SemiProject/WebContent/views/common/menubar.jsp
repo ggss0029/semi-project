@@ -454,7 +454,7 @@
         <div id="totalSearch">
         	<form action="totalSearch.do" id="totalSearch_form">
         		<input type="hidden" name="currentPage" value="1">
-        		<div id="totalSearch_text"><input type="search" name="inputKeyword"></div>
+        		<div id="totalSearch_text"><input type="search" id="inputKeyword" name="inputKeyword"></div>
         		<div id="totalSearch_btn"><button><img alt="돋보기" src="<%=contextPath %>/views/common/icons/돋보기.png"></button></div>
         	</form>
         </div>

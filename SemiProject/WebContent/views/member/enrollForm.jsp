@@ -36,7 +36,7 @@
         }
 
         .wrap{
-            margin: 0 auto;
+            margin:auto;
             width: 1500px;
             height: 1000px;
         }
@@ -48,11 +48,16 @@
         }
 
         #left{
-            border: 1px solid red;
+/*             border: 1px solid red; */
+        }
+        
+        #left>img {
+        	width: 100%;
+        	height: 100%;
         }
 
         #right{
-            border: 1px solid blue;
+/*             border: 1px solid blue; */
         }
 
         #right>form {
@@ -157,7 +162,9 @@
 	<%}%>
 </script>
     <div class="wrap">
-        <div id="left" style="background-color: lightpink;"></div>
+        <div id="left" style="background-color: lightpink;">
+        	<img alt="회원가입이미지" src="<%=contextPath%>/views/member/icons/회원가입.jpg">
+        </div>
         <div id="right">
             <form action="<%=contextPath%>/enroll.me" method="post" onsubmit="return checkForm();">
                 <div id="enroll-form">
