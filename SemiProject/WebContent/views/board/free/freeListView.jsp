@@ -173,12 +173,12 @@ div {
 						<thead
 							style="height: 50px; border-top: 3px solid black; border-bottom: 3px solid black;">
 							<tr>
-								<th width="70;">NO.</th>
-								<th width="440;">제목</th>
-								<th width="150;">작성자</th>
-								<th width="150;">작성일</th>
-								<th width="65;">조회</th>
-								<th width="65">추천수</th>
+								<th width="80;">NO.</th>
+								<th width="465;">제목</th>
+								<th width="160;">작성자</th>
+								<th width="160;">작성일</th>
+								<th width="75;">조회</th>
+<!-- 								<th width="65">추천수</th> -->
 							</tr>
 						</thead>
 
@@ -192,7 +192,7 @@ div {
 								<td><a id="nicknameHover" onclick="profile();"><%=board.getBoardWriter()%></a></td>
 								<td><%=board.getCreateDate()%></td>
 								<td><%=board.getCount()%></td>
-								<td><%=board.getLikeCnt()%></td>
+<%-- 								<td><%=board.getLikeCnt()%></td> --%>
 							</tr>
 						</tbody>
 						<%
@@ -225,7 +225,7 @@ div {
 							if (currentPage > 10) {
 						%>
 						<!-- 이전 버튼  10번 페이지 이전에는 뒤로갈게 없어서 나오지않는 비노출-->
-						<button
+						<button class="btn btn-outline-dark"
 							onclick='location.href="<%=request.getContextPath()%>/FreeBoardList.bo?page=<%=currentPage - 10%>";'>&lt;</button>
 						<%
 							}
@@ -236,11 +236,11 @@ div {
 						<%
 							if (currentPage == i) {
 						%>
-						<button style="cursor: default"><%=i%></button>
+						<button class="btn btn-outline-dark" style="cursor: default"><%=i%></button>
 						<%
 							} else {
 						%>
-						<button
+						<button class="btn btn-outline-dark"
 							onclick='location.href="<%=request.getContextPath()%>/FreeBoardList.bo?page=<%=i%>";'><%=i%></button>
 						<%
 							}
@@ -251,7 +251,7 @@ div {
 						<%
 							if (totalPage != maxPage) {
 						%>
-						<button
+						<button class="btn btn-outline-dark"
 							onclick='location.href="<%=request.getContextPath()%>/FreeBoardList.bo?page=<%=maxPage + 1%>";'>&gt;</button>
 						<%
 							}

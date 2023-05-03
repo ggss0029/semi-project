@@ -48,7 +48,7 @@ public class EnrollController extends HttpServlet {
 		String gender = request.getParameter("gender");
 		String email = request.getParameter("email");
 		String address = request.getParameter("sample6_address") + request.getParameter("sample6_extraAddress")
-						+ " " + request.getParameter("sample6_detailAddress") + "-" + request.getParameter("sample6_postcode");
+						+ " " + request.getParameter("sample6_detailAddress") + "/" + request.getParameter("sample6_postcode");
 		int loginType = 1;
 		
 		

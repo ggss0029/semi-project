@@ -142,9 +142,9 @@
 			<%for(int i=pi.getStartPage(); i<=pi.getEndPage(); i++ ){ %>
 				<!-- 내가 보고있는 페이지 버튼은 비활성화 하기  -->
 				<%if(i != pi.getCurrentPage()){ %>
-					<button onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=i%>';"><%=i %></button>
+					<button class="btn btn-outline-dark" onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=i%>';"><%=i %></button>
 				<%}else{ %> <!-- 내가 보고있는 페이지와 페이징바 버튼의 수가 같다면 i와 currentPage -->
-					<button disabled><%=i %></button>
+					<button class="btn btn-outline-dark" disabled><%=i %></button>
 				<%} %>
 			<%} %>
 		</div>

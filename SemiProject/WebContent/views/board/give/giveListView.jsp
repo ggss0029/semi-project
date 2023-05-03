@@ -285,7 +285,7 @@
         <div id="content">
             <div id="content_1">
                 <p>나눔 할게요</p>
-                <div id="line_1"></div>
+<!--                 <div id="line_1"></div> -->
             </div>
             <div id="content_2">
                 <div id="content_2_1">

@@ -315,12 +315,12 @@ label {
 						<thead
 							style="height: 50px; border-top: 3px solid black; border-bottom: 3px solid black;">
 							<tr>
-								<th width="70">No.</th>
-								<th width="440">제목</th>
-								<th width="150">작성자</th>
-								<th width="150">작성일</th>
-								<th width="65">조회</th>
-								<th width="65">좋아요</th>
+								<th width="80">No.</th>
+								<th width="465">제목</th>
+								<th width="160">작성자</th>
+								<th width="160">작성일</th>
+								<th width="75">조회</th>
+<!-- 								<th width="65">좋아요</th> -->
 							</tr>
 						</thead>
 						<tbody>
@@ -352,7 +352,7 @@ label {
 								<!-- 작성한 날짜 -->
 								<td><%=cb.getCount()%></td>
 								<!-- 조회수 -->
-								<td><%=cb.getLikeCount()%></td>
+<%-- 								<td><%=cb.getLikeCount()%></td> --%>
 								<!-- 좋아요한 수 -->
 							</tr>
 							<%
