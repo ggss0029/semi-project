@@ -7,6 +7,18 @@
 <title>Insert title here</title>
  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <style>
+		@font-face {
+		    font-family: 'GmarketSansMedium';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+		    font-weight: normal;
+		    font-style: normal;
+		}
+		@font-face {
+		    font-family: 'BMJUA';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+		    font-weight: normal;
+		    font-style: normal;
+		}
          div{
             /* border: 1px solid black; */
             box-sizing: border-box;
@@ -50,8 +62,9 @@
             position: absolute;
             top: 40px;
             left: 52px;
-            font-size: 45px;
-            font-weight: 700;
+            font-size: 50px;
+/*             font-weight: 700; */
+            font-family: 'BMJUA';
         }
 
         #line_1 {
@@ -70,6 +83,7 @@
             color: black;
             left: 52px;
             top: 130px;
+            font-family: 'BMJUA';
         }
 
         #line_2 {
@@ -88,6 +102,7 @@
             color: black;
             left: 52px;
             top: 205px;
+            font-family: 'BMJUA';
         }
 
         #line_3 {
@@ -106,6 +121,7 @@
             color: black;
             left: 52px;
             top: 280px;
+            font-family: 'BMJUA';
         }
 
         #line_4 {
@@ -117,14 +133,15 @@
             left: 30px;
         }
 
-        #like_board{ /*좋아요한 게시글 글씨, 위치*/
-            position: absolute;
-            font-size: 35px;
-            text-decoration: none;
-            color: black;
-            left: 52px;
-            top: 360px;
-        }
+         #like_board{ /*좋아요한 게시글 글씨, 위치*/ 
+             position: absolute; 
+             font-size: 35px; 
+             text-decoration: none; 
+             color: black; 
+             left: 52px; 
+             top: 360px; 
+             font-family: 'BMJUA';
+         } 
 
         #line_5 {
             position: absolute;
@@ -141,7 +158,8 @@
             text-decoration: none;
             color: black;
             left: 52px;
-            top: 440px;
+            top: 360px;
+            font-family: 'BMJUA';
         }
         
         #user_con{ /*회운 관리 글씨, 위치*/
@@ -150,7 +168,8 @@
             text-decoration: none;
             color: black;
             left: 52px;
-            top: 440px;
+            top: 360px;
+            font-family: 'BMJUA';
         }
 
         #line_6 {
@@ -160,7 +179,7 @@
             height: 0px;
             top: 505px;
             left: 30px;
-        }
+        }	
         
         #blackList{ /*블랙리트스 글씨 위치*/
         	position: absolute;
@@ -168,7 +187,8 @@
             text-decoration: none;
             color: black;
             left: 52px;
-            top: 520px;
+            top: 440px;
+            font-family: 'BMJUA';
         }
         
         #line_8{
@@ -183,7 +203,8 @@
         #content_2>#content_2_1{ /*content2 안에 크기 지정*/
             width: 1100px;
             height: 1500px;
-            border: 1px solid skyblue;
+            border: 4px solid #C8EDC9;
+            border-radius : 20px;
             position: absolute;
             top: 15px;
             left: 12px;
@@ -196,6 +217,7 @@
             left: 54px;
             font-size: 45px;
             font-weight: 500;
+            font-family: 'BMJUA';
         }
 
         #line_7 {
@@ -231,6 +253,8 @@
             width: 180px;
             height: 50px;
             background-color: #C8EDC9;
+            font-family: 'GmarketSansMedium';
+            font-size: 20px;
         }
 
         .list-area td {
@@ -319,19 +343,20 @@
                 <a href="<%=contextPath %>/myPost.me?cPage=1" id="write_board">작성한 게시글</a>
                 <div id="line_4"></div>
 
-                <a href="<%=contextPath %>/likeList.me?currentPage=1" id="like_board">좋아요한 게시글</a>
+<%--                 <a href="<%=contextPath %>/likeList.me?currentPage=1" id="like_board">좋아요한 게시글</a> --%>
                 <div id="line_5"></div>
-
-				<%if(loginUser != null && loginUser.getUserId().equals("admin")) {%> <!-- 관리자로 로그인 할때 회원 관리, 블랙리스트 보이게 -->
-	                <a href="" id="user_con">회원 관리</a>
-	                <div id="linde_6"></div>
-	                
-	                <a href="" id="blackList">블랙 리스트</a>
-					<div id="line_8"></div>
-				<%}else { %>
-	                <a href="" id="out">회원 탈퇴</a>
-	                <div id="line_6"></div>
+                
+                 <%if(loginUser != null && loginUser.getUserId().equals("admin") )  {%>  <!-- 관리자로 로그인 할때 회원 관리, 블랙리스트 보이게 -->
+	                <a href="<%=contextPath %>/MemberList.me?" id="user_con">회원 관리</a>
+					<div id="line_5"></div>
+					
+					<a href="<%=contextPath %>/BlackList.me?" id="blackList">블랙리스트</a>
+					<div id="line_6"></div>
+                <%}else {%>
+                	<a href="<%=contextPath %>/UserDelete.me?userNo=" id="out">회원 탈퇴</a>
+                	<div id="line_5"></div>
                 <%} %>
+
             </div>
             <div id="content_2">
                 <div id="content_2_1">
@@ -412,11 +437,7 @@
                                     <span style="color: red;"> *</span>
                                 </th>
                                 <td colspan="3">
-                                    <input type="email" id="email" value="<%=loginUser.getEmail()%>" required>
-                                    <button onclick="" disabled>인증번호 전송</button> 
-                                    &nbsp;&nbsp;&nbsp;
-                                    <input type="text" id="email-num">
-                                    <button disabled>인증번호 입력</button>
+                                    <input type="email" id="email" value="<%=loginUser.getEmail()%>" readonly>
                                 </td>
                             </tr>
 
@@ -444,15 +465,6 @@
 
                             <tr style="border-bottom: 2px solid gray;">
                                 <th>
-                                    <span style="margin-left: 10px;">사진</span>
-                                </th>
-                                <td colspan="3">
-                                	<input type="file" name="profile">
-                                </td>
-                            </tr>
-
-                            <tr style="border-bottom: 2px solid gray;">
-                                <th>
                                     <span style="margin-left: 10px;">자기소개</span>
                                 </th>
                                 <td colspan="3">
@@ -471,7 +483,7 @@
                     
                         <br><br><br>
                         <div align="center" id="write_btn">
-                            <button type="submit" class="btn btn-light">등록하기</button>
+                            <button type="submit" class="btn btn-light" id="go">등록하기</button>
                             <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#changePwd">비밀번호 변경</button>
                         </div>
                         
@@ -488,28 +500,10 @@
 // 	                    });
 // 	                  });
 
-					$("#email")
-
 					var checkNickname = 0;
 					
-					$("#nickname").keyup(function() {
-                        var $nickname = $(this).val();
-                        regExp = /^[a-zA-Z0-9가-힇]{2,}$/;
-
-                        if(!regExp.test($nickname)) {
-                            $(this).parents(".input_area").find("button").attr("disabled", true);
-                            $(this).siblings("sup").eq(0).text("올바른 형식이 아닙니다.");
-                            $(this).siblings("sup").eq(1).text("");
-                        }
-                        else {
-                            $(this).parents(".input_area").find("button").attr("disabled", false);
-                            $(this).siblings("sup").eq(1).text("닉네임 중복확인을 해주세요.");
-                            $(this).siblings("sup").eq(0).text("");
-                        }
-                    });
-                
                 	function myNickChk() {
-                		
+                		var go = $("#go").val();
                 		$.ajax({
                 			url : "<%=contextPath%>/checkNickname.me",
                 			data : { inputNickname : $("#nickName").val()},
@@ -517,10 +511,12 @@
                 				if(result == "Y") {
                 					if(confirm("사용 가능한 닉네임 입니다! 사용하시겠습니까?")) {
                 						$("#nickName").attr("readonly",true); //닉넴 변경 불가
+                						$("#go").attr("disabled",false);
                 						checkNickname=1;
                 					}
                 				}else {
                 					alert("이미 사용중인 닉네임입니다.");
+                					$("#go").attr("disabled",true);
                         			$("#nickname").focus();
                 				}
                 				
@@ -533,7 +529,7 @@
                 	
                 	
                 	//주소
-                	function sample6_execDaumPostcode() {
+                	function sample6_execDaumPostcode() { //우편번호 찾기 버튼을 누르면
                         new daum.Postcode({
                             oncomplete: function(data) {
                                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -679,9 +675,6 @@
 								var inputPwd = $("#userPwd").val();
 								var updatePwd = $("#updatePwd").val();
 								var chkPwd = $("#chkPwd").val();
-								console.log(inputPwd);
-								console.log(updatePwd);
-								console.log(chkPwd);
 								
 								//비밀번호 검사
 								if(loginPwd == inputPwd) { //현재 비밀번호가 일치한다면

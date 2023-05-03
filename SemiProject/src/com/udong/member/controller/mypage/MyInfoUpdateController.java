@@ -53,7 +53,6 @@ public class MyInfoUpdateController extends HttpServlet {
 		String nickName = request.getParameter("nickName");
 		String birthday = request.getParameter("birthday");
 		String gender = request.getParameter("gender");
-		String email = request.getParameter("email");
 		String address = request.getParameter("sample6_address") + request.getParameter("sample6_extraAddress")
 						+ " " + request.getParameter("sample6_detailAddress") + "-" + request.getParameter("sample6_postcode");
 		String introduction = request.getParameter("introduction");
@@ -71,7 +70,7 @@ public class MyInfoUpdateController extends HttpServlet {
 //			+ " " + multiRequest.getParameter("sample6_detailAddress") + "-" + multiRequest.getParameter("sample6_postcode");
 //		}
 //		
-		Member m = new Member(userId, userName, nickName, birthday, gender, email, address, introduction);
+		Member m = new Member(userId, userName, nickName, birthday, gender,  address, introduction);
 		//System.out.println(m);
 		
 		Member updateMem = new MemberService().myInfoUpdate(m);

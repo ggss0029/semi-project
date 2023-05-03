@@ -41,9 +41,9 @@ public class MemberListControllerServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		
 		
-		
 		ArrayList<Member> list = new MemberService().getMemberList(page , userId , email);
 		System.out.println("list : " + list.toString());
+		//검색한 유저의 id 나 email은 하나의 유저만 검색이되기때문에  값을 1로지정
 		Integer count = userId == null && email == null ? new MemberService().getMemberListCount() : 1;
 		int totalPage = count % 11 == 0 ? count / 11 : (count / 11) + 1;
 		int currentPage = page == null ? 1 : Integer.parseInt(page);

@@ -37,14 +37,14 @@ public class FreeBoardListController extends HttpServlet {
 //		NO.	제목	작성자	작성일	조회	추천수
 		request.setCharacterEncoding("UTF-8");
 		String page = request.getParameter("page");
-		String searchContent = request.getParameter("searchContent");
+		String boardTitle = request.getParameter("boardTitle");
+		String boardContent = request.getParameter("boardContent");
 		
-		
-		
-		
-		ArrayList<FreeBoard> list = new FreeBoardService().getBoardList(page ,searchContent);
-		Integer count = new FreeBoardService().getboardListCount(searchContent);
-		int totalPage = count % 11 == 0 ? count / 11 : (count / 11) + 1;
+		ArrayList<FreeBoard> list = new FreeBoardService().getBoardList(page ,boardTitle,boardContent, boardContent);
+		//Count = 검색한 게시물 수
+		//검색한 게시글은 중복이 될수있고 페이징 처리를 해줘야 하기때문에 카운트를 가져와줘야함
+		Integer count =  new FreeBoardService().getboardListCount(boardTitle,boardContent);
+		int totalPage = count % 10 == 0 ? count / 10 : (count / 10) + 1;
 		int currentPage = page == null ? 1 : Integer.parseInt(page);
 		int minPage = (int) Math.floor((double)currentPage / 10) * 10 + 1;
 		int maxPage = (int) Math.ceil((double)currentPage / 10) * 10 >= totalPage ? totalPage : (int) Math.ceil(currentPage / 10) * 10; 

@@ -481,7 +481,7 @@ public class MemberDao {
 		return result;
 	}
 
-	public ArrayList<Member> getBlackList(Connection conn, String page, String userNo, String email) {
+	public ArrayList<Member> getBlackList(Connection conn, String page) {
 		
 		ArrayList<Member> list = new ArrayList<Member>();
 		ResultSet rset = null;
@@ -489,15 +489,6 @@ public class MemberDao {
 		Integer offset = 0;
 		Integer Limit = 15;
 		String sql = prop.getProperty("BlackList");
-		
-		if(userNo != null) {
-			sql = prop.getProperty("BlackListWithUserNo");
-		}
-		
-		
-		 if(email != null) {
-			 sql = prop.getProperty("BlackListWithEmail");
-		 }
 		  
 		if(page != null && !page.equals("1")) {
 			offset = (Integer.parseInt(page)-1) * 15 + 1;
@@ -706,10 +697,9 @@ public class MemberDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, m.getNickname());
-			pstmt.setString(2, m.getEmail());
-			pstmt.setString(3, m.getAddress());
-			pstmt.setString(4, m.getIntroduction());
-			pstmt.setString(5, m.getUserId());
+			pstmt.setString(2, m.getAddress());
+			pstmt.setString(3, m.getIntroduction());
+			pstmt.setString(4, m.getUserId());
 			
 			result = pstmt.executeUpdate();
 			

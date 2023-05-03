@@ -326,6 +326,7 @@
 	                            <th width="65">좋아요</th>
 	                        </tr>
                         </thead>
+                        <tbody>
                         	<%
 								if (blist.isEmpty()) {
 							%>
@@ -347,7 +348,7 @@
 								<td class="goDetail1"><%=buyb.getBoardTitle()%></td>
 								<!-- 제목 -->
 								<td><a id="nicknameHover"
-									onclick="profile();"><%=buyb.getBoardWriter()%></a></td>
+									onclick="whoareyou();"><%=buyb.getBoardWriter()%></a></td>
 								<!-- 작성자  닉네임 -->
 								<td><%=buyb.getCreateDate()%></td>
 								<!-- 작성한 날짜 -->
@@ -378,17 +379,10 @@
                         <%if (loginUser != null) {%>
                         <div align="right" id="write_btn">
                             <a onclick="goWrite();" class="btn btn-light">글쓰기</a>
-                            	<script>
-	                                function goWrite(){
-	                                	var boardName = $(document).find("title").eq(0).text();
-	                                	location.href="<%=contextPath %>/insert.bo?boardName="+boardName;
-	                                };
-                            	</script>
                         </div>
                         <%} %>
                         <script>
 	                                function goWrite(){
-	                                	
 	                                	var boardName = $(document).find("title").eq(0).text();
 	                                	location.href="<%=contextPath %>/insert.bo?boardName="+boardName;
 	                                };
@@ -421,14 +415,20 @@
     
 		    $(function(){
 		    	//.list-area클래스 자손tbody 자손tr 클릭됐을때
-			    $(".goDetail1").click(function(){
+// 			    $(".goDetail1").click(function(){
 			        
-			        var bno = $(this).parent().children().first().text();
+// 			        var bno = $(this).parent().children().first().text();
 			        
-			       	location.href = '<%=contextPath %>/buyDetail.bo?bno='+bno;
-			    });
+<%-- 			       	location.href = '<%=contextPath %>/buyDetail.bo?bno='+bno; --%>
+// 			    });
 		    	
-		    });
+				$(".list-area>tbody").on("click","tr",function(){
+					var bno = $(this).children().first().text();
+					location.href = '<%=contextPath %>/buyDetail.bo?bno='+bno;
+				});
+				});
+		    	
+		    
 		    
 		    function buySearch() {
 		    	var city = $("#city").val();

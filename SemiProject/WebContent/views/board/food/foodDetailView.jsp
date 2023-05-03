@@ -170,7 +170,7 @@ tbody>#tr2 {
 					</tr>
 				<%} %>
 				</tr>		
-				<tr style="height: auto">
+				<tr style="height: 700px">
 					<td colspan="4" style="height: auto; vertical-align : top "><br><%=fb.getBoardContent()%></td>
 				</tr>
 			</table>
@@ -209,21 +209,21 @@ geocoder.addressSearch("<%=fb.getRegion().substring(fb.getRegion().indexOf("$")+
 });    
 </script>
 
-			<div class="like-area">
-					<div class="like" style="float: left;">
-						<% if (loginUser != null) %>
-							<button type="button" id="like_btn">
-								<i class="fas fa-heart"></i>
+<!-- 			<div class="like-area"> -->
+<!-- 					<div class="like" style="float: left;"> -->
+<%-- 						<% if (loginUser != null) %> --%>
+<!-- 							<button type="button" id="like_btn"> -->
+<!-- 								<i class="fas fa-heart"></i> -->
 								
-								&nbsp; 
-								<span class="like_count"></span> <!-- 추천 수 보여주기 -->
-							</button>
-					</div>
+<!-- 								&nbsp;  -->
+<!-- 								<span class="like_count"></span> 추천 수 보여주기 -->
+<!-- 							</button> -->
+<!-- 					</div> -->
 					
 				<%
 					if (loginUser != null && loginUser.getNickname().equals(fb.getBoardWriter())) {
 				%>
-				<div class="board_btn" style="float: right; margin-right: 70px">
+				<div class="board_btn" style="float: right; margin-right: 20px">
 					<button
 						onclick="location.href = '<%=contextPath%>/updateBoard.bo?bno=<%=fb.getBoardNo()%>'"
 						class="btn btn-secondary">수정</button>

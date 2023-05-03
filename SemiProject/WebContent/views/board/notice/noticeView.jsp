@@ -213,7 +213,7 @@ div {
 								<td class="goDetail1"><%=n.getNoticeTitle() %></td>
 								<!-- 제목 -->
 								<td><a id="nicknameHover"
-									onclick="profile();"><%=n.getNoticeWriter()%></a></td>
+									onclick="whoareyou();"><%=n.getNoticeWriter()%></a></td>
 								<!-- 작성자  닉네임 -->
 								<td><%=n.getCreatDate()%></td>
 								<!-- 작성한 날짜 -->

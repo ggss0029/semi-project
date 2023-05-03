@@ -25,14 +25,13 @@ public class Member {
 	
 	//회원정보수정 멤버변수
 	public Member(String userId, String userName, String nickname, String birthday, String gender,
-			 String email, String address, String introduction) {
+			  String address, String introduction) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
 		this.nickname = nickname;
 		this.birthday = birthday;
 		this.gender = gender;
-		this.email = email;
 		this.address = address;
 		this.introduction = introduction;
 	}

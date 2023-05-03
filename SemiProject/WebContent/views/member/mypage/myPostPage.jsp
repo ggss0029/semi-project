@@ -10,6 +10,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+	@font-face {
+		font-family: 'BMJUA';
+		src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+		font-weight: normal;
+		font-style: normal;
+	}
 	.wrap {
 		position:relative;
 		z-index:1;
@@ -48,11 +54,12 @@
 		position: absolute;
 		top: 40px;
 		left: 52px;
-		font-size: 45px;
-		font-weight: 700;
+		font-size: 50px;
+/* 		font-weight: 700; */
+		font-family: 'BMJUA';
 	}
 	
-	#line_1, #line_2, #line_3, #line_4, #line_5, #line_6 {
+	#line_1, #line_2, #line_3, #line_4, #line_5, #line_6, #line_8 {
 		position: absolute;
 		border: 1px solid black;
 		width: 300px;
@@ -61,13 +68,14 @@
 		left: 30px;
 	}
 	
-	#my, #update, #write_board, #like_board, #out {
+	#my, #update, #write_board, #like_board, #out, #user_con, #blackList{
 		position: absolute;
 		font-size: 35px;
 		text-decoration: none;
 		color: black;
 		left: 52px;
 		top: 130px;
+		font-family: 'BMJUA';
 	}
 	
 	#line_2 { top: 190px; }
@@ -75,16 +83,20 @@
 	#line_4 { top: 345px; }
 	#line_5 { top: 425px; }
 	#line_6 { top: 505px; }
+	#line_8 { top: 585px; }
 	
 	#update { top: 205px; }
 	#write_board { top: 280px; }
 	#like_board { top: 360px; }
-	#out { top: 440px; }
+	#out { top: 360px; }
+	#user_con { top: 360px;}
+	#blackList {top: 440px;}
 	
 	#content_2_1 {
 		width: 1100px;
 		height: 970px;
-		border: 1px solid skyblue;
+		border: 4px solid #C8EDC9;
+        border-radius : 20px;
 		position: absolute;
 		top: 15px;
 		left: 12px;
@@ -96,6 +108,7 @@
 		left: 54px;
 		font-size: 45px;
 		font-weight: 500;
+		font-family: 'BMJUA';
 	}
 	
 	#line_7 {
@@ -139,10 +152,19 @@
 				<div id="line_3"></div>
 				<a href="<%=contextPath %>/myPost.me?cPage=1" id="write_board">작성한 게시글</a>
 				<div id="line_4"></div>
-				<a href="<%=contextPath %>/likeList.me?currentPage=1" id="like_board">좋아요한 게시글</a>
+<%-- 				<a href="<%=contextPath %>/likeList.me?currentPage=1" id="like_board">좋아요한 게시글</a> --%>
 				<div id="line_5"></div>
-				<a href="" id="out">회원 탈퇴</a>
-				<div id="line_6"></div>
+				
+				<%if(loginUser != null && loginUser.getUserId().equals("admin") )  {%>
+	                <a href="<%=contextPath %>/MemberList.me?" id="user_con">회원 관리</a>
+					<div id="line_5"></div>
+					
+					<a href="<%=contextPath %>/BlackList.me?" id="blackList">블랙리스트</a>
+					<div id="line_6"></div>
+                <%}else {%>
+                	<a href="<%=contextPath %>/UserDelete.me?userNo=" id="out">회원 탈퇴</a>
+                	<div id="line_5"></div>
+                <%} %>
 			</div>
 			<div id="content_2">
 				<div id="content_2_1">

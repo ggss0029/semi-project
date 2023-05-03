@@ -145,6 +145,7 @@
             height: 40px;
             margin: 70px 3% 70px 3%;
             font-family: 'GmarketSansMedium';
+            line-height: 30px;
         }
 
         #logout {
@@ -801,7 +802,7 @@
         <div class="header_2">
             <div style="margin-left:3%"><a align="center" href="<%=contextPath %>/newsList.bo?currentPage=1"><img src="views/common/icons/정보공유1.png" alt="정보공유">정보 공유</a></div>
             <div style="margin-left:2%"><a align="center" href="<%=contextPath %>/foodList.bo?currentPage=1"><img src="views/common/icons/동네맛집1.png" alt="동네맛집">동네 맛집</a></div>
-            <div style="margin-left:2%"><a align="center" href="<%=contextPath %>/giveList.bo?currentPage=1"><img src="views/common/icons/나눔1.png" alt="나눔">나눔</a></div>
+            <div style="margin-left:2%"><a align="center" href="<%=contextPath %>/giveList.bo?currentPage=1"><img src="views/common/icons/나눔1.png" alt="나눔할게요">나눔 할게요</a></div>
             <div style="margin-left:2%"><a align="center" href="<%=contextPath%>/togetherList.bo?cPage=1"><img src="views/common/icons/함께해요1.png" alt="함께해요">함께 해요 </a></div>
             <div style="margin-left:2%"><a align="center" href="<%=contextPath %>/FreeBoardList.bo?currentPage=1"><img src="views/common/icons/자유게시판1.png" alt="자유게시판">자유게시판</a></div>
             <div style="margin-left:2%; margin-right:3%"><a align="center" href="<%=contextPath%>/noticeList.bo?currentPage=1"><img src="views/common/icons/소식1.png" alt="소식">소식</a></div>

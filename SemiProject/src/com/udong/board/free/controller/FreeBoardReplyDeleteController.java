@@ -8,20 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.udong.board.free.model.service.FreeBoardService;
-import com.udong.board.free.model.vo.FreeAttachment;
-import com.udong.board.free.model.vo.FreeBoard;
 
 /**
- * Servlet implementation class FreeBoardUpdateController
+ * Servlet implementation class FreeBoardReplyDeleteController
  */
-@WebServlet("/freeUpdate.bo")
-public class FreeBoardUpdateController extends HttpServlet {
+@WebServlet("/freeReplyDelete.bo")
+public class FreeBoardReplyDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FreeBoardUpdateController() {
+    public FreeBoardReplyDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,20 +28,11 @@ public class FreeBoardUpdateController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	//게시글 번호 조회 하여 수정페이지로 전달하기
-	int bno = Integer.parseInt(request.getParameter("bno"));
-	
-	FreeBoardService freeService = new FreeBoardService();
-	
-	FreeBoard fb = freeService.selectFreeBoard(bno);
-	FreeAttachment fat = freeService.selectFreeAttachment(bno);
-	
-	request.setAttribute("fb",fb);
-	request.setAttribute("fat",fat);
-	
-	request.getRequestDispatcher("views/board/free/freeUpdateBoard.jsp").forward(request, response);
-	
-	
+		int freeReplyNo = Integer.parseInt(request.getParameter("replyNo"));
+		
+		int result = new FreeBoardService().freeDeleteReply(freeReplyNo);
+		
+		response.getWriter().print(result);
 	}
 
 	/**
