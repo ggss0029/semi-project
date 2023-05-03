@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
+import com.udong.board.buy.model.vo.BuyReply;
 import com.udong.board.together.model.vo.TogetherBoard;
+import com.udong.board.together.model.vo.TogetherReply;
 import com.udong.common.JDBCTemplate;
 import com.udong.common.model.vo.PageInfo;
 
@@ -203,6 +205,97 @@ public class TogetherBoardDao {
 		}
 		
 		return list;
+	}
+
+	public int togetherInsertReply(Connection conn, TogetherReply r) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("togetherInsertReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, r.getReplyContent());
+			pstmt.setInt(2, r.getRefBno());
+			pstmt.setInt(3, Integer.parseInt(r.getReplyWriter()));
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+	public ArrayList<TogetherReply> togetherSelectReply(Connection conn, int boardNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<TogetherReply> list = new ArrayList<>();
+		String sql = prop.getProperty("togetherSelectReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				TogetherReply tr = new TogetherReply();
+				tr.setReplyNo(rset.getInt("REPLY_NO"));
+				tr.setRefBno(rset.getInt("REF_BNO"));
+				tr.setReplyWriter(rset.getString("NICKNAME"));
+				tr.setCreateDate(rset.getDate("CREATE_DATE"));
+				tr.setReplyContent(rset.getString("REPLY_CONTENT"));
+				
+				list.add(tr);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
+
+	public int togetherDeleteReply(Connection conn, int replyNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("togetherDeleteReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, replyNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+	public int togetherUpdateReply(Connection conn, int replyNo, String content) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("togetherUpdateReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, content);
+			pstmt.setInt(2, replyNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
 	}
 
 }

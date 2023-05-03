@@ -28,11 +28,11 @@
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
     <style>
     	@font-face {
-    font-family: 'GmarketSansMedium';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
+		    font-family: 'GmarketSansMedium';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+		    font-weight: normal;
+		    font-style: normal;
+		}
 		
         #header{
             height: 400px;
@@ -161,7 +161,7 @@
         }
         
         #user_info>div {
-            width: 33%;
+            width: 50%;
             height: 100%;
             float: left;
         }
@@ -202,9 +202,6 @@
             width: 1500px;
             height: 1400px;
             margin: auto;
-/*             border-left: 1px solid black; */
-/*             border-right: 1px solid black; */
-            border-bottom: 1px solid black;
         }
 
         .outer>div{
@@ -290,7 +287,7 @@
 /*             background-color: pink; */
             width: 100%;
             height: 32.5%;
-            border-bottom: 1px solid black;
+/*             border-bottom: 1px solid black; */
         }
         
         .content_2>div, .content_3>div {
@@ -364,16 +361,16 @@
         .swiper-pagination-bullet-active { width: 20px; transition: width .5s; border-radius: 5px; background: lightgray; border: 1px solid transparent; }
         .swiper-slide { width: 250px; height: 250px; margin: auto; box-sizing: border-box; }
         div[class*=keyword] { width: 100%; height: 100%; margin: auto; box-sizing: border-box; }
-        .swiper-slide.slide01 { background-color: #BE5EC2; }
-        .swiper-slide.slide02 { background-color: #F862A7; }
-        .swiper-slide.slide03 { background-color: #FF7B87; }
-        .swiper-slide.slide04 { background-color: #FFA26A; }
-        .swiper-slide.slide05 { background-color: #FFCE5E; }
-        .swiper-slide.slide06 { background-color: #F9F871; }
-        .swiper-slide.slide07 { background-color: #9BDE7E; }
-        .swiper-slide.slide08 { background-color: #4BBC8E; }
-        .swiper-slide.slide09 { background-color: #039590; }
-        .swiper-slide.slide10 { background-color: #1C6E7D; }
+/*         .swiper-slide.slide01 { background-color: #BE5EC2; } */
+/*         .swiper-slide.slide02 { background-color: #F862A7; } */
+/*         .swiper-slide.slide03 { background-color: #FF7B87; } */
+/*         .swiper-slide.slide04 { background-color: #FFA26A; } */
+/*         .swiper-slide.slide05 { background-color: #FFCE5E; } */
+/*         .swiper-slide.slide06 { background-color: #F9F871; } */
+/*         .swiper-slide.slide07 { background-color: #9BDE7E; } */
+/*         .swiper-slide.slide08 { background-color: #4BBC8E; } */
+/*         .swiper-slide.slide09 { background-color: #039590; } */
+/*         .swiper-slide.slide10 { background-color: #1C6E7D; } */
         div[class*=swiper-button] {position: absolute; margin-top: -40px;}
         .swiper-button-prev { margin-left: 1px;}
         .swiper-button-next { margin-right: 1px; }
@@ -549,6 +546,23 @@
 			})
 		}
 		
+		function showGivePost() {
+			$.ajax({
+				url: "givePost.bo",
+				method: "post",
+				success: function(list) {
+					for(var i=0;i<list.length;i++) {
+						var str = "<div style='height:90%'><a><input type='hidden' name='bno' value='" + list[i].boardNo + "'><img alt='무나사진' src='" + "<%=contextPath%>" + list[i].img + "' style='width:100%; height:100%'></a></div>"
+								+ "<div style='height:10%' align='center'><p style='font-weight:550;''>" + list[i].boardTitle + "</p></div>";
+						$("div[class*=givePost" + (i+1) + "]").html(str);
+					}
+				},
+				error: function() {
+					console.log("통신 실패");
+				}
+			})
+		}
+		
 		$(".c1_table>table").on("mouseenter", "td", function() {
 			if($(this).prev().text() != "") {
 				$(this).css("cursor", "pointer");
@@ -584,7 +598,17 @@
 			var bno = $(this).children("input").val();
 			var bname = "동네 맛집";
 			location.href = "<%=contextPath%>/searchBoard.bo?bno=" + bno + "&bname=" + bname;
-		})
+		});
+		
+		$("div[class*=givePost").on("mouseenter", "a", function() {
+			$(this).css("cursor", "pointer");
+		});
+		
+		$("div[class*=givePost").on("click", "a", function() {
+			var bno = $(this).children("input").val();
+			var bname = "나눔 할게요";
+			location.href = "<%=contextPath%>/searchBoard.bo?bno=" + bno + "&bname=" + bname;
+		});
 		
 		callback();
 		setTimeout(callback, renewTime); // 시간 계산 후 정각에 가져옴
@@ -592,6 +616,7 @@
 		showBestPost();
 		showLastestPost();
 		showFoodPost();
+		showGivePost();
 	});
 </script>
     <div id="header">
@@ -759,9 +784,6 @@
 		                <div>
 		                	<a href="<%=contextPath%>/sendLetterList.le?writerNo=<%=loginUser.getUserNo()%>&currentPage=1" id="letter"><img alt="쪽지아이콘" src="<%=contextPath %>/views/common/icons/쪽지함.png" id="letterIcon" style="width: 70px; height:70px;"><br>쪽지함</a>
 		                </div>
-		                <div id="likeBoard">
-		                	<a href="<%=contextPath %>/likeList.me?currentPage=1" id="likeBoard"><img alt="좋아요게시글 아이콘" src="<%=contextPath %>/views/common/icons/관심.png" id="likeBoardIcon" style="width: 70px; height:70px;"><br>관심</a>
-		                </div>
 	                </div>
             	</div>
             <%} %>
@@ -851,33 +873,33 @@
                             <div class="swiper-slide slide10 foodPost8"></div>
                         </div>
                     </div>
-                    <div class="swiper-button-prev sb1_1"></div>
-                    <div class="swiper-button-next sb1_2"></div>
+                    <div class="swiper-button-prev sb1_1" style="color: black;"></div>
+                    <div class="swiper-button-next sb1_2" style="color: black;"></div>
                     <div class="swiper-pagination sp1"></div>
                 </div>
             </div>
             <div class="content_3" >
                 <div class="c4">
                 	<p style="padding:0; margin:16px; font-size: 40px; font-weight: 500; font-family: 'GmarketSansMedium';">나눔 할게요</p>
-                	<button style="margin-top:25px; margin-left:1150px; font-family: 'GmarketSansMedium';" class="btn">더보기 ></button>
+                	<button style="margin-top:25px; margin-left:1115px; font-family: 'GmarketSansMedium';" class="btn">더보기 ></button>
                 </div>
                 <div class="main_swiper2">
                     <div class="swiper-container swiper2">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide slide01"></div>
-                            <div class="swiper-slide slide02"></div>
-                            <div class="swiper-slide slide03"></div>
-                            <div class="swiper-slide slide04"></div>
+                            <div class="swiper-slide slide01 givePost1"></div>
+                            <div class="swiper-slide slide02 givePost2"></div>
+                            <div class="swiper-slide slide03 givePost3"></div>
+                            <div class="swiper-slide slide04 givePost4"></div>
                             <!-- <div class="swiper-slide slide05"></div> -->
-                            <div class="swiper-slide slide06"></div>
-                            <div class="swiper-slide slide07"></div>
-                            <div class="swiper-slide slide08"></div>
+                            <div class="swiper-slide slide06 givePost5"></div>
+                            <div class="swiper-slide slide07 givePost6"></div>
+                            <div class="swiper-slide slide08 givePost7"></div>
                             <!-- <div class="swiper-slide slide09"></div> -->
-                            <div class="swiper-slide slide10"></div>
+                            <div class="swiper-slide slide10 givePost8"></div>
                         </div>
                     </div>
-                    <div class="swiper-button-prev sb2_1"></div>
-                    <div class="swiper-button-next sb2_2"></div>
+                    <div class="swiper-button-prev sb2_1" style="color: black;"></div>
+                    <div class="swiper-button-next sb2_2" style="color: black;"></div>
                     <div class="swiper-pagination sp2"></div>
                 </div>
             </div>

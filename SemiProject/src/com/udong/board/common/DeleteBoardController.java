@@ -63,18 +63,12 @@ public class DeleteBoardController extends HttpServlet {
 			else if(before.contains("clean")) { // 살림 꿀팁
 				response.sendRedirect(request.getContextPath() + "/cleanList.bo?currentPage=1");
 			}
-//			else if() { // 자취 레시피
-//				
-//			}
 			else if(before.contains("food")) { // 동네 맛집
 				response.sendRedirect(request.getContextPath() + "/foodList.bo?currentPage=1");
 			}
-//			else if() { // 나눔 할게요
-//				
-//			}
-//			else if() { // 이거 필요해요
-//				
-//			}
+			else if(before.contains("give")) { // 나눔 할게요
+				response.sendRedirect(request.getContextPath() + "/giveList.bo?currentPage=1");
+			}
 			else if(before.contains("together")) { // 같이 해요
 				response.sendRedirect(request.getContextPath() + "/togetherList.bo?cPage=1");
 			}

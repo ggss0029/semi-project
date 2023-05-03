@@ -25,6 +25,13 @@
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <style>
 		@font-face {
+		    font-family: 'GmarketSansMedium';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+		    font-weight: normal;
+		    font-style: normal;
+		}
+		
+		@font-face {
 		    font-family: 'BMJUA';
 		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
 		    font-weight: normal;
@@ -135,6 +142,8 @@
             width: 40%;
             height: 40px;
             margin: 70px 3% 70px 3%;
+            font-family: 'GmarketSansMedium';
+            line-height: 30px;
         }
         
         #logout {
@@ -150,7 +159,7 @@
         }
         
         #user_info>div {
-            width: 33%;
+            width: 50%;
             height: 100%;
             float: left;
         }
@@ -448,9 +457,6 @@
 	                <div>
 	                	<a href="<%=contextPath%>/sendLetterList.le?writerNo=<%=loginUser.getUserNo()%>&currentPage=1"><img alt="쪽지아이콘" src="<%=contextPath %>/views/common/icons/쪽지함.png" style="width: 70px; height:70px;"><br>쪽지함</a>
 	                </div>
-	                <div id="likeBoard">
-	                	<a href="<%=contextPath %>/likeList.me?currentPage=1"><img alt="좋아요게시글 아이콘" src="<%=contextPath %>/views/common/icons/관심.png" style="width: 70px; height:70px;"><br>관심</a>
-	                </div>
 	            </div>
         	</div>
     	<%} %>
@@ -495,21 +501,15 @@
                 <ul>
                     <li><a href="<%=contextPath %>/newsList.bo?currentPage=1">동네 소식</a></li>
                     <li><a href="<%=contextPath %>/cleanList.bo?currentPage=1">살림 꿀팁</a></li>
-                    <li><a href="">자취 레시피</a></li>
                 </ul>
             </li><li><a href="<%=contextPath %>/foodList.bo?currentPage=1">동네 맛집</a></li><li>
-                <a href="<%=contextPath %>/giveList.bo?currentPage=1" style="cursor: default;">나눔</a>
-                <ul>
-                    <li><a href="">나눔할게요</a></li>
-                    <li><a href="">이거 필요해요</a></li>
-                </ul>
-            </li><li>
+                <a href="<%=contextPath %>/giveList.bo?currentPage=1" style="cursor: default;">나눔할게요</a></li><li>
                 <a style="cursor: default;">함께 해요</a>
                 <ul>
                     <li><a href="<%=contextPath%>/togetherList.bo?cPage=1">같이 해요</a></li>
                     <li><a href="<%=contextPath %>/buyList.bo?currentPage=1">같이 사요</a></li>
                 </ul>
-            </li><li><a href="">자유게시판</a></li><li style="margin-right:2%">
+            </li><li><a href="<%=contextPath%>/FreeBoardList.bo?currentPage=1">자유게시판</a></li><li style="margin-right:2%">
                 <a style="cursor: default;">소식</a>
                 <ul>
                     <li><a href="<%=contextPath%>/noticeList.bo?currentPage=1">공지사항</a></li>

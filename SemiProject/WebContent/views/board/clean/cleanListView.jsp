@@ -278,8 +278,8 @@ label {
 				<a href="<%=contextPath%>/cleanList.bo?currentPage=1" id="clean">살림
 					꿀팁</a>
 				<div id="line_3"></div>
-				<a href="" id="recipe">자취 레시피</a>
-				<div id="line_4"></div>
+<!-- 				<a href="" id="recipe">자취 레시피</a> -->
+<!-- 				<div id="line_4"></div> -->
 			</div>
 			<div id="content_2">
 				<div id="content_2_1">
