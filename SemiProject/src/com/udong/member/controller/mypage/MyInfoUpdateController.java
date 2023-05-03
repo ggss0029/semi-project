@@ -54,7 +54,7 @@ public class MyInfoUpdateController extends HttpServlet {
 		String birthday = request.getParameter("birthday");
 		String gender = request.getParameter("gender");
 		String address = request.getParameter("sample6_address") + request.getParameter("sample6_extraAddress")
-						+ " " + request.getParameter("sample6_detailAddress") + "-" + request.getParameter("sample6_postcode");
+						+ " " + request.getParameter("sample6_detailAddress") + "/" + request.getParameter("sample6_postcode");
 		String introduction = request.getParameter("introduction");
 	
 

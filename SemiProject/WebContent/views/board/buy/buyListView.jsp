@@ -318,12 +318,12 @@
                     <table class="list-area" border="0" align="center">
                         <thead style="height: 50px; border-top:3px solid black; border-bottom:3px solid black;">
                             <tr>
-	                            <th width="70">No.</th>
-	                            <th width="440">제목</th>
-	                            <th width="150">작성자</th>
-	                            <th width="150">작성일</th>
-	                            <th width="65">조회</th>
-	                            <th width="65">좋아요</th>
+	                            <th width="80">No.</th>
+	                            <th width="465">제목</th>
+	                            <th width="160">작성자</th>
+	                            <th width="160">작성일</th>
+	                            <th width="75">조회</th>
+<!-- 	                            <th width="65">좋아요</th> -->
 	                        </tr>
                         </thead>
                         <tbody>
@@ -354,7 +354,7 @@
 								<!-- 작성한 날짜 -->
 								<td><%=buyb.getCount()%></td>
 								<!-- 조회수 -->
-								<td><%=buyb.getLikeCount()%></td>
+<%-- 								<td><%=buyb.getLikeCount()%></td> --%>
 								<!-- 좋아요한 수 -->
 							</tr>
 							<%
