@@ -105,6 +105,10 @@ tbody>#tr2 {
 #foodWriter>a:hover{
 	cursor:pointer;
 }
+
+#pp {
+	white-space: pre-wrap;
+}
 </style>
 </head>
 <body>
@@ -119,7 +123,7 @@ tbody>#tr2 {
 			<table border="0" align="center" id="detail-area">
 				<tr style="height:80px;">
 					<td colspan="4"
-						style="height: 50px; font-size: 30px; font-weight: 600; border-bottom: 1px solid black;"><%=gb.getBoardTitle()%></td>
+						style="height: 50px; font-size: 30px; font-weight: 600;"><%=gb.getBoardTitle()%></td>
 				</tr>
 				<tr style="border-bottom: 1px solid black; height:80px;">
 					<td style="height: 50px; font-size: 20px; font-weight: 600;" id="foodWriter" colspan="3">
@@ -163,7 +167,7 @@ tbody>#tr2 {
 				<%} %>
 				</tr>		
 				<tr style="height: 700px">
-					<td colspan="4" style="height: auto; vertical-align : top "><br><%=gb.getBoardContent()%></td>
+					<td colspan="4" style="height: auto; vertical-align : top "><br><p id="pp"><%=gb.getBoardContent()%></p></td>
 				</tr>
 			</table>
 			<br><br>

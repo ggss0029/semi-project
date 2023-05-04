@@ -189,11 +189,11 @@
                             <div id="m1">
                                 <input type="text" style="height: 60px;" name="inputId" id="inputId" placeholder="아이디"><br>
                                 <input type="password" style="height: 60px;" name="inputPwd" id="inputPwd" placeholder="비밀번호">
-                                <button type="submit" style="height: 60px;" id="loginBtn">로그인</button>
+                                <button type="submit" style="height: 60px; cursor: pointer;" id="loginBtn">로그인</button>
                             </div>
                         </form>
                         <div id="m2">
-                            <img src="<%=contextPath %>/views/member/icons/카카오로그인.png" id="btn-kakao-login" onclick="kakaoLogin();">
+                            <img src="<%=contextPath %>/views/member/icons/카카오로그인.png" id="btn-kakao-login" onclick="kakaoLogin();" style="cursor: pointer">
                             <form id="form-kakao-login" method="post" action="<%=request.getContextPath()%>/kakao-login.me">
                                 <input type="hidden" name="email"/>
                                 <input type="hidden" name="nickname"/>
@@ -203,7 +203,7 @@
                             </form>
 							<%
 							    String clientId = "CJ7qrC5nVBwBp47rzM35";//애플리케이션 클라이언트 아이디값";
-							    String redirectURI = URLEncoder.encode("http://localhost:8888/udong/naverLogin.me", "UTF-8");
+							    String redirectURI = URLEncoder.encode("http://localhost:8889/udong/naverLogin.me", "UTF-8");
 							    SecureRandom random = new SecureRandom();
 							    String state = new BigInteger(130, random).toString();
 							    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
@@ -215,7 +215,7 @@
                             <a href="<%=apiURL%>" id="naverIdLogin"><img height="50" style="display: none;" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
 							<div id="btn-naver-login">
                                 <img src="<%=contextPath %>/views/member/icons/네이버.png" style="height: 66px; position: absolute;">
-                                <div id="naver-login-text">네이버 로그인</div>
+                                <div id="naver-login-text" style="cursor: pointer">네이버 로그인</div>
                             </div>
 							<script type="text/javascript">
 							$(document).on("click", "#btn-naver-login", function(){ 
