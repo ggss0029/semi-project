@@ -57,7 +57,7 @@ public class NaverLoginControllerServlet extends HttpServlet {
 		apiURL.append("&code=" + code);
 		apiURL.append("&state=" + state);
 		String access_token = "";
-		String refresh_token = ""; //나중에 이용합시다
+		String refresh_token = ""; 
 		
 		try { 
 			  URL url = new URL(apiURL.toString());
@@ -66,7 +66,6 @@ public class NaverLoginControllerServlet extends HttpServlet {
 		      int responseCode = con.getResponseCode();
 		      
 		      BufferedReader br;
-//		      System.out.print("responseCode="+responseCode);
 		      if(responseCode==200) { // 정상 호출
 		        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
 		      } else {  // 에러 발생
@@ -79,7 +78,6 @@ public class NaverLoginControllerServlet extends HttpServlet {
 		      }
 		      br.close();
 		      if(responseCode==200) {
-//		        System.out.println(res.toString());
 		        JSONParser parsing = new JSONParser();
 		    	Object obj = parsing.parse(res.toString());
 		    	JSONObject jsonObj = (JSONObject)obj;
@@ -91,7 +89,7 @@ public class NaverLoginControllerServlet extends HttpServlet {
 
 		    		try {
 		    			
-		    	        String header = "Bearer " + access_token; // Bearer 다음에 공백 추가
+		    	        String header = "Bearer " + access_token;
 
 		    	        String apiURL1 = "https://openapi.naver.com/v1/nid/me";
 

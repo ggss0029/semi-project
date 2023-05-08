@@ -94,14 +94,25 @@ public class UpdateBoardControllerServlet extends HttpServlet {
 			
 			if(multiRequest.getParameterValues("deleteFiles") != null) {
 				deleteFiles= multiRequest.getParameterValues("deleteFiles");
-			}
-			
+				
+				int delete = 0;
 			for(int i=0;i<deleteFiles.length;i++) {
+				delete *= new BoardCommonService().deleteEachAttachment(deleteFiles[i]);
+				System.out.println(deleteFiles[i]+"체크"+i);
 				new File(savePath+deleteFiles[i]).delete();
 			}
+			if(delete>0) {
+				System.out.println("성공쓰");
+			}else {
+				System.out.println("실패쓰");
+			}
+			}
+			
+
 			for(int i=0; i<=Integer.parseInt(multiRequest.getParameter("changedFileLength")); i++) {
 				String key = "file"+i;
 				if(multiRequest.getOriginalFileName(key) != null) {
+					
 					at = new Attachment();
 					at.setOriginName(multiRequest.getOriginalFileName(key));
 					at.setChangeName(multiRequest.getFilesystemName(key));
@@ -124,7 +135,7 @@ public class UpdateBoardControllerServlet extends HttpServlet {
 				response.sendRedirect(request.getHeader("Referer"));
 			}else {
 				if(!list.isEmpty()) {
-					for(int i=0; i<=Integer.parseInt(multiRequest.getParameter("fileLength")); i++) {
+					for(int i=0; i<Integer.parseInt(multiRequest.getParameter("changedFileLength")); i++) {
 						new File(savePath+list.get(i).getChangeName()).delete();
 					}
 				}
