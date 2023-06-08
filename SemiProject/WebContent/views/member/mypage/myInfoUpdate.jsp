@@ -677,7 +677,7 @@
 					      		<input type="submit" class="btn btn-info" value="비밀번호 변경">
 				      		</div>
 				      		
-				      	</form>d
+				      	</form>
 				      	
 				      	<script>
 							function validate(){
