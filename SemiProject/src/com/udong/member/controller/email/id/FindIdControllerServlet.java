@@ -81,22 +81,14 @@ public class FindIdControllerServlet extends HttpServlet {
 		            msg.setRecipient(Message.RecipientType.TO, to);
 		 
 		            msg.setSubject("[우동: 우리 동네 ]로그인 아이디입니다.", "UTF-8");
-//		            String code = request.getParameter("code_check");
-//		            request.getSession().setAttribute("code", code);
 		            msg.setText("회원님은 일반 로그인 방식입니다.\n 아이디 : " + findUser.getUserId(), "UTF-8");
 		            msg.setHeader("content-Type", "text/html");
 		 
 		            javax.mail.Transport.send(msg);
-		            System.out.println("보냄...");
 		            
-	//	            request.getSession().setAttribute("findIdResult",result);
-		            
-	//	    		JSONArray jArr = new JSONArray();
-	
 		    		response.setContentType("json/application; charset =UTF-8");
 		    		
 		    		JSONObject jobj = new JSONObject();
-//		    		jobj.put("code",code);
 		    		jobj.put("loginType",findUser.getLoginType());
 		    		response.getWriter().print(jobj);
 		    		

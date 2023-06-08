@@ -87,7 +87,6 @@ public class FindPwdControllerServlet extends HttpServlet {
 		            msg.setHeader("content-Type", "text/html");
 		 
 		            javax.mail.Transport.send(msg);
-		            System.out.println("보냄...");
 
 		    		response.setContentType("json/application; charset =UTF-8");
 		    		

@@ -192,6 +192,26 @@
                           for (i=0; i < ctgr[add].length;i++){                     
                             sel1.options[i] = new Option(ctgr[add][i], ctgr[add][i]);
                             }
+                          if(add == 4){
+                          	  $("#restaurantDiv").css("display","block");
+                          	  $("#cityCategory").css("display","none");
+                          	  $("#imgDiv").css("display","block");
+                          	  $("#titleImg").attr("required",true);
+                          	  $("#file0").attr("required",true);
+                            }else if(add == 1 || add==7 || add==8){
+                          	  $("#cityCategory").css("display","block");
+                          	  $("#restaurantDiv").css("display","none");
+                            }else if(add == 5){
+                          	  $("#cityCategory").css("display","block");
+                          	  $("#restaurantDiv").css("display","none");
+                          	  $("#imgDiv").css("display","block");
+                          	  $("#titleImg").attr("required",true);
+                          	  $("#file0").attr("required",true);
+                            }else{
+                          	  $("#restaurantDiv").css("display","none");
+                          	  $("#cityCategory").css("display","none");
+                          	  $("#imgDiv").css("display","none");
+                            }
                         }
                     </script>
                 </div>

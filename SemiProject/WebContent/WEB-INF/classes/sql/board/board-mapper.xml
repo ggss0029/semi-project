@@ -334,7 +334,7 @@
 	</entry>
 	
 	<entry key="insertEachAttachment">
-	INSERT INTO ATTACHMENT VALUES(SEQ_ANO.NEXTVAL,SEQ_BNO.CURRVAL,?,?,?,DEFAULT,?,DEFAULT,NULL)
+	INSERT INTO ATTACHMENT VALUES(SEQ_ANO.NEXTVAL,SEQ_BNO.CURRVAL,?,?,?,DEFAULT,?,DEFAULT)
 	</entry>
 	
 	<entry key="selectAttachment">
