@@ -218,11 +218,11 @@
 						<thead style="height: 50px; border-top:3px solid black; border-bottom:3px solid black;">
 							<tr>
 								<th width="80">No.</th>
-	                            <th width="465">제목</th>
+	                            <th width="100">카테고리</th>
+	                            <th width="440">제목</th>
 	                            <th width="160">작성자</th>
-	                            <th width="160">작성일</th>
+	                            <th width="150">작성일</th>
 	                            <th width="75">조회</th>
-<!-- 	                            <th width="65">좋아요</th> -->
 							</tr>
 						</thead>
 						<tbody>
@@ -234,11 +234,11 @@
 								<%for(TogetherBoard tb : list) {%>
 										<tr style="height: 40px; border-bottom: 1px solid black;">
 											<td><%=tb.getBoardNo()%></td>
+											<td><%=tb.getCategory()%></td>
 											<td class="goDetail"><%=tb.getBoardTitle()%></td>
 											<td><a id="nicknameHover" onclick="whoareyou();"><%=tb.getBoardWriter()%></a></td>
 											<td><%=tb.getCreateDate()%></td>
 											<td><%=tb.getCount()%></td>
-<%-- 											<td><%=tb.getLikeCount()%></td> --%>
 										</tr>
 								<%} %>
 							<%} %>
