@@ -286,7 +286,7 @@
                         <form action="<%=contextPath %>/newsList.bo" id="newsSearch">
 	                            <input type="hidden" name="currentPage" value="<%=pi.getCurrentPage() %>">
 	                        <div id="location">
-	                                	시/도:
+	                                	시 / 도:
 	                                <select name="city" id="city" onchange="change(this.selectedIndex);"  class=input >
 	                                    <option value='전체'>전체</option>
 	                                    <option value='서울'>서울특별시</option>
