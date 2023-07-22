@@ -51,6 +51,7 @@
 ## 역할 분담
 
 - 권수지
+  * 전체 레이아웃 구성
   * 마이페이지(회원 정보 조회 / 수정)
   * 동네 소식, 살림 꿀팁, 같이해요 게시판(CRUD, 댓글 CRUD, 조건 검색 기능)
   * FAQ/공지사항
@@ -137,3 +138,6 @@
 ![보낸쪽지함](https://github.com/ggss0029/semi-project/assets/129145703/636dac0a-f07a-460b-97eb-ba62f177a215)
 #### <받은 쪽지함>
 ![받은 쪽지함](https://github.com/ggss0029/semi-project/assets/129145703/b4d9f96a-0694-4f1e-a126-d0d1c57f693d)
+
+## 카카오 오븐
+https://ovenapp.io/view/qlshMm8VTMrWFD775dqeTv3C2rHKQ4SG/
