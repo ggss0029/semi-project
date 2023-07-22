@@ -139,5 +139,8 @@
 #### <받은 쪽지함>
 ![받은 쪽지함](https://github.com/ggss0029/semi-project/assets/129145703/b4d9f96a-0694-4f1e-a126-d0d1c57f693d)
 
+### 프로필 모달
+![프로필 모달](https://github.com/ggss0029/semi-project/assets/129145703/917f55b6-5eba-4add-8f71-02e3733c920b)
+
 ## 카카오 오븐
 https://ovenapp.io/view/qlshMm8VTMrWFD775dqeTv3C2rHKQ4SG/
